@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수리딩어학원 - 미래의 영어학습</title>
+    <style>
+        /* ================ 기본 스타일 ================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ================ 동적 배경 효과 ================ */
+        .dynamic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at center, #1a1a2e, #0f0f0f);
+        }
+
+        /* 떠다니는 텍스트 효과 */
+        .floating-text {
+            position: fixed;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #fff, #00ff88, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.3;
+            animation: floatAround 20s ease-in-out infinite;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(5vw, 15vh) rotate(0deg) scale(0.8); opacity: 0.2; }
+            20% { transform: translate(75vw, 25vh) rotate(45deg) scale(1); opacity: 0.4; }
+            40% { transform: translate(70vw, 65vh) rotate(90deg) scale(0.9); opacity: 0.3; }
+            60% { transform: translate(20vw, 70vh) rotate(180deg) scale(1.1); opacity: 0.5; }
+            80% { transform: translate(15vw, 35vh) rotate(270deg) scale(0.7); opacity: 0.3; }
+            100% { transform: translate(5vw, 15vh) rotate(360deg) scale(0.8); opacity: 0.2; }
+        }
+
+        /* ================ 네비게이션 ================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00ff88;
+        }
+
+        .login-btn {
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            border: none;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        /* ================ 히어로 섹션 ================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #00ff88, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .cta-btn.primary {
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            border: none;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        /* ================ 레벨 섹션 ================ */
+        .levels-section {
+            padding: 80px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #fff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .level-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .level-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00ff88;
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .level-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .level-title {
+            font-size: 1.3rem;
+            margin: 15px 0 10px;
+            color: #fff;
+        }
+
+        .level-desc {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .book-count {
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: rgba(0, 255, 136, 0.2);
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #00ff88;
+        }
+
+        /* ================ 책 목록 섹션 ================ */
+        .books-section {
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .book-card:hover {
+            transform: scale(1.03);
+            border-color: #0088ff;
+            box-shadow: 0 10px 30px rgba(0, 136, 255, 0.2);
+        }
+
+        .book-level {
+            font-size: 0.8rem;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+
+        .book-title {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .book-chapters {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ================ 로그인 모달 ================ */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f0f);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .modal h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00ff88, #0088ff);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .modal-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .modal-footer a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        /* ================ 사용자 메뉴 (로그인 후) ================ */
+        .user-menu {
+            display: none;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-menu.active {
+            display: flex;
+        }
+
+        .user-name {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.3);
+            border-color: #ff4444;
+        }
+
+        /* ================ 알림 메시지 ================ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateX(150%);
+            transition: transform 0.3s;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+        }
+
+        .toast.error {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+        }
+
+        /* ================ 반응형 ================ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .levels-section, .books-section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 동적 배경 -->
+    <div class="dynamic-background"></div>
+    
+    <!-- 떠다니는 텍스트 -->
+    <div class="floating-text" style="animation-delay: 0s;">Reading</div>
+    <div class="floating-text" style="animation-delay: -8s;">English</div>
+    <div class="floating-text" style="animation-delay: -15s;">Learning</div>
+
+    <!-- 네비게이션 -->
+    <nav class="navbar">
+        <div class="logo">📚 수리딩어학원</div>
+        <div class="nav-links">
+            <a href="#levels">레벨별 학습</a>
+            <a href="#books">도서 목록</a>
+            <a href="#" onclick="openModal('leveltest')">레벨 테스트</a>
+            <a href="#" onclick="openModal('progress')">내 진도</a>
+        </div>
+        <div id="authArea">
+            <button class="login-btn" onclick="openModal('login')">로그인</button>
+        </div>
+        <div class="user-menu" id="userMenu">
+            <span class="user-name" id="userName"></span>
+            <button class="logout-btn" onclick="logout()">로그아웃</button>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <h1>수리딩어학원</h1>
+        <p>레벨별 맞춤 영어 원서 읽기 프로그램으로 영어 실력을 키워보세요</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-btn primary" onclick="openModal('leveltest')">레벨 테스트 시작</a>
+            <a href="#books" class="cta-btn secondary">도서 둘러보기</a>
+        </div>
+    </section>
+
+    <!-- 레벨 섹션 -->
+    <section class="levels-section" id="levels">
+        <h2 class="section-title">📖 레벨별 학습</h2>
+        <div class="levels-grid" id="levelsGrid">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 도서 목록 섹션 -->
+    <section class="books-section" id="books">
+        <h2 class="section-title">📚 도서 목록</h2>
+        <div class="books-grid" id="booksGrid">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 로그인 모달 -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('login')">&times;</button>
+            <h2>📚 로그인</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>사용자명</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">로그인</button>
+            </form>
+            <div class="modal-footer">
+                계정이 없으신가요? <a href="#" onclick="switchModal('login', 'signup')">회원가입</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('signup')">&times;</button>
+            <h2>📝 회원가입</h2>
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label>사용자명</label>
+                    <input type="text" id="signupUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>비밀번호</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>이메일 (선택)</label>
+                    <input type="email" id="signupEmail">
+                </div>
+                <button type="submit" class="submit-btn">회원가입</button>
+            </form>
+            <div class="modal-footer">
+                이미 계정이 있으신가요? <a href="#" onclick="switchModal('signup', 'login')">로그인</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 토스트 메시지 -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ================ Google Sheets 설정 ================
+        // 여기에 본인의 Google Apps Script 웹앱 URL을 넣으세요
+        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+
+        // ================ 데이터 ================
+        const levels = [
+            { level: 1, title: 'Beginner', desc: '영어 원서 입문 단계', books: 5 },
+            { level: 2, title: 'Elementary', desc: 'Magic Tree House 시리즈', books: 15 },
+            { level: 3, title: 'Intermediate', desc: 'Narnia, Charlotte\'s Web 등', books: 12 },
+            { level: 4, title: 'Upper-Intermediate', desc: 'The Alchemist, Shiloh 등', books: 8 },
+            { level: 5, title: 'Advanced', desc: 'Hatchet, The Giver 등', books: 10 },
+            { level: 6, title: 'Upper-Advanced', desc: '고급 원서', books: 5 },
+            { level: 7, title: 'Master', desc: '마스터 레벨', books: 3 }
+        ];
+
+        const books = [
+            // Level 2
+            { title: 'Dinosaurs Before Dark', level: 2, chapters: 10, url: 'dinosaurs-before-dark-level2.html' },
+            { title: 'The Knight at Dawn', level: 2, chapters: 10, url: 'The Knight at Dawn - Level 2.html' },
+            { title: 'Mummies in the Morning', level: 2, chapters: 10, url: 'Mummies in the Morning - Level 2.html' },
+            { title: 'Pirates Past Noon', level: 2, chapters: 10, url: 'Pirates Past Noon - Level 2.html' },
+            { title: 'Night of the Ninjas', level: 2, chapters: 10, url: 'Night of the Ninjas - Level 2.html' },
+            { title: 'Afternoon on the Amazon', level: 2, chapters: 10, url: 'Afternoon on the Amazon - Level 2.html' },
+            { title: 'Dolphins at Daybreak', level: 2, chapters: 10, url: 'Dolphins at Daybreak - Level 2.html' },
+            { title: 'Ghost Town at Sundown', level: 2, chapters: 10, url: 'Ghost Town at Sundown - Level 2.html' },
+            { title: 'Lions at Lunchtime', level: 2, chapters: 10, url: 'Lions at Lunchtime - Level 2.html' },
+            { title: 'Polar Bears Past Bedtime', level: 2, chapters: 10, url: 'Polar Bears Past Bedtime - Level 2.html' },
+            // Level 3
+            { title: 'Charlotte\'s Web', level: 3, chapters: 22, url: 'Charlotte\'s Web - Level 3.html' },
+            { title: 'Sarah, Plain and Tall', level: 3, chapters: 9, url: 'Sarah, Plain and Tall - Level 3.html' },
+            { title: 'The Lion, the Witch and the Wardrobe', level: 3, chapters: 17, url: 'The Lion, the Witch and the Wardrobe - Level 3.html' },
+            { title: 'Prince Caspian', level: 3, chapters: 15, url: 'Prince Caspian - Level 3.html' },
+            { title: 'The Voyage of Dawn Treader', level: 3, chapters: 16, url: 'The Voyage of Dawn Treader - Level 3.html' },
+            { title: 'Matilda', level: 3, chapters: 21, url: 'Matilda - Level 3.html' },
+            { title: 'Bridge to Terabithia', level: 3, chapters: 13, url: 'bridge-to-terabithia-level3.html' },
+            { title: 'Where the Red Fern Grows', level: 3, chapters: 20, url: 'where-red-fern-grows-level3.html' },
+            { title: 'The Wild Robot', level: 3, chapters: 20, url: 'The Wild Robot - Level 3.html' },
+            // Level 4
+            { title: 'The Alchemist', level: 4, chapters: 15, url: 'The Alchemist - Level 4.html' },
+            { title: 'Shiloh', level: 4, chapters: 15, url: 'Shiloh - Level 4.html' },
+            { title: 'Gangsta Granny', level: 4, chapters: 20, url: 'Gangsta Granny - Level 4.html' },
+            { title: 'Billionaire Boy', level: 4, chapters: 20, url: 'Billionaire Boy - Level 4-1.html' },
+            { title: 'The Cricket in Times Square', level: 4, chapters: 15, url: 'The cricket in times square-Level4.html' },
+            { title: 'To Kill a Mockingbird', level: 4, chapters: 31, url: 'To Kill a Mockingbird - Level 4-2.html' },
+            // Level 5
+            { title: 'Hatchet', level: 5, chapters: 19, url: 'Hatchet - Level 5.html' },
+            { title: 'The Giver', level: 5, chapters: 23, url: 'The Giver - Level 5.html' },
+            { title: 'The Hunger Games', level: 5, chapters: 27, url: 'The Hunger Games - Level 5.html' },
+            { title: 'The Maze Runner', level: 5, chapters: 25, url: 'The Maze Runner - Level 5.html' },
+            { title: 'The Boy in the Striped Pajamas', level: 5, chapters: 20, url: 'The Boy in the Striped Pajamas - Level 5.html' },
+            { title: 'Flora and Ulysses', level: 5, chapters: 20, url: 'Flora and Ulysses - Level 5.html' },
+            { title: 'A Single Shard', level: 5, chapters: 13, url: 'A Single Shard - Level 5.html' },
+            { title: 'Fish in a Tree', level: 5, chapters: 20, url: 'Fish in a Tree - Level 5-3.html' },
+            { title: 'The War That Saved My Life', level: 5, chapters: 25, url: 'The War That Saved My Life - Level 5.html' },
+            { title: 'One Crazy Summer', level: 5, chapters: 20, url: 'One Crazy Summer - Level 5.html' },
+        ];
+
+        // ================ 현재 사용자 ================
+        let currentUser = null;
+
+        // ================ 초기화 ================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLevels();
+            renderBooks();
+            checkLoginStatus();
+        });
+
+        // ================ 레벨 카드 렌더링 ================
+        function renderLevels() {
+            const grid = document.getElementById('levelsGrid');
+            grid.innerHTML = levels.map(l => `
+                <div class="level-card" onclick="filterBooks(${l.level})">
+                    <div class="level-number">L${l.level}</div>
+                    <div class="level-title">${l.title}</div>
+                    <div class="level-desc">${l.desc}</div>
+                    <div class="book-count">📚 ${l.books}권</div>
+                </div>
+            `).join('');
+        }
+
+        // ================ 책 카드 렌더링 ================
+        function renderBooks(filterLevel = null) {
+            const grid = document.getElementById('booksGrid');
+            const filtered = filterLevel ? books.filter(b => b.level === filterLevel) : books;
+            
+            grid.innerHTML = filtered.map(b => `
+                <div class="book-card" onclick="openBook('${b.url}')">
+                    <div class="book-level">Level ${b.level}</div>
+                    <div class="book-title">${b.title}</div>
+                    <div class="book-chapters">${b.chapters} chapters</div>
+                </div>
+            `).join('');
+        }
+
+        function filterBooks(level) {
+            renderBooks(level);
+            document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openBook(url) {
+            // 로그인 확인
+            if (!currentUser) {
+                showToast('로그인이 필요합니다', 'error');
+                openModal('login');
+                return;
+            }
+            window.location.href = url;
+        }
+
+        // ================ 모달 제어 ================
+        function openModal(type) {
+            document.getElementById(`${type}Modal`).classList.add('active');
+        }
+
+        function closeModal(type) {
+            document.getElementById(`${type}Modal`).classList.remove('active');
+        }
+
+        function switchModal(from, to) {
+            closeModal(from);
+            openModal(to);
+        }
+
+        // ================ 인증 (Google Sheets 연동) ================
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                // Google Sheets에서 사용자 확인
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    currentUser = result.user;
+                    localStorage.setItem('sureading_user', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    closeModal('login');
+                    showToast(`환영합니다, ${currentUser.name}님!`, 'success');
+                } else {
+                    showToast(result.message || '로그인 실패', 'error');
+                }
+            } catch (error) {
+                // Google Sheets 연동 전 테스트용 로컬 로그인
+                if (username && password) {
+                    currentUser = { name: username, username: username, level: 1 };
+                    localStorage.setItem('sureading_user', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    closeModal('login');
+                    showToast(`환영합니다, ${username}님! (테스트 모드)`, 'success');
+                } else {
+                    showToast('로그인 정보를 입력해주세요', 'error');
+                }
+            }
+        }
+
+        async function handleSignup(event) {
+            event.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+            const email = document.getElementById('signupEmail').value;
+
+            try {
+                // Google Sheets에 사용자 추가
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=signup&name=${encodeURIComponent(name)}&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&email=${encodeURIComponent(email)}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast('회원가입 완료! 로그인해주세요.', 'success');
+                    switchModal('signup', 'login');
+                } else {
+                    showToast(result.message || '회원가입 실패', 'error');
+                }
+            } catch (error) {
+                // 테스트용
+                showToast('회원가입 완료! (테스트 모드)', 'success');
+                switchModal('signup', 'login');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('sureading_user');
+            updateAuthUI();
+            showToast('로그아웃 되었습니다', 'success');
+        }
+
+        function checkLoginStatus() {
+            const saved = localStorage.getItem('sureading_user');
+            if (saved) {
+                currentUser = JSON.parse(saved);
+                updateAuthUI();
+            }
+        }
+
+        function updateAuthUI() {
+            const authArea = document.getElementById('authArea');
+            const userMenu = document.getElementById('userMenu');
+            const userName = document.getElementById('userName');
+
+            if (currentUser) {
+                authArea.style.display = 'none';
+                userMenu.classList.add('active');
+                userName.textContent = `👤 ${currentUser.name}`;
+            } else {
+                authArea.style.display = 'block';
+                userMenu.classList.remove('active');
+            }
+        }
+
+        // ================ 토스트 메시지 ================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ================ 모달 외부 클릭으로 닫기 ================
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
