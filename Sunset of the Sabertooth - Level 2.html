@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunset of the Sabertooth - Level 2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F5DEB3 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #8B4513, #F5DEB3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #8B4513;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #8B4513;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #8B4513, #F5DEB3);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #8B4513;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8B4513;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #8B4513;
+            background: linear-gradient(135deg, #8B451308, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #F5DEB3, #DEB887);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8B4513, #F5DEB3);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #8B4513;
+        }
+
+        .option.selected {
+            background: rgba(139, 69, 19, 0.1);
+            border-color: #8B4513;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #8B4513, #F5DEB3);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #8B4513, #F5DEB3);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8B4513, #F5DEB3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #F5DEB3;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🦴</div>
+                <div class="logo-text">
+                    <h1>Sunset of the Sabertooth</h1>
+                    <p>Level 2 - Mary Pope Osborne의 매직 트리 하우스 7권</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="breadcrumb">
+                    <span>Sunset of the Sabertooth</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🦴</div>
+                    <div class="book-info">
+                        <h2>Sunset of the Sabertooth</h2>
+                        <div class="author">Mary Pope Osborne</div>
+                        <div class="book-summary">
+                            Jack and Annie travel back to the Ice Age! They encounter a Cro-Magnon family and must help them survive in the harsh prehistoric world. Can they find the third thing to help free Morgan from her spell?
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">10</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">50</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>📖 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Sunset of the Sabertooth</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1: The Third Thing</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Sunset of the Sabertooth</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1: The Third Thing</h3>
+            <p id="audio-chapter-subtitle">Sunset of the Sabertooth - Mary Pope Osborne</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #8B4513;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Magic Tree House 7권 도서 데이터 (10챕터)
+        const bookData = {
+            id: 'MTH007',
+            title: "Sunset of the Sabertooth",
+            author: 'Mary Pope Osborne',
+            cover: '🦴',
+            progress: 0,
+            chapters: 10,
+            totalQuestions: 50, // 10챕터 × 5문제
+            coverColor: 'linear-gradient(45deg, #8B4513, #F5DEB3)',
+            summary: "Jack and Annie travel back to the Ice Age! They encounter a Cro-Magnon family and must help them survive in the harsh prehistoric world. Can they find the third thing to help free Morgan from her spell?",
+            chapterList: [
+                { title: 'The Third Thing', description: 'Jack and Annie search for the third thing to help Morgan le Fay.', status: 'current', questionCount: 5, startTime: 0 },
+                { title: 'The Great Parade', description: 'They witness a great parade of Ice Age animals migrating.', status: 'locked', questionCount: 5, startTime: 300 },
+                { title: 'Cro-Magnon', description: 'Jack and Annie meet Cro-Magnon people from the Ice Age.', status: 'locked', questionCount: 5, startTime: 600 },
+                { title: 'Cave Kids', description: 'They encounter children who live in caves during the Ice Age.', status: 'locked', questionCount: 5, startTime: 900 },
+                { title: 'Needle Woman', description: 'They meet a woman who creates tools and clothing with bone needles.', status: 'locked', questionCount: 5, startTime: 1200 },
+                { title: 'Song for a Sacred Place', description: 'The cave family shares their sacred songs and rituals.', status: 'locked', questionCount: 5, startTime: 1500 },
+                { title: 'The Sorcerer', description: 'They encounter a mysterious sorcerer in the caves.', status: 'locked', questionCount: 5, startTime: 1800 },
+                { title: 'The Cave of Lascaux', description: 'They discover the famous cave paintings of Lascaux.', status: 'locked', questionCount: 5, startTime: 2100 },
+                { title: 'Master of the Animals', description: 'They learn about the ancient cave artists and their beliefs.', status: 'locked', questionCount: 5, startTime: 2400 },
+                { title: 'A Gift for Tomorrow', description: 'Jack and Annie discover their gift and complete their mission.', status: 'locked', questionCount: 5, startTime: 2700 }
+            ]
+        };
+
+        // 문제 데이터 (전체 10챕터 완료)
+        const questionsData = {
+            0: [ // Chapter 1: The Third Thing
+                {
+                    passage: "Jack and Annie climbed into the tree house and found the medallion from the ninja and the pocket watch from the Titanic.",
+                    question: "What two items did Jack and Annie find in the tree house?",
+                    options: ["Books and pencils", "The medallion and pocket watch", "Food and water", "Maps and compasses"],
+                    correct: 1
+                },
+                {
+                    passage: "They needed to find one more special thing to help free Morgan le Fay from the spell that had turned her into a mouse.",
+                    question: "What did they need to find to help Morgan le Fay?",
+                    options: ["Food for the mouse", "One more special thing", "A magic wand", "A new tree house"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack opened a book about the Ice Age and saw pictures of woolly mammoths, cave people, and sabertooth tigers.",
+                    question: "What did Jack see in the Ice Age book?",
+                    options: ["Modern animals", "Woolly mammoths, cave people, and sabertooth tigers", "Ocean creatures", "Dinosaurs"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie pointed to a picture of a cave painting and wished they could see how ancient people created their art.",
+                    question: "What did Annie point to in the book?",
+                    options: ["A modern painting", "A cave painting", "A photograph", "A map"],
+                    correct: 1
+                },
+                {
+                    passage: "The tree house began to spin and transport them back to the time when sabertooth tigers roamed the earth.",
+                    question: "When did the tree house transport them?",
+                    options: ["To the future", "To the time of sabertooth tigers", "To medieval times", "To ancient Egypt"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: The Great Parade
+                {
+                    passage: "When the spinning stopped, Jack and Annie found themselves on a cliff overlooking a vast, icy landscape.",
+                    question: "Where did Jack and Annie find themselves?",
+                    options: ["In a warm forest", "On a cliff overlooking an icy landscape", "By the ocean", "In a desert"],
+                    correct: 1
+                },
+                {
+                    passage: "Below them, they saw an amazing sight - thousands of animals moving across the frozen land in a great migration.",
+                    question: "What amazing sight did they see below?",
+                    options: ["A single animal", "Thousands of animals in a great migration", "Empty landscape", "A modern city"],
+                    correct: 1
+                },
+                {
+                    passage: "There were woolly mammoths, giant bison, reindeer, and many other animals they had never seen before.",
+                    question: "What kinds of animals did they see?",
+                    options: ["Only small animals", "Woolly mammoths, giant bison, reindeer, and others", "Modern farm animals", "Ocean animals"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack realized this was the great animal migration that happened during the Ice Age when animals moved to find food and warmer places.",
+                    question: "What did Jack realize about what they were seeing?",
+                    options: ["It was a zoo", "It was the great Ice Age animal migration", "It was a circus", "It was a dream"],
+                    correct: 1
+                },
+                {
+                    passage: "The air was so cold that their breath turned into white clouds, and they shivered in their summer clothes.",
+                    question: "How did the cold air affect Jack and Annie?",
+                    options: ["They felt warm", "Their breath turned to white clouds and they shivered", "Nothing happened", "They became sleepy"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: Cro-Magnon
+                {
+                    passage: "As they watched the animal parade, Jack and Annie heard voices and saw a family of people approaching their cliff.",
+                    question: "What did Jack and Annie hear and see approaching?",
+                    options: ["Wild animals", "A family of people", "Modern tourists", "Nothing"],
+                    correct: 1
+                },
+                {
+                    passage: "These were Cro-Magnon people, the early humans who lived during the Ice Age and were skilled hunters and artists.",
+                    question: "Who were the people they saw?",
+                    options: ["Modern humans", "Cro-Magnon people from the Ice Age", "Time travelers", "Pirates"],
+                    correct: 1
+                },
+                {
+                    passage: "The Cro-Magnon family was dressed in animal skins and furs to keep warm in the cold Ice Age climate.",
+                    question: "How were the Cro-Magnon people dressed?",
+                    options: ["In modern clothes", "In animal skins and furs", "In colorful fabrics", "In metal armor"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie tried to hide, but the Cro-Magnon family spotted them and seemed curious about these strangers.",
+                    question: "What happened when the Cro-Magnon family saw Jack and Annie?",
+                    options: ["They ran away", "They seemed curious about the strangers", "They attacked them", "They ignored them"],
+                    correct: 1
+                },
+                {
+                    passage: "The family gestured for Jack and Annie to come down from the cliff and join them, speaking in a language they didn't understand.",
+                    question: "What did the family do when they saw Jack and Annie?",
+                    options: ["Told them to go away", "Gestured for them to come down and join them", "Started fighting", "Began crying"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: Cave Kids
+                {
+                    passage: "The Cro-Magnon family led Jack and Annie to their home, which was a large cave carved into the side of a rocky hill.",
+                    question: "Where did the Cro-Magnon family live?",
+                    options: ["In wooden houses", "In a large cave", "In tents", "Under the stars"],
+                    correct: 1
+                },
+                {
+                    passage: "Inside the cave, Jack and Annie met two children about their own age who were friendly and curious about their strange clothes.",
+                    question: "Who did Jack and Annie meet inside the cave?",
+                    options: ["Adult hunters", "Two children about their age", "Wild animals", "No one"],
+                    correct: 1
+                },
+                {
+                    passage: "The cave children showed Jack and Annie their toys, which were carved from bone and stone by their parents.",
+                    question: "What were the cave children's toys made from?",
+                    options: ["Plastic", "Bone and stone", "Wood only", "Metal"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie tried to communicate with the children by drawing pictures in the dirt, and they seemed to understand some of her drawings.",
+                    question: "How did Annie try to communicate with the cave children?",
+                    options: ["By speaking loudly", "By drawing pictures in the dirt", "By singing songs", "By dancing"],
+                    correct: 1
+                },
+                {
+                    passage: "The cave children taught Jack and Annie some of their games, including how to make animal sounds and simple hunting motions.",
+                    question: "What did the cave children teach Jack and Annie?",
+                    options: ["How to read", "Games with animal sounds and hunting motions", "Modern sports", "How to cook"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: Needle Woman
+                {
+                    passage: "Jack and Annie watched as a woman in the cave used a sharp bone needle to sew pieces of animal hide together.",
+                    question: "What was the woman in the cave doing?",
+                    options: ["Cooking food", "Sewing animal hide with a bone needle", "Making fire", "Painting pictures"],
+                    correct: 1
+                },
+                {
+                    passage: "The woman was creating warm clothing from animal skins, carefully stitching them to make coats and boots for her family.",
+                    question: "What was the woman creating from animal skins?",
+                    options: ["Toys", "Warm clothing like coats and boots", "Tools", "Decorations"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack was amazed at how skilled the woman was with her bone needle, making tiny, even stitches without any modern tools.",
+                    question: "What amazed Jack about the woman's work?",
+                    options: ["How fast she worked", "How skilled she was with her bone needle", "How loud she was", "How much she talked"],
+                    correct: 1
+                },
+                {
+                    passage: "The woman noticed that Jack and Annie were cold and gave them some fur clothing to keep them warm in the cave.",
+                    question: "What did the woman do when she noticed Jack and Annie were cold?",
+                    options: ["Ignored them", "Gave them fur clothing to keep warm", "Told them to leave", "Made them work"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie learned that the bone needles were very precious tools that took a long time to make and were passed down in families.",
+                    question: "What did Annie learn about the bone needles?",
+                    options: ["They were worthless", "They were precious tools passed down in families", "They were easy to make", "They were only used once"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6: Song for a Sacred Place
+                {
+                    passage: "As evening approached, the Cro-Magnon family gathered around their fire and began to sing together in their ancient language.",
+                    question: "What did the Cro-Magnon family do as evening approached?",
+                    options: ["Went to sleep", "Gathered around fire and sang together", "Left the cave", "Started fighting"],
+                    correct: 1
+                },
+                {
+                    passage: "The songs seemed to tell stories about their ancestors, the animals they hunted, and the spirits they believed lived in nature.",
+                    question: "What did the songs seem to tell stories about?",
+                    options: ["Modern life", "Ancestors, animals, and nature spirits", "Future events", "Other caves"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie listened to the beautiful melodies and felt like they were experiencing something very special and sacred.",
+                    question: "How did Jack and Annie feel listening to the songs?",
+                    options: ["Bored", "Like they were experiencing something special and sacred", "Scared", "Sleepy"],
+                    correct: 1
+                },
+                {
+                    passage: "The father of the family gestured for Jack and Annie to join in the singing, even though they didn't know the words.",
+                    question: "What did the father gesture for Jack and Annie to do?",
+                    options: ["Leave the cave", "Join in the singing", "Go to sleep", "Find food"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie hummed along with the melody, and the family smiled and nodded, welcoming them into their sacred evening ritual.",
+                    question: "How did the family react when Annie hummed along?",
+                    options: ["They were angry", "They smiled and welcomed them", "They stopped singing", "They ignored her"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7: The Sorcerer
+                {
+                    passage: "Deep in the back of the cave, Jack and Annie saw a mysterious figure wearing animal skins and a headdress made of antlers.",
+                    question: "What mysterious figure did Jack and Annie see in the cave?",
+                    options: ["A modern person", "A figure wearing animal skins and antler headdress", "A wild animal", "Another child"],
+                    correct: 1
+                },
+                {
+                    passage: "This was the cave sorcerer, a wise person who was believed to have special powers and knowledge about the spirit world.",
+                    question: "Who was the mysterious figure?",
+                    options: ["A hunter", "The cave sorcerer with special powers", "A visitor", "A storyteller"],
+                    correct: 1
+                },
+                {
+                    passage: "The sorcerer was painting on the cave walls, creating beautiful pictures of animals using natural pigments made from plants and minerals.",
+                    question: "What was the sorcerer doing on the cave walls?",
+                    options: ["Cleaning them", "Painting beautiful animal pictures", "Breaking them", "Writing words"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack watched in amazement as the sorcerer mixed colors from berries, clay, and charcoal to create different shades for the paintings.",
+                    question: "What did the sorcerer use to create different colors?",
+                    options: ["Modern paint", "Berries, clay, and charcoal", "Water only", "Magic spells"],
+                    correct: 1
+                },
+                {
+                    passage: "The sorcerer seemed to understand that Jack and Annie were different and special, and gave them a knowing look.",
+                    question: "How did the sorcerer react to Jack and Annie?",
+                    options: ["He was afraid", "He seemed to understand they were special", "He ignored them", "He was angry"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: The Cave of Lascaux
+                {
+                    passage: "The sorcerer led Jack and Annie deeper into the cave system, where they discovered amazing paintings covering the walls and ceiling.",
+                    question: "What did they discover deeper in the cave system?",
+                    options: ["Empty rooms", "Amazing paintings on walls and ceiling", "Treasure", "Modern equipment"],
+                    correct: 1
+                },
+                {
+                    passage: "These were the famous cave paintings of Lascaux, created by Ice Age artists thousands of years ago.",
+                    question: "What were the paintings they found?",
+                    options: ["Modern art", "The famous Lascaux cave paintings", "Graffiti", "Maps"],
+                    correct: 1
+                },
+                {
+                    passage: "The paintings showed horses, bulls, deer, and other animals painted with incredible skill and detail by ancient artists.",
+                    question: "What animals were shown in the cave paintings?",
+                    options: ["Only fish", "Horses, bulls, deer, and other animals", "Dinosaurs", "Modern pets"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack realized that these cave paintings were some of the earliest art ever created by humans, making them incredibly valuable and important.",
+                    question: "What did Jack realize about the cave paintings?",
+                    options: ["They were worthless", "They were some of the earliest human art", "They were fake", "They were recent"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie felt like she was in a prehistoric art museum, surrounded by masterpieces that had been hidden for thousands of years.",
+                    question: "How did Annie feel about being in the painted cave?",
+                    options: ["Bored", "Like she was in a prehistoric art museum", "Scared", "Cold"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9: Master of the Animals
+                {
+                    passage: "The sorcerer explained through gestures that the cave paintings had special meaning and were believed to help with hunting success.",
+                    question: "What did the sorcerer explain about the cave paintings?",
+                    options: ["They were just decoration", "They had special meaning for hunting success", "They were practice art", "They were maps"],
+                    correct: 1
+                },
+                {
+                    passage: "The paintings were created as part of rituals where the cave people asked the spirits of animals to help them in their hunts.",
+                    question: "Why were the paintings created?",
+                    options: ["For fun", "As part of rituals to ask animal spirits for help", "To scare enemies", "To mark territory"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie learned that the Cro-Magnon people deeply respected the animals they hunted and believed in living in harmony with nature.",
+                    question: "What did Jack and Annie learn about the Cro-Magnon people's relationship with animals?",
+                    options: ["They hated animals", "They deeply respected animals and believed in harmony with nature", "They only feared animals", "They ignored animals"],
+                    correct: 1
+                },
+                {
+                    passage: "The sorcerer was known as the 'Master of the Animals' because of his special connection with the spirit world and animal kingdom.",
+                    question: "Why was the sorcerer called the 'Master of the Animals'?",
+                    options: ["He owned many pets", "He had a special connection with spirits and animals", "He was a hunter", "He was very strong"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie understood that these ancient people had a wisdom about nature that many modern people had forgotten.",
+                    question: "What did Annie understand about the ancient people?",
+                    options: ["They knew nothing", "They had wisdom about nature that modern people forgot", "They were primitive", "They were exactly like modern people"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: A Gift for Tomorrow
+                {
+                    passage: "The sorcerer gave Jack and Annie a special painted stone as a gift, showing that they had been accepted by the cave family.",
+                    question: "What gift did the sorcerer give Jack and Annie?",
+                    options: ["Food", "A special painted stone", "Animal skins", "Tools"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack realized that this painted stone was the third special thing they needed to help free Morgan le Fay from her spell.",
+                    question: "What did Jack realize about the painted stone?",
+                    options: ["It was worthless", "It was the third special thing for Morgan", "It was just a rock", "It was broken"],
+                    correct: 1
+                },
+                {
+                    passage: "As the sun began to set, creating a beautiful orange and red sky, it was time for Jack and Annie to say goodbye.",
+                    question: "When was it time for Jack and Annie to leave?",
+                    options: ["At midnight", "As the sun began to set", "In the morning", "During a storm"],
+                    correct: 1
+                },
+                {
+                    passage: "The Cro-Magnon family waved goodbye as Jack and Annie made their way back to the tree house with their precious gift.",
+                    question: "What did the Cro-Magnon family do as Jack and Annie left?",
+                    options: ["Ignored them", "Waved goodbye", "Followed them", "Started crying"],
+                    correct: 1
+                },
+                {
+                    passage: "Back in the tree house, they placed the painted stone with the medallion and pocket watch, completing their collection to help Morgan.",
+                    question: "What did Jack and Annie do with the painted stone in the tree house?",
+                    options: ["Threw it away", "Placed it with the other items to help Morgan", "Hid it", "Broke it"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 자동 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const level = 'level2';
+            const bookId = 'MTH007';
+            const chapterNum = String(chapterIndex + 1).padStart(2, '0');
+            
+            const possibleFileNames = [
+                `${bookId}_chapter${chapterNum}.mp3`,
+                `${bookId}_ch${chapterNum}.mp3`,
+                `${bookId}_${chapterNum}.mp3`,
+                `magic_tree_house_7_chapter${chapterNum}.mp3`,
+                `magic_tree_house_7_ch${chapterNum}.mp3`,
+                `sunset_of_sabertooth_${chapterNum}.mp3`,
+                `mary_pope_osborne_7_chapter${chapterNum}.mp3`,
+                `${bookId}.mp3`
+            ];
+            
+            return {
+                primary: `${AUDIO_BASE_URL}${level}/${possibleFileNames[0]}`,
+                alternatives: possibleFileNames.map(fileName => `${AUDIO_BASE_URL}${level}/${fileName}`)
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioUrls = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+            // 오디오 정보 영역 다시 보이기 (새로운 오디오 플레이시)
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 찾는 중...';
+
+            function tryLoadAudio(urlIndex = 0) {
+                if (urlIndex >= audioUrls.alternatives.length) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.`;
+                    return;
+                }
+
+                const currentUrl = audioUrls.alternatives[urlIndex];
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    const startTime = chapter.startTime || 0;
+                    audioPlayer.currentTime = startTime;
+                    audioStatus.innerHTML = `✅ 오디오 준비 완료!`;
+                };
+
+                const errorHandler = function() {
+                    setTimeout(() => tryLoadAudio(urlIndex + 1), 100);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+                audioPlayer.addEventListener('error', errorHandler, { once: true });
+            }
+
+            tryLoadAudio(0);
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 기본 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            const currentChapter = parseInt(document.getElementById('audio-chapter-title').textContent.match(/Chapter (\d+)/)[1]) - 1;
+            currentAudio.currentTime = bookData.chapterList[currentChapter]?.startTime || 0;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>Chapter ${index + 1}: ${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progress = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex];
+
+            if (!questions || questions.length === 0) {
+                alert('이 챕터의 문제가 아직 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('learning-chapter-breadcrumb').textContent = `Chapter ${chapterIndex + 1}`;
+
+            showQuestion();
+            updateLearningProgress();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="question-text">문제 ${currentQuestionIndex + 1}</div>
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) selectedOption.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        // 선택지 선택
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`[data-index="${optionIndex}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateNavigationButtons();
+        }
+
+        // 네비게이션
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function updateLearningProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = progress + '%';
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+                if (currentChapterIndex < bookData.chapterList.length - 1) {
+                    bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                }
+            }
+
+            showResults(correctCount, questions.length, score);
+        }
+
+        // 결과 표시
+        function showResults(correct, total, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = score + '%';
+            document.getElementById('total-questions').textContent = total + '문제';
+            document.getElementById('correct-answers').textContent = correct + '문제';
+            document.getElementById('wrong-answers').textContent = (total - correct) + '문제';
+            document.getElementById('final-score').textContent = score + '점';
+
+            let message = '';
+            if (score >= 90) message = '훌륭합니다! 🌟';
+            else if (score >= 80) message = '잘했어요! 👏';
+            else if (score >= 70) message = '좋아요! 👍';
+            else message = '다시 한번 도전해보세요! 💪';
+
+            document.getElementById('result-message').textContent = message;
+        }
+
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        function nextChapter() {
+            if (currentChapterIndex < bookData.chapterList.length - 1) {
+                startLearning(currentChapterIndex + 1);
+            } else {
+                alert('모든 챕터를 완료했습니다! 🎉');
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드
+        window.addEventListener('load', function() {
+            showBookDetail();
+            console.log('🦴 Magic Tree House: Sunset of the Sabertooth 학습 시스템이 준비되었습니다!');
+        });
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('audio-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeAudioModal();
+        });
+    </script>
+</body>
+</html>

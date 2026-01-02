@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Alchemist - Level 4 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #FFF8DC 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #D4AF37, #F4E4BC);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #D4AF37;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #D4AF37;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #D4AF37, #F4E4BC);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #D4AF37;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #D4AF37;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #D4AF37;
+            background: linear-gradient(135deg, #D4AF3708, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(212, 175, 55, 0.1);
+            color: #D4AF37;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #D4AF37, #F4E4BC);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #F4E4BC, #FFF8DC);
+            color: #333;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #D4AF37, #F4E4BC);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #D4AF37;
+        }
+
+        .option.selected {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #D4AF37;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #D4AF37, #F4E4BC);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #D4AF37, #F4E4BC);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #D4AF37, #F4E4BC);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #D4AF37, #F4E4BC);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #F4E4BC;
+            color: #333;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* Level 4 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #D4AF37, #FFF8DC);
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🏺</div>
+                <div class="logo-text">
+                    <h1>The Alchemist</h1>
+                    <p>Level 4 - Paulo Coelho의 현대 고전 영성 소설</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 4</div>
+                <div class="breadcrumb">
+                    <span>The Alchemist</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🏺</div>
+                    <div class="book-info">
+                        <h2>The Alchemist</h2>
+                        <div class="author">Paulo Coelho</div>
+                        <div class="book-summary">
+                            An Andalusian shepherd boy named Santiago travels from his homeland in Spain to the Egyptian desert in search of treasure buried near the Pyramids. Along the way, he meets a Gypsy woman, a man who calls himself king, and an alchemist, all of whom point Santiago in the direction of his quest. This modern classic explores themes of following your dreams, personal legend, and the interconnectedness of all things.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">12</div>
+                                <div class="label">섹션</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">60</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 4</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🏺 섹션별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Alchemist</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Prologue</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Prologue</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Alchemist</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 섹션</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">섹션 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- 오디오 플레이어 모달 -->
+<div class="audio-modal" id="audio-modal">
+    <div class="audio-content">
+        <button class="close-audio" onclick="closeAudioModal()">×</button>
+        <h3 id="audio-chapter-title">Chapter 1</h3>
+        <p id="audio-chapter-subtitle">The Alchemist - Paulo Coelho</p>
+        <audio class="audio-player" id="audio-player" controls preload="metadata">
+            <source id="audio-source" src="" type="audio/mpeg">
+            브라우저가 오디오를 지원하지 않습니다.
+        </audio>
+        <div class="audio-controls">
+            <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+            <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+            <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #D4AF37; color: white;">🔄 구간처음</button>
+            <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+        </div>
+        <div class="audio-controls" style="margin-top: 10px;">
+            <button class="audio-control-btn" onclick="jumpToPreviousChapter()" style="background: #B8860B; color: white;">⬅️ 이전</button>
+            <button class="audio-control-btn" onclick="skipBackward()" style="background: #DAA520; color: white;">⏪ 10초</button>
+            <button class="audio-control-btn" onclick="skipForward()" style="background: #DAA520; color: white;">10초 ⏩</button>
+            <button class="audio-control-btn" onclick="jumpToNextChapter()" style="background: #B8860B; color: white;">다음 ➡️</button>
+        </div>
+        <div class="audio-info" id="audio-info">
+            <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #D4AF37;"></div>
+        </div>
+    </div>
+</div>
+
+    <script>
+       // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+// ⚗️ The Alchemist 개별 파일 매핑 (12개 챕터)
+const alchemistChapterMapping = {
+    1: { title: "Chapter 1", file: "AC001_01_The_Alchemist_Chapter_01.mp3" },
+    2: { title: "Chapter 2", file: "AC001_02_The_Alchemist_Chapter_02.mp3" },
+    3: { title: "Chapter 3", file: "AC001_03_The_Alchemist_Chapter_03.mp3" },
+    4: { title: "Chapter 4", file: "AC001_04_The_Alchemist_Chapter_04.mp3" },
+    5: { title: "Chapter 5", file: "AC001_05_The_Alchemist_Chapter_05.mp3" },
+    6: { title: "Chapter 6", file: "AC001_06_The_Alchemist_Chapter_06.mp3" },
+    7: { title: "Chapter 7", file: "AC001_07_The_Alchemist_Chapter_07.mp3" },
+    8: { title: "Chapter 8", file: "AC001_08_The_Alchemist_Chapter_08.mp3" },
+    9: { title: "Chapter 9", file: "AC001_09_The_Alchemist_Chapter_09.mp3" },
+    10: { title: "Chapter 10", file: "AC001_10_The_Alchemist_Chapter_10.mp3" },
+    11: { title: "Chapter 11", file: "AC001_11_The_Alchemist_Chapter_11.mp3" },
+    12: { title: "Chapter 12", file: "AC001_12_The_Alchemist_Chapter_12.mp3" }
+};
+
+// 전역 변수
+let currentChapter = 0; // 인덱스 기반 (0-11)
+let currentQuestion = 0;
+let userAnswers = [];
+let questions = [];
+let currentAudio = null;
+let playbackSpeed = 1.0;
+let isChapterMode = true; // 개별 파일이므로 항상 챕터 모드
+
+// 🎧 시간을 시:분:초 형식으로 변환하는 함수
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+// ⚗️ The Alchemist 오디오 URL 생성 함수 (개별 파일)
+function getAudioUrl(chapterNumber) {
+    const chapterData = alchemistChapterMapping[chapterNumber];
+    if (!chapterData) return null;
+
+    return {
+        primary: `${AUDIO_BASE_URL}AC001_The_Alchemist/${chapterData.file}`,
+        chapterNumber: chapterNumber,
+        title: chapterData.title,
+        file: chapterData.file,
+        alternatives: [`${AUDIO_BASE_URL}AC001_The_Alchemist/${chapterData.file}`]
+    };
+}
+
+// 🎧 파일 끝 감지 및 다음 챕터 제안 함수
+function monitorFileEnd(audioPlayer, chapterNumber) {
+    const endedHandler = function() {
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `✅ Chapter ${chapterNumber} 완료!`;
+
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+        console.log(`🏁 Chapter ${chapterNumber} 완료`);
+
+        // 다음 챕터 자동 제안
+        if (chapterNumber < 12) {
+            setTimeout(() => {
+                if (confirm(`Chapter ${chapterNumber}이 완료되었습니다. Chapter ${chapterNumber + 1}을 재생하시겠습니까?`)) {
+                    playChapterAudio(chapterNumber);
+                }
+            }, 1000);
+        } else {
+            setTimeout(() => {
+                alert('🎉 The Alchemist 완독을 축하합니다!');
+            }, 1000);
+        }
+    };
+
+    audioPlayer.addEventListener('ended', endedHandler, { once: true });
+}
+
+// ⚗️ The Alchemist 챕터 오디오 재생 함수
+function playChapterAudio(chapterIndex) {
+    // chapterIndex는 0-11, chapterNumber는 1-12
+    const chapterNumber = chapterIndex + 1;
+
+    if (chapterNumber < 1 || chapterNumber > 12) {
+        alert('유효하지 않은 챕터 번호입니다. (1-12)');
+        return;
+    }
+
+    const audioData = getAudioUrl(chapterNumber);
+    if (!audioData) {
+        alert(`Chapter ${chapterNumber}의 오디오 파일을 찾을 수 없습니다.`);
+        return;
+    }
+
+    document.getElementById('audio-modal').style.display = 'flex';
+    document.getElementById('audio-chapter-title').textContent = audioData.title;
+    document.getElementById('audio-chapter-subtitle').textContent = `The Alchemist - Paulo Coelho`;
+    document.getElementById('audio-info').classList.remove('hidden');
+
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const audioStatus = document.getElementById('audio-status');
+
+    // 현재 챕터 설정 (인덱스로 저장)
+    currentChapter = chapterIndex;
+
+    audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+    // 개별 파일 로드
+    audioSource.src = audioData.primary;
+    audioPlayer.load();
+
+    const successHandler = function() {
+        audioPlayer.currentTime = 0; // 파일 처음부터 시작
+
+        audioStatus.innerHTML = `✅ ${audioData.title} 준비완료!<br>
+                                📁 파일: ${audioData.file}<br>
+                                🎵 ▶️ 재생 버튼을 눌러주세요`;
+
+        // 파일 끝 감지 시작
+        monitorFileEnd(audioPlayer, chapterNumber);
+    };
+
+    const errorHandler = function() {
+        audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.<br>파일: ${audioData.file}`;
+        console.error('오디오 로드 실패:', audioData.primary);
+    };
+
+    audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+    audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+    currentAudio = audioPlayer;
+    playbackSpeed = 1.0;
+}
+
+// 🎧 전체 오디오북 재생 함수 (1번 챕터부터 순차 재생)
+function playFullAudiobook() {
+    playChapterAudio(0); // chapterIndex 0 = Chapter 1
+
+    // 전체 재생 모드 표시
+    setTimeout(() => {
+        document.getElementById('audio-chapter-title').textContent = 'The Alchemist - 전체 재생';
+        document.getElementById('audio-chapter-subtitle').textContent = '연속 재생 모드 (Chapter 1부터)';
+    }, 500);
+}
+
+// 🎧 구간처음으로 함수 (현재 챕터 처음으로)
+function resetToChapterStart() {
+    if (!currentAudio) return;
+
+    currentAudio.currentTime = 0;
+    console.log(`🔄 Chapter ${currentChapter + 1} 처음으로 이동`);
+
+    const audioStatus = document.getElementById('audio-status');
+    audioStatus.innerHTML = `🔄 Chapter ${currentChapter + 1} 처음으로 이동`;
+}
+
+// 🎧 다음 챕터로 이동 함수
+function jumpToNextChapter() {
+    if (currentChapter >= 11) { // 인덱스 11 = Chapter 12
+        alert('마지막 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter + 1);
+}
+
+// 🎧 이전 챕터로 이동 함수
+function jumpToPreviousChapter() {
+    if (currentChapter <= 0) { // 인덱스 0 = Chapter 1
+        alert('첫 번째 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter - 1);
+}
+
+// 🎧 특정 챕터로 점프
+function jumpToChapter(chapterNumber) {
+    if (chapterNumber >= 1 && chapterNumber <= 12) {
+        playChapterAudio(chapterNumber - 1); // chapterNumber를 인덱스로 변환
+    } else {
+        alert('유효하지 않은 챕터 번호입니다. (1-12)');
+    }
+}
+
+// 🎧 10초 앞/뒤로 이동
+function skipForward() {
+    if (!currentAudio) return;
+    currentAudio.currentTime = Math.min(currentAudio.currentTime + 10, currentAudio.duration);
+}
+
+function skipBackward() {
+    if (!currentAudio) return;
+    currentAudio.currentTime = Math.max(currentAudio.currentTime - 10, 0);
+}
+
+// 🎧 현재 재생 중인 챕터 정보 표시
+function getCurrentChapterInfo() {
+    if (!currentAudio) return null;
+
+    const currentTime = currentAudio.currentTime;
+    const duration = currentAudio.duration;
+    const progress = duration > 0 ? Math.round((currentTime / duration) * 100) : 0;
+
+    return {
+        chapterNumber: currentChapter + 1, // 사용자에게는 1-12로 표시
+        currentTime: formatTime(currentTime),
+        duration: formatTime(duration),
+        progress: progress
+    };
+}
+
+// 🎧 챕터 정보를 UI에 표시하는 함수
+function updateChapterDisplay() {
+    const info = getCurrentChapterInfo();
+    if (info) {
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `🎵 Chapter ${info.chapterNumber} 재생 중 (${info.progress}% 완료)<br>
+                                📍 ${info.currentTime} / ${info.duration}`;
+    }
+}
+
+// 🎧 기본 오디오 컨트롤 함수들
+function closeAudioModal() {
+    document.getElementById('audio-modal').style.display = 'none';
+    if (currentAudio) {
+        currentAudio.pause();
+    }
+}
+
+function togglePlayPause() {
+    if (!currentAudio) return;
+
+    if (currentAudio.paused) {
+        currentAudio.play().then(() => {
+            document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = `🎵 Chapter ${currentChapter + 1} 재생 중!`;
+        }).catch(e => {
+            console.log('재생 실패:', e);
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = '❌ 재생에 실패했습니다. 다시 시도해주세요.';
+        });
+    } else {
+        currentAudio.pause();
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `⏸️ Chapter ${currentChapter + 1} 일시정지됨`;
+    }
+}
+
+function changeSpeed() {
+    if (!currentAudio) return;
+
+    const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+    const currentIndex = speeds.indexOf(playbackSpeed);
+    playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+    currentAudio.playbackRate = playbackSpeed;
+
+    const speedBtn = document.querySelector('.speed-btn');
+    if (speedBtn) {
+        speedBtn.textContent = `${playbackSpeed}x`;
+    }
+
+    console.log(`🎵 재생 속도 변경: ${playbackSpeed}x`);
+}
+
+function downloadAudio() {
+    const audioSource = document.getElementById('audio-source');
+    if (audioSource.src) {
+        const link = document.createElement('a');
+        link.href = audioSource.src;
+
+        const chapterData = alchemistChapterMapping[currentChapter + 1]; // 인덱스를 번호로 변환
+        const fileName = chapterData ? `${chapterData.title}.mp3` : 'Alchemist_Chapter.mp3';
+
+        link.download = fileName;
+        link.click();
+
+        console.log(`📥 오디오 다운로드 시작: ${fileName}`);
+    } else {
+        alert('다운로드할 오디오 파일이 없습니다.');
+    }
+}
+
+// 🎧 키보드 단축키 지원
+document.addEventListener('keydown', function(event) {
+    const audioModal = document.getElementById('audio-modal');
+    if (!audioModal || audioModal.style.display === 'none') return;
+
+    switch(event.code) {
+        case 'Space':
+            event.preventDefault();
+            togglePlayPause();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            skipBackward();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            skipForward();
+            break;
+        case 'ArrowUp':
+            event.preventDefault();
+            jumpToPreviousChapter();
+            break;
+        case 'ArrowDown':
+            event.preventDefault();
+            jumpToNextChapter();
+            break;
+        case 'KeyS':
+            event.preventDefault();
+            changeSpeed();
+            break;
+        case 'KeyR':
+            event.preventDefault();
+            resetToChapterStart();
+            break;
+        case 'Escape':
+            event.preventDefault();
+            closeAudioModal();
+            break;
+    }
+});
+
+// ⚗️ 초기화 함수
+function initializeAlchemistAudio() {
+    console.log('⚗️ The Alchemist 오디오 시스템 초기화 완료');
+    console.log('📚 총 12개 챕터, 개별 파일 시스템');
+    console.log('🎯 1:1 완벽 매핑 (Chapter 1 = AC001_01_The_Alchemist_Chapter_01.mp3)');
+    console.log('⌨️ 키보드 단축키: Space(재생/정지), ←→(10초 스킵), ↑↓(챕터 이동), S(속도), R(처음으로), ESC(닫기)');
+
+    // 5초마다 챕터 정보 업데이트
+    setInterval(() => {
+        if (currentAudio && !currentAudio.paused) {
+            updateChapterDisplay();
+        }
+    }, 5000);
+}
+        // The Alchemist 도서 데이터 (12섹션)
+        const bookData = {
+            id: 'ALC001',
+            title: "The Alchemist",
+            author: 'Paulo Coelho',
+            cover: '🏺',
+            progress: 0,
+            chapters: 12,
+            totalQuestions: 60,
+            coverColor: 'linear-gradient(45deg, #D4AF37, #F4E4BC)',
+            summary: "An Andalusian shepherd boy named Santiago travels from his homeland in Spain to the Egyptian desert in search of treasure buried near the Pyramids. Along the way, he meets a Gypsy woman, a man who calls himself king, and an alchemist, all of whom point Santiago in the direction of his quest. This modern classic explores themes of following your dreams, personal legend, and the interconnectedness of all things.",
+            chapterList: [
+                { title: 'Prologue', description: 'The story of Narcissus and the lake - an introduction to the alchemist\'s perspective on beauty and vanity.', status: 'current', questionCount: 5 },
+                { title: 'Part 1: Santiago\'s Dream', description: 'Santiago, an Andalusian shepherd, dreams of treasure by the Egyptian pyramids while sleeping in an abandoned church.', status: 'current', questionCount: 5 },
+                { title: 'Part 1: The Gypsy Woman', description: 'Santiago visits a gypsy woman to interpret his recurring dream about finding treasure.', status: 'current', questionCount: 5 },
+                { title: 'Part 1: Melchizedek the King', description: 'Santiago meets the mysterious King of Salem who teaches him about Personal Legend and gives him Urim and Thummim.', status: 'current', questionCount: 5 },
+                { title: 'Part 1: Journey to Africa', description: 'Santiago sells his sheep and travels to Africa, where he is robbed in Tangier and loses all his money.', status: 'current', questionCount: 5 },
+                { title: 'Part 1: The Crystal Merchant', description: 'Santiago works for a crystal merchant for a year, learning about business and saving money to continue his journey.', status: 'current', questionCount: 5 },
+                { title: 'Part 2: The Englishman', description: 'Santiago meets an Englishman seeking an alchemist and joins a caravan crossing the Sahara desert.', status: 'current', questionCount: 5 },
+                { title: 'Part 2: The Oasis', description: 'The caravan reaches Al-Fayoum oasis where Santiago meets and falls in love with Fatima.', status: 'current', questionCount: 5 },
+                { title: 'Part 2: The Vision', description: 'Santiago has a vision of an army attacking the oasis and warns the tribal leaders.', status: 'current', questionCount: 5 },
+                { title: 'Part 2: The Alchemist', description: 'Santiago meets the 200-year-old alchemist who becomes his mentor and teaches him about the Soul of the World.', status: 'current', questionCount: 5 },
+                { title: 'Part 2: Transformation', description: 'Santiago learns to communicate with the wind and sun, demonstrating his connection to the Soul of the World.', status: 'current', questionCount: 5 },
+                { title: 'Epilogue: The Treasure', description: 'Santiago reaches the pyramids, is robbed by refugees, and discovers the true location of his treasure.', status: 'current', questionCount: 5 }
+            ]
+        };
+
+        // 문제 데이터 (실제 스토리에 기반한 정확한 내용)
+        const questionsData = {
+            0: [ // Prologue
+                {
+                    passage: "The alchemist reads a story about Narcissus, a youth so fascinated by his own beauty that he falls into a lake and drowns.",
+                    question: "What happens to Narcissus in the story?",
+                    options: ["He becomes a flower", "He falls into a lake and drowns while admiring his beauty", "He finds true love", "He becomes an alchemist"],
+                    correct: 1
+                },
+                {
+                    passage: "In this version of the story, the goddesses ask the lake why it weeps for Narcissus.",
+                    question: "Who asks the lake why it weeps?",
+                    options: ["The alchemist", "The goddesses of the forest", "Narcissus himself", "Other lakes"],
+                    correct: 1
+                },
+                {
+                    passage: "The lake reveals that it weeps not because Narcissus was beautiful, but because it could see its own beauty reflected in Narcissus's eyes.",
+                    question: "Why does the lake say it weeps for Narcissus?",
+                    options: ["Because Narcissus was handsome", "Because it could see its own beauty in his eyes", "Because it was lonely", "Because it caused his death"],
+                    correct: 1
+                },
+                {
+                    passage: "The alchemist finds this version of the Narcissus story lovely and meaningful.",
+                    question: "How does the alchemist react to this version of the story?",
+                    options: ["He finds it sad", "He finds it lovely and meaningful", "He doesn't understand it", "He thinks it's false"],
+                    correct: 1
+                },
+                {
+                    passage: "This story suggests that vanity and self-love can sometimes serve a greater purpose.",
+                    question: "What theme does the Narcissus story introduce?",
+                    options: ["The danger of water", "That vanity can sometimes serve a greater purpose", "The importance of beauty", "The power of magic"],
+                    correct: 1
+                }
+            ],
+            1: [ // Part 1: Santiago's Dream
+                {
+                    passage: "Santiago, an Andalusian shepherd boy, sleeps in an abandoned church with a sycamore tree growing through it.",
+                    question: "Where does Santiago sleep when he has his dream?",
+                    options: ["In his home", "In an abandoned church with a sycamore tree", "Under the stars", "In a village inn"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago has the same recurring dream about a child who tells him he will find treasure if he travels to the Egyptian pyramids.",
+                    question: "What does the child in Santiago's dream tell him?",
+                    options: ["To stay home", "He will find treasure at the Egyptian pyramids", "To become a priest", "To sell his sheep"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago has been a shepherd for two years and has grown accustomed to his flock's schedule and behavior.",
+                    question: "How long has Santiago been a shepherd?",
+                    options: ["One year", "Two years", "Five years", "His whole life"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago thinks about a merchant's daughter with dark hair and Moorish eyes whom he met in a village.",
+                    question: "Who does Santiago think about while tending his sheep?",
+                    options: ["His mother", "A merchant's daughter with dark hair and Moorish eyes", "Another shepherd", "A princess"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago enjoys being a shepherd because it allows him to travel and learn about different places and people.",
+                    question: "Why does Santiago enjoy being a shepherd?",
+                    options: ["It's easy work", "It allows him to travel and learn about different places", "He loves animals", "It pays well"],
+                    correct: 1
+                }
+            ],
+            2: [ // Part 1: The Gypsy Woman
+                {
+                    passage: "Santiago visits a gypsy woman in Tarifa to have his recurring dream interpreted.",
+                    question: "Why does Santiago visit the gypsy woman?",
+                    options: ["To buy something", "To have his recurring dream interpreted", "To sell his sheep", "To find work"],
+                    correct: 1
+                },
+                {
+                    passage: "The gypsy woman tells Santiago that dreams about children always represent the future.",
+                    question: "What does the gypsy say about dreams involving children?",
+                    options: ["They're meaningless", "They always represent the future", "They're about the past", "They're warnings"],
+                    correct: 1
+                },
+                {
+                    passage: "She interprets Santiago's dream as a prophecy that he will find treasure at the pyramids in Egypt.",
+                    question: "How does the gypsy interpret Santiago's dream?",
+                    options: ["As a nightmare", "As a prophecy that he'll find treasure at the pyramids", "As meaningless fantasy", "As a warning to stay home"],
+                    correct: 1
+                },
+                {
+                    passage: "The gypsy asks for one-tenth of the treasure as payment for her interpretation.",
+                    question: "What payment does the gypsy woman request?",
+                    options: ["Money upfront", "One-tenth of the treasure when found", "His sheep", "Nothing"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago is skeptical about the gypsy's interpretation and wonders if she's just trying to get money from him.",
+                    question: "How does Santiago initially react to the gypsy's interpretation?",
+                    options: ["He believes immediately", "He's skeptical and wonders if she wants money", "He gets angry", "He laughs"],
+                    correct: 1
+                }
+            ],
+            3: [ // Part 1: Melchizedek the King
+                {
+                    passage: "Santiago meets an old man who introduces himself as Melchizedek, the King of Salem.",
+                    question: "Who does the old man claim to be?",
+                    options: ["A shepherd", "Melchizedek, the King of Salem", "A merchant", "A priest"],
+                    correct: 1
+                },
+                {
+                    passage: "Melchizedek tells Santiago about Personal Legend - the thing you have always wanted to accomplish.",
+                    question: "What does Melchizedek teach Santiago about?",
+                    options: ["Sheep farming", "Personal Legend - what you've always wanted to accomplish", "How to read", "Business skills"],
+                    correct: 1
+                },
+                {
+                    passage: "The old king explains that when you want something, all the universe conspires in helping you achieve it.",
+                    question: "What does Melchizedek say happens when you want something?",
+                    options: ["You must work alone", "All the universe conspires to help you achieve it", "It's impossible to get", "You should give up"],
+                    correct: 1
+                },
+                {
+                    passage: "Melchizedek gives Santiago two stones called Urim and Thummim to help him make decisions.",
+                    question: "What does Melchizedek give Santiago?",
+                    options: ["Gold coins", "Two stones called Urim and Thummim", "A map", "A book"],
+                    correct: 1
+                },
+                {
+                    passage: "The king tells Santiago to sell his sheep and use the money to travel to Egypt in pursuit of his treasure.",
+                    question: "What does Melchizedek advise Santiago to do?",
+                    options: ["Keep his sheep forever", "Sell his sheep and travel to Egypt for his treasure", "Become a priest", "Stay in Spain"],
+                    correct: 1
+                }
+            ],
+            4: [ // Part 1: Journey to Africa
+                {
+                    passage: "Santiago sells his flock of sheep and uses the money to travel to Africa in search of his treasure.",
+                    question: "What does Santiago do with his sheep?",
+                    options: ["Keeps them", "Sells them to travel to Africa for his treasure", "Gives them away", "Loses them"],
+                    correct: 1
+                },
+                {
+                    passage: "In Tangier, Morocco, Santiago is robbed by a man who promised to guide him to the pyramids.",
+                    question: "What happens to Santiago in Tangier?",
+                    options: ["He finds treasure", "He's robbed by a man who promised to guide him", "He becomes rich", "He makes friends"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago loses all his money and finds himself alone in a foreign country where he doesn't speak the language.",
+                    question: "What is Santiago's situation after being robbed?",
+                    options: ["He's wealthy", "He's alone with no money in a foreign country", "He has many friends", "He speaks the local language"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago considers returning to Spain to resume his life as a shepherd, feeling his dream was foolish.",
+                    question: "What does Santiago consider doing after losing his money?",
+                    options: ["Continuing to Egypt immediately", "Returning to Spain to be a shepherd again", "Staying in Tangier forever", "Becoming a thief"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago realizes that every blessing ignored becomes a curse, and decides not to give up on his dream.",
+                    question: "What realization helps Santiago continue his journey?",
+                    options: ["Money doesn't matter", "Every blessing ignored becomes a curse", "Dreams are useless", "He should trust everyone"],
+                    correct: 1
+                }
+            ],
+            5: [ // Part 1: The Crystal Merchant
+                {
+                    passage: "Santiago finds work with a crystal merchant who owns a shop on a hill in Tangier.",
+                    question: "Who gives Santiago work in Tangier?",
+                    options: ["A shepherd", "A crystal merchant who owns a shop", "A hotel owner", "A tour guide"],
+                    correct: 1
+                },
+                {
+                    passage: "The crystal merchant is afraid to pursue his own dream of making a pilgrimage to Mecca.",
+                    question: "What is the crystal merchant afraid to pursue?",
+                    options: ["Starting a new business", "His dream of making a pilgrimage to Mecca", "Learning new languages", "Traveling to Spain"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago suggests improvements to the crystal shop, including serving tea to attract customers.",
+                    question: "How does Santiago help improve the crystal shop?",
+                    options: ["By cleaning only", "By suggesting improvements like serving tea", "By lowering prices", "By working longer hours"],
+                    correct: 1
+                },
+                {
+                    passage: "The crystal merchant's business flourishes thanks to Santiago's ideas and hard work.",
+                    question: "What happens to the crystal merchant's business?",
+                    options: ["It fails", "It flourishes thanks to Santiago's ideas", "It stays the same", "It moves location"],
+                    correct: 1
+                },
+                {
+                    passage: "After a year, Santiago has saved enough money to buy new sheep or continue to Egypt.",
+                    question: "What choice does Santiago face after working for a year?",
+                    options: ["Stay forever", "Buy new sheep or continue to Egypt", "Become a crystal merchant", "Go back to school"],
+                    correct: 1
+                }
+            ],
+            6: [ // Part 2: The Englishman
+                {
+                    passage: "Santiago meets an Englishman who seeks an alchemist who can teach him to turn lead into gold.",
+                    question: "What is the Englishman searching for?",
+                    options: ["Treasure", "An alchemist who can turn lead into gold", "A new job", "The pyramids"],
+                    correct: 1
+                },
+                {
+                    passage: "The Englishman has spent ten years studying alchemy through books and believes in the Philosopher's Stone.",
+                    question: "How has the Englishman studied alchemy?",
+                    options: ["Through dreams", "Through books for ten years", "Through travel only", "Through meditation"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago and the Englishman join a caravan of 200 people crossing the Sahara desert to Al-Fayoum oasis.",
+                    question: "What do Santiago and the Englishman join?",
+                    options: ["A small group", "A caravan of 200 people crossing the Sahara", "A ship", "A trading post"],
+                    correct: 1
+                },
+                {
+                    passage: "The Englishman learns from books while Santiago learns from observation and experience with the caravan.",
+                    question: "How do the Englishman and Santiago differ in their learning?",
+                    options: ["Both learn from books", "Englishman from books, Santiago from observation and experience", "Both learn from experience", "Neither learns anything"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago begins to understand the universal language that connects all things in the world.",
+                    question: "What does Santiago begin to understand during the journey?",
+                    options: ["Arabic language", "The universal language that connects all things", "Business principles", "Desert survival"],
+                    correct: 1
+                }
+            ],
+            7: [ // Part 2: The Oasis
+                {
+                    passage: "The caravan reaches the Al-Fayoum oasis, where they must wait due to tribal wars in the desert.",
+                    question: "Why must the caravan wait at the oasis?",
+                    options: ["To rest", "Due to tribal wars in the desert", "To trade goods", "Because of bad weather"],
+                    correct: 1
+                },
+                {
+                    passage: "At the oasis well, Santiago meets Fatima, a beautiful desert girl, and falls in love at first sight.",
+                    question: "Who does Santiago meet at the oasis well?",
+                    options: ["The alchemist", "Fatima, a beautiful desert girl", "Another shepherd", "A tribal leader"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago tells Fatima he loves her and wants to marry her, but she says she will wait for him.",
+                    question: "What does Fatima tell Santiago about marriage?",
+                    options: ["She refuses him", "She will wait for him", "She wants to marry immediately", "She wants to travel with him"],
+                    correct: 1
+                },
+                {
+                    passage: "Fatima explains that women of the desert are proud of their men who pursue their Personal Legends.",
+                    question: "What do desert women think about men pursuing their Personal Legends?",
+                    options: ["They oppose it", "They are proud of their men who pursue them", "They don't care", "They think it's foolish"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago considers staying at the oasis with Fatima instead of continuing to the pyramids.",
+                    question: "What does Santiago consider doing at the oasis?",
+                    options: ["Leaving immediately", "Staying with Fatima instead of continuing to pyramids", "Becoming a warrior", "Starting a business"],
+                    correct: 1
+                }
+            ],
+            8: [ // Part 2: The Vision
+                {
+                    passage: "While walking in the desert, Santiago sees two hawks fighting and has a vision of an army attacking the oasis.",
+                    question: "What triggers Santiago's vision?",
+                    options: ["A dream", "Seeing two hawks fighting", "Reading a book", "Talking to Fatima"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago realizes that attacking an oasis violates the sacred laws of the desert.",
+                    question: "What does Santiago understand about attacking an oasis?",
+                    options: ["It's common", "It violates the sacred laws of the desert", "It's encouraged", "It's impossible"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite his fear, Santiago reports his vision to the tribal chieftains of the oasis.",
+                    question: "What does Santiago do with his vision despite his fear?",
+                    options: ["Keeps it secret", "Reports it to the tribal chieftains", "Tells only Fatima", "Ignores it"],
+                    correct: 1
+                },
+                {
+                    passage: "The tribal leaders arm their men and successfully defend the oasis when the attack comes as predicted.",
+                    question: "What happens when the attack comes as Santiago predicted?",
+                    options: ["The oasis falls", "The tribal leaders successfully defend the oasis", "Everyone flees", "Nothing happens"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago's accurate vision earns him respect and gold from the grateful tribal leaders.",
+                    question: "How do the tribal leaders reward Santiago?",
+                    options: ["They ignore him", "They give him respect and gold", "They make him leave", "They punish him"],
+                    correct: 1
+                }
+            ],
+            9: [ // Part 2: The Alchemist
+                {
+                    passage: "A mysterious horseman dressed in black approaches Santiago and tests his courage with a sword.",
+                    question: "How does the mysterious horseman test Santiago?",
+                    options: ["With riddles", "With a sword to test his courage", "With magic", "With questions"],
+                    correct: 1
+                },
+                {
+                    passage: "The horseman reveals himself as the alchemist the Englishman has been seeking for years.",
+                    question: "Who is the mysterious horseman?",
+                    options: ["A tribal warrior", "The alchemist the Englishman seeks", "Santiago's father", "A thief"],
+                    correct: 1
+                },
+                {
+                    passage: "The alchemist tells Santiago that he must choose between staying with Fatima or pursuing his Personal Legend.",
+                    question: "What choice does the alchemist present to Santiago?",
+                    options: ["Wealth or poverty", "Staying with Fatima or pursuing his Personal Legend", "Peace or war", "Past or future"],
+                    correct: 1
+                },
+                {
+                    passage: "The alchemist explains that true love supports the beloved's Personal Legend rather than hindering it.",
+                    question: "What does the alchemist say about true love?",
+                    options: ["It's selfish", "It supports the beloved's Personal Legend", "It requires sacrifice", "It's impossible"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago decides to continue his journey to the pyramids, with the alchemist as his guide.",
+                    question: "What does Santiago decide to do?",
+                    options: ["Stay at the oasis", "Continue to the pyramids with the alchemist", "Return to Spain", "Become a warrior"],
+                    correct: 1
+                }
+            ],
+            10: [ // Part 2: Transformation
+                {
+                    passage: "The alchemist teaches Santiago about the Soul of the World that connects all living things.",
+                    question: "What does the alchemist teach Santiago about?",
+                    options: ["Magic spells", "The Soul of the World that connects all living things", "How to fight", "Desert survival"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago and the alchemist are captured by Arab soldiers who threaten to kill them as spies.",
+                    question: "What happens when they're captured by soldiers?",
+                    options: ["They're welcomed", "They're threatened with death as spies", "They're hired as guides", "They're ignored"],
+                    correct: 1
+                },
+                {
+                    passage: "The alchemist claims Santiago can turn himself into wind and gives him three days to prove it.",
+                    question: "What does the alchemist claim Santiago can do?",
+                    options: ["Turn lead to gold", "Turn himself into wind", "Become invisible", "Read minds"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago learns to communicate with the desert, wind, and sun to create a powerful sandstorm.",
+                    question: "How does Santiago create the sandstorm?",
+                    options: ["With magic words", "By communicating with desert, wind, and sun", "Through prayer alone", "Using alchemical tools"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago successfully transforms into the wind, demonstrating his connection to the Soul of the World.",
+                    question: "What does Santiago successfully demonstrate?",
+                    options: ["His physical strength", "His connection to the Soul of the World by becoming wind", "His intelligence", "His wealth"],
+                    correct: 1
+                }
+            ],
+            11: [ // Epilogue: The Treasure
+                {
+                    passage: "At the pyramids, Santiago begins digging for treasure but is attacked and robbed by refugees from tribal wars.",
+                    question: "What happens when Santiago reaches the pyramids?",
+                    options: ["He finds treasure immediately", "He's attacked and robbed by refugees", "He meets another alchemist", "He gets lost"],
+                    correct: 1
+                },
+                {
+                    passage: "One of the refugees tells Santiago about his own dream of treasure buried in an abandoned Spanish church.",
+                    question: "What does one of the refugees tell Santiago?",
+                    options: ["To keep digging", "About his dream of treasure in a Spanish church", "To go home", "About other pyramids"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago realizes the treasure was always at the abandoned church in Spain where his journey began.",
+                    question: "Where does Santiago realize his treasure is located?",
+                    options: ["At the pyramids", "At the abandoned church in Spain where he started", "At the oasis", "With the alchemist"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago returns to the church in Spain and finds a chest of gold buried under the sycamore tree.",
+                    question: "What does Santiago find when he returns to the church?",
+                    options: ["Nothing", "A chest of gold buried under the sycamore tree", "A map", "Another shepherd"],
+                    correct: 1
+                },
+                {
+                    passage: "Santiago understands that the journey itself was as valuable as the treasure, teaching him about love, courage, and his Personal Legend.",
+                    question: "What does Santiago understand about his journey?",
+                    options: ["It was a waste of time", "The journey itself was as valuable as the treasure", "Only the gold mattered", "He should have stayed home"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 섹션의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #D4AF37, #F4E4BC)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #D4AF37, #F4E4BC)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #D4AF37, #F4E4BC)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>

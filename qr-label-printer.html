@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수리딩어학원 도서 QR코드 라벨 인쇄</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        body {
+            font-family: 'Arial', 'Malgun Gothic', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .no-print {
+            display: block;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .qr-grid {
+                gap: 10mm;
+            }
+            .qr-label {
+                border: 2px solid #333 !important;
+                page-break-inside: avoid;
+                margin-bottom: 5mm;
+            }
+            .qr-label input[type="checkbox"] {
+                display: none !important;
+            }
+            /* 페이지당 6개씩 (3x2) 최적화 */
+            .qr-label:nth-child(6n+1) {
+                page-break-before: always;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #4a90e2, #7b68ee);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .qr-label {
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+            position: relative;
+            min-height: 280px;
+        }
+
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4a90e2;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .level-1 { background: #28a745; }
+        .level-2 { background: #ffc107; color: #333; }
+        .level-3 { background: #fd7e14; }
+        .level-4 { background: #dc3545; }
+        .level-5 { background: #6f42c1; }
+
+        .book-title {
+            font-weight: bold;
+            font-size: 13px;
+            color: #333;
+            margin: 10px 0;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.3;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .book-info {
+            font-size: 10px;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.2;
+        }
+
+        .qr-code-text {
+            font-size: 9px;
+            color: #888;
+            margin-top: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .scan-instruction {
+            font-size: 10px;
+            color: #4a90e2;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4a90e2, #7b68ee);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(45deg, #6c757d, #495057);
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .stats {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: #4a90e2;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <div class="logo">📚</div>
+                <div>
+                    <h1 style="margin: 0;">수리딩어학원 도서 QR코드 라벨 인쇄</h1>
+                    <p style="margin: 5px 0 0 0;">Sureading Academy Book QR Code Labels</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                <strong>✅ 실제 작동하는 QR코드!</strong><br>
+                <small>📱 스마트폰으로 스캔하면 <strong>www.suelibrary.store</strong>의 실제 책 학습 페이지로 이동합니다</small>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+                <strong>🖨️ 웹 브라우저에서 바로 인쇄 가능!</strong><br>
+                <small>
+                    • <strong>파일 저장 불필요</strong> - 브라우저에서 바로 인쇄<br>
+                    • <strong>A4 용지 최적화</strong> - 한 장에 6개 라벨<br>
+                    • <strong>선택 인쇄 지원</strong> - 원하는 책만 골라서 인쇄<br>
+                    • <strong>PDF 다운로드</strong> - 나중에 인쇄하거나 공유 가능
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label>인쇄할 레벨 선택:</label>
+                <select id="levelFilter">
+                    <option value="all">전체 레벨 (All Levels)</option>
+                    <option value="1">Level 1 - 기초 (Beginner)</option>
+                    <option value="2">Level 2 - 초급 (Elementary)</option>
+                    <option value="3">Level 3 - 중급 (Intermediate)</option>
+                    <option value="4">Level 4 - 중고급 (Upper-Intermediate)</option>
+                    <option value="5">Level 5 - 고급 (Advanced)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>도서 시리즈 선택:</label>
+                <select id="seriesFilter">
+                    <option value="all">전체 시리즈 (All Series)</option>
+                    <option value="magic-tree-house">Magic Tree House</option>
+                    <option value="classic">고전 명작 (Classics)</option>
+                    <option value="modern">현대 소설 (Modern Fiction)</option>
+                    <option value="others">기타 (Others)</option>
+                </select>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn" onclick="filterBooks()">📋 필터 적용</button>
+                <button class="btn" onclick="printLabels()">🖨️ 전체 인쇄</button>
+                <button class="btn" onclick="printSelected()">🎯 선택 인쇄</button>
+                <button class="btn" onclick="downloadPDF()">📄 PDF 다운로드</button>
+                <button class="btn secondary" onclick="selectAll()">✅ 전체 선택</button>
+                <button class="btn secondary" onclick="clearAll()">❌ 선택 해제</button>
+            </div>
+
+            <div class="stats" id="stats">
+                총 <span id="totalBooks">0</span>권의 도서가 표시되고 있습니다.
+            </div>
+        </div>
+    </div>
+
+    <div class="qr-grid" id="qrGrid">
+        <!-- QR코드 라벨들이 여기에 동적으로 생성됩니다 -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        // 수리딩어학원 도서 데이터
+        const bookData = [
+            // Level 1 - 기초
+            { qrCode: 'CTH001', title: 'The Cat in the Hat', author: 'Dr. Seuss', level: 1, url: '/cat-in-the-hat', series: 'classic', chapters: 4 },
+            { qrCode: 'GEH001', title: 'Green Eggs and Ham', author: 'Dr. Seuss', level: 1, url: '/green-eggs-and-ham', series: 'classic', chapters: 3 },
+            { qrCode: 'BR001', title: 'Beginning Reader Collection', author: 'Various', level: 1, url: '/beginning-reader-collection', series: 'others', chapters: 5 },
+
+            // Level 2 - 초급 (Magic Tree House 1-12)
+            { qrCode: 'DBD001', title: 'Dinosaurs Before Dark', author: 'Mary Pope Osborne', level: 2, url: '/dinosaurs-before-dark', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'TKA002', title: 'The Knight at Dawn', author: 'Mary Pope Osborne', level: 2, url: '/the-knight-at-dawn', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MIM003', title: 'Mummies in the Morning', author: 'Mary Pope Osborne', level: 2, url: '/mummies-in-the-morning', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'PPN004', title: 'Pirates Past Noon', author: 'Mary Pope Osborne', level: 2, url: '/pirates-past-noon', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'FTF001', title: 'Frog and Toad Are Friends', author: 'Arnold Lobel', level: 2, url: '/frog-and-toad-are-friends', series: 'classic', chapters: 5 },
+            { qrCode: 'MTH005', title: 'Night of the Ninjas', author: 'Mary Pope Osborne', level: 2, url: '/night-of-the-ninjas', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH006', title: 'Afternoon on the Amazon', author: 'Mary Pope Osborne', level: 2, url: '/afternoon-on-the-amazon', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH007', title: 'Sunset of the Sabertooth', author: 'Mary Pope Osborne', level: 2, url: '/sunset-of-the-sabertooth', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH008', title: 'Midnight on the Moon', author: 'Mary Pope Osborne', level: 2, url: '/midnight-on-the-moon', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH009', title: 'Dolphins at Daybreak', author: 'Mary Pope Osborne', level: 2, url: '/dolphins-at-daybreak', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH010', title: 'Ghost Town at Sundown', author: 'Mary Pope Osborne', level: 2, url: '/ghost-town-at-sundown', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH011', title: 'Lions at Lunchtime', author: 'Mary Pope Osborne', level: 2, url: '/lions-at-lunchtime', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH012', title: 'Polar Bears Past Bedtime', author: 'Mary Pope Osborne', level: 2, url: '/polar-bears-past-bedtime', series: 'magic-tree-house', chapters: 10 },
+
+            // Level 3 - 중급
+            { qrCode: 'CW001', title: "Charlotte's Web", author: 'E.B. White', level: 3, url: '/charlottes-web', series: 'classic', chapters: 22 },
+            { qrCode: 'SPT001', title: 'Sarah, Plain and Tall', author: 'Patricia MacLachlan', level: 3, url: '/sarah-plain-tall', series: 'classic', chapters: 9 },
+            { qrCode: 'LWW001', title: 'The Lion, the Witch and the Wardrobe', author: 'C.S. Lewis', level: 3, url: '/the-lion-the-witch-and-the-wardrobe', series: 'classic', chapters: 17 },
+            { qrCode: 'PC001', title: 'Prince Caspian', author: 'C.S. Lewis', level: 3, url: '/prince-caspian', series: 'classic', chapters: 15 },
+            { qrCode: 'VDT001', title: 'The Voyage of Dawn Treader', author: 'C.S. Lewis', level: 3, url: '/the-voyage-of-dawn-treader', series: 'classic', chapters: 16 },
+            { qrCode: 'BTT001', title: 'Bridge to Terabithia', author: 'Katherine Paterson', level: 3, url: '/bridge-to-terabithia', series: 'modern', chapters: 13 },
+            { qrCode: 'WRF001', title: 'Where the Red Fern Grows', author: 'Wilson Rawls', level: 3, url: '/where-the-red-fern-grows', series: 'classic', chapters: 20 },
+            { qrCode: 'MAT001', title: 'Matilda', author: 'Roald Dahl', level: 3, url: '/matilda', series: 'modern', chapters: 21 },
+
+            // Level 4 - 중고급
+            { qrCode: 'HP001', title: "Harry Potter and the Sorcerer's Stone", author: 'J.K. Rowling', level: 4, url: '/harry-potter-and-the-sorcerers-stone', series: 'modern', chapters: 17 },
+            { qrCode: 'AWT001', title: 'A Wrinkle in Time', author: 'Madeleine L\'Engle', level: 4, url: '/a-wrinkle-in-time', series: 'classic', chapters: 12 },
+            { qrCode: 'GVR001', title: 'The Giver', author: 'Lois Lowry', level: 4, url: '/the-giver', series: 'modern', chapters: 23 },
+            { qrCode: 'SHI001', title: 'Shiloh', author: 'Phyllis Reynolds Naylor', level: 4, url: '/shiloh', series: 'modern', chapters: 20 },
+
+            // Level 5 - 고급
+            { qrCode: 'TKM001', title: 'To Kill a Mockingbird', author: 'Harper Lee', level: 5, url: '/to-kill-a-mockingbird', series: 'classic', chapters: 31 },
+            { qrCode: '1984001', title: '1984', author: 'George Orwell', level: 5, url: '/nineteen-eighty-four', series: 'classic', chapters: 24 },
+            { qrCode: 'OCS001', title: 'One Crazy Summer', author: 'Rita Williams-Garcia', level: 5, url: '/one-crazy-summer', series: 'modern', chapters: 12 },
+            { qrCode: 'ASS001', title: 'A Single Shard', author: 'Linda Sue Park', level: 5, url: '/a-single-shard', series: 'modern', chapters: 13 },
+            { qrCode: 'FAU001', title: 'Flora and Ulysses', author: 'Kate DiCamillo', level: 5, url: '/flora-and-ulysses', series: 'modern', chapters: 12 }
+        ];
+
+        let filteredBooks = [...bookData];
+
+        function generateQRCode(book) {
+            const serverUrl = 'http://www.suelibrary.store';
+            const fullUrl = `${serverUrl}${book.url}`;
+
+            try {
+                const qr = new QRious({
+                    element: document.createElement('canvas'),
+                    value: fullUrl,
+                    size: 120,
+                    foreground: '#333333',
+                    background: '#ffffff'
+                });
+                return qr.canvas;
+            } catch (error) {
+                console.error('QR코드 생성 오류:', error);
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = 'width:120px;height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#666;border:1px solid #ddd;';
+                placeholder.textContent = 'QR 코드';
+                return placeholder;
+            }
+        }
+
+        function getLevelName(level) {
+            const levelNames = { 1: '기초', 2: '초급', 3: '중급', 4: '중고급', 5: '고급' };
+            return levelNames[level] || level;
+        }
+
+        function renderBooks() {
+            const grid = document.getElementById('qrGrid');
+            grid.innerHTML = '';
+
+            filteredBooks.forEach(book => {
+                const label = document.createElement('div');
+                label.className = 'qr-label';
+
+                label.innerHTML = `
+                    <input type="checkbox" style="position: absolute; top: 5px; left: 5px;" data-qr-code="${book.qrCode}">
+                    <div class="level-badge level-${book.level}">Level ${book.level} - ${getLevelName(book.level)}</div>
+                    <div class="book-title">${book.title}</div>
+                    <div class="qr-code" id="qr-${book.qrCode}"></div>
+                    <div class="qr-code-text">${book.qrCode}</div>
+                    <div class="scan-instruction">📱 스마트폰으로 스캔하세요</div>
+                    <div class="book-info">
+                        <strong>저자:</strong> ${book.author}<br>
+                        <strong>챕터:</strong> ${book.chapters}개<br>
+                        <strong>실제URL:</strong> www.suelibrary.store${book.url}
+                    </div>
+                `;
+
+                grid.appendChild(label);
+
+                setTimeout(() => {
+                    const qrContainer = document.getElementById(`qr-${book.qrCode}`);
+                    const qrCanvas = generateQRCode(book);
+                    qrContainer.innerHTML = '';
+                    qrContainer.appendChild(qrCanvas);
+                }, 100);
+            });
+
+            updateStats();
+        }
+
+        function filterBooks() {
+            const levelFilter = document.getElementById('levelFilter').value;
+            const seriesFilter = document.getElementById('seriesFilter').value;
+
+            filteredBooks = bookData.filter(book => {
+                const levelMatch = levelFilter === 'all' || book.level.toString() === levelFilter;
+                const seriesMatch = seriesFilter === 'all' || book.series === seriesFilter;
+                return levelMatch && seriesMatch;
+            });
+
+            renderBooks();
+        }
+
+        function updateStats() {
+            const totalBooks = document.getElementById('totalBooks');
+            totalBooks.textContent = filteredBooks.length;
+
+            const stats = document.getElementById('stats');
+            const levelCounts = {};
+            filteredBooks.forEach(book => {
+                levelCounts[book.level] = (levelCounts[book.level] || 0) + 1;
+            });
+
+            const levelStats = Object.entries(levelCounts)
+                .map(([level, count]) => `Level ${level}: ${count}권`)
+                .join(', ');
+
+            stats.innerHTML = `
+                총 <strong>${filteredBooks.length}</strong>권의 도서가 표시되고 있습니다.<br>
+                <small>${levelStats}</small>
+            `;
+        }
+
+        function printLabels() {
+            if (filteredBooks.length === 0) {
+                alert('인쇄할 도서가 없습니다. 필터를 확인해주세요.');
+                return;
+            }
+
+            const confirmMsg = `${filteredBooks.length}개의 QR코드 라벨을 인쇄하시겠습니까?
+
+📋 인쇄 설정 가이드:
+✅ 용지: A4 (210 × 297mm)
+✅ 방향: 세로 (Portrait)
+✅ 여백: 최소 (Minimum)
+✅ 배경 그래픽: 인쇄 (Print backgrounds)
+✅ 색상: 컬러 (Color) - 권장
+✅ 품질: 고품질 (High quality)
+
+💡 팁: 라벨지나 스티커 용지 사용 권장`;
+
+            if (confirm(confirmMsg)) {
+                setTimeout(() => {
+                    window.print();
+                }, 500);
+            }
+        }
+
+        function printSelected() {
+            const selectedBooks = Array.from(document.querySelectorAll('.qr-label input[type="checkbox"]:checked'))
+                .map(cb => cb.dataset.qrCode);
+
+            if (selectedBooks.length === 0) {
+                alert('인쇄할 책을 선택해주세요.');
+                return;
+            }
+
+            const originalFiltered = [...filteredBooks];
+            filteredBooks = filteredBooks.filter(book => selectedBooks.includes(book.qrCode));
+
+            renderBooks();
+
+            setTimeout(() => {
+                if (confirm(`선택한 ${selectedBooks.length}개 라벨을 인쇄하시겠습니까?`)) {
+                    window.print();
+                }
+                filteredBooks = originalFiltered;
+                renderBooks();
+            }, 500);
+        }
+
+        function downloadPDF() {
+            if (filteredBooks.length === 0) {
+                alert('다운로드할 도서가 없습니다.');
+                return;<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수리딩어학원 도서 QR코드 라벨 인쇄</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        body {
+            font-family: 'Arial', 'Malgun Gothic', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .no-print {
+            display: block;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .qr-grid {
+                gap: 10mm;
+            }
+            .qr-label {
+                border: 2px solid #333 !important;
+                page-break-inside: avoid;
+                margin-bottom: 5mm;
+            }
+            .qr-label input[type="checkbox"] {
+                display: none !important;
+            }
+            /* 페이지당 6개씩 (3x2) 최적화 */
+            .qr-label:nth-child(6n+1) {
+                page-break-before: always;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #4a90e2, #7b68ee);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .qr-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .qr-label {
+            background: white;
+            border: 2px solid #4a90e2;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+            position: relative;
+            min-height: 280px;
+        }
+
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4a90e2;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .level-1 { background: #28a745; }
+        .level-2 { background: #ffc107; color: #333; }
+        .level-3 { background: #fd7e14; }
+        .level-4 { background: #dc3545; }
+        .level-5 { background: #6f42c1; }
+
+        .book-title {
+            font-weight: bold;
+            font-size: 13px;
+            color: #333;
+            margin: 10px 0;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.3;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .book-info {
+            font-size: 10px;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.2;
+        }
+
+        .qr-code-text {
+            font-size: 9px;
+            color: #888;
+            margin-top: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .scan-instruction {
+            font-size: 10px;
+            color: #4a90e2;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4a90e2, #7b68ee);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(45deg, #6c757d, #495057);
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .stats {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: #4a90e2;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <div class="header">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <div class="logo">📚</div>
+                <div>
+                    <h1 style="margin: 0;">수리딩어학원 도서 QR코드 라벨 인쇄</h1>
+                    <p style="margin: 5px 0 0 0;">Sureading Academy Book QR Code Labels</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                <strong>✅ 실제 작동하는 QR코드!</strong><br>
+                <small>📱 스마트폰으로 스캔하면 <strong>www.suelibrary.store</strong>의 실제 책 학습 페이지로 이동합니다</small>
+            </div>
+
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+                <strong>🖨️ 웹 브라우저에서 바로 인쇄 가능!</strong><br>
+                <small>
+                    • <strong>파일 저장 불필요</strong> - 브라우저에서 바로 인쇄<br>
+                    • <strong>A4 용지 최적화</strong> - 한 장에 6개 라벨<br>
+                    • <strong>선택 인쇄 지원</strong> - 원하는 책만 골라서 인쇄<br>
+                    • <strong>PDF 다운로드</strong> - 나중에 인쇄하거나 공유 가능
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label>인쇄할 레벨 선택:</label>
+                <select id="levelFilter">
+                    <option value="all">전체 레벨 (All Levels)</option>
+                    <option value="1">Level 1 - 기초 (Beginner)</option>
+                    <option value="2">Level 2 - 초급 (Elementary)</option>
+                    <option value="3">Level 3 - 중급 (Intermediate)</option>
+                    <option value="4">Level 4 - 중고급 (Upper-Intermediate)</option>
+                    <option value="5">Level 5 - 고급 (Advanced)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>도서 시리즈 선택:</label>
+                <select id="seriesFilter">
+                    <option value="all">전체 시리즈 (All Series)</option>
+                    <option value="magic-tree-house">Magic Tree House</option>
+                    <option value="classic">고전 명작 (Classics)</option>
+                    <option value="modern">현대 소설 (Modern Fiction)</option>
+                    <option value="others">기타 (Others)</option>
+                </select>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn" onclick="filterBooks()">📋 필터 적용</button>
+                <button class="btn" onclick="printLabels()">🖨️ 전체 인쇄</button>
+                <button class="btn" onclick="printSelected()">🎯 선택 인쇄</button>
+                <button class="btn" onclick="downloadPDF()">📄 PDF 다운로드</button>
+                <button class="btn secondary" onclick="selectAll()">✅ 전체 선택</button>
+                <button class="btn secondary" onclick="clearAll()">❌ 선택 해제</button>
+            </div>
+
+            <div class="stats" id="stats">
+                <div class="loading">📚 도서 데이터 로딩 중...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="qr-grid" id="qrGrid">
+        <div class="loading">QR코드 라벨 생성 중...</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script>
+        // 수리딩어학원 도서 데이터
+        const bookData = [
+            // Level 1 - 기초
+            { qrCode: 'CTH001', title: 'The Cat in the Hat', author: 'Dr. Seuss', level: 1, url: '/cat-in-the-hat', series: 'classic', chapters: 4 },
+            { qrCode: 'GEH001', title: 'Green Eggs and Ham', author: 'Dr. Seuss', level: 1, url: '/green-eggs-and-ham', series: 'classic', chapters: 3 },
+            { qrCode: 'BR001', title: 'Beginning Reader Collection', author: 'Various', level: 1, url: '/beginning-reader-collection', series: 'others', chapters: 5 },
+
+            // Level 2 - 초급 (Magic Tree House 1-12)
+            { qrCode: 'DBD001', title: 'Dinosaurs Before Dark', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-1', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'TKA002', title: 'The Knight at Dawn', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-2', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MIM003', title: 'Mummies in the Morning', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-3', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'PPN004', title: 'Pirates Past Noon', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-4', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'FTF001', title: 'Frog and Toad Are Friends', author: 'Arnold Lobel', level: 2, url: '/frog-and-toad-are-friends', series: 'classic', chapters: 5 },
+            { qrCode: 'MTH005', title: 'Night of the Ninjas', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-5', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH006', title: 'Afternoon on the Amazon', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-6', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH007', title: 'Sunset of the Sabertooth', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-7', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH008', title: 'Midnight on the Moon', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-8', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH009', title: 'Dolphins at Daybreak', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-9', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH010', title: 'Ghost Town at Sundown', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-10', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH011', title: 'Lions at Lunchtime', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-11', series: 'magic-tree-house', chapters: 10 },
+            { qrCode: 'MTH012', title: 'Polar Bears Past Bedtime', author: 'Mary Pope Osborne', level: 2, url: '/magic-tree-house-12', series: 'magic-tree-house', chapters: 10 },
+
+            // Level 3 - 중급
+            { qrCode: 'CW001', title: "Charlotte's Web", author: 'E.B. White', level: 3, url: '/charlottes-web', series: 'classic', chapters: 22 },
+            { qrCode: 'SPT001', title: 'Sarah, Plain and Tall', author: 'Patricia MacLachlan', level: 3, url: '/sarah-plain-tall', series: 'classic', chapters: 9 },
+            { qrCode: 'LWW001', title: 'The Lion, the Witch and the Wardrobe', author: 'C.S. Lewis', level: 3, url: '/narnia-1', series: 'classic', chapters: 17 },
+            { qrCode: 'PC001', title: 'Prince Caspian', author: 'C.S. Lewis', level: 3, url: '/narnia-2', series: 'classic', chapters: 15 },
+            { qrCode: 'VDT001', title: 'The Voyage of Dawn Treader', author: 'C.S. Lewis', level: 3, url: '/narnia-3', series: 'classic', chapters: 16 },
+            { qrCode: 'BTT001', title: 'Bridge to Terabithia', author: 'Katherine Paterson', level: 3, url: '/bridge-to-terabithia', series: 'modern', chapters: 13 },
+            { qrCode: 'WRF001', title: 'Where the Red Fern Grows', author: 'Wilson Rawls', level: 3, url: '/where-red-fern-grows', series: 'classic', chapters: 20 },
+            { qrCode: 'MAT001', title: 'Matilda', author: 'Roald Dahl', level: 3, url: '/matilda', series: 'modern', chapters: 21 },
+
+            // Level 4 - 중고급
+            { qrCode: 'SHI001', title: 'Shiloh', author: 'Phyllis Reynolds Naylor', level: 4, url: '/shiloh', series: 'modern', chapters: 20 },
+
+            // Level 5 - 고급
+            { qrCode: 'OCS001', title: 'One Crazy Summer', author: 'Rita Williams-Garcia', level: 5, url: '/one-crazy-summer', series: 'modern', chapters: 12 },
+            { qrCode: 'ASS001', title: 'A Single Shard', author: 'Linda Sue Park', level: 5, url: '/a-single-shard', series: 'modern', chapters: 13 },
+            { qrCode: 'FAU001', title: 'Flora and Ulysses', author: 'Kate DiCamillo', level: 5, url: '/flora-and-ulysses', series: 'modern', chapters: 12 }
+        ];
+
+        let filteredBooks = [...bookData];
+
+        function generateQRCode(book) {
+            const serverUrl = 'http://www.suelibrary.store';
+            const fullUrl = `${serverUrl}${book.url}`;
+
+            try {
+                const qr = new QRious({
+                    element: document.createElement('canvas'),
+                    value: fullUrl,
+                    size: 120,
+                    foreground: '#333333',
+                    background: '#ffffff'
+                });
+                return qr.canvas;
+            } catch (error) {
+                console.error('QR코드 생성 오류:', error);
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = 'width:120px;height:120px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#666;border:1px solid #ddd;';
+                placeholder.textContent = 'QR 코드';
+                return placeholder;
+            }
+        }
+
+        function getLevelName(level) {
+            const levelNames = { 1: '기초', 2: '초급', 3: '중급', 4: '중고급', 5: '고급' };
+            return levelNames[level] || level;
+        }
+
+        function renderBooks() {
+            const grid = document.getElementById('qrGrid');
+            grid.innerHTML = '';
+
+            filteredBooks.forEach(book => {
+                const label = document.createElement('div');
+                label.className = 'qr-label';
+
+                label.innerHTML = `
+                    <input type="checkbox" style="position: absolute; top: 5px; left: 5px;" data-qr-code="${book.qrCode}">
+                    <div class="level-badge level-${book.level}">Level ${book.level} - ${getLevelName(book.level)}</div>
+                    <div class="book-title">${book.title}</div>
+                    <div class="qr-code" id="qr-${book.qrCode}"></div>
+                    <div class="qr-code-text">${book.qrCode}</div>
+                    <div class="scan-instruction">📱 스마트폰으로 스캔하세요</div>
+                    <div class="book-info">
+                        <strong>저자:</strong> ${book.author}<br>
+                        <strong>챕터:</strong> ${book.chapters}개<br>
+                        <strong>실제URL:</strong> www.suelibrary.store${book.url}
+                    </div>
+                `;
+
+                grid.appendChild(label);
+
+                setTimeout(() => {
+                    const qrContainer = document.getElementById(`qr-${book.qrCode}`);
+                    if (qrContainer) {
+                        const qrCanvas = generateQRCode(book);
+                        qrContainer.innerHTML = '';
+                        qrContainer.appendChild(qrCanvas);
+                    }
+                }, 100);
+            });
+
+            updateStats();
+        }
+
+        function filterBooks() {
+            const levelFilter = document.getElementById('levelFilter').value;
+            const seriesFilter = document.getElementById('seriesFilter').value;
+
+            filteredBooks = bookData.filter(book => {
+                const levelMatch = levelFilter === 'all' || book.level.toString() === levelFilter;
+                const seriesMatch = seriesFilter === 'all' || book.series === seriesFilter;
+                return levelMatch && seriesMatch;
+            });
+
+            renderBooks();
+        }
+
+        function updateStats() {
+            const totalBooks = document.getElementById('totalBooks');
+            if (totalBooks) {
+                totalBooks.textContent = filteredBooks.length;
+            }
+
+            const stats = document.getElementById('stats');
+            const levelCounts = {};
+            filteredBooks.forEach(book => {
+                levelCounts[book.level] = (levelCounts[book.level] || 0) + 1;
+            });
+
+            const levelStats = Object.entries(levelCounts)
+                .map(([level, count]) => `Level ${level}: ${count}권`)
+                .join(', ');
+
+            stats.innerHTML = `
+                총 <strong>${filteredBooks.length}</strong>권의 도서가 표시되고 있습니다.<br>
+                <small>${levelStats}</small>
+            `;
+        }
+
+        function selectAll() {
+            document.querySelectorAll('.qr-label input[type="checkbox"]').forEach(cb => {
+                cb.checked = true;
+            });
+        }
+
+        function clearAll() {
+            document.querySelectorAll('.qr-label input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+            });
+        }
+
+        function printLabels() {
+            if (filteredBooks.length === 0) {
+                alert('인쇄할 도서가 없습니다. 필터를 확인해주세요.');
+                return;
+            }
+
+            const confirmMsg = `${filteredBooks.length}개의 QR코드 라벨을 인쇄하시겠습니까?
+
+📋 인쇄 설정 가이드:
+✅ 용지: A4 (210 × 297mm)
+✅ 방향: 세로 (Portrait)
+✅ 여백: 최소 (Minimum)
+✅ 배경 그래픽: 인쇄 (Print backgrounds)
+✅ 색상: 컬러 (Color) - 권장
+✅ 품질: 고품질 (High quality)
+
+💡 팁: 라벨지나 스티커 용지 사용 권장`;
+
+            if (confirm(confirmMsg)) {
+                setTimeout(() => {
+                    window.print();
+                }, 500);
+            }
+        }
+
+        function printSelected() {
+            const selectedBooks = Array.from(document.querySelectorAll('.qr-label input[type="checkbox"]:checked'))
+                .map(cb => cb.dataset.qrCode);
+
+            if (selectedBooks.length === 0) {
+                alert('인쇄할 책을 선택해주세요.');
+                return;
+            }
+
+            const originalFiltered = [...filteredBooks];
+            filteredBooks = filteredBooks.filter(book => selectedBooks.includes(book.qrCode));
+
+            renderBooks();
+
+            setTimeout(() => {
+                if (confirm(`선택한 ${selectedBooks.length}개 라벨을 인쇄하시겠습니까?`)) {
+                    window.print();
+                }
+                filteredBooks = originalFiltered;
+                renderBooks();
+            }, 500);
+        }
+
+        function downloadPDF() {
+            if (filteredBooks.length === 0) {
+                alert('다운로드할 도서가 없습니다.');
+                return;
+            }
+
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>수리딩어학원 QR코드 라벨</title>
+                    <style>
+                        @page { size: A4; margin: 10mm; }
+                        ${document.querySelector('style').innerHTML}
+                        .no-print { display: none !important; }
+                    </style>
+                </head>
+                <body>
+                    <div class="qr-grid">
+                        ${document.getElementById('qrGrid').innerHTML}
+                    </div>
+                    <script>
+                        window.onload = function() {
+                            setTimeout(() => {
+                                window.print();
+                                setTimeout(() => window.close(), 1000);
+                            }, 1000);
+                        }
+                    <\/script>
+                </body>
+                </html>
+            `);
+        }
+
+        // ✅ 페이지 로드시 자동 실행 (핵심 수정!)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📚 수리딩어학원 QR 라벨 시스템 시작');
+            console.log(`📊 총 ${bookData.length}권의 도서 데이터 로드`);
+
+            // 페이지 로드 후 바로 도서 렌더링
+            setTimeout(() => {
+                renderBooks();
+                console.log(`✅ ${filteredBooks.length}권 표시 완료`);
+            }, 500);
+        });
+
+        // QR 라이브러리 로드 확인
+        window.addEventListener('load', function() {
+            if (typeof QRious === 'undefined') {
+                console.error('❌ QRious 라이브러리 로드 실패');
+                alert('QR코드 생성 라이브러리를 불러올 수 없습니다. 인터넷 연결을 확인해주세요.');
+            } else {
+                console.log('✅ QRious 라이브러리 로드 성공');
+            }
+        });
+    </script>
+</body>
+</html>

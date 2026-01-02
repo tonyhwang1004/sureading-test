@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lions at Lunchtime - Level 2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #D2691E 0%, #F4A460 50%, #FFD700 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #D2691E;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #D2691E;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #D2691E;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #D2691E;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #D2691E;
+            background: linear-gradient(135deg, #D2691E08, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(210, 105, 30, 0.1);
+            color: #D2691E;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #D2691E, #F4A460);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #D2691E;
+        }
+
+        .option.selected {
+            background: rgba(210, 105, 30, 0.1);
+            border-color: #D2691E;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #FFD700;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🦁</div>
+                <div class="logo-text">
+                    <h1>Lions at Lunchtime</h1>
+                    <p>Level 2 - Mary Pope Osborne의 매직 트리 하우스 11권</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="breadcrumb">
+                    <span>Lions at Lunchtime</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🦁</div>
+                    <div class="book-info">
+                        <h2>Lions at Lunchtime</h2>
+                        <div class="author">Mary Pope Osborne</div>
+                        <div class="book-summary">
+                            Jack and Annie travel to the African plains! They must help a Masai warrior find something that has been lost. On the hot savanna, they encounter lions, zebras, and other wild animals while learning about the importance of helping others and working together.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">10</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">50</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🌍 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Lions at Lunchtime</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1: Before Lunch</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Lions at Lunchtime</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1: Before Lunch</h3>
+            <p id="audio-chapter-subtitle">Lions at Lunchtime - Mary Pope Osborne</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #D2691E;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Magic Tree House 11권 도서 데이터 (10챕터)
+        const bookData = {
+            id: 'MTH011',
+            title: "Lions at Lunchtime",
+            author: 'Mary Pope Osborne',
+            cover: '🦁',
+            progress: 0,
+            chapters: 10,
+            totalQuestions: 50, // 10챕터 × 5문제
+            coverColor: 'linear-gradient(45deg, #D2691E, #F4A460)',
+            summary: "Jack and Annie travel to the African plains! They must help a Masai warrior find something that has been lost. On the hot savanna, they encounter lions, zebras, and other wild animals while learning about the importance of helping others and working together.",
+            chapterList: [
+                { title: 'Before Lunch', description: 'Jack and Annie prepare for their African adventure.', status: 'current', questionCount: 5, startTime: 0 },
+                { title: 'The Big Grassland', description: 'They arrive on the African savanna and see amazing wildlife.', status: 'locked', questionCount: 5, startTime: 300 },
+                { title: 'Crossing the Stream', description: 'They meet various animals while crossing a water source.', status: 'locked', questionCount: 5, startTime: 600 },
+                { title: 'Where Is Peanut?', description: 'They meet a young Masai boy searching for his missing goat.', status: 'locked', questionCount: 5, startTime: 900 },
+                { title: 'Honey Guide', description: 'A special bird helps guide them on their search.', status: 'locked', questionCount: 5, startTime: 1200 },
+                { title: 'Shadow of a Cloud', description: 'They hide from the hot sun and dangerous predators.', status: 'locked', questionCount: 5, startTime: 1500 },
+                { title: 'Lion Attack!', description: 'They face a dangerous encounter with hungry lions.', status: 'locked', questionCount: 5, startTime: 1800 },
+                { title: 'Run!', description: 'They must escape quickly with the help of the Masai boy.', status: 'locked', questionCount: 5, startTime: 2100 },
+                { title: 'The Masai Warrior', description: 'They meet a brave Masai warrior who teaches them.', status: 'locked', questionCount: 5, startTime: 2400 },
+                { title: 'Teddy\'s Gift', description: 'They return with a special gift and new wisdom.', status: 'locked', questionCount: 5, startTime: 2700 }
+            ]
+        };
+
+        // 문제 데이터 (전체 10챕터 완료)
+        const questionsData = {
+            0: [ // Chapter 1: Before Lunch
+                {
+                    passage: "Jack and Annie were eating lunch when they heard the sound of the tree house spinning above their backyard.",
+                    question: "What were Jack and Annie doing when they heard the tree house?",
+                    options: ["Playing games", "Eating lunch", "Reading books", "Watching TV"],
+                    correct: 1
+                },
+                {
+                    passage: "They ran to the tree house and found a note from Teddy and Kathleen asking them to help someone in need.",
+                    question: "Who had left a note for Jack and Annie?",
+                    options: ["Morgan le Fay", "Teddy and Kathleen", "Their parents", "A stranger"],
+                    correct: 1
+                },
+                {
+                    passage: "The note explained that they needed to find someone who had lost something very important to them.",
+                    question: "What did the note say they needed to find?",
+                    options: ["A treasure", "Someone who had lost something important", "A magic spell", "A new book"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack opened a book about Africa and saw pictures of lions, zebras, elephants, and the great savanna grasslands.",
+                    question: "What did Jack see in the book about Africa?",
+                    options: ["Modern cities", "Lions, zebras, elephants, and savanna grasslands", "Ocean creatures", "Snow-covered mountains"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie wished they could visit Africa and help whoever needed their assistance, and the tree house began to spin.",
+                    question: "What happened when Annie made her wish?",
+                    options: ["Nothing happened", "The tree house began to spin", "It started raining", "The book closed"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: The Big Grassland
+                {
+                    passage: "When the spinning stopped, Jack and Annie found themselves on a vast African savanna under the blazing hot sun.",
+                    question: "Where did Jack and Annie find themselves?",
+                    options: ["In a forest", "On a vast African savanna under hot sun", "By the ocean", "In a city"],
+                    correct: 1
+                },
+                {
+                    passage: "The grassland stretched as far as they could see, with scattered acacia trees providing the only shade.",
+                    question: "What provided the only shade on the grassland?",
+                    options: ["Big rocks", "Scattered acacia trees", "Buildings", "Mountains"],
+                    correct: 1
+                },
+                {
+                    passage: "In the distance, they could see herds of zebras and gazelles grazing peacefully in the golden grass.",
+                    question: "What animals did they see grazing in the distance?",
+                    options: ["Cows and horses", "Zebras and gazelles", "Dogs and cats", "Birds only"],
+                    correct: 1
+                },
+                {
+                    passage: "The air shimmered with heat waves, and Jack realized they would need to find water and shade soon.",
+                    question: "What did Jack realize they would need to find soon?",
+                    options: ["Food and shelter", "Water and shade", "Other people", "The way home"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie pointed to a line of green trees in the distance that marked where a stream flowed through the savanna.",
+                    question: "What did the line of green trees mark?",
+                    options: ["A road", "Where a stream flowed", "A village", "The end of the grassland"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: Crossing the Stream
+                {
+                    passage: "Jack and Annie walked carefully toward the stream, watching for dangerous animals that might be hiding in the grass.",
+                    question: "How did Jack and Annie approach the stream?",
+                    options: ["Running quickly", "Walking carefully and watching for dangerous animals", "Making lots of noise", "Following a path"],
+                    correct: 1
+                },
+                {
+                    passage: "At the water's edge, they saw a family of elephants drinking and spraying water on their backs to cool off.",
+                    question: "What did they see at the water's edge?",
+                    options: ["Lions hunting", "A family of elephants drinking and cooling off", "People swimming", "Nothing interesting"],
+                    correct: 1
+                },
+                {
+                    passage: "The elephants were gentle giants who paid no attention to Jack and Annie as they carefully crossed the shallow stream.",
+                    question: "How did the elephants behave toward Jack and Annie?",
+                    options: ["They chased them away", "They paid no attention as gentle giants", "They attacked them", "They followed them"],
+                    correct: 1
+                },
+                {
+                    passage: "On the other side of the stream, they heard the sound of someone crying and calling for help.",
+                    question: "What did they hear on the other side of the stream?",
+                    options: ["Animals roaring", "Someone crying and calling for help", "Music playing", "Nothing at all"],
+                    correct: 1
+                },
+                {
+                    passage: "Following the sound, they discovered a young boy sitting under a tree, looking very worried and upset.",
+                    question: "Who did they find sitting under a tree?",
+                    options: ["An adult man", "A young boy looking worried and upset", "An old woman", "No one"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: Where Is Peanut?
+                {
+                    passage: "The young boy was a Masai child wearing traditional red clothing and beaded jewelry, tears streaming down his face.",
+                    question: "What did the young boy look like?",
+                    options: ["He wore modern clothes", "A Masai child in traditional red clothing and beads", "He was dressed like a cowboy", "He wore all black"],
+                    correct: 1
+                },
+                {
+                    passage: "He told Jack and Annie that his name was Kesi and that he had lost his beloved goat named Peanut.",
+                    question: "What was the boy's name and what had he lost?",
+                    options: ["His name was Tom and he lost his dog", "His name was Kesi and he lost his goat Peanut", "His name was Sam and he lost his cow", "His name was Joe and he lost his sheep"],
+                    correct: 1
+                },
+                {
+                    passage: "Peanut was not just any goat - she was Kesi's family's most precious possession and provided milk for his little sister.",
+                    question: "Why was Peanut so important to Kesi's family?",
+                    options: ["She was just a pet", "She was their most precious possession and provided milk", "She was very old", "She was the biggest goat"],
+                    correct: 1
+                },
+                {
+                    passage: "Kesi explained that Peanut had wandered away during the night and he had been searching for her since dawn.",
+                    question: "When had Peanut disappeared and how long had Kesi been searching?",
+                    options: ["That morning, for one hour", "During the night, and he'd been searching since dawn", "The day before, for two days", "Just now, for a few minutes"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie immediately offered to help Kesi find Peanut, understanding how important she was to his family.",
+                    question: "What did Jack and Annie offer to do?",
+                    options: ["Give him money", "Help Kesi find Peanut", "Take him home", "Find his parents"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: Honey Guide
+                {
+                    passage: "As they began searching for Peanut, a small bird with bright feathers appeared and began chirping loudly at them.",
+                    question: "What appeared as they began searching?",
+                    options: ["A large animal", "A small bird with bright feathers chirping loudly", "Another person", "A snake"],
+                    correct: 1
+                },
+                {
+                    passage: "Kesi became excited and told them it was a honey guide bird, known for helping people find things they were looking for.",
+                    question: "What kind of bird was it according to Kesi?",
+                    options: ["A regular bird", "A honey guide bird that helps people find things", "A dangerous bird", "A singing bird"],
+                    correct: 1
+                },
+                {
+                    passage: "The honey guide flew ahead of them, stopping frequently to make sure they were following its lead through the grassland.",
+                    question: "How did the honey guide bird behave?",
+                    options: ["It flew away quickly", "It flew ahead, stopping to make sure they followed", "It sat still", "It ignored them"],
+                    correct: 1
+                },
+                {
+                    passage: "Following the bird, they walked deeper into the savanna, past herds of wildebeest and graceful giraffes.",
+                    question: "What animals did they pass while following the bird?",
+                    options: ["Lions and tigers", "Wildebeest and graceful giraffes", "Horses and cows", "Only birds"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack began to worry that they were getting too far from the tree house, but Annie reminded him they were helping someone in need.",
+                    question: "What was Jack worried about and how did Annie respond?",
+                    options: ["Getting lost; Annie was scared too", "Getting too far from tree house; Annie reminded him they were helping", "The heat; Annie agreed", "Wild animals; Annie wanted to go back"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6: Shadow of a Cloud
+                {
+                    passage: "The hot African sun was beating down mercilessly, and all four of them were getting very tired and thirsty.",
+                    question: "How were Jack, Annie, and Kesi feeling in the hot sun?",
+                    options: ["Cool and refreshed", "Very tired and thirsty", "Energetic and happy", "Cold and shivering"],
+                    correct: 1
+                },
+                {
+                    passage: "Suddenly, a large cloud passed over the sun, casting a blessed shadow that provided relief from the scorching heat.",
+                    question: "What provided relief from the scorching heat?",
+                    options: ["A tree", "A large cloud casting shadow", "A building", "Rain"],
+                    correct: 1
+                },
+                {
+                    passage: "They rested in the cloud's shadow, sharing water from Kesi's gourd and watching the honey guide wait patiently for them.",
+                    question: "What did they do while resting in the shadow?",
+                    options: ["Took a nap", "Shared water from Kesi's gourd and watched the bird", "Ate food", "Played games"],
+                    correct: 1
+                },
+                {
+                    passage: "Kesi told them stories about his life as a Masai boy, including how his people lived with the animals of the savanna.",
+                    question: "What did Kesi tell them about during their rest?",
+                    options: ["Scary stories", "Stories about his life as a Masai boy and living with animals", "Jokes", "Nothing"],
+                    correct: 1
+                },
+                {
+                    passage: "When the cloud moved on, they reluctantly left the shade and continued following the honey guide across the grassland.",
+                    question: "What did they do when the cloud moved on?",
+                    options: ["Stayed where they were", "Reluctantly left shade and continued following the bird", "Went back", "Gave up searching"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7: Lion Attack!
+                {
+                    passage: "Suddenly, the honey guide let out a warning cry and flew high into the air, leaving them alone on the open grassland.",
+                    question: "What did the honey guide do that worried them?",
+                    options: ["Started singing", "Let out a warning cry and flew high up", "Disappeared completely", "Led them in circles"],
+                    correct: 1
+                },
+                {
+                    passage: "In the distance, they saw a pride of lions moving slowly through the grass, their golden fur almost invisible in the tall stalks.",
+                    question: "What dangerous animals did they see in the distance?",
+                    options: ["Elephants", "A pride of lions with golden fur", "Zebras", "Giraffes"],
+                    correct: 1
+                },
+                {
+                    passage: "Kesi whispered urgently that they needed to stay very still and quiet, as the lions were hunting and looking for prey.",
+                    question: "What did Kesi tell them to do when they saw the lions?",
+                    options: ["Run away quickly", "Stay very still and quiet", "Make noise to scare them", "Climb a tree"],
+                    correct: 1
+                },
+                {
+                    passage: "The largest lion, a magnificent male with a full mane, lifted his head and sniffed the air, sensing their presence.",
+                    question: "What did the largest male lion do?",
+                    options: ["Ignored them", "Lifted his head and sniffed the air", "Walked away", "Started roaring"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack's heart pounded as the lion began walking slowly in their direction, its powerful muscles rippling under its fur.",
+                    question: "What made Jack's heart pound?",
+                    options: ["Running too fast", "The lion walking slowly toward them", "The heat", "Being lost"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: Run!
+                {
+                    passage: "Just when it seemed the lion would reach them, they heard a familiar bleating sound coming from nearby rocks.",
+                    question: "What sound did they hear from nearby rocks?",
+                    options: ["Roaring", "A familiar bleating sound", "Singing", "Crying"],
+                    correct: 1
+                },
+                {
+                    passage: "Kesi's face lit up with joy as he recognized the sound - it was Peanut, hiding behind the rocks from the lions!",
+                    question: "Why was Kesi suddenly joyful?",
+                    options: ["The lions left", "He recognized Peanut's bleating behind the rocks", "Help arrived", "They found water"],
+                    correct: 1
+                },
+                {
+                    passage: "Kesi whispered to Jack and Annie that they needed to create a distraction so he could rescue Peanut from the rocks.",
+                    question: "What did Kesi whisper they needed to do?",
+                    options: ["Hide and wait", "Create a distraction so he could rescue Peanut", "Run away together", "Call for help"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie bravely picked up a stick and started waving it in the air, while Jack clapped his hands to get the lions' attention.",
+                    question: "How did Annie and Jack create a distraction?",
+                    options: ["They hid quietly", "Annie waved a stick and Jack clapped his hands", "They threw rocks", "They shouted loudly"],
+                    correct: 1
+                },
+                {
+                    passage: "While the lions were focused on Jack and Annie, Kesi quickly ran to the rocks and scooped up Peanut in his arms.",
+                    question: "What did Kesi do while the lions were distracted?",
+                    options: ["He ran away", "He quickly rescued Peanut from the rocks", "He hid", "He climbed a tree"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9: The Masai Warrior
+                {
+                    passage: "Just as the lions started moving toward Jack and Annie, a tall Masai warrior appeared, carrying a spear and shield.",
+                    question: "Who appeared just as the lions approached Jack and Annie?",
+                    options: ["A park ranger", "A tall Masai warrior with spear and shield", "Another child", "A tourist"],
+                    correct: 1
+                },
+                {
+                    passage: "The warrior made loud, rhythmic sounds and stamped his feet, using traditional methods to frighten the lions away.",
+                    question: "How did the warrior frighten the lions?",
+                    options: ["He used a gun", "He made loud, rhythmic sounds and stamped his feet", "He threw rocks", "He ran at them"],
+                    correct: 1
+                },
+                {
+                    passage: "The lions, recognizing the warrior's authority and bravery, slowly backed away and disappeared into the grassland.",
+                    question: "How did the lions react to the warrior?",
+                    options: ["They attacked him", "They recognized his authority and backed away", "They ignored him", "They became friendlier"],
+                    correct: 1
+                },
+                {
+                    passage: "The warrior introduced himself as Kesi's father and thanked Jack and Annie for helping his son find Peanut.",
+                    question: "Who was the warrior and what did he thank Jack and Annie for?",
+                    options: ["A stranger; nothing", "Kesi's father; helping his son find Peanut", "A teacher; being brave", "A guide; following directions"],
+                    correct: 1
+                },
+                {
+                    passage: "He explained that the Masai people believe in helping others and that Jack and Annie had shown true courage and kindness.",
+                    question: "What did the warrior say about Jack and Annie?",
+                    options: ["They were foolish", "They had shown true courage and kindness", "They should go home", "They were lucky"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: Teddy's Gift
+                {
+                    passage: "Back at the tree house, Jack and Annie found a gift from Teddy and Kathleen - a beautiful Masai necklace made of colorful beads.",
+                    question: "What gift did Teddy and Kathleen leave for Jack and Annie?",
+                    options: ["A book", "A beautiful Masai necklace made of colorful beads", "Food", "Money"],
+                    correct: 1
+                },
+                {
+                    passage: "A note explained that the necklace was a symbol of courage and friendship, representing their willingness to help others in need.",
+                    question: "What did the note say the necklace represented?",
+                    options: ["Good luck", "Courage and friendship", "Wisdom", "Adventure"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie realized they had learned an important lesson about how helping others can be dangerous but is always worth doing.",
+                    question: "What lesson did Jack and Annie learn?",
+                    options: ["Always avoid danger", "Helping others can be dangerous but is always worth doing", "Stay close to home", "Only help family"],
+                    correct: 1
+                },
+                {
+                    passage: "They also learned about the Masai people's respect for animals and their deep connection to the African savanna.",
+                    question: "What did they learn about the Masai people?",
+                    options: ["They don't like animals", "Their respect for animals and connection to the savanna", "They live in cities", "They are always fighting"],
+                    correct: 1
+                },
+                {
+                    passage: "As they placed the necklace carefully in their room, they felt proud of their adventure and the new friends they had made.",
+                    question: "How did Jack and Annie feel about their adventure?",
+                    options: ["Scared and worried", "Proud of their adventure and new friends", "Disappointed", "Confused"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 자동 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const level = 'level2';
+            const bookId = 'MTH011';
+            const chapterNum = String(chapterIndex + 1).padStart(2, '0');
+            
+            const possibleFileNames = [
+                `${bookId}_chapter${chapterNum}.mp3`,
+                `${bookId}_ch${chapterNum}.mp3`,
+                `${bookId}_${chapterNum}.mp3`,
+                `magic_tree_house_11_chapter${chapterNum}.mp3`,
+                `magic_tree_house_11_ch${chapterNum}.mp3`,
+                `lions_at_lunchtime_${chapterNum}.mp3`,
+                `mary_pope_osborne_11_chapter${chapterNum}.mp3`,
+                `${bookId}.mp3`
+            ];
+            
+            return {
+                primary: `${AUDIO_BASE_URL}${level}/${possibleFileNames[0]}`,
+                alternatives: possibleFileNames.map(fileName => `${AUDIO_BASE_URL}${level}/${fileName}`)
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioUrls = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+            // 오디오 정보 영역 다시 보이기 (새로운 오디오 플레이시)
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 찾는 중...';
+
+            function tryLoadAudio(urlIndex = 0) {
+                if (urlIndex >= audioUrls.alternatives.length) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.`;
+                    return;
+                }
+
+                const currentUrl = audioUrls.alternatives[urlIndex];
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    const startTime = chapter.startTime || 0;
+                    audioPlayer.currentTime = startTime;
+                    audioStatus.innerHTML = `✅ 오디오 준비 완료!`;
+                };
+
+                const errorHandler = function() {
+                    setTimeout(() => tryLoadAudio(urlIndex + 1), 100);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+                audioPlayer.addEventListener('error', errorHandler, { once: true });
+            }
+
+            tryLoadAudio(0);
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 기본 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            const currentChapter = parseInt(document.getElementById('audio-chapter-title').textContent.match(/Chapter (\d+)/)[1]) - 1;
+            currentAudio.currentTime = bookData.chapterList[currentChapter]?.startTime || 0;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>Chapter ${index + 1}: ${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progress = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex];
+
+            if (!questions || questions.length === 0) {
+                alert('이 챕터의 문제가 아직 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('learning-chapter-breadcrumb').textContent = `Chapter ${chapterIndex + 1}`;
+
+            showQuestion();
+            updateLearningProgress();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="question-text">문제 ${currentQuestionIndex + 1}</div>
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) selectedOption.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        // 선택지 선택
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`[data-index="${optionIndex}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateNavigationButtons();
+        }
+
+        // 네비게이션
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function updateLearningProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = progress + '%';
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+                if (currentChapterIndex < bookData.chapterList.length - 1) {
+                    bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                }
+            }
+
+            showResults(correctCount, questions.length, score);
+        }
+
+        // 결과 표시
+        function showResults(correct, total, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = score + '%';
+            document.getElementById('total-questions').textContent = total + '문제';
+            document.getElementById('correct-answers').textContent = correct + '문제';
+            document.getElementById('wrong-answers').textContent = (total - correct) + '문제';
+            document.getElementById('final-score').textContent = score + '점';
+
+            let message = '';
+            if (score >= 90) message = '훌륭합니다! 🌟';
+            else if (score >= 80) message = '잘했어요! 👏';
+            else if (score >= 70) message = '좋아요! 👍';
+            else message = '다시 한번 도전해보세요! 💪';
+
+            document.getElementById('result-message').textContent = message;
+        }
+
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        function nextChapter() {
+            if (currentChapterIndex < bookData.chapterList.length - 1) {
+                startLearning(currentChapterIndex + 1);
+            } else {
+                alert('모든 챕터를 완료했습니다! 🎉');
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드
+        window.addEventListener('load', function() {
+            showBookDetail();
+            console.log('🦁 Magic Tree House: Lions at Lunchtime 학습 시스템이 준비되었습니다!');
+        });
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('audio-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeAudioModal();
+        });
+    </script>
+</body>
+</html>

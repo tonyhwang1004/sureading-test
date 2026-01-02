@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Crazy Summer - Level 4 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #FF6B6B;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #FF6B6B;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #FF6B6B;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF6B6B;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #FF6B6B;
+            background: linear-gradient(135deg, #FF6B6B08, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(255, 107, 107, 0.1);
+            color: #FF6B6B;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #4ECDC4, #45B7D1);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B6B, #4ECDC4);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #FF6B6B;
+        }
+
+        .option.selected {
+            background: rgba(255, 107, 107, 0.1);
+            border-color: #FF6B6B;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #4ECDC4;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* Level 4 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🌞</div>
+                <div class="logo-text">
+                    <h1>One Crazy Summer</h1>
+                    <p>Level 4 - Rita Williams-Garcia의 뉴베리 메달 수상작</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 4</div>
+                <div class="breadcrumb">
+                    <span>One Crazy Summer</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🌞</div>
+                    <div class="book-info">
+                        <h2>One Crazy Summer</h2>
+                        <div class="author">Rita Williams-Garcia</div>
+                        <div class="book-summary">
+                            In 1968, eleven-year-old Delphine and her two younger sisters, Vonetta and Fern, travel from Brooklyn to Oakland, California, to spend the summer with their estranged mother, Cecile. They discover that their mother, who goes by the name Nzila, is involved with the Black Panthers and sends them to a day camp run by the organization. This powerful 2011 Newbery Honor and Coretta Scott King Award winner tells a story of family, identity, and the civil rights movement through the eyes of a young girl.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">33</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">165</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 4</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🌞 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">One Crazy Summer</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">One Crazy Summer</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">One Crazy Summer - Rita Williams-Garcia</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #FF6B6B;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+// 🌞 One Crazy Summer 4개 음원 파일별 시간 매핑
+const oneCrazySummerTimeMapping = {
+    // 음원 01 (9개 챕터)
+    "01": {
+        1: { title: "Cassius Clay Clouds", startTime: 17, endTime: 646, duration: 629 }, // 17초~10분46초
+        2: { title: "Golden Gate Bridge", startTime: 646, endTime: 1053, duration: 407 }, // 10분46초~17분33초
+        3: { title: "Secret Agent Mother", startTime: 1053, endTime: 1945, duration: 892 }, // 17분33초~32분25초
+        4: { title: "Green Stucco House", startTime: 1945, endTime: 2542, duration: 597 }, // 32분25초~42분22초
+        5: { title: "Mean Lady Ming", startTime: 2542, endTime: 3230, duration: 688 }, // 42분22초~53분50초
+        6: { title: "Collect Call", startTime: 3230, endTime: 3594, duration: 364 }, // 53분50초~59분54초
+        7: { title: "For the People", startTime: 3594, endTime: 4106, duration: 512 }, // 59분54초~1시간8분26초
+        8: { title: "Glass of Water", startTime: 4106, endTime: 4669, duration: 563 }, // 1시간8분26초~1시간17분49초
+        9: { title: "Inseparable", startTime: 4669, endTime: 4669, duration: 0 } // 1시간17분49초 (음원02로 넘어감)
+    },
+
+    // 음원 02 (8개 챕터)
+    "02": {
+        10: { title: "Breakfast Program", startTime: 327, endTime: 812, duration: 485 }, // 5분27초~13분32초
+        11: { title: "Even the Earth Is a Revolutionary", startTime: 812, endTime: 1374, duration: 562 }, // 13분32초~22분54초
+        12: { title: "Crazy Mother Mountain", startTime: 1374, endTime: 1785, duration: 411 }, // 22분54초~29분45초
+        13: { title: "Everyone Knows the King of the Sea", startTime: 1785, endTime: 2307, duration: 522 }, // 29분45초~38분27초
+        14: { title: "Coloring and La-La", startTime: 2307, endTime: 3152, duration: 845 }, // 38분27초~52분32초
+        15: { title: "Counting and Skimming", startTime: 3152, endTime: 3768, duration: 616 }, // 52분32초~1시간2분48초
+        16: { title: "Big Red S", startTime: 3768, endTime: 4640, duration: 872 }, // 1시간2분48초~1시간17분20초
+        17: { title: "China Who", startTime: 4640, endTime: 4640, duration: 0 } // 1시간17분20초 (음원03으로 넘어감)
+    },
+
+    // 음원 03 (9개 챕터)
+    "03": {
+        18: { title: "Expert Colored Counting", startTime: 262, endTime: 694, duration: 432 }, // 4분22초~11분34초
+        19: { title: "Civic Pride", startTime: 694, endTime: 1104, duration: 410 }, // 11분34초~18분24초
+        20: { title: "Rally for Bobby", startTime: 1104, endTime: 1855, duration: 751 }, // 18분24초~30분55초
+        21: { title: "Eating Crow", startTime: 1855, endTime: 2339, duration: 484 }, // 30분55초~38분59초
+        22: { title: "Itsy Bitsy Spider", startTime: 2339, endTime: 2828, duration: 489 }, // 38분59초~47분8초
+        23: { title: "Movable Type", startTime: 2828, endTime: 3242, duration: 414 }, // 47분8초~54분2초
+        24: { title: "San Francisco Treat", startTime: 3242, endTime: 3872, duration: 630 }, // 54분2초~1시간4분32초
+        25: { title: "Wish We Had a Camera", startTime: 3872, endTime: 4710, duration: 838 }, // 1시간4분32초~1시간18분30초
+        26: { title: "The Clark Sisters", startTime: 4710, endTime: 4710, duration: 0 } // 1시간18분30초 (음원04로 넘어감)
+    },
+
+    // 음원 04 (6개 챕터)
+    "04": {
+        27: { title: "I Birthed a Nation", startTime: 373, endTime: 868, duration: 495 }, // 6분13초~14분28초
+        28: { title: "Stories of the No Sayers", startTime: 868, endTime: 1405, duration: 537 }, // 14분28초~23분25초
+        29: { title: "Glorious Hill", startTime: 1405, endTime: 1962, duration: 557 }, // 23분25초~32분42초
+        30: { title: "The Third Thing", startTime: 1962, endTime: 2961, duration: 999 }, // 32분42초~49분21초
+        31: { title: "Be Eleven", startTime: 2961, endTime: 3598, duration: 637 }, // 49분21초~59분58초
+        32: { title: "Afua", startTime: 3598, endTime: 4058, duration: 460 } // 59분58초~1시간7분38초
+    }
+};;
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+    // One Crazy Summer 오디오 URL 생성 함수 (4개 파일)
+function getAudioUrl(chapterIndex) {
+    const chapterNumber = chapterIndex + 1;
+    let fileNumber, fileName, chapterMapping;
+
+    // 챕터별 파일 매핑 (수정된 버전)
+    if (chapterNumber >= 1 && chapterNumber <= 9) {        // ✅ 9개 챕터
+        fileNumber = "01";
+        chapterMapping = oneCrazySummerTimeMapping["01"][chapterNumber];
+    } else if (chapterNumber >= 10 && chapterNumber <= 17) { // ✅ 8개 챕터 (10-17)
+        fileNumber = "02";
+        chapterMapping = oneCrazySummerTimeMapping["02"][chapterNumber];
+    } else if (chapterNumber >= 18 && chapterNumber <= 26) { // ✅ 9개 챕터 (18-26)
+        fileNumber = "03";
+        chapterMapping = oneCrazySummerTimeMapping["03"][chapterNumber];
+    } else if (chapterNumber >= 27 && chapterNumber <= 32) { // ✅ 6개 챕터 (27-32)
+        fileNumber = "04";
+        chapterMapping = oneCrazySummerTimeMapping["04"][chapterNumber];
+    } else {
+        // 범위를 벗어난 경우 기본값
+        fileNumber = "01";
+        chapterMapping = { startTime: 0 };
+    }
+
+    fileName = `${fileNumber}_One Crazy Summer.mp3`;
+
+    return {
+        primary: `${AUDIO_BASE_URL}OCS001_One_Crazy_Summer/${fileName}`,
+        startTime: chapterMapping?.startTime || 0,
+        alternatives: [`${AUDIO_BASE_URL}OCS001_One_Crazy_Summer/${fileName}`]
+    };
+}
+        // One Crazy Summer 도서 데이터 (33챕터 모두 포함 - 실제 챕터 제목 사용)
+        const bookData = {
+            id: 'OCS001',
+            title: "One Crazy Summer",
+            author: 'Rita Williams-Garcia',
+            cover: '🌞',
+            progress: 0,
+            chapters: 33,
+            totalQuestions: 165,
+            coverColor: 'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
+            summary: "In 1968, eleven-year-old Delphine and her two younger sisters, Vonetta and Fern, travel from Brooklyn to Oakland, California, to spend the summer with their estranged mother, Cecile. They discover that their mother, who goes by the name Nzila, is involved with the Black Panthers and sends them to a day camp run by the organization. This powerful 2011 Newbery Honor and Coretta Scott King Award winner tells a story of family, identity, and the civil rights movement through the eyes of a young girl.",
+            chapterList: [
+                { title: 'Cassius Clay Clouds', description: 'Delphine and her sisters prepare to visit their mother in Oakland after seven years apart.', status: 'current', questionCount: 5 },
+                { title: 'Golden Gate Bridge', description: 'The girls arrive in Oakland and meet their distant mother, Cecile.', status: 'current', questionCount: 5 },
+                { title: 'Secret Agent Mother', description: 'Cecile sends the girls to a Black Panther summer camp instead of spending time with them.', status: 'current', questionCount: 5 },
+                { title: 'Green Stucco House', description: 'The girls attend their first day at the People\'s Center summer camp.', status: 'current', questionCount: 5 },
+                { title: 'Mean Lady Ming', description: 'Delphine learns about the Black Panthers and their breakfast program.', status: 'current', questionCount: 5 },
+                { title: 'Collect Call', description: 'The girls participate in camp activities and learn about African American pride.', status: 'current', questionCount: 5 },
+                { title: 'For the People', description: 'Vonetta gets in trouble at camp for her behavior.', status: 'current', questionCount: 5 },
+                { title: 'Glass of Water', description: 'Delphine tries to understand her mother\'s involvement with the Panthers.', status: 'current', questionCount: 5 },
+                { title: 'Inseparable', description: 'The girls learn about the assassination of Martin Luther King Jr.', status: 'current', questionCount: 5 },
+                { title: 'Breakfast Program', description: 'Cecile explains her reasons for abandoning her daughters years ago.', status: 'current', questionCount: 5 },
+                { title: 'Even the Earth Is a Revolutionary', description: 'The girls attend a Black Panther rally and witness the community\'s solidarity.', status: 'current', questionCount: 5 },
+                { title: 'Crazy Mother Mountain', description: 'Delphine begins to understand the historical context of the civil rights movement.', status: 'current', questionCount: 5 },
+                { title: 'Everyone Knows the King of the Sea', description: 'The girls learn about African culture and heritage at camp.', status: 'current', questionCount: 5 },
+                { title: 'Coloring and La-La', description: 'Fern struggles with understanding the adult conversations around her.', status: 'current', questionCount: 5 },
+                { title: 'Counting and Skimming', description: 'Delphine takes on more responsibility for her younger sisters.', status: 'current', questionCount: 5 },
+                { title: 'Big Red S', description: 'The girls experience their first taste of activism and protest.', status: 'current', questionCount: 5 },
+                { title: 'China Who', description: 'Cecile slowly begins to open up to her daughters.', status: 'current', questionCount: 5 },
+                { title: 'Expert Colored Counting', description: 'The girls learn about the importance of community and mutual support.', status: 'current', questionCount: 5 },
+                { title: 'Civic Pride', description: 'Vonetta and Fern begin to understand their place in the movement.', status: 'current', questionCount: 5 },
+                { title: 'Rally for Bobby', description: 'Delphine confronts her feelings about her absent mother.', status: 'current', questionCount: 5 },
+                { title: 'Eating Crow', description: 'The girls participate in a community service project.', status: 'current', questionCount: 5 },
+                { title: 'Itsy Bitsy Spider', description: 'Cecile shares stories about her past and her reasons for leaving.', status: 'current', questionCount: 5 },
+                { title: 'Movable Type', description: 'The sisters learn about the power of their voices and opinions.', status: 'current', questionCount: 5 },
+                { title: 'San Francisco Treat', description: 'A conflict arises between the girls and other camp participants.', status: 'current', questionCount: 5 },
+                { title: 'Wish We Had a Camera', description: 'Delphine mediates between her sisters and helps resolve the conflict.', status: 'current', questionCount: 5 },
+                { title: 'The Clark Sisters', description: 'The girls witness the strength and resilience of their community.', status: 'current', questionCount: 5 },
+                { title: 'I Birthed a Nation', description: 'Cecile begins to show more maternal feelings toward her daughters.', status: 'current', questionCount: 5 },
+                { title: 'Stories of the No Sayers', description: 'The girls prepare for a final presentation at the end of camp.', status: 'current', questionCount: 5 },
+                { title: 'Glorious Hill', description: 'The sisters perform together and showcase what they\'ve learned.', status: 'current', questionCount: 5 },
+                { title: 'The Third Thing', description: 'Delphine reflects on how much she and her sisters have grown.', status: 'current', questionCount: 5 },
+                { title: 'Be Eleven', description: 'The family begins to heal and form stronger bonds.', status: 'current', questionCount: 5 },
+                { title: 'Afua', description: 'The girls prepare to return to Brooklyn with new understanding.', status: 'current', questionCount: 5 },
+                { title: 'One Crazy Summer', description: 'The sisters leave Oakland forever changed by their summer experience.', status: 'current', questionCount: 5 }
+            ]
+        };
+
+        // 샘플 문제 데이터 (Chapter 1-3만 작성, 나머지는 구조만 제공)
+        const questionsData = {
+            0: [ // Chapter 1: Cassius Clay Clouds
+                {
+                    passage: "Delphine had been the one to pick up the phone when Big Ma called to say their mother wanted them to come to Oakland for the summer.",
+                    question: "Who received the phone call about visiting their mother?",
+                    options: ["Vonetta", "Delphine", "Fern", "Big Ma"],
+                    correct: 1
+                },
+                {
+                    passage: "It had been seven years since they had seen Cecile, their mother, who had left them in Brooklyn when Delphine was four.",
+                    question: "How long had it been since the girls saw their mother?",
+                    options: ["Five years", "Six years", "Seven years", "Eight years"],
+                    correct: 2
+                },
+                {
+                    passage: "Pa didn't want them to go, but Big Ma said it was important for them to know their mother.",
+                    question: "Who wanted the girls to visit their mother?",
+                    options: ["Pa", "Big Ma", "Uncle Darnell", "Their teacher"],
+                    correct: 1
+                },
+                {
+                    passage: "Delphine felt responsible for her younger sisters, Vonetta and Fern, especially during the long flight to California.",
+                    question: "What did Delphine feel during the trip?",
+                    options: ["Excited", "Scared", "Responsible for her sisters", "Angry"],
+                    correct: 2
+                },
+                {
+                    passage: "The year was 1968, and many things were changing in America, especially for Black people.",
+                    question: "In what year does the story take place?",
+                    options: ["1967", "1968", "1969", "1970"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: Golden Gate Bridge
+                {
+                    passage: "When they arrived in Oakland, Cecile was not at all what they expected - she was distant and seemed uncomfortable with her daughters' presence.",
+                    question: "How did Cecile behave when her daughters arrived?",
+                    options: ["She was very welcoming", "She was distant and uncomfortable", "She cried with joy", "She wasn't there"],
+                    correct: 1
+                },
+                {
+                    passage: "Cecile told them to call her by her name, not 'Mother' or 'Mama', which confused and hurt the girls.",
+                    question: "What did Cecile want her daughters to call her?",
+                    options: ["Mama", "Mother", "By her name, Cecile", "Nothing"],
+                    correct: 2
+                },
+                {
+                    passage: "The house was small and sparse, with very little food and no signs that Cecile had prepared for their visit.",
+                    question: "What was Cecile's house like?",
+                    options: ["Large and welcoming", "Small and sparse with little preparation", "Beautifully decorated", "Full of toys and games"],
+                    correct: 1
+                },
+                {
+                    passage: "Delphine realized that their mother had not changed much since leaving them - she was still focused on her own life.",
+                    question: "What did Delphine realize about her mother?",
+                    options: ["She had changed completely", "She was exactly as Delphine remembered", "She hadn't changed much and was still self-focused", "She was very different now"],
+                    correct: 2
+                },
+                {
+                    passage: "The girls tried to make the best of the situation, but it was clear this would not be the family reunion they had imagined.",
+                    question: "How did the girls feel about their reunion?",
+                    options: ["It was exactly what they expected", "It was better than imagined", "It was not the family reunion they had imagined", "They were completely happy"],
+                    correct: 2
+                }
+            ],
+            2: [ // Chapter 3: Secret Agent Mother
+                {
+                    passage: "Instead of spending time with her daughters, Cecile announced that they would be going to a summer camp run by the Black Panthers.",
+                    question: "Where did Cecile want to send her daughters?",
+                    options: ["To a regular summer camp", "To a Black Panther summer camp", "Back to Brooklyn", "To stay with relatives"],
+                    correct: 1
+                },
+                {
+                    passage: "The girls had never heard of the Black Panthers and didn't understand why their mother wanted them to go to their camp.",
+                    question: "What did the girls know about the Black Panthers?",
+                    options: ["They knew everything about them", "They had heard a little", "They had never heard of them", "They were afraid of them"],
+                    correct: 2
+                },
+                {
+                    passage: "Cecile explained that the camp would teach them about their heritage and help them understand their identity as Black children.",
+                    question: "According to Cecile, what would the camp teach the girls?",
+                    options: ["Only reading and math", "About their heritage and Black identity", "How to cook", "Sports and games"],
+                    correct: 1
+                },
+                {
+                    passage: "Delphine was upset that their mother was sending them away instead of spending the summer getting to know them.",
+                    question: "How did Delphine feel about going to camp?",
+                    options: ["Very excited", "Upset that they were being sent away", "Completely happy", "Indifferent"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite their disappointment, the girls had no choice but to go to the People's Center where the camp was held.",
+                    question: "What was the name of the place where camp was held?",
+                    options: ["The Community Center", "The People's Center", "The Black Center", "The Youth Center"],
+                    correct: 1
+                }
+            ]
+            // 나머지 챕터들 (3-32)은 구조만 제공 - 실제로는 각 챕터마다 5개씩 문제 필요
+        };
+
+        // 오디오 재생 함수 - 개선된 에러 처리 및 다중 URL 시도
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioData = getAudioUrl(chapterIndex);
+
+            if (!audioData) {
+                alert('오디오 데이터를 찾을 수 없습니다.');
+                return;
+            }
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = chapter.title;
+            document.getElementById('audio-chapter-subtitle').textContent = `Chapter ${chapterIndex + 1} - ${bookData.title}`;
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+            let urlIndex = 0;
+            const urlsToTry = [audioData.primary, ...audioData.alternatives];
+
+            function tryLoadAudio() {
+                if (urlIndex >= urlsToTry.length) {
+                    audioStatus.innerHTML = '❌ 모든 오디오 URL에서 파일을 찾을 수 없습니다.<br>파일명: ' + urlsToTry[0].split('/').pop();
+                    console.error('모든 오디오 URL 시도 실패:', urlsToTry);
+                    return;
+                }
+
+                const currentUrl = urlsToTry[urlIndex];
+                console.log(`🎵 오디오 URL 시도 ${urlIndex + 1}/${urlsToTry.length}:`, currentUrl);
+
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    console.log('✅ 오디오 로드 성공:', currentUrl);
+
+                    // 시간 점프
+                    audioPlayer.currentTime = audioData.startTime;
+
+                    const minutes = Math.floor(audioData.startTime / 60);
+                    const seconds = Math.floor(audioData.startTime % 60);
+                    const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                    audioStatus.innerHTML = `✅ ${chapter.title} 로드 완료! (${timeDisplay}부터)`;
+
+                    audioPlayer.play().then(() => {
+                        audioStatus.innerHTML = `🎵 ${chapter.title} 재생 중! (${timeDisplay}부터)`;
+                        document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                    }).catch(e => {
+                        console.log('자동 재생 차단됨:', e);
+                        audioStatus.innerHTML = `✅ ${chapter.title} 준비됨! ▶️ 재생 버튼을 눌러주세요`;
+                    });
+
+                    // 이벤트 리스너 제거
+                    audioPlayer.removeEventListener('canplaythrough', successHandler);
+                    audioPlayer.removeEventListener('error', errorHandler);
+                };
+
+                const errorHandler = function(e) {
+                    console.error(`❌ 오디오 로드 실패 (${urlIndex + 1}/${urlsToTry.length}):`, currentUrl, e);
+
+                    // 이벤트 리스너 제거
+                    audioPlayer.removeEventListener('canplaythrough', successHandler);
+                    audioPlayer.removeEventListener('error', errorHandler);
+
+                    // 다음 URL 시도
+                    urlIndex++;
+                    setTimeout(tryLoadAudio, 500);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+                audioPlayer.addEventListener('error', errorHandler, { once: true });
+            }
+
+            // 첫 번째 URL부터 시도 시작
+            tryLoadAudio();
+
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 구간처음으로 함수 (현재 챕터 시작점으로)
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+
+            // 현재 챕터 제목으로 인덱스 찾기
+            const chapterTitle = document.getElementById('audio-chapter-title').textContent;
+            const currentChapterIndex = bookData.chapterList.findIndex(chapter => chapter.title === chapterTitle);
+
+            if (currentChapterIndex !== -1) {
+                const chapterData = oneCrazySummerTimeMapping[currentChapterIndex];
+                if (chapterData) {
+                    currentAudio.currentTime = chapterData.startTime;
+
+                    const minutes = Math.floor(chapterData.startTime / 60);
+                    const seconds = Math.floor(chapterData.startTime % 60);
+                    const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                    console.log(`🔄 ${chapterTitle} 시작점으로 이동: ${timeDisplay} (File ${chapterData.file})`);
+                }
+            }
+        }
+
+        // 기본 오디오 컨트롤 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #FF6B6B, #4ECDC4)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>

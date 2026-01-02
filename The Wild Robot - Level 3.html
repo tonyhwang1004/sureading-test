@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wild Robot - Level 3 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #228B22 0%, #32CD32 50%, #98FB98 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #228B22;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #228B22;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #228B22, #32CD32);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #228B22;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #228B22;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #228B22;
+            background: linear-gradient(135deg, #228B2208, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(34, 139, 34, 0.1);
+            color: #228B22;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .chapter-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #32CD32, #98FB98);
+            color: #333;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #228B22, #32CD32);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #228B22;
+        }
+
+        .option.selected {
+            background: rgba(34, 139, 34, 0.1);
+            border-color: #228B22;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #32CD32;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        /* Level 3 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #228B22, #98FB98);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🤖</div>
+                <div class="logo-text">
+                    <h1>The Wild Robot</h1>
+                    <p>Level 3 - Peter Brown의 감동적인 모험 이야기</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 3</div>
+                <div class="breadcrumb">
+                    <span>The Wild Robot</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🤖</div>
+                    <div class="book-info">
+                        <h2>The Wild Robot</h2>
+                        <div class="author">Peter Brown</div>
+                        <div class="book-summary">
+                            When robot Roz opens her eyes for the first time, she discovers that she is all alone on a remote, wild island. She has no idea how she got there or what her purpose is—but she knows she needs to survive.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">80</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">240</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 3</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🤖 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Wild Robot</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 3</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Wild Robot</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">3문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">3문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">The Wild Robot - Peter Brown</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">⏸️ 일시정지</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #228B22;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// 🎯 구글 클라우드 스토리지 오디오 URL 설정
+const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/WR001_Wild_Robot/';
+
+// 🎧 Wild Robot 완벽한 시간 매핑 (80챕터, 4개 파일)
+const wildRobotTimeMapping = {
+    // Part 01 (Chapters 1-28)
+    0: { file: 'The Wild Robot-Part01.mp3', startTime: 24, endTime: 192 },
+    1: { file: 'The Wild Robot-Part01.mp3', startTime: 192, endTime: 352 },
+    2: { file: 'The Wild Robot-Part01.mp3', startTime: 352, endTime: 406 },
+    3: { file: 'The Wild Robot-Part01.mp3', startTime: 406, endTime: 474 },
+    4: { file: 'The Wild Robot-Part01.mp3', startTime: 474, endTime: 635 },
+    5: { file: 'The Wild Robot-Part01.mp3', startTime: 635, endTime: 747 },
+    6: { file: 'The Wild Robot-Part01.mp3', startTime: 747, endTime: 840 },
+    7: { file: 'The Wild Robot-Part01.mp3', startTime: 840, endTime: 914 },
+    8: { file: 'The Wild Robot-Part01.mp3', startTime: 914, endTime: 1041 },
+    9: { file: 'The Wild Robot-Part01.mp3', startTime: 1041, endTime: 1086 },
+    10: { file: 'The Wild Robot-Part01.mp3', startTime: 1086, endTime: 1148 },
+    11: { file: 'The Wild Robot-Part01.mp3', startTime: 1148, endTime: 1319 },
+    12: { file: 'The Wild Robot-Part01.mp3', startTime: 1319, endTime: 1461 },
+    13: { file: 'The Wild Robot-Part01.mp3', startTime: 1461, endTime: 1624 },
+    14: { file: 'The Wild Robot-Part01.mp3', startTime: 1624, endTime: 1723 },
+    15: { file: 'The Wild Robot-Part01.mp3', startTime: 1723, endTime: 1847 },
+    16: { file: 'The Wild Robot-Part01.mp3', startTime: 1847, endTime: 1935 },
+    17: { file: 'The Wild Robot-Part01.mp3', startTime: 1935, endTime: 2080 },
+    18: { file: 'The Wild Robot-Part01.mp3', startTime: 2080, endTime: 2123 },
+    19: { file: 'The Wild Robot-Part01.mp3', startTime: 2123, endTime: 2276 },
+    20: { file: 'The Wild Robot-Part01.mp3', startTime: 2276, endTime: 2591 },
+    21: { file: 'The Wild Robot-Part01.mp3', startTime: 2591, endTime: 2646 },
+    22: { file: 'The Wild Robot-Part01.mp3', startTime: 2646, endTime: 2798 },
+    23: { file: 'The Wild Robot-Part01.mp3', startTime: 2798, endTime: 2922 },
+    24: { file: 'The Wild Robot-Part01.mp3', startTime: 2922, endTime: 3091 },
+    25: { file: 'The Wild Robot-Part01.mp3', startTime: 3091, endTime: 3559 },
+    26: { file: 'The Wild Robot-Part01.mp3', startTime: 3559, endTime: 3651 },
+    27: { file: 'The Wild Robot-Part01.mp3', startTime: 3651, endTime: 3800 },
+    
+    // Part 02 (Chapters 29-48)
+    28: { file: 'The Wild Robot-Part02.mp3', startTime: 0, endTime: 257 },
+    29: { file: 'The Wild Robot-Part02.mp3', startTime: 257, endTime: 727 },
+    30: { file: 'The Wild Robot-Part02.mp3', startTime: 727, endTime: 815 },
+    31: { file: 'The Wild Robot-Part02.mp3', startTime: 815, endTime: 896 },
+    32: { file: 'The Wild Robot-Part02.mp3', startTime: 896, endTime: 1068 },
+    33: { file: 'The Wild Robot-Part02.mp3', startTime: 1068, endTime: 1247 },
+    34: { file: 'The Wild Robot-Part02.mp3', startTime: 1247, endTime: 1635 },
+    35: { file: 'The Wild Robot-Part02.mp3', startTime: 1635, endTime: 1771 },
+    36: { file: 'The Wild Robot-Part02.mp3', startTime: 1771, endTime: 1873 },
+    37: { file: 'The Wild Robot-Part02.mp3', startTime: 1873, endTime: 1977 },
+    38: { file: 'The Wild Robot-Part02.mp3', startTime: 1977, endTime: 2275 },
+    39: { file: 'The Wild Robot-Part02.mp3', startTime: 2275, endTime: 2365 },
+    40: { file: 'The Wild Robot-Part02.mp3', startTime: 2365, endTime: 2593 },
+    41: { file: 'The Wild Robot-Part02.mp3', startTime: 2593, endTime: 2862 },
+    42: { file: 'The Wild Robot-Part02.mp3', startTime: 2862, endTime: 3003 },
+    43: { file: 'The Wild Robot-Part02.mp3', startTime: 3003, endTime: 3147 },
+    44: { file: 'The Wild Robot-Part02.mp3', startTime: 3147, endTime: 3543 },
+    45: { file: 'The Wild Robot-Part02.mp3', startTime: 3543, endTime: 3968 },
+    46: { file: 'The Wild Robot-Part02.mp3', startTime: 3968, endTime: 4245 },
+    47: { file: 'The Wild Robot-Part02.mp3', startTime: 4245, endTime: 4400 },
+    
+    // Part 03 (Chapters 49-70)
+    48: { file: 'The Wild Robot-Part03.mp3', startTime: 0, endTime: 96 },
+    49: { file: 'The Wild Robot-Part03.mp3', startTime: 96, endTime: 231 },
+    50: { file: 'The Wild Robot-Part03.mp3', startTime: 231, endTime: 362 },
+    51: { file: 'The Wild Robot-Part03.mp3', startTime: 362, endTime: 523 },
+    52: { file: 'The Wild Robot-Part03.mp3', startTime: 523, endTime: 785 },
+    53: { file: 'The Wild Robot-Part03.mp3', startTime: 785, endTime: 1111 },
+    54: { file: 'The Wild Robot-Part03.mp3', startTime: 1111, endTime: 1395 },
+    55: { file: 'The Wild Robot-Part03.mp3', startTime: 1395, endTime: 1557 },
+    56: { file: 'The Wild Robot-Part03.mp3', startTime: 1557, endTime: 1778 },
+    57: { file: 'The Wild Robot-Part03.mp3', startTime: 1778, endTime: 2163 },
+    58: { file: 'The Wild Robot-Part03.mp3', startTime: 2163, endTime: 2264 },
+    59: { file: 'The Wild Robot-Part03.mp3', startTime: 2264, endTime: 2510 },
+    60: { file: 'The Wild Robot-Part03.mp3', startTime: 2510, endTime: 2572 },
+    61: { file: 'The Wild Robot-Part03.mp3', startTime: 2572, endTime: 2650 },
+    62: { file: 'The Wild Robot-Part03.mp3', startTime: 2650, endTime: 3308 },
+    63: { file: 'The Wild Robot-Part03.mp3', startTime: 3308, endTime: 3420 },
+    64: { file: 'The Wild Robot-Part03.mp3', startTime: 3420, endTime: 3550 },
+    65: { file: 'The Wild Robot-Part03.mp3', startTime: 3550, endTime: 3749 },
+    66: { file: 'The Wild Robot-Part03.mp3', startTime: 3749, endTime: 3842 },
+    67: { file: 'The Wild Robot-Part03.mp3', startTime: 3842, endTime: 3960 },
+    68: { file: 'The Wild Robot-Part03.mp3', startTime: 3960, endTime: 4217 },
+    69: { file: 'The Wild Robot-Part03.mp3', startTime: 4217, endTime: 4350 },
+    
+    // Part 04 (Chapters 71-80)
+    70: { file: 'The Wild Robot-Part04.mp3', startTime: 0, endTime: 257 },
+    71: { file: 'The Wild Robot-Part04.mp3', startTime: 257, endTime: 725 },
+    72: { file: 'The Wild Robot-Part04.mp3', startTime: 725, endTime: 1087 },
+    73: { file: 'The Wild Robot-Part04.mp3', startTime: 1087, endTime: 1220 },
+    74: { file: 'The Wild Robot-Part04.mp3', startTime: 1220, endTime: 1518 },
+    75: { file: 'The Wild Robot-Part04.mp3', startTime: 1518, endTime: 1606 },
+    76: { file: 'The Wild Robot-Part04.mp3', startTime: 1606, endTime: 1912 },
+    77: { file: 'The Wild Robot-Part04.mp3', startTime: 1912, endTime: 2100 },
+    78: { file: 'The Wild Robot-Part04.mp3', startTime: 2100, endTime: 2118 },
+    79: { file: 'The Wild Robot-Part04.mp3', startTime: 2118, endTime: 2250 }
+};
+
+// 전역 변수
+let currentChapterIndex = 0;
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let questions = [];
+let currentAudio = null;
+let playbackSpeed = 1.0;
+let isChapterMode = true;
+
+// 🎧 시간을 시:분:초 형식으로 변환하는 함수
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+// 🎧 챕터 길이를 계산하는 함수
+function getChapterDuration(chapterIndex) {
+    const chapter = wildRobotTimeMapping[chapterIndex];
+    if (!chapter) return "0:00";
+
+    const duration = chapter.endTime - chapter.startTime;
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// 🎧 챕터 끝 감지 및 자동 정지 함수
+function monitorChapterEnd(audioPlayer, endTime, chapterIndex) {
+    const checkTime = () => {
+        if (isChapterMode && audioPlayer.currentTime >= endTime) {
+            audioPlayer.pause();
+
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 완료!`;
+
+            document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+            console.log(`🏁 Chapter ${chapterIndex + 1} 완료`);
+
+            // 다음 챕터 자동 제안
+            if (chapterIndex < 79) {
+                setTimeout(() => {
+                    if (confirm(`Chapter ${chapterIndex + 1}이 완료되었습니다. Chapter ${chapterIndex + 2}를 재생하시겠습니까?`)) {
+                        playChapterAudio(chapterIndex + 1);
+                    }
+                }, 1000);
+            }
+
+            return;
+        }
+
+        if (!audioPlayer.paused) {
+            requestAnimationFrame(checkTime);
+        }
+    };
+
+    checkTime();
+}
+
+// 🎧 Wild Robot 오디오 재생 함수 (자동 재생 포함)
+function playChapterAudio(chapterIndex) {
+    const chapter = bookData.chapterList[chapterIndex];
+    const audioData = wildRobotTimeMapping[chapterIndex];
+
+    if (!audioData) {
+        alert('이 챕터의 오디오가 준비되지 않았습니다.');
+        return;
+    }
+
+    document.getElementById('audio-modal').style.display = 'flex';
+    document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}`;
+    document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const audioStatus = document.getElementById('audio-status');
+
+    isChapterMode = true;
+    currentChapterIndex = chapterIndex;
+
+    audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+    // 오디오 파일 설정
+    const audioUrl = AUDIO_BASE_URL + audioData.file;
+    audioSource.src = audioUrl;
+    audioPlayer.load();
+
+    // 로딩 완료 후 자동 재생
+    audioPlayer.addEventListener('loadedmetadata', function onLoaded() {
+        audioPlayer.currentTime = audioData.startTime;
+        
+        const startTimeDisplay = formatTime(audioData.startTime);
+        const endTimeDisplay = formatTime(audioData.endTime);
+        const durationDisplay = getChapterDuration(chapterIndex);
+
+        audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 준비완료!<br>
+                                📍 구간: ${startTimeDisplay} ~ ${endTimeDisplay} (${durationDisplay})<br>
+                                🎵 재생 중...`;
+
+        // 자동 재생 시작
+        audioPlayer.play().then(() => {
+            console.log(`🎵 Chapter ${chapterIndex + 1} 자동 재생 시작`);
+            document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            
+            // 챕터 끝 감지 시작
+            monitorChapterEnd(audioPlayer, audioData.endTime, chapterIndex);
+        }).catch(error => {
+            console.error('자동 재생 실패:', error);
+            audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 준비완료!<br>
+                                    📍 구간: ${startTimeDisplay} ~ ${endTimeDisplay}<br>
+                                    🎵 ▶️ 재생 버튼을 눌러주세요 (자동 재생이 차단되었습니다)`;
+        });
+
+        // 이벤트 리스너 제거 (한 번만 실행되도록)
+        audioPlayer.removeEventListener('loadedmetadata', onLoaded);
+    });
+
+    audioPlayer.addEventListener('error', function() {
+        audioStatus.innerHTML = '❌ 오디오 파일을 찾을 수 없습니다.';
+        console.error('오디오 로드 실패:', audioUrl);
+    }, { once: true });
+
+    currentAudio = audioPlayer;
+    playbackSpeed = 1.0;
+}
+
+// 기본 오디오 컨트롤 함수들
+function closeAudioModal() {
+    document.getElementById('audio-modal').style.display = 'none';
+    if (currentAudio) currentAudio.pause();
+}
+
+function togglePlayPause() {
+    if (!currentAudio) return;
+    if (currentAudio.paused) {
+        currentAudio.play();
+        document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+    } else {
+        currentAudio.pause();
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+    }
+}
+
+function changeSpeed() {
+    if (!currentAudio) return;
+    const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+    const currentIndex = speeds.indexOf(playbackSpeed);
+    playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+    currentAudio.playbackRate = playbackSpeed;
+    document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+}
+
+function downloadAudio() {
+    const audioData = wildRobotTimeMapping[currentChapterIndex];
+    if (audioData) {
+        const link = document.createElement('a');
+        link.href = AUDIO_BASE_URL + audioData.file;
+        link.download = `Chapter_${currentChapterIndex + 1}.mp3`;
+        link.click();
+    }
+}
+
+// The Wild Robot 도서 데이터 (80챕터)
+const bookData = {
+    id: 'WR001',
+    title: "The Wild Robot",
+    author: 'Peter Brown',
+    cover: '🤖',
+    progress: 0,
+    chapters: 80,
+    totalQuestions: 240,
+    coverColor: 'linear-gradient(45deg, #228B22, #32CD32)',
+    summary: "When robot Roz opens her eyes for the first time, she discovers that she is all alone on a remote, wild island.",
+    chapterList: [
+        // Chapters 1-10
+        { title: 'Chapter 1: The Ocean', description: 'A cargo ship carrying robots sinks during a hurricane', status: 'current', questionCount: 3 },
+        { title: 'Chapter 2: The Island', description: 'Only five robot crates float to shore', status: 'current', questionCount: 3 },
+        { title: 'Chapter 3: The Otters', description: 'Curious otters discover the surviving robot crate', status: 'current', questionCount: 3 },
+        { title: 'Chapter 4: The Robot', description: 'The otters accidentally activate the robot', status: 'current', questionCount: 3 },
+        { title: 'Chapter 5: The Escape', description: 'Roz breaks free from her crate', status: 'current', questionCount: 3 },
+        { title: 'Chapter 6: The Terror', description: 'The island animals are terrified of Roz', status: 'current', questionCount: 3 },
+        { title: 'Chapter 7: The Wilderness', description: 'Roz explores the wild island', status: 'current', questionCount: 3 },
+        { title: 'Chapter 8: The Damage', description: 'Roz accidentally causes damage', status: 'current', questionCount: 3 },
+        { title: 'Chapter 9: The Mountains', description: 'Roz climbs to survey the island', status: 'current', questionCount: 3 },
+        { title: 'Chapter 10: The Foot', description: 'Roz gets her foot stuck', status: 'current', questionCount: 3 },
+        
+        // Chapters 11-20
+        { title: 'Chapter 11: The Deer', description: 'Roz encounters deer', status: 'current', questionCount: 3 },
+        { title: 'Chapter 12: The Storm', description: 'Roz experiences her first storm', status: 'current', questionCount: 3 },
+        { title: 'Chapter 13: The Camouflage', description: 'Roz learns to blend in', status: 'current', questionCount: 3 },
+        { title: 'Chapter 14: The Language', description: 'Roz learns animal languages', status: 'current', questionCount: 3 },
+        { title: 'Chapter 15: The Accident', description: 'Roz accidentally destroys a nest', status: 'current', questionCount: 3 },
+        { title: 'Chapter 16: The Egg', description: 'Roz finds one surviving egg', status: 'current', questionCount: 3 },
+        { title: 'Chapter 17: The Hatching', description: 'The gosling hatches', status: 'current', questionCount: 3 },
+        { title: 'Chapter 18: The Gosling', description: 'Roz names the gosling Brightbill', status: 'current', questionCount: 3 },
+        { title: 'Chapter 19: The Swimming Lesson', description: 'Roz teaches Brightbill to swim', status: 'current', questionCount: 3 },
+        { title: 'Chapter 20: The Flying Lesson', description: 'Roz helps Brightbill learn to fly', status: 'current', questionCount: 3 },
+        
+        // Chapters 21-30
+        { title: 'Chapter 21: The Loudwing', description: 'Loudwing becomes Roz\'s friend', status: 'current', questionCount: 3 },
+        { title: 'Chapter 22: The Runt', description: 'Other geese reject Brightbill', status: 'current', questionCount: 3 },
+        { title: 'Chapter 23: The Flock', description: 'Roz helps Brightbill integrate', status: 'current', questionCount: 3 },
+        { title: 'Chapter 24: The Tail', description: 'Brightbill develops tail feathers', status: 'current', questionCount: 3 },
+        { title: 'Chapter 25: The Promise', description: 'Roz promises to help Brightbill fly', status: 'current', questionCount: 3 },
+        { title: 'Chapter 26: The Peregrine Falcon', description: 'A dangerous falcon threatens', status: 'current', questionCount: 3 },
+        { title: 'Chapter 27: The Meeting', description: 'Roz calls an animal meeting', status: 'current', questionCount: 3 },
+        { title: 'Chapter 28: The Agreement', description: 'Animals agree to work together', status: 'current', questionCount: 3 },
+        { title: 'Chapter 29: The Battle', description: 'Animals defend against falcon', status: 'current', questionCount: 3 },
+        { title: 'Chapter 30: The Nest', description: 'Roz and Mr. Beaver build a lodge', status: 'current', questionCount: 3 },
+        
+        // Chapters 31-40
+        { title: 'Chapter 31: The Garden', description: 'Roz plants a garden', status: 'current', questionCount: 3 },
+        { title: 'Chapter 32: The Harvest', description: 'The garden provides food', status: 'current', questionCount: 3 },
+        { title: 'Chapter 33: The Adoption', description: 'Animals accept Roz', status: 'current', questionCount: 3 },
+        { title: 'Chapter 34: The Son', description: 'Brightbill grows stronger', status: 'current', questionCount: 3 },
+        { title: 'Chapter 35: The Progress', description: 'Brightbill improves at flying', status: 'current', questionCount: 3 },
+        { title: 'Chapter 36: The Leap', description: 'Brightbill makes first flight', status: 'current', questionCount: 3 },
+        { title: 'Chapter 37: The Success', description: 'Brightbill masters flying', status: 'current', questionCount: 3 },
+        { title: 'Chapter 38: The Fire', description: 'Wildfire threatens the island', status: 'current', questionCount: 3 },
+        { title: 'Chapter 39: The Evacuation', description: 'Roz organizes evacuation', status: 'current', questionCount: 3 },
+        { title: 'Chapter 40: The Heroes', description: 'Animals fight the fire', status: 'current', questionCount: 3 },
+        
+        // Chapters 41-50
+        { title: 'Chapter 41: The Recovery', description: 'Island recovers from fire', status: 'current', questionCount: 3 },
+        { title: 'Chapter 42: The Migration', description: 'Time for geese to migrate', status: 'current', questionCount: 3 },
+        { title: 'Chapter 43: The Departure', description: 'Brightbill must leave', status: 'current', questionCount: 3 },
+        { title: 'Chapter 44: The Goodbye', description: 'Emotional farewell', status: 'current', questionCount: 3 },
+        { title: 'Chapter 45: The Loneliness', description: 'Roz feels lonely', status: 'current', questionCount: 3 },
+        { title: 'Chapter 46: The Winter', description: 'Roz\'s first winter alone', status: 'current', questionCount: 3 },
+        { title: 'Chapter 47: The Helpers', description: 'Animals help each other', status: 'current', questionCount: 3 },
+        { title: 'Chapter 48: The Ice', description: 'Island freezes over', status: 'current', questionCount: 3 },
+        { title: 'Chapter 49: The Bears', description: 'Roz encounters bears', status: 'current', questionCount: 3 },
+        { title: 'Chapter 50: The Survival', description: 'Surviving harsh winter', status: 'current', questionCount: 3 },
+        
+        // Chapters 51-60
+        { title: 'Chapter 51: The Spring', description: 'Spring arrives', status: 'current', questionCount: 3 },
+        { title: 'Chapter 52: The Return', description: 'Geese return', status: 'current', questionCount: 3 },
+        { title: 'Chapter 53: The Reunion', description: 'Brightbill reunites with Roz', status: 'current', questionCount: 3 },
+        { title: 'Chapter 54: The Growth', description: 'Brightbill has matured', status: 'current', questionCount: 3 },
+        { title: 'Chapter 55: The Stories', description: 'Brightbill shares adventures', status: 'current', questionCount: 3 },
+        { title: 'Chapter 56: The Changes', description: 'Both have changed', status: 'current', questionCount: 3 },
+        { title: 'Chapter 57: The New Animals', description: 'New animals arrive', status: 'current', questionCount: 3 },
+        { title: 'Chapter 58: The Teaching', description: 'Roz teaches newcomers', status: 'current', questionCount: 3 },
+        { title: 'Chapter 59: The Peace', description: 'Island lives in harmony', status: 'current', questionCount: 3 },
+        { title: 'Chapter 60: The Happiness', description: 'Roz finds true happiness', status: 'current', questionCount: 3 },
+        
+        // Chapters 61-70
+        { title: 'Chapter 61: The Visitors', description: 'Strange visitors arrive', status: 'current', questionCount: 3 },
+        { title: 'Chapter 62: The Questions', description: 'Visitors ask about Roz', status: 'current', questionCount: 3 },
+        { title: 'Chapter 63: The Truth', description: 'Roz learns her origins', status: 'current', questionCount: 3 },
+        { title: 'Chapter 64: The Decision', description: 'Roz faces difficult choice', status: 'current', questionCount: 3 },
+        { title: 'Chapter 65: The Protection', description: 'Protecting the animals', status: 'current', questionCount: 3 },
+        { title: 'Chapter 66: The Strategy', description: 'Developing defense strategies', status: 'current', questionCount: 3 },
+        { title: 'Chapter 67: The Unity', description: 'Animals unite together', status: 'current', questionCount: 3 },
+        { title: 'Chapter 68: The RECOS', description: 'RECO robots arrive', status: 'current', questionCount: 3 },
+        { title: 'Chapter 69: The Confrontation', description: 'Roz confronts RECOs', status: 'current', questionCount: 3 },
+        { title: 'Chapter 70: The Resistance', description: 'Animals resist the robots', status: 'current', questionCount: 3 },
+        
+        // Chapters 71-80
+        { title: 'Chapter 71: The Battle', description: 'Battle with RECO robots', status: 'current', questionCount: 3 },
+        { title: 'Chapter 72: The Sacrifice', description: 'Roz makes a sacrifice', status: 'current', questionCount: 3 },
+        { title: 'Chapter 73: The Damage', description: 'Roz is badly damaged', status: 'current', questionCount: 3 },
+        { title: 'Chapter 74: The Victory', description: 'Animals defeat RECOs', status: 'current', questionCount: 3 },
+        { title: 'Chapter 75: The Repair', description: 'Attempting to repair Roz', status: 'current', questionCount: 3 },
+        { title: 'Chapter 76: The Choice', description: 'Roz must leave for repairs', status: 'current', questionCount: 3 },
+        { title: 'Chapter 77: The Plan', description: 'Planning return to mainland', status: 'current', questionCount: 3 },
+        { title: 'Chapter 78: The Farewell', description: 'Emotional farewell', status: 'current', questionCount: 3 },
+        { title: 'Chapter 79: The Departure', description: 'Roz leaves in airship', status: 'current', questionCount: 3 },
+        { title: 'Chapter 80: The Sky', description: 'Roz reflects on her journey', status: 'current', questionCount: 3 }
+    ]
+};
+
+// 샘플 문제 데이터 (각 챕터당 3문제)
+const questionsData = {
+    0: [
+        {
+            passage: "A cargo ship carrying hundreds of robots is caught in a fierce hurricane on the ocean.",
+            question: "What happens to the cargo ship in the story?",
+            options: ["It safely reaches port", "It is caught in a fierce hurricane", "It is attacked by pirates", "It runs out of fuel"],
+            correct: 1
+        },
+        {
+            passage: "The storm is so violent that it causes the cargo ship to sink into the ocean depths.",
+            question: "What does the violent storm cause?",
+            options: ["The ship to change course", "The cargo ship to sink", "The crew to abandon ship", "The robots to activate"],
+            correct: 1
+        },
+        {
+            passage: "Only five crates remain floating on the surface after the ship disaster.",
+            question: "How many crates remain floating after the disaster?",
+            options: ["Ten crates", "Five crates", "One crate", "All the crates"],
+            correct: 1
+        }
+    ],
+    1: [
+        {
+            passage: "The five floating crates are carried by ocean currents toward a remote, wild island.",
+            question: "Where do the ocean currents carry the floating crates?",
+            options: ["Back to the mainland", "Toward a remote island", "To another ship", "To a city harbor"],
+            correct: 1
+        },
+        {
+            passage: "Four of the crates crash violently against the rocky shoreline and are destroyed.",
+            question: "What happens to four of the crates?",
+            options: ["They land safely", "They crash and are destroyed", "They bounce back", "They are caught by fishermen"],
+            correct: 1
+        },
+        {
+            passage: "Only one crate survives the violent impact with the shore intact.",
+            question: "How many crates survive the impact?",
+            options: ["All five", "Three crates", "Only one", "Two crates"],
+            correct: 2
+        }
+    ],
+    2: [
+        {
+            passage: "A family of curious otters discovers the mysterious crate on their beach.",
+            question: "Who discovers the crate on the beach?",
+            options: ["Fishermen", "A family of otters", "Children", "Park rangers"],
+            correct: 1
+        },
+        {
+            passage: "The playful otters find pieces of broken robots scattered along the shoreline.",
+            question: "What do the otters find on the shoreline?",
+            options: ["Seashells", "Pieces of broken robots", "Driftwood", "Fish"],
+            correct: 1
+        },
+        {
+            passage: "Through the transparent window of the crate, the otters can see an undamaged robot inside.",
+            question: "What can the otters see through the crate's window?",
+            options: ["Nothing", "An undamaged robot", "Broken machinery", "Ocean water"],
+            correct: 1
+        }
+    ]
+};
+
+// 메인 화면 표시 함수
+function showBookDetail() {
+    document.getElementById('book-detail-screen').style.display = 'block';
+    document.getElementById('learning-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'none';
+    generateChapterGrid();
+    updateProgress();
+}
+
+// 챕터 그리드 생성
+function generateChapterGrid() {
+    const grid = document.getElementById('chapters-grid');
+    grid.innerHTML = '';
+
+    bookData.chapterList.forEach((chapter, index) => {
+        const chapterCard = document.createElement('div');
+        chapterCard.className = `chapter-card ${chapter.status}`;
+
+        chapterCard.innerHTML = `
+            <div class="chapter-header">
+                <div class="chapter-info">
+                    <h4>${chapter.title}</h4>
+                    <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                </div>
+                <div class="chapter-status ${chapter.status}">
+                    ${chapter.status === 'completed' ? '✅ 완료' :
+                      chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                </div>
+            </div>
+            <div class="chapter-actions">
+                <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                        ${chapter.status === 'locked' ? 'disabled' : ''}>
+                    🎧 오디오
+                </button>
+                <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                        ${chapter.status === 'locked' ? 'disabled' : ''}>
+                    📝 문제풀기
+                </button>
+            </div>
+        `;
+
+        grid.appendChild(chapterCard);
+    });
+}
+
+// 진도 업데이트
+function updateProgress() {
+    const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+    const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+    document.getElementById('progress-value').textContent = `${progressPercent}%`;
+}
+
+// 학습 시작
+function startLearning(chapterIndex) {
+    if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+    currentChapterIndex = chapterIndex;
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    questions = questionsData[chapterIndex] || [];
+
+    if (questions.length === 0) {
+        alert('이 챕터의 문제가 준비되지 않았습니다.');
+        return;
+    }
+
+    document.getElementById('book-detail-screen').style.display = 'none';
+    document.getElementById('learning-screen').style.display = 'block';
+    document.getElementById('result-screen').style.display = 'none';
+
+    const chapter = bookData.chapterList[chapterIndex];
+    document.getElementById('learning-title').textContent = chapter.title;
+    document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+    showQuestion();
+}
+
+// 문제 표시
+function showQuestion() {
+    if (currentQuestionIndex >= questions.length) {
+        submitAnswers();
+        return;
+    }
+
+    const question = questions[currentQuestionIndex];
+    const container = document.getElementById('question-container');
+
+    container.innerHTML = `
+        <div class="passage">${question.passage}</div>
+        <div class="question-text">${question.question}</div>
+        <div class="options">
+            ${question.options.map((option, index) =>
+                `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                    ${String.fromCharCode(65 + index)}. ${option}
+                </div>`
+            ).join('')}
+        </div>
+    `;
+
+    const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+    document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+    document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const submitBtn = document.getElementById('submit-btn');
+
+    prevBtn.disabled = currentQuestionIndex === 0;
+
+    if (currentQuestionIndex === questions.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'inline-block';
+    } else {
+        nextBtn.style.display = 'inline-block';
+        submitBtn.style.display = 'none';
+    }
+
+    if (userAnswers[currentQuestionIndex] !== undefined) {
+        const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+        if (selectedOption) {
+            selectedOption.classList.add('selected');
+        }
+    }
+}
+
+// 옵션 선택
+function selectOption(index) {
+    document.querySelectorAll('.option').forEach(option => {
+        option.classList.remove('selected');
+    });
+
+    const selectedOption = document.querySelector(`[data-index="${index}"]`);
+    if (selectedOption) {
+        selectedOption.classList.add('selected');
+        userAnswers[currentQuestionIndex] = index;
+    }
+}
+
+// 다음 문제
+function nextQuestion() {
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+    }
+}
+
+// 이전 문제
+function previousQuestion() {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        showQuestion();
+    }
+}
+
+// 답안 제출 및 채점
+function submitAnswers() {
+    let correctCount = 0;
+
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].correct) {
+            correctCount++;
+        }
+    }
+
+    const score = Math.round((correctCount / questions.length) * 100);
+
+    if (score >= 70) {
+        bookData.chapterList[currentChapterIndex].status = 'completed';
+
+        if (currentChapterIndex + 1 < bookData.chapterList.length) {
+            if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                bookData.chapterList[currentChapterIndex + 1].status = 'current';
+            }
+        }
+    }
+
+    showResult(correctCount, score);
+}
+
+// 결과 화면 표시
+function showResult(correctCount, score) {
+    document.getElementById('learning-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+
+    document.getElementById('score-circle').textContent = `${score}%`;
+    document.getElementById('total-questions').textContent = `${questions.length}문제`;
+    document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+    document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+    document.getElementById('final-score').textContent = `${score}점`;
+
+    let message = '';
+    let circleColor = '';
+
+    if (score >= 90) {
+        message = '🌟 완벽합니다!';
+        circleColor = 'linear-gradient(45deg, #228B22, #32CD32)';
+    } else if (score >= 80) {
+        message = '🎉 훌륭해요!';
+        circleColor = 'linear-gradient(45deg, #228B22, #32CD32)';
+    } else if (score >= 70) {
+        message = '👍 잘했어요!';
+        circleColor = 'linear-gradient(45deg, #228B22, #32CD32)';
+    } else {
+        message = '💪 다시 도전해보세요!';
+        circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+    }
+
+    document.getElementById('result-message').textContent = message;
+    document.getElementById('score-circle').style.background = circleColor;
+}
+
+// 챕터 재시도
+function retryChapter() {
+    startLearning(currentChapterIndex);
+}
+
+// 다음 챕터로
+function nextChapter() {
+    if (currentChapterIndex + 1 < bookData.chapterList.length) {
+        if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+            startLearning(currentChapterIndex + 1);
+        } else {
+            showBookDetail();
+        }
+    } else {
+        showBookDetail();
+    }
+}
+
+// 페이지 로드 시 초기화
+window.addEventListener('DOMContentLoaded', function() {
+    showBookDetail();
+});
+
+// 키보드 단축키
+document.addEventListener('keydown', function(e) {
+    if (document.getElementById('learning-screen').style.display === 'block') {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            previousQuestion();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            nextQuestion();
+        } else if (e.key >= '1' && e.key <= '4') {
+            e.preventDefault();
+            const index = parseInt(e.key) - 1;
+            if (index < questions[currentQuestionIndex]?.options.length) {
+                selectOption(index);
+            }
+        }
+    }
+
+    if (e.key === 'Escape') {
+        closeAudioModal();
+    }
+});
+    </script>
+</body>
+</html>

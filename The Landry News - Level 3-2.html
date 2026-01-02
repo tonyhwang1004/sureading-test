@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Landry News - Level 3-2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #1abc9c 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #2c3e50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #2c3e50;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .part-header {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #3498db;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            padding: 10px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #2c3e50;
+            background: linear-gradient(135deg, #2c3e5008, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(44, 62, 80, 0.1);
+            color: #2c3e50;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #3498db, #1abc9c);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2c3e50, #3498db);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2c3e50;
+        }
+
+        .option.selected {
+            background: rgba(44, 62, 80, 0.1);
+            border-color: #2c3e50;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Level 3-2 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        /* 오디오 정보 섹션 */
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .progress-container {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(44, 62, 80, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(44, 62, 80, 0.2);
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">📰</div>
+                <div class="logo-text">
+                    <h1>The Landry News</h1>
+                    <p>Level 3-2 - Andrew Clements의 교육과 언론자유 이야기</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 3-2</div>
+                <div class="breadcrumb">
+                    <span>The Landry News</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">📰</div>
+                    <div class="book-info">
+                        <h2>The Landry News</h2>
+                        <div class="author">Andrew Clements</div>
+                        <div class="book-summary">
+                            Fifth-grader Cara Landry is the new kid at Denton Elementary School, and she gets stuck with the worst teacher—Mr. Larson, who would rather read the newspaper and drink coffee than actually teach. Frustrated by the lack of real education, Cara creates her own classroom newspaper, "The Landry News," and writes a bold editorial criticizing her teacher's lazy methods. When Mr. Larson reads the editorial, he's initially angry but then realizes Cara is telling the truth. This sparks him to transform his teaching and guide the class in creating a real newspaper. However, when they publish a sensitive story about divorce, the principal tries to use it as an excuse to fire Mr. Larson, leading to a dramatic battle over freedom of the press and the First Amendment. A powerful story about the collision between a student who needs a teacher and a teacher who needs inspiration.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">20</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">100</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 3-2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>📰 챕터별 학습</h3>
+                    <div id="chapters-container">
+                        <!-- 챕터들이 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Landry News</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Landry News</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">The Landry News - Andrew Clements</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div id="audio-info" class="audio-info" style="display: none;">
+                <div id="audio-status">오디오를 준비 중입니다...</div>
+                <!-- 진행률 바가 여기에 동적으로 생성됩니다 -->
+            </div>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // 📰 The Landry News 개별 파일 매핑 (20개 챕터, 4부 구성)
+        const landryNewsChapterMapping = {
+            1: { title: "Chapter 1", file: "01.mp3", part: 1, partTitle: "Part I: The Beginning" },
+            2: { title: "Chapter 2", file: "02.mp3", part: 1, partTitle: "Part I: The Beginning" },
+            3: { title: "Chapter 3", file: "03.mp3", part: 1, partTitle: "Part I: The Beginning" },
+            4: { title: "Chapter 4", file: "04.mp3", part: 1, partTitle: "Part I: The Beginning" },
+            5: { title: "Chapter 5", file: "05.mp3", part: 1, partTitle: "Part I: The Beginning" },
+            6: { title: "Chapter 6", file: "06.mp3", part: 2, partTitle: "Part II: The Growth" },
+            7: { title: "Chapter 7", file: "07.mp3", part: 2, partTitle: "Part II: The Growth" },
+            8: { title: "Chapter 8", file: "08.mp3", part: 2, partTitle: "Part II: The Growth" },
+            9: { title: "Chapter 9", file: "09.mp3", part: 2, partTitle: "Part II: The Growth" },
+            10: { title: "Chapter 10", file: "10.mp3", part: 2, partTitle: "Part II: The Growth" },
+            11: { title: "Chapter 11", file: "11.mp3", part: 3, partTitle: "Part III: The Conflict" },
+            12: { title: "Chapter 12", file: "12.mp3", part: 3, partTitle: "Part III: The Conflict" },
+            13: { title: "Chapter 13", file: "13.mp3", part: 3, partTitle: "Part III: The Conflict" },
+            14: { title: "Chapter 14", file: "14.mp3", part: 3, partTitle: "Part III: The Conflict" },
+            15: { title: "Chapter 15", file: "15.mp3", part: 3, partTitle: "Part III: The Conflict" },
+            16: { title: "Chapter 16", file: "16.mp3", part: 4, partTitle: "Part IV: The Resolution" },
+            17: { title: "Chapter 17", file: "17.mp3", part: 4, partTitle: "Part IV: The Resolution" },
+            18: { title: "Chapter 18", file: "18.mp3", part: 4, partTitle: "Part IV: The Resolution" },
+            19: { title: "Chapter 19", file: "19.mp3", part: 4, partTitle: "Part IV: The Resolution" },
+            20: { title: "Chapter 20", file: "20.mp3", part: 4, partTitle: "Part IV: The Resolution" }
+        };
+
+        // 📚 파트별 정보
+        const partData = {
+            1: { title: "Part I: The Beginning", description: "From new student to first newspaper", chapters: [1, 2, 3, 4, 5] },
+            2: { title: "Part II: The Growth", description: "Building the classroom newspaper", chapters: [6, 7, 8, 9, 10] },
+            3: { title: "Part III: The Conflict", description: "Principal's opposition and controversy", chapters: [11, 12, 13, 14, 15] },
+            4: { title: "Part IV: The Resolution", description: "Standing up for freedom of the press", chapters: [16, 17, 18, 19, 20] }
+        };
+
+        // The Landry News 도서 데이터 (20챕터, 4부 구성)
+        const bookData = {
+            id: 'LN001',
+            title: "The Landry News",
+            author: 'Andrew Clements',
+            cover: '📰',
+            progress: 0,
+            chapters: 20,
+            totalQuestions: 100,
+            coverColor: 'linear-gradient(45deg, #2c3e50, #3498db)',
+            parts: [
+                {
+                    title: "Part I: The Beginning",
+                    description: "From new student to first newspaper",
+                    chapters: [1, 2, 3, 4, 5]
+                },
+                {
+                    title: "Part II: The Growth",
+                    description: "Building the classroom newspaper",
+                    chapters: [6, 7, 8, 9, 10]
+                },
+                {
+                    title: "Part III: The Conflict",
+                    description: "Principal's opposition and controversy",
+                    chapters: [11, 12, 13, 14, 15]
+                },
+                {
+                    title: "Part IV: The Resolution",
+                    description: "Standing up for freedom of the press",
+                    chapters: [16, 17, 18, 19, 20]
+                }
+            ],
+            chapterList: [
+                // Part I: The Beginning (Chapters 1-5)
+                { title: 'NEW KID GETS OLD TEACHER', description: 'Cara Landry arrives at Denton Elementary and meets burned-out teacher Mr. Larson.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'FIRST EDITION MAKES DEBUT', description: 'Cara creates and posts the first edition of The Landry News on the bulletin board.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'TEACHER TEARS UP TRUTH', description: 'Mr. Larson discovers the newspaper with its critical editorial and angrily tears it up.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'JOURNALISM CLASS BEGINS', description: 'Mr. Larson starts teaching about newspapers and engages students in learning.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'STUDENTS JOIN THE STAFF', description: 'Joey and other classmates offer to help with the next edition of The Landry News.', status: 'current', questionCount: 5, part: 0 },
+
+                // Part II: The Growth (Chapters 6-10)
+                { title: 'GOOD NEWS GOES TO PRINT', description: 'The second edition features positive stories and establishes "Truth and Mercy" as the motto.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'PRINCIPAL DISCOVERS PAPER', description: 'Dr. Barnes finds a copy of The Landry News and becomes suspicious of Mr. Larson.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'NEWSPAPER GROWS BIGGER', description: 'The whole class becomes involved as The Landry News expands in size and content.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'APPROVAL BATTLE BEGINS', description: 'Dr. Barnes demands to approve content before publication, but Mr. Larson refuses.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'CLASSROOM BUZZES WITH NEWS', description: 'Students work enthusiastically on articles while Mr. Larson enjoys real teaching again.', status: 'current', questionCount: 5, part: 1 },
+
+                // Part III: The Conflict (Chapters 11-15)
+                { title: 'PERSONAL STORY SUBMITTED', description: 'A student submits a deeply personal story about his parents\' divorce for publication.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'LOST AND FOUND PUBLISHED', description: 'Cara decides to publish the divorce story despite potential controversy.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'PRINCIPAL STRIKES BACK', description: 'Dr. Barnes uses the divorce story as ammunition to attack Mr. Larson and ban the paper.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'MEDIA CIRCUS ARRIVES', description: 'Local news media pick up the story about the banned student newspaper.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'HEARING IS SCHEDULED', description: 'An official hearing is set to determine Mr. Larson\'s fate and the newspaper\'s future.', status: 'current', questionCount: 5, part: 2 },
+
+                // Part IV: The Resolution (Chapters 16-20)
+                { title: 'FIRST AMENDMENT LESSON', description: 'Mr. Larson teaches students about freedom of the press and their constitutional rights.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'COMMUNITY TAKES SIDES', description: 'The town divides over the issue as parents and teachers choose their positions.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'HEARING DAY ARRIVES', description: 'The official hearing begins with testimony from various parties.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'STUDENT STANDS UP', description: 'The boy who wrote the divorce story bravely reads it aloud at the hearing.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'TEACHER OF THE YEAR AGAIN', description: 'Mr. Larson is vindicated, and Cara predicts he\'ll be Teacher of the Year again.', status: 'current', questionCount: 5, part: 3 }
+            ]
+        };
+
+       // 문제 데이터 (실제 스토리에 기반한 정확한 내용)
+        const questionsData = {
+            // PART I: THE BEGINNING (Chapters 1-5)
+            0: [ // Chapter 1: NEW KID GETS OLD TEACHER
+                {
+                    passage: "Cara Landry is the new kid at Denton Elementary School, and she has been attending for four months without anyone really noticing her.",
+                    question: "How long has Cara been at Denton Elementary School?",
+                    options: ["Two months", "Four months", "Six months", "One year"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson, Cara's teacher, spends most of his time reading the newspaper and drinking coffee instead of teaching.",
+                    question: "What does Mr. Larson do instead of teaching?",
+                    options: ["Grades papers", "Reads the newspaper and drinks coffee", "Talks to other teachers", "Prepares lessons"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara creates a small private workspace in the back corner of the classroom near the bookcases and map tripod.",
+                    question: "Where does Cara set up her private workspace?",
+                    options: ["Front of the classroom", "Back corner near bookcases and map tripod", "By the windows", "Next to the teacher's desk"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara has always loved writing and wants to become a journalist when she grows up.",
+                    question: "What does Cara want to become when she grows up?",
+                    options: ["A teacher", "A journalist", "A doctor", "A lawyer"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara's parents are divorced, and she had created a newspaper at her previous school that caused some problems.",
+                    question: "What happened at Cara's previous school?",
+                    options: ["She was very popular", "Her newspaper caused some problems", "She was the best student", "Nothing notable happened"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: FIRST EDITION MAKES DEBUT
+                {
+                    passage: "On the first Friday afternoon in October, Cara uses four thumbtacks to post her first edition of The Landry News on the bulletin board.",
+                    question: "When does Cara post the first edition of The Landry News?",
+                    options: ["Monday morning", "First Friday afternoon in October", "Last day of September", "First day of November"],
+                    correct: 1
+                },
+                {
+                    passage: "The newspaper includes an editorial titled 'From the Editor's Desk: A Question of Fairness' that criticizes Mr. Larson's teaching.",
+                    question: "What is the title of Cara's editorial?",
+                    options: ["School News Today", "From the Editor's Desk: A Question of Fairness", "Classroom Chronicles", "Student Voice"],
+                    correct: 1
+                },
+                {
+                    passage: "In her editorial, Cara writes that there has been learning but no teaching in Mr. Larson's classroom.",
+                    question: "What does Cara write about Mr. Larson's classroom?",
+                    options: ["It's the best class ever", "There has been learning but no teaching", "The students are terrible", "It's too difficult"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara's newspaper is well-written and looks professional, resembling a real newspaper layout.",
+                    question: "How does Cara's newspaper appear to others?",
+                    options: ["Messy and childish", "Well-written and professional", "Too simple", "Completely unreadable"],
+                    correct: 1
+                },
+                {
+                    passage: "The first edition gets attention from classmates who read it on the bulletin board during class.",
+                    question: "How do Cara's classmates react to the first edition?",
+                    options: ["They ignore it completely", "They read it with interest on the bulletin board", "They complain to the teacher", "They tear it down"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: TEACHER TEARS UP TRUTH
+                {
+                    passage: "Mr. Larson discovers The Landry News on the bulletin board and reads the editorial about his teaching methods.",
+                    question: "What does Mr. Larson do when he finds the newspaper?",
+                    options: ["Ignores it", "Reads the editorial about his teaching", "Throws it away immediately", "Shows it to the principal"],
+                    correct: 1
+                },
+                {
+                    passage: "After reading the critical editorial, Mr. Larson becomes very angry and tears up the newspaper in front of the class.",
+                    question: "How does Mr. Larson react to the editorial?",
+                    options: ["He laughs about it", "He becomes angry and tears up the newspaper", "He thanks Cara", "He posts it on his desk"],
+                    correct: 1
+                },
+                {
+                    passage: "The students watch in shock as their teacher destroys Cara's carefully crafted newspaper.",
+                    question: "How do the students react when Mr. Larson tears up the paper?",
+                    options: ["They cheer", "They watch in shock", "They start laughing", "They don't notice"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara feels hurt and embarrassed that her work was destroyed so publicly in front of everyone.",
+                    question: "How does Cara feel when her newspaper is torn up?",
+                    options: ["Happy and relieved", "Hurt and embarrassed", "Angry and defiant", "Completely indifferent"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite his anger, Mr. Larson realizes that Cara's editorial contains uncomfortable truths about his teaching.",
+                    question: "What does Mr. Larson realize about Cara's editorial?",
+                    options: ["It's completely false", "It contains uncomfortable truths about his teaching", "It's too well written", "It's just a joke"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: JOURNALISM CLASS BEGINS
+                {
+                    passage: "Over the weekend, Mr. Larson reflects on Cara's editorial and decides to make changes to his teaching.",
+                    question: "What does Mr. Larson do over the weekend?",
+                    options: ["Plans his vacation", "Reflects on Cara's editorial and decides to change", "Ignores what happened", "Prepares to punish Cara"],
+                    correct: 1
+                },
+                {
+                    passage: "On Monday, Mr. Larson surprises everyone by starting a discussion about newspapers and journalism.",
+                    question: "How does Mr. Larson surprise the class on Monday?",
+                    options: ["He brings donuts", "He starts discussing newspapers and journalism", "He apologizes publicly", "He gives everyone A's"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson asks students what parts of the newspaper they read, and most say comics and sports.",
+                    question: "What parts of the newspaper do most students say they read?",
+                    options: ["News and politics", "Comics and sports", "Editorials and opinions", "Business section"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara tells the class that her favorite part is the editorial section because 'you get to see the heart of a newspaper.'",
+                    question: "What does Cara say about the editorial section?",
+                    options: ["It's boring", "You get to see the heart of a newspaper", "It's too hard to understand", "It's only for adults"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson assigns the class to read and analyze different newspaper editorials to understand their purpose.",
+                    question: "What assignment does Mr. Larson give the class?",
+                    options: ["Write a story", "Read and analyze newspaper editorials", "Draw pictures", "Take a test"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: STUDENTS JOIN THE STAFF
+                {
+                    passage: "Joey DeLucca approaches Cara and offers to help with the next edition of The Landry News.",
+                    question: "Who offers to help Cara with her newspaper?",
+                    options: ["Mr. Larson", "Joey DeLucca", "The principal", "Her mother"],
+                    correct: 1
+                },
+                {
+                    passage: "Joey has computer skills and can help make the newspaper look more professional and reach more people.",
+                    question: "What skills does Joey offer to contribute?",
+                    options: ["Art skills", "Computer skills to make it more professional", "Writing abilities", "Photography"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara writes a note of apology to Mr. Larson but is too scared to give it to him directly.",
+                    question: "What does Cara write to Mr. Larson?",
+                    options: ["A complaint letter", "A note of apology", "Another editorial", "A thank you note"],
+                    correct: 1
+                },
+                {
+                    passage: "Other students become interested in contributing articles and ideas to The Landry News.",
+                    question: "How do other students respond to The Landry News?",
+                    options: ["They criticize it", "They become interested in contributing", "They ignore it completely", "They start their own newspapers"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson's teaching begins to improve as he engages more actively with his students' learning.",
+                    question: "What happens to Mr. Larson's teaching?",
+                    options: ["It gets worse", "It begins to improve as he engages more actively", "It stays exactly the same", "He stops teaching completely"],
+                    correct: 1
+                }
+            ],
+
+            // PART II: THE GROWTH (Chapters 6-10)
+            5: [ // Chapter 6: GOOD NEWS GOES TO PRINT
+                {
+                    passage: "The second edition of The Landry News features positive stories about favorite teachers and school improvements.",
+                    question: "What type of stories does the second edition feature?",
+                    options: ["Negative complaints", "Positive stories about teachers and school", "Sports scores only", "Gossip and rumors"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara establishes 'Truth and Mercy' as the official motto of The Landry News.",
+                    question: "What becomes the official motto of The Landry News?",
+                    options: ["Facts and Fiction", "Truth and Mercy", "News and Views", "Students First"],
+                    correct: 1
+                },
+                {
+                    passage: "The new edition includes articles about bad-smelling locker rooms and cafeteria food complaints.",
+                    question: "What practical issues does the new edition address?",
+                    options: ["Homework policies", "Locker rooms and cafeteria food", "Dress codes", "Bus schedules"],
+                    correct: 1
+                },
+                {
+                    passage: "Students respond positively to the newspaper and begin to see it as their voice in the school.",
+                    question: "How do students view The Landry News?",
+                    options: ["As a waste of time", "As their voice in the school", "As too serious", "As the teacher's idea"],
+                    correct: 1
+                },
+                {
+                    passage: "An editorial announces that The Landry News will be a 'good-hearted newspaper' focused on constructive criticism.",
+                    question: "What type of newspaper does the editorial announce it will be?",
+                    options: ["A gossip paper", "A good-hearted newspaper with constructive criticism", "A humor magazine", "A sports publication"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7: PRINCIPAL DISCOVERS PAPER
+                {
+                    passage: "Dr. Barnes, the school principal, gets a copy of The Landry News and reads it thoroughly.",
+                    question: "Who is Dr. Barnes?",
+                    options: ["A parent", "The school principal", "A teacher", "A newspaper reporter"],
+                    correct: 1
+                },
+                {
+                    passage: "Initially, Dr. Barnes is impressed by the quality of writing and content in the student newspaper.",
+                    question: "What is Dr. Barnes's initial reaction to the newspaper?",
+                    options: ["He's angry", "He's impressed by the quality", "He's confused", "He's bored"],
+                    correct: 1
+                },
+                {
+                    passage: "Dr. Barnes becomes upset when he sees Mr. Larson's name listed as an adult who helped produce the paper.",
+                    question: "What upsets Dr. Barnes about the newspaper?",
+                    options: ["The poor writing", "Mr. Larson's name listed as a helper", "The cost of printing", "The controversial topics"],
+                    correct: 1
+                },
+                {
+                    passage: "For years, Dr. Barnes has rated Mr. Larson's teaching as 'Poor' and 'Unacceptable.'",
+                    question: "How has Dr. Barnes rated Mr. Larson's teaching?",
+                    options: ["Excellent", "Poor and Unacceptable", "Average", "Outstanding"],
+                    correct: 1
+                },
+                {
+                    passage: "Dr. Barnes sees The Landry News as a potential opportunity to finally get rid of Mr. Larson.",
+                    question: "How does Dr. Barnes view The Landry News in relation to Mr. Larson?",
+                    options: ["As proof of good teaching", "As an opportunity to get rid of him", "As irrelevant", "As a fun project"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: NEWSPAPER GROWS BIGGER
+                {
+                    passage: "Mr. Larson leads a discussion comparing The Landry News to professional newspapers like The Chicago Tribune.",
+                    question: "What does Mr. Larson compare The Landry News to?",
+                    options: ["School textbooks", "Professional newspapers like The Chicago Tribune", "Magazine articles", "Comic books"],
+                    correct: 1
+                },
+                {
+                    passage: "Students suggest that their school paper could include many elements found in professional newspapers.",
+                    question: "What do students suggest about their newspaper?",
+                    options: ["It should stay simple", "It could include elements from professional papers", "It should be shorter", "It needs fewer articles"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara agrees to expand the paper and let the whole class contribute if they want to participate.",
+                    question: "What does Cara agree to do with the newspaper?",
+                    options: ["Keep it private", "Expand it and let the whole class contribute", "Make it smaller", "Stop publishing it"],
+                    correct: 1
+                },
+                {
+                    passage: "The classroom becomes loud and chaotic as students work enthusiastically on newspaper articles.",
+                    question: "What happens to the classroom atmosphere?",
+                    options: ["It becomes very quiet", "It becomes loud and chaotic with enthusiasm", "It stays exactly the same", "Students become bored"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson enjoys the energetic learning environment and sits back to read his paper contentedly.",
+                    question: "How does Mr. Larson feel about the classroom energy?",
+                    options: ["Annoyed and stressed", "He enjoys it and feels content", "Confused and worried", "Completely indifferent"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9: APPROVAL BATTLE BEGINS
+                {
+                    passage: "Dr. Barnes announces that he wants to approve the content of The Landry News before it goes to print each week.",
+                    question: "What does Dr. Barnes want to do with the newspaper?",
+                    options: ["Shut it down", "Approve content before printing", "Take over as editor", "Move it to another class"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson refuses Dr. Barnes's demand, saying the newspaper is a classroom paper, not a school paper.",
+                    question: "How does Mr. Larson respond to Dr. Barnes's demand?",
+                    options: ["He agrees immediately", "He refuses, calling it a classroom paper", "He asks for time to think", "He gets angry and quits"],
+                    correct: 1
+                },
+                {
+                    passage: "The distinction between a classroom paper and a school paper becomes important for editorial freedom.",
+                    question: "Why does the classroom vs. school paper distinction matter?",
+                    options: ["For funding purposes", "For editorial freedom", "For printing quality", "For distribution methods"],
+                    correct: 1
+                },
+                {
+                    passage: "Dr. Barnes initially seems upset but then appears pleased when Mr. Larson takes full responsibility.",
+                    question: "How does Dr. Barnes react when Mr. Larson takes responsibility?",
+                    options: ["He becomes more angry", "He appears pleased", "He walks away", "He calls the superintendent"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson's willingness to take responsibility shows his renewed commitment to teaching and his students.",
+                    question: "What does Mr. Larson's response show about him?",
+                    options: ["He's afraid of authority", "His renewed commitment to teaching", "He doesn't care anymore", "He's trying to cause trouble"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: CLASSROOM BUZZES WITH NEWS
+                {
+                    passage: "Students work enthusiastically on various articles, from sports to school events to opinion pieces.",
+                    question: "What types of articles do students work on?",
+                    options: ["Only sports", "Sports, school events, and opinion pieces", "Just homework help", "Only complaints"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson finds himself truly teaching again as he helps students with writing, research, and journalism skills.",
+                    question: "What happens to Mr. Larson's teaching?",
+                    options: ["He stops teaching completely", "He finds himself truly teaching again", "He becomes more lazy", "He only reads newspapers"],
+                    correct: 1
+                },
+                {
+                    passage: "The quality of student writing improves as they learn to research facts and present information clearly.",
+                    question: "What happens to the students' writing skills?",
+                    options: ["They get worse", "They improve as students learn research and clarity", "They stay the same", "They become too complicated"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara takes her role as editor-in-chief seriously, helping other students improve their articles.",
+                    question: "How does Cara approach her editor role?",
+                    options: ["She's bossy and mean", "She takes it seriously and helps others improve", "She does all the work herself", "She ignores other students"],
+                    correct: 1
+                },
+                {
+                    passage: "The classroom atmosphere transforms from bored silence to engaged, productive learning.",
+                    question: "How has the classroom atmosphere changed?",
+                    options: ["From excited to bored", "From bored silence to engaged learning", "It hasn't changed at all", "From quiet to chaotic"],
+                    correct: 1
+                }
+            ],
+
+            // PART III: THE CONFLICT (Chapters 11-15)
+            10: [ // Chapter 11: PERSONAL STORY SUBMITTED
+                {
+                    passage: "A boy in the class approaches Cara and asks if she could read a story his 'friend' wrote.",
+                    question: "What does a boy in class ask Cara to do?",
+                    options: ["Help with math homework", "Read a story his 'friend' wrote", "Edit his article", "Teach him about newspapers"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara realizes that the boy actually wrote the story himself and is too embarrassed to admit it.",
+                    question: "What does Cara realize about the story?",
+                    options: ["It's plagiarized", "The boy wrote it himself", "It's too advanced", "It's not very good"],
+                    correct: 1
+                },
+                {
+                    passage: "The story is titled 'Lost and Found' and deals with the boy's experience of his parents' divorce.",
+                    question: "What is the story about?",
+                    options: ["Finding a lost pet", "The boy's experience of his parents' divorce", "School activities", "A summer vacation"],
+                    correct: 1
+                },
+                {
+                    passage: "The story is deeply personal and reveals the boy's feelings about his family situation.",
+                    question: "What makes the story significant?",
+                    options: ["It's very funny", "It's deeply personal about family", "It's about school rules", "It's fictional adventure"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara faces a difficult decision about whether to publish such a personal and sensitive story.",
+                    question: "What decision does Cara face?",
+                    options: ["Whether to change classes", "Whether to publish the personal story", "Whether to quit the newspaper", "Whether to tell the principal"],
+                    correct: 1
+                }
+            ],
+            11: [ // Chapter 12: LOST AND FOUND PUBLISHED
+                {
+                    passage: "After careful consideration, Cara decides to publish 'Lost and Found' in The Landry News.",
+                    question: "What does Cara decide to do with the 'Lost and Found' story?",
+                    options: ["Reject it completely", "Publish it in The Landry News", "Save it for later", "Give it back without reading"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara believes that if the boy was brave enough to write about his feelings, others should be able to read his words.",
+                    question: "Why does Cara decide to publish the story?",
+                    options: ["It's well-written", "If he was brave enough to write it, others should read it", "She needs more content", "The teacher told her to"],
+                    correct: 1
+                },
+                {
+                    passage: "The story resonates with other students who have experienced similar family situations.",
+                    question: "How do other students react to the story?",
+                    options: ["They make fun of it", "It resonates with those in similar situations", "They don't understand it", "They ignore it completely"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson supports Cara's decision to publish the story, seeing its educational and emotional value.",
+                    question: "How does Mr. Larson feel about publishing the story?",
+                    options: ["He opposes it strongly", "He supports it, seeing its value", "He's indifferent", "He didn't know about it"],
+                    correct: 1
+                },
+                {
+                    passage: "The story represents the newspaper's commitment to truth and mercy in addressing real student concerns.",
+                    question: "What does the story represent for the newspaper?",
+                    options: ["A mistake in judgment", "Commitment to truth and mercy", "Sensational journalism", "A way to get attention"],
+                    correct: 1
+                }
+            ],
+            12: [ // Chapter 13: PRINCIPAL STRIKES BACK
+                {
+                    passage: "Dr. Barnes reads the 'Lost and Found' story and becomes furious about its personal content.",
+                    question: "How does Dr. Barnes react to the 'Lost and Found' story?",
+                    options: ["He praises it", "He becomes furious about its personal content", "He ignores it", "He asks for more copies"],
+                    correct: 1
+                },
+                {
+                    passage: "Dr. Barnes argues that the story is too personally revealing for children or anyone else to read.",
+                    question: "What is Dr. Barnes's argument against the story?",
+                    options: ["It's poorly written", "It's too personally revealing", "It's too long", "It's factually incorrect"],
+                    correct: 1
+                },
+                {
+                    passage: "Dr. Barnes sees this as the perfect opportunity to attack Mr. Larson and get him fired.",
+                    question: "How does Dr. Barnes view this situation?",
+                    options: ["As a learning opportunity", "As the perfect chance to get Mr. Larson fired", "As a minor issue", "As a chance to help students"],
+                    correct: 1
+                },
+                {
+                    passage: "Dr. Barnes forbids any further publication of The Landry News and bans it from the school.",
+                    question: "What action does Dr. Barnes take regarding the newspaper?",
+                    options: ["He improves funding for it", "He forbids further publication and bans it", "He takes over as editor", "He moves it to another classroom"],
+                    correct: 1
+                },
+                {
+                    passage: "The principal begins telling local media that the article is inappropriate for publication in a school setting.",
+                    question: "What does Dr. Barnes tell the media?",
+                    options: ["The newspaper is wonderful", "The article is inappropriate for school", "Students are talented writers", "He supports the teacher"],
+                    correct: 1
+                }
+            ],
+            13: [ // Chapter 14: MEDIA CIRCUS ARRIVES
+                {
+                    passage: "Local news media pick up the story about the banned student newspaper and the controversy surrounding it.",
+                    question: "What happens when the media learns about the situation?",
+                    options: ["They ignore it", "They pick up the story about the banned newspaper", "They side with the principal", "They only interview parents"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara is interviewed for television about her newspaper and the freedom of the press issues.",
+                    question: "What happens to Cara during the media attention?",
+                    options: ["She hides from reporters", "She's interviewed for television", "She transfers schools", "She stops talking to everyone"],
+                    correct: 1
+                },
+                {
+                    passage: "The story becomes bigger than anyone expected, drawing attention to First Amendment rights in schools.",
+                    question: "What broader issue does the story highlight?",
+                    options: ["School funding problems", "First Amendment rights in schools", "Teacher salary issues", "Student dress codes"],
+                    correct: 1
+                },
+                {
+                    passage: "Community members begin taking sides in the debate over student press freedom and appropriate content.",
+                    question: "How does the community respond to the controversy?",
+                    options: ["Everyone agrees with the principal", "Members take sides in the debate", "No one cares about it", "They demand the school be closed"],
+                    correct: 1
+                },
+                {
+                    passage: "The simple school newspaper issue becomes a town-wide discussion about constitutional rights.",
+                    question: "What does the newspaper issue become?",
+                    options: ["A forgotten incident", "A town-wide discussion about constitutional rights", "A legal lawsuit", "A fundraising opportunity"],
+                    correct: 1
+                }
+            ],
+            14: [ // Chapter 15: HEARING IS SCHEDULED
+                {
+                    passage: "An official hearing is scheduled to determine Mr. Larson's employment fate and the newspaper's future.",
+                    question: "What is the purpose of the scheduled hearing?",
+                    options: ["To plan school events", "To determine Mr. Larson's fate and the newspaper's future", "To discuss budget issues", "To interview new teachers"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson receives a formal letter informing him of the charges and the hearing process.",
+                    question: "What does Mr. Larson receive regarding the hearing?",
+                    options: ["A congratulations letter", "A formal letter about charges and process", "A resignation form", "An award nomination"],
+                    correct: 1
+                },
+                {
+                    passage: "Initially, Mr. Larson thinks he deserves the punishment because he had been such a poor teacher.",
+                    question: "What is Mr. Larson's initial reaction to the charges?",
+                    options: ["He's completely shocked", "He thinks he deserves it for being a poor teacher", "He's confident he'll win", "He blames the students"],
+                    correct: 1
+                },
+                {
+                    passage: "Students and some teachers begin rallying to support Mr. Larson and defend the newspaper.",
+                    question: "How do students and teachers respond to the situation?",
+                    options: ["They abandon Mr. Larson", "They rally to support him and defend the newspaper", "They remain neutral", "They side with the principal"],
+                    correct: 1
+                },
+                {
+                    passage: "The hearing becomes a focal point for examining the balance between student expression and school authority.",
+                    question: "What does the hearing represent in broader terms?",
+                    options: ["A simple disciplinary action", "Examining balance between student expression and school authority", "A budget review", "A routine evaluation"],
+                    correct: 1
+                }
+            ],
+
+            // PART IV: THE RESOLUTION (Chapters 16-20)
+            15: [ // Chapter 16: FIRST AMENDMENT LESSON
+                {
+                    passage: "Mr. Larson uses the controversy as an opportunity to teach his students about the First Amendment and freedom of the press.",
+                    question: "How does Mr. Larson use the controversy?",
+                    options: ["To blame students", "To teach about the First Amendment", "To criticize the principal", "To plan his resignation"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson hands out packets of information about what the hearing will entail so students can understand the process.",
+                    question: "What does Mr. Larson give his students?",
+                    options: ["Homework assignments", "Information packets about the hearing process", "Apology letters", "New textbooks"],
+                    correct: 1
+                },
+                {
+                    passage: "Students learn about the Constitution and how the First Amendment protects freedom of speech and press.",
+                    question: "What do students learn about the Constitution?",
+                    options: ["Only historical facts", "How the First Amendment protects speech and press freedom", "Tax laws", "Voting procedures"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson believes this is an excellent opportunity to teach about what happens when press freedom is challenged.",
+                    question: "What does Mr. Larson see as an educational opportunity?",
+                    options: ["Teaching math skills", "Learning what happens when press freedom is challenged", "Improving handwriting", "Studying science"],
+                    correct: 1
+                },
+                {
+                    passage: "The real-life situation makes the constitutional lesson more meaningful and relevant to students.",
+                    question: "What makes the constitutional lesson especially meaningful?",
+                    options: ["The textbook examples", "The real-life situation they're experiencing", "The teacher's enthusiasm", "The school's support"],
+                    correct: 1
+                }
+            ],
+            16: [ // Chapter 17: COMMUNITY TAKES SIDES
+                {
+                    passage: "The town becomes divided as parents, teachers, and community members choose sides in the controversy.",
+                    question: "What happens to the town during the controversy?",
+                    options: ["Everyone agrees", "It becomes divided as people choose sides", "No one pays attention", "It remains completely peaceful"],
+                    correct: 1
+                },
+                {
+                    passage: "Some parents support Dr. Barnes, believing schools should have strict control over student publications.",
+                    question: "What do some parents believe about student publications?",
+                    options: ["Students should have complete freedom", "Schools should have strict control", "Only teachers should write", "Publications should be banned"],
+                    correct: 1
+                },
+                {
+                    passage: "Other parents and teachers support Mr. Larson and believe in student expression rights.",
+                    question: "What do Mr. Larson's supporters believe in?",
+                    options: ["Strict censorship", "Student expression rights", "Eliminating newspapers", "Principal authority only"],
+                    correct: 1
+                },
+                {
+                    passage: "Faculty members are split, with some supporting academic freedom and others supporting administrative authority.",
+                    question: "How are faculty members divided?",
+                    options: ["All support the principal", "Between academic freedom and administrative authority", "All support Mr. Larson", "They don't care"],
+                    correct: 1
+                },
+                {
+                    passage: "The controversy highlights broader questions about education, authority, and student rights in schools.",
+                    question: "What broader issues does the controversy highlight?",
+                    options: ["Only budget concerns", "Education, authority, and student rights", "Sports programs", "Building maintenance"],
+                    correct: 1
+                }
+            ],
+            17: [ // Chapter 18: HEARING DAY ARRIVES
+                {
+                    passage: "The official hearing begins with testimony from various parties including Dr. Barnes and Mr. Larson.",
+                    question: "Who provides testimony at the hearing?",
+                    options: ["Only students", "Various parties including Dr. Barnes and Mr. Larson", "Only parents", "Only school board members"],
+                    correct: 1
+                },
+                {
+                    passage: "Dr. Barnes presents his case that the divorce story was inappropriate for a school publication.",
+                    question: "What is Dr. Barnes's main argument?",
+                    options: ["The writing was poor", "The divorce story was inappropriate for school", "Students can't write well", "Teachers are lazy"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson defends the educational value of the newspaper and the importance of student voice.",
+                    question: "What does Mr. Larson defend?",
+                    options: ["His salary", "The educational value and importance of student voice", "The principal's authority", "Traditional teaching methods"],
+                    correct: 1
+                },
+                {
+                    passage: "Community members attend the hearing to show support for their chosen side.",
+                    question: "Why do community members attend the hearing?",
+                    options: ["For entertainment", "To show support for their chosen side", "Because it's required", "To complain about taxes"],
+                    correct: 1
+                },
+                {
+                    passage: "The hearing becomes a public forum for debating student rights and educational philosophy.",
+                    question: "What does the hearing become?",
+                    options: ["A private meeting", "A public forum for debating student rights and education", "A fundraising event", "A social gathering"],
+                    correct: 1
+                }
+            ],
+            18: [ // Chapter 19: STUDENT STANDS UP
+                {
+                    passage: "The boy who wrote the 'Lost and Found' story bravely decides to read it aloud at the hearing.",
+                    question: "What does the boy who wrote the story decide to do?",
+                    options: ["Hide from everyone", "Read his story aloud at the hearing", "Deny he wrote it", "Leave town"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara says that if he is brave enough to say what he feels, the rest of them should be able to read his words.",
+                    question: "What does Cara say about the boy's courage?",
+                    options: ["He shouldn't share personal stories", "If he's brave enough to say it, others should read it", "The story is too sad", "He should keep it private"],
+                    correct: 1
+                },
+                {
+                    passage: "The boy's reading of his personal story moves many people in the hearing room to tears.",
+                    question: "How does the audience react to the boy reading his story?",
+                    options: ["They laugh", "Many are moved to tears", "They're bored", "They leave the room"],
+                    correct: 1
+                },
+                {
+                    passage: "The reading demonstrates the power of honest student expression and the value of giving young people a voice.",
+                    question: "What does the boy's reading demonstrate?",
+                    options: ["Students write poorly", "The power of honest expression and value of student voice", "Schools should ban writing", "Only adults should publish"],
+                    correct: 1
+                },
+                {
+                    passage: "The emotional impact of the boy's courage shifts the mood and perspective of many hearing attendees.",
+                    question: "What effect does the boy's courage have?",
+                    options: ["It makes people angry", "It shifts the mood and perspective of attendees", "It confuses everyone", "It ends the hearing early"],
+                    correct: 1
+                }
+            ],
+            19: [ // Chapter 20: TEACHER OF THE YEAR AGAIN
+                {
+                    passage: "Mr. Larson is vindicated at the hearing and allowed to continue teaching with the newspaper project.",
+                    question: "What is the outcome of the hearing for Mr. Larson?",
+                    options: ["He's fired immediately", "He's vindicated and can continue teaching", "He's suspended", "He's transferred"],
+                    correct: 1
+                },
+                {
+                    passage: "Cara hands out a special edition of The Landry News celebrating the victory for press freedom.",
+                    question: "What does Cara do after the hearing?",
+                    options: ["Stops the newspaper", "Hands out a special edition celebrating press freedom", "Transfers schools", "Quits as editor"],
+                    correct: 1
+                },
+                {
+                    passage: "The last article in the special edition is an editorial by Cara predicting Mr. Larson will be 'Teacher of the Year' again.",
+                    question: "What does Cara predict in her final editorial?",
+                    options: ["Mr. Larson will retire", "He'll be Teacher of the Year again", "The school will close", "She'll become principal"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. Larson realizes he had made the mistake of not taking care of his students' needs before this experience.",
+                    question: "What does Mr. Larson realize about his past teaching?",
+                    options: ["He was always perfect", "He hadn't taken care of students' needs", "Students were the problem", "The curriculum was wrong"],
+                    correct: 1
+                },
+                {
+                    passage: "The experience transforms both Cara and Mr. Larson, showing how students and teachers can inspire each other.",
+                    question: "What does the experience show about education?",
+                    options: ["Teachers don't need students", "Students and teachers can inspire each other", "Only grades matter", "Learning is impossible"],
+                    correct: 1
+                }
+            ]
+        };
+
+
+        // 전역 변수
+        let currentChapter = 0;
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 시간을 시:분:초 형식으로 변환하는 함수
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            } else {
+                return `${minutes}:${secs.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // 📰 The Landry News 오디오 URL 생성 함수 (개별 파일)
+        function getAudioUrl(chapterIndex) {
+            const chapterNumber = chapterIndex + 1;
+            const chapterData = landryNewsChapterMapping[chapterNumber];
+
+            if (!chapterData) {
+                // 기존 방식과 호환성 유지
+                const fileName = `${String(chapterNumber).padStart(2, '0')}.mp3`;
+                return {
+                    primary: `${AUDIO_BASE_URL}LN001-The-Landry-News/${fileName}`,
+                    alternatives: [`${AUDIO_BASE_URL}LN001-The-Landry-News/${fileName}`],
+                    chapterNumber: chapterNumber,
+                    title: `Chapter ${chapterNumber}`,
+                    file: fileName,
+                    part: Math.ceil(chapterNumber / 5),
+                    partTitle: `Part ${Math.ceil(chapterNumber / 5)}`
+                };
+            }
+
+            return {
+                primary: `${AUDIO_BASE_URL}LN001-The-Landry-News/${chapterData.file}`,
+                chapterNumber: chapterNumber,
+                title: chapterData.title,
+                file: chapterData.file,
+                part: chapterData.part,
+                partTitle: chapterData.partTitle,
+                alternatives: [`${AUDIO_BASE_URL}LN001-The-Landry-News/${chapterData.file}`]
+            };
+        }
+
+        // 📰 The Landry News 챕터 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapterNumber = chapterIndex + 1;
+
+            if (chapterNumber < 1 || chapterNumber > 20) {
+                alert('유효하지 않은 챕터 번호입니다. (1-20)');
+                return;
+            }
+
+            const audioData = getAudioUrl(chapterIndex);
+            if (!audioData) {
+                alert(`Chapter ${chapterNumber}의 오디오 파일을 찾을 수 없습니다.`);
+                return;
+            }
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = audioData.title;
+            document.getElementById('audio-chapter-subtitle').textContent = `${audioData.partTitle} - The Landry News by Andrew Clements`;
+
+            const audioInfoElement = document.getElementById('audio-info');
+            if (audioInfoElement) {
+                audioInfoElement.style.display = 'block';
+            }
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            currentChapter = chapterIndex;
+            currentChapterIndex = chapterIndex;
+
+            if (audioStatus) {
+                audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+            }
+
+            audioSource.src = audioData.primary;
+            audioPlayer.load();
+
+            const successHandler = function() {
+                audioPlayer.currentTime = 0;
+                if (audioStatus) {
+                    audioStatus.innerHTML = `✅ ${audioData.title} 준비완료!<br>
+                                            📚 ${audioData.partTitle}<br>
+                                            📁 파일: ${audioData.file}<br>
+                                            🎵 ▶️ 재생 버튼을 눌러주세요`;
+                }
+            };
+
+            const errorHandler = function() {
+                if (audioStatus) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.<br>파일: ${audioData.file}`;
+                }
+                console.error('오디오 로드 실패:', audioData.primary);
+            };
+
+            audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+            audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 오디오 플레이어 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+
+            if (currentAudio.paused) {
+                currentAudio.play().then(() => {
+                    document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                }).catch(e => {
+                    console.log('재생 실패:', e);
+                });
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+
+            const speedBtn = document.querySelector('.speed-btn');
+            if (speedBtn) {
+                speedBtn.textContent = `${playbackSpeed}x`;
+            }
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+
+                const chapterData = landryNewsChapterMapping[currentChapter + 1];
+                const fileName = chapterData ? `${chapterData.title}_LandryNews.mp3` : 'LandryNews_Chapter.mp3';
+
+                link.download = fileName;
+                link.click();
+            } else {
+                alert('다운로드할 오디오 파일이 없습니다.');
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성 (4부 구조로)
+        function generateChapterGrid() {
+            const container = document.getElementById('chapters-container');
+            container.innerHTML = '';
+
+            bookData.parts.forEach((part, partIndex) => {
+                // 파트 헤더 생성
+                const partHeader = document.createElement('div');
+                partHeader.className = 'part-header';
+                partHeader.textContent = `${part.title} - ${part.description}`;
+                container.appendChild(partHeader);
+
+                // 해당 파트의 챕터 그리드 생성
+                const grid = document.createElement('div');
+                grid.className = 'chapters-grid';
+
+                part.chapters.forEach(chapterNum => {
+                    const chapterIndex = chapterNum - 1;
+                    const chapter = bookData.chapterList[chapterIndex];
+
+                    const chapterCard = document.createElement('div');
+                    chapterCard.className = `chapter-card ${chapter.status}`;
+
+                    chapterCard.innerHTML = `
+                        <div class="chapter-header">
+                            <div class="chapter-info">
+                                <h4>${chapter.title}</h4>
+                                <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                            </div>
+                            <div class="chapter-status ${chapter.status}">
+                                ${chapter.status === 'completed' ? '✅ 완료' :
+                                  chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                            </div>
+                        </div>
+                        <div class="chapter-actions">
+                            <button class="chapter-btn audio-btn" onclick="playChapterAudio(${chapterIndex})"
+                                    ${chapter.status === 'locked' ? 'disabled' : ''}>
+                                🎧 오디오
+                            </button>
+                            <button class="chapter-btn quiz-btn" onclick="startLearning(${chapterIndex})"
+                                    ${chapter.status === 'locked' ? 'disabled' : ''}>
+                                📝 문제풀기
+                            </button>
+                        </div>
+                    `;
+
+                    grid.appendChild(chapterCard);
+                });
+
+                container.appendChild(grid);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #2c3e50, #3498db)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #2c3e50, #3498db)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #2c3e50, #3498db)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            // 페이지 로드 시 초기화
+            showBookDetail();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👨‍👩‍👧‍👦 학부모 이메일 등록 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #28a745, #20c997);
+        }
+
+        .btn-success:hover {
+            box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .student-search {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .student-search.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .student-info {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .student-info.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .student-info h4 {
+            color: #155724;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .student-detail {
+            color: #155724;
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .result.success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .result.error {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .help-text {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #1976d2;
+        }
+
+        .help-text strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-btn {
+                width: 100%;
+                max-width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👨‍👩‍👧‍👦 학부모 이메일 등록</h1>
+            <p>자녀의 학습 현황을 실시간으로<br>이메일로 받아보세요!</p>
+        </div>
+
+        <!-- 1단계: 자녀 찾기 -->
+        <div class="form-section">
+            <div class="section-title">
+                🔍 1단계: 자녀 찾기
+            </div>
+            
+            <div class="form-group">
+                <label for="childName">자녀 이름</label>
+                <input type="text" id="childName" placeholder="예: 김지민" autocomplete="off">
+            </div>
+
+            <div class="form-group">
+                <label for="childPhone">자녀 연락처 (본인확인용)</label>
+                <input type="tel" id="childPhone" placeholder="예: 010-1234-5678" autocomplete="off">
+            </div>
+
+            <button type="button" class="btn" onclick="findStudent()">자녀 찾기</button>
+
+            <!-- 검색 결과 표시 -->
+            <div class="student-info" id="studentInfo">
+                <h4>✅ 학생 정보 확인</h4>
+                <div class="student-detail" id="studentDetail"></div>
+            </div>
+        </div>
+
+        <!-- 2단계: 학부모 정보 입력 -->
+        <div class="form-section" id="parentSection" style="display: none;">
+            <div class="section-title">
+                👨‍👩‍👧‍👦 2단계: 학부모 정보 입력
+            </div>
+            
+            <div class="form-group">
+                <label for="parentName">학부모 이름</label>
+                <input type="text" id="parentName" placeholder="예: 김학부모" autocomplete="name">
+            </div>
+
+            <div class="form-group">
+                <label for="parentEmail">이메일 주소</label>
+                <input type="email" id="parentEmail" placeholder="예: parent@example.com" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="relationship">관계</label>
+                <select id="relationship">
+                    <option value="아버지">아버지</option>
+                    <option value="어머니">어머니</option>
+                    <option value="조부모">조부모</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-success" onclick="registerParentEmail()">이메일 등록하기</button>
+        </div>
+
+        <!-- 로딩 표시 -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>처리 중입니다...</p>
+        </div>
+
+        <!-- 결과 표시 -->
+        <div class="result" id="result"></div>
+
+        <!-- 도움말 -->
+        <div class="help-text">
+            <strong>💡 도움이 필요하신가요?</strong>
+            자녀 정보를 찾을 수 없거나 문제가 있으면 학원으로 연락해주세요.<br>
+            📞 전화: 032-123-4567 | 📧 이메일: info@sureading.com
+        </div>
+
+        <!-- 하단 네비게이션 -->
+        <div class="nav-buttons">
+            <a href="/" class="nav-btn">🏠 메인으로</a>
+            <a href="/email-test" class="nav-btn">🧪 테스트 페이지</a>
+        </div>
+    </div>
+
+    <script>
+        // 전역 변수
+        let foundStudent = null;
+
+        // 학생 찾기 함수
+        async function findStudent() {
+            const childName = document.getElementById('childName').value.trim();
+            const childPhone = document.getElementById('childPhone').value.trim();
+
+            // 입력 검증
+            if (!childName || !childPhone) {
+                showResult('자녀 이름과 연락처를 모두 입력해주세요.', 'error');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                // 실제 API 호출 시뮬레이션
+                const response = await simulateStudentSearch(childName, childPhone);
+
+                if (response.success) {
+                    foundStudent = response.student;
+                    showStudentInfo(foundStudent);
+                    showParentSection();
+                    showResult('학생 정보를 찾았습니다! 아래에서 학부모 정보를 입력해주세요.', 'success');
+                } else {
+                    showResult(response.message || '해당하는 학생을 찾을 수 없습니다. 정보를 다시 확인해주세요.', 'error');
+                }
+            } catch (error) {
+                showResult('서버 연결에 문제가 있습니다. 잠시 후 다시 시도해주세요.', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 학생 검색 시뮬레이션 (실제로는 서버 API 호출)
+        async function simulateStudentSearch(name, phone) {
+            // 실제 구현에서는 이 부분이 서버 API 호출이 됩니다
+            // fetch('/api/find-student', { method: 'POST', ... })
+
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 로딩 시뮬레이션
+
+            // 테스트용 학생 데이터
+            const testStudents = [
+                { id: 1, name: '김지민', phone: '010-1111-1111', level: 1, school: '서울초등학교' },
+                { id: 2, name: '박준호', phone: '010-2222-2222', level: 2, school: '인천초등학교' },
+                { id: 3, name: '이서연', phone: '010-3333-3333', level: 3, school: '부산초등학교' },
+                { id: 4, name: '최민수', phone: '010-4444-4444', level: 4, school: '대구초등학교' },
+                { id: 5, name: '정하은', phone: '010-5555-5555', level: 5, school: '광주초등학교' }
+            ];
+
+            // 전화번호 정규화 (하이픈 제거)
+            const normalizedPhone = phone.replace(/-/g, '');
+            const normalizedInputPhone = phone.replace(/-/g, '');
+
+            const student = testStudents.find(s => 
+                s.name === name && s.phone.replace(/-/g, '') === normalizedInputPhone
+            );
+
+            if (student) {
+                return {
+                    success: true,
+                    student: student
+                };
+            } else {
+                return {
+                    success: false,
+                    message: '입력하신 정보와 일치하는 학생을 찾을 수 없습니다.'
+                };
+            }
+        }
+
+        // 학생 정보 표시
+        function showStudentInfo(student) {
+            const studentInfo = document.getElementById('studentInfo');
+            const studentDetail = document.getElementById('studentDetail');
+            
+            studentDetail.innerHTML = `
+                <div><strong>이름:</strong> ${student.name}</div>
+                <div><strong>레벨:</strong> Level ${student.level}</div>
+                <div><strong>학교:</strong> ${student.school}</div>
+                <div><strong>연락처:</strong> ${student.phone}</div>
+            `;
+            
+            studentInfo.classList.add('show');
+        }
+
+        // 학부모 섹션 표시
+        function showParentSection() {
+            const parentSection = document.getElementById('parentSection');
+            parentSection.style.display = 'block';
+            setTimeout(() => {
+                parentSection.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
+
+        // 학부모 이메일 등록
+        async function registerParentEmail() {
+            if (!foundStudent) {
+                showResult('먼저 자녀 정보를 찾아주세요.', 'error');
+                return;
+            }
+
+            const parentName = document.getElementById('parentName').value.trim();
+            const parentEmail = document.getElementById('parentEmail').value.trim();
+            const relationship = document.getElementById('relationship').value;
+
+            // 입력 검증
+            if (!parentName || !parentEmail) {
+                showResult('학부모 이름과 이메일을 모두 입력해주세요.', 'error');
+                return;
+            }
+
+            // 이메일 형식 검증
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(parentEmail)) {
+                showResult('올바른 이메일 형식이 아닙니다.', 'error');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                // 실제 API 호출 시뮬레이션
+                const response = await simulateParentEmailRegistration(
+                    foundStudent.id, 
+                    parentName, 
+                    parentEmail, 
+                    relationship
+                );
+
+                if (response.success) {
+                    showResult(`
+                        <h4>🎉 등록 완료!</h4>
+                        <p><strong>${parentName}</strong>님의 이메일 <strong>${parentEmail}</strong>이 성공적으로 등록되었습니다.</p>
+                        <p>📧 테스트 이메일을 발송했습니다. 메일함을 확인해주세요!</p>
+                        <p>이제부터 <strong>${foundStudent.name}</strong>님의 학습 현황을 실시간으로 받아보실 수 있습니다.</p>
+                    `, 'success');
+
+                    // 폼 초기화
+                    setTimeout(() => {
+                        resetForm();
+                    }, 3000);
+                } else {
+                    showResult(response.message || '등록 중 오류가 발생했습니다.', 'error');
+                }
+            } catch (error) {
+                showResult('서버 연결에 문제가 있습니다. 잠시 후 다시 시도해주세요.', 'error');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 학부모 이메일 등록 시뮬레이션
+        async function simulateParentEmailRegistration(studentId, parentName, parentEmail, relationship) {
+            await new Promise(resolve => setTimeout(resolve, 1500)); // 로딩 시뮬레이션
+
+            // 실제로는 서버 API 호출
+            // fetch('/api/student/${studentId}/parent-email', { method: 'POST', ... })
+
+            console.log('📧 학부모 이메일 등록:', {
+                studentId,
+                parentName,
+                parentEmail,
+                relationship
+            });
+
+            return {
+                success: true,
+                message: '학부모 이메일이 성공적으로 등록되었습니다.'
+            };
+        }
+
+        // UI 헬퍼 함수들
+        function showLoading() {
+            document.getElementById('loading').classList.add('show');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('show');
+        }
+
+        function showResult(message, type) {
+            const result = document.getElementById('result');
+            result.className = `result ${type} show`;
+            result.innerHTML = message;
+
+            // 3초 후 자동 숨김 (에러가 아닌 경우)
+            if (type === 'success') {
+                setTimeout(() => {
+                    result.classList.remove('show');
+                }, 8000);
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('childName').value = '';
+            document.getElementById('childPhone').value = '';
+            document.getElementById('parentName').value = '';
+            document.getElementById('parentEmail').value = '';
+            document.getElementById('relationship').value = '아버지';
+            
+            document.getElementById('studentInfo').classList.remove('show');
+            document.getElementById('parentSection').style.display = 'none';
+            document.getElementById('result').classList.remove('show');
+            
+            foundStudent = null;
+        }
+
+        // Enter 키 이벤트 처리
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const focusedElement = document.activeElement;
+                if (focusedElement.id === 'childName' || focusedElement.id === 'childPhone') {
+                    findStudent();
+                } else if (focusedElement.id === 'parentName' || focusedElement.id === 'parentEmail') {
+                    registerParentEmail();
+                }
+            }
+        });
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('👨‍👩‍👧‍👦 학부모 이메일 등록 페이지 로드 완료');
+            
+            // 폼 포커스
+            document.getElementById('childName').focus();
+        });
+    </script>
+</body>
+</html>

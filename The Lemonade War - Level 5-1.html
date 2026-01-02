@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lemonade War - Level 3-1 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 50%, #CDDC39 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #4CAF50;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4CAF50;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF5008, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #FFD700;
+        }
+
+        .option.selected {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #FFD700;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #FFA500;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Level 5-1 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #FFD700, #FF6B9D);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🍋</div>
+                <div class="logo-text">
+                    <h1>The Lemonade War</h1>
+                    <p>Level 3-1 - Jacqueline Davies의 비즈니스 교육 소설</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 5-1</div>
+                <div class="breadcrumb">
+                    <span>The Lemonade War</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🍋</div>
+                    <div class="book-info">
+                        <h2>The Lemonade War</h2>
+                        <div class="author">Jacqueline Davies</div>
+                        <div class="book-summary">
+                            Fourth-grader Evan Treski is people-smart. He's good at talking with people, even grownups. His younger sister Jessie, on the other hand, is math-smart, but not especially good with people. She knows that feelings are her weakest subject. When Jessie skips a grade and will be in Evan's class, their sibling rivalry erupts into an all-out lemonade war. With just five days left of summer vacation, who will sell the most lemonade and win the war? This engaging novel teaches business concepts while exploring sibling relationships.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">14</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">70</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 3-1</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🍋 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Lemonade War</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Lemonade War</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">The Lemonade War - Jacqueline Davies</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #FFD700;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // 🎧 The Lemonade War 단일 파일 + 시간 점프 시스템 (실제 챕터 시간)
+        const lemonadeWarTimeMapping = {
+            0: { startTime: 14 },      // Chapter 1 - Slump: 0:00:14
+            1: { startTime: 649 },     // Chapter 2 - Breakup: 10:49
+            2: { startTime: 1733 },    // Chapter 3 - Joint Venture: 28:53
+            3: { startTime: 2693 },    // Chapter 4 - Partnership: 44:53
+            4: { startTime: 3855 },    // Chapter 5 - Competition: 1:04:15
+            5: { startTime: 4409 },    // Chapter 6 - Underselling: 1:13:29
+            6: { startTime: 5746 },    // Chapter 7 - Location: 1:35:46
+            7: { startTime: 6687 },    // Chapter 8 - Going Global: 1:51:27
+            8: { startTime: 8122 },    // Chapter 9 - Negotiation: 2:15:22
+            9: { startTime: 8513 },    // Chapter 10 - Malicious Mischief: 2:21:53
+            10: { startTime: 9578 },   // Chapter 11 - A Total Loss: 2:39:38
+            11: { startTime: 10207 },  // Chapter 12 - Waiting Period: 2:50:07
+            12: { startTime: 10400 },  // Chapter 13 - Crisis Management: 2:53:20
+            13: { startTime: 10645 }   // Chapter 14 - Reconciliation: 2:57:25
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 The Lemonade War 오디오 URL 생성 함수 (단일 파일)
+        function getAudioUrl(chapterIndex) {
+            const fileName = 'The Lemonade War.mp3';
+            return {
+                primary: `${AUDIO_BASE_URL}LW001_The_Lemonade_War/${fileName}`,
+                startTime: lemonadeWarTimeMapping[chapterIndex]?.startTime || 0,
+                alternatives: [`${AUDIO_BASE_URL}LW001_The_Lemonade_War/${fileName}`]
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioData = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+            // 단일 파일 로드
+            audioSource.src = audioData.primary;
+            audioPlayer.load();
+
+            const successHandler = function() {
+                // 시간 점프!
+                audioPlayer.currentTime = audioData.startTime;
+
+                // 시간 표시 (분:초 형식)
+                const minutes = Math.floor(audioData.startTime / 60);
+                const seconds = Math.floor(audioData.startTime % 60);
+                const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                audioStatus.innerHTML = `✅ ${chapter.title} 로드 완료! (${timeDisplay}부터)`;
+
+                // 🎯 챕터 클릭 즉시 재생 시도!
+                audioPlayer.play().then(() => {
+                    audioStatus.innerHTML = `🎵 ${chapter.title} 재생 중! (${timeDisplay}부터)`;
+                    document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                }).catch(e => {
+                    console.log('자동 재생 차단됨:', e);
+                    audioStatus.innerHTML = `✅ ${chapter.title} 준비됨! ▶️ 재생 버튼을 눌러주세요`;
+                });
+            };
+
+            const errorHandler = function() {
+                audioStatus.innerHTML = '❌ 오디오 파일을 찾을 수 없습니다.';
+            };
+
+            audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+            audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 🎧 구간처음으로 함수 (현재 챕터 시작점으로)
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+
+            // 현재 챕터 정보 추출
+            const chapterTitle = document.getElementById('audio-chapter-title').textContent;
+            const currentChapterIndex = bookData.chapterList.findIndex(ch => ch.title === chapterTitle);
+
+            if (currentChapterIndex !== -1) {
+                const startTime = lemonadeWarTimeMapping[currentChapterIndex]?.startTime || 0;
+                currentAudio.currentTime = startTime;
+
+                console.log(`🔄 ${chapterTitle} 시작점으로 이동: ${Math.floor(startTime/60)}:${Math.floor(startTime%60).toString().padStart(2,'0')}`);
+            }
+        }
+
+        // 기본 오디오 컨트롤 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // The Lemonade War 도서 데이터 (정확한 14챕터)
+        const bookData = {
+            id: 'LW001',
+            title: "The Lemonade War",
+            author: 'Jacqueline Davies',
+            cover: '🍋',
+            progress: 0,
+            chapters: 14,
+            totalQuestions: 70,
+            coverColor: 'linear-gradient(45deg, #FFD700, #FFA500)',
+            summary: "Fourth-grader Evan Treski is people-smart. He's good at talking with people, even grownups. His younger sister Jessie, on the other hand, is math-smart, but not especially good with people. She knows that feelings are her weakest subject. When Jessie skips a grade and will be in Evan's class, their sibling rivalry erupts into an all-out lemonade war. With just five days left of summer vacation, who will sell the most lemonade and win the war? This engaging novel teaches business concepts while exploring sibling relationships.",
+            chapterList: [
+                { title: 'Chapter 1: Slump', description: 'Evan hides in the basement, avoiding Jessie after learning they\'ll be in the same class. A business slump hits their relationship.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 2: Breakup', description: 'The dissolution of Evan and Jessie\'s close sibling relationship as tensions rise over the school situation.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 3: Joint Venture', description: 'Evan partners with Scott Spencer to start a lemonade stand, but their business partnership has problems.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 4: Partnership', description: 'Jessie teams up with Megan Moriarty to create her own competing lemonade stand.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 5: Competition', description: 'The sibling rivalry intensifies as both lemonade stands compete for customers and profits.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 6: Underselling', description: 'Price wars begin as both sides try to attract customers by lowering their lemonade prices.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 7: Location Location Location', description: 'Evan learns the importance of location in business when he tries to set up in town but faces legal issues.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 8: Going Global', description: 'Jessie creates a franchise system, expanding her lemonade business with multiple stands throughout the neighborhood.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 9: Negotiation', description: 'Business deals and negotiations take place as the lemonade war reaches new levels of intensity.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 10: Malicious Mischief', description: 'Jessie crosses an ethical line by sabotaging Evan\'s lemonade with dead flies, escalating the conflict.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 11: A Total Loss', description: 'Evan steals Jessie\'s money in revenge, but Scott Spencer steals it from Evan at the pool party.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 12: Waiting Period', description: 'The siblings avoid each other as they deal with the aftermath of their escalated conflict.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 13: Crisis Management', description: 'Both siblings must face the consequences of their actions and find ways to handle the crisis.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 14: Reconciliation', description: 'Evan and Jessie finally communicate their true feelings and reconcile, learning valuable lessons about family and business.', status: 'current', questionCount: 5 }
+            ]
+        };
+
+        // 문제 데이터 (실제 스토리에 기반한 샘플)
+        const questionsData = {
+            0: [ // Chapter 1: Slump
+                {
+                    passage: "Evan lay on his back in the dark, throwing the baseball up in a straight line and catching it in his bare hands. The basement was warm and humid, and he could hear the air conditioner humming upstairs.",
+                    question: "Where was Evan spending his time and what was he doing?",
+                    options: ["Playing video games in his room", "Lying in the dark basement throwing a baseball up and down", "Swimming in the pool", "Reading books in the library"],
+                    correct: 1
+                },
+                {
+                    passage: "Evan was in a slump - a drop in the activity of a business or the economy. It was almost the end of summer vacation, and he was bored and avoiding his sister Jessie.",
+                    question: "What business term describes Evan's current situation?",
+                    options: ["Partnership", "Slump", "Competition", "Negotiation"],
+                    correct: 1
+                },
+                {
+                    passage: "When Jessie mentioned the letter from school, Evan dropped the baseball on his nose. The letter meant that Jessie would skip third grade and be in his fourth-grade class.",
+                    question: "What news from the school letter upset Evan?",
+                    options: ["He was held back a grade", "Jessie would skip third grade and be in his class", "He had to change schools", "Summer vacation was extended"],
+                    correct: 1
+                },
+                {
+                    passage: "'You ruined my summer and now you're going to ruin school. I hate you,' Evan yelled at Jessie when she tried to help him with his bleeding nose.",
+                    question: "How did Evan react to Jessie's attempt to help?",
+                    options: ["He thanked her politely", "He yelled that she ruined his summer and he hated her", "He asked her to get their mom", "He ignored her completely"],
+                    correct: 1
+                },
+                {
+                    passage: "Evan was worried that having his younger, smarter sister in his class would embarrass him in front of his friends and teachers.",
+                    question: "Why was Evan upset about Jessie being in his class?",
+                    options: ["He didn't like school", "He was worried she would embarrass him by being smarter", "He wanted to be in a different grade", "He didn't want to see her at school"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: Breakup
+                {
+                    passage: "Breakup: the dissolution of a unit, an organization, or a group of organizations. Jessie couldn't understand why Evan was so angry about them being in the same class.",
+                    question: "What business term describes what happened to Evan and Jessie's relationship?",
+                    options: ["Merger", "Breakup", "Partnership", "Competition"],
+                    correct: 1
+                },
+                {
+                    passage: "Jessie was excited about skipping third grade and being with Evan, but she was confused by his angry reaction to the news.",
+                    question: "How did Jessie feel about skipping a grade?",
+                    options: ["She was scared and worried", "She was excited but confused by Evan's anger", "She didn't want to skip", "She was angry too"],
+                    correct: 1
+                },
+                {
+                    passage: "Jessie knew that feelings were her weakest subject. She was good at math and school subjects, but understanding people's emotions was difficult for her.",
+                    question: "What did Jessie consider her weakest subject?",
+                    options: ["Math", "Reading", "Feelings and understanding emotions", "Science"],
+                    correct: 2
+                },
+                {
+                    passage: "When Scott Spencer teased that Evan would have his baby sister in his class, it made Evan even more embarrassed and angry.",
+                    question: "What made Evan feel worse about the situation?",
+                    options: ["His teacher called", "Scott Spencer teased him about having his baby sister in class", "His parents got angry", "Jessie started crying"],
+                    correct: 1
+                },
+                {
+                    passage: "Jessie tried to make things better by offering to help Evan with activities he liked, but he rejected all her offers.",
+                    question: "How did Jessie try to improve their relationship?",
+                    options: ["She ignored him", "She offered to help with activities he liked", "She complained to their parents", "She started crying"],
+                    correct: 1
+                }
+            ]
+            // Additional chapters would follow the same pattern...
+        };
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #FFD700, #FFA500)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #FFD700, #FFA500)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #FFD700, #FFA500)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>

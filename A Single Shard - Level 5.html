@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Single Shard - Level 5 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F4A460 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #8B4513;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #8B4513;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #8B4513;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8B4513;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #8B4513;
+            background: linear-gradient(135deg, #8B451308, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #D2691E, #F4A460);
+            color: #333;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8B4513, #D2691E);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #8B4513;
+        }
+
+        .option.selected {
+            background: rgba(139, 69, 19, 0.1);
+            border-color: #8B4513;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #D2691E;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Level 5 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #8B4513, #FF6B9D);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🏺</div>
+                <div class="logo-text">
+                    <h1>A Single Shard</h1>
+                    <p>Level 5 - Linda Sue Park의 뉴베리 메달 수상작</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 5</div>
+                <div class="breadcrumb">
+                    <span>A Single Shard</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🏺</div>
+                    <div class="book-info">
+                        <h2>A Single Shard</h2>
+                        <div class="author">Linda Sue Park</div>
+                        <div class="book-summary">
+                            Tree-ear is a 12-year-old orphan living under a bridge with Crane-man in the Korean potters' village of Ch'ulp'o during the 12th century. Fascinated by the craft of pottery, especially the work of master potter Min, Tree-ear dreams of creating beautiful celadon ware himself. When he accidentally breaks one of Min's pottery pieces, he must work for the master to pay his debt. This 2002 Newbery Medal winner tells a moving story of perseverance, artistry, and finding one's place in the world.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">13</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">65</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 5</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🏺 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">A Single Shard</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">A Single Shard</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">A Single Shard - Linda Sue Park</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #8B4513;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+
+     // 🎧 A Single Shard 단일 파일 + 시간 점프 시스템
+const singleShardTimeMapping = {
+    0: { startTime: 46 },          // Chapter 1: 0:00:46
+    1: { startTime: 949 },         // Chapter 2: 0:15:49
+    2: { startTime: 1800 },        // Chapter 3: 0:30:00
+    3: { startTime: 2787 },        // Chapter 4: 0:46:27
+    4: { startTime: 3694 },        // Chapter 5: 1:01:34
+    5: { startTime: 4598 },        // Chapter 6: 1:16:38
+    6: { startTime: 5646 },        // Chapter 7: 1:34:06
+    7: { startTime: 6753 },        // Chapter 8: 1:52:33
+    8: { startTime: 7458 },        // Chapter 9: 2:04:18
+    9: { startTime: 8373 },        // Chapter 10: 2:19:33
+    10: { startTime: 9337 },       // Chapter 11: 2:35:37
+    11: { startTime: 10138 },      // Chapter 12: 2:48:58
+    12: { startTime: 10823 }       // Chapter 13: 3:00:23
+};
+
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 A Single Shard 오디오 URL 생성 함수 (단일 파일)
+        function getAudioUrl(chapterIndex) {
+            const fileName = 'ASS001.mp3';
+            return {
+                primary: `${AUDIO_BASE_URL}ASS001_A_Single_Shard/${fileName}`,
+                startTime: singleShardTimeMapping[chapterIndex]?.startTime || 0,
+                alternatives: [`${AUDIO_BASE_URL}ASS001_A_Single_Shard/${fileName}`]
+            };
+        }
+
+        // 🎧 A Single Shard 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioData = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+            // 단일 파일 로드
+            audioSource.src = audioData.primary;
+            audioPlayer.load();
+
+            const successHandler = function() {
+                // 시간 점프!
+                audioPlayer.currentTime = audioData.startTime;
+
+                // 시간 표시 (분:초 형식)
+                const minutes = Math.floor(audioData.startTime / 60);
+                const seconds = Math.floor(audioData.startTime % 60);
+                const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 로드 완료! (${timeDisplay}부터)`;
+
+                // 🎯 챕터 클릭 즉시 재생 시도!
+                audioPlayer.play().then(() => {
+                    audioStatus.innerHTML = `🎵 Chapter ${chapterIndex + 1} 재생 중! (${timeDisplay}부터)`;
+                    document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                }).catch(e => {
+                    console.log('자동 재생 차단됨:', e);
+                    audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 준비됨! ▶️ 재생 버튼을 눌러주세요`;
+                });
+            };
+
+            const errorHandler = function() {
+                audioStatus.innerHTML = '❌ 오디오 파일을 찾을 수 없습니다.';
+            };
+
+            audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+            audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 🎧 구간처음으로 함수 (현재 챕터 시작점으로)
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+
+            // 현재 챕터 번호 추출
+            const chapterTitle = document.getElementById('audio-chapter-title').textContent;
+            const chapterMatch = chapterTitle.match(/Chapter (\d+)/);
+
+            if (chapterMatch) {
+                const currentChapterIndex = parseInt(chapterMatch[1]) - 1;
+                const startTime = singleShardTimeMapping[currentChapterIndex]?.startTime || 0;
+                currentAudio.currentTime = startTime;
+
+                console.log(`🔄 Chapter ${currentChapterIndex + 1} 시작점으로 이동: ${Math.floor(startTime/60)}:${Math.floor(startTime%60).toString().padStart(2,'0')}`);
+            }
+        }
+
+        // 기본 오디오 컨트롤 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // A Single Shard 도서 데이터 (정확한 13챕터, 제목 없음)
+        const bookData = {
+            id: 'ASS001',
+            title: "A Single Shard",
+            author: 'Linda Sue Park',
+            cover: '🏺',
+            progress: 0,
+            chapters: 13,
+            totalQuestions: 65,
+            coverColor: 'linear-gradient(45deg, #8B4513, #D2691E)',
+            summary: "Tree-ear is a 12-year-old orphan living under a bridge with Crane-man in the Korean potters' village of Ch'ulp'o during the 12th century. Fascinated by the craft of pottery, especially the work of master potter Min, Tree-ear dreams of creating beautiful celadon ware himself. When he accidentally breaks one of Min's pottery pieces, he must work for the master to pay his debt. This 2002 Newbery Medal winner tells a moving story of perseverance, artistry, and finding one's place in the world.",
+            chapterList: [
+                { title: 'Chapter 1', description: 'Tree-ear lives under a bridge with Crane-man and becomes fascinated by master potter Min\'s work.', status: 'current', questionCount: 5, startTime: 0 },
+                { title: 'Chapter 2', description: 'Tree-ear continues to spy on Min and learns about the art of pottery making.', status: 'current', questionCount: 5, startTime: 922 },
+                { title: 'Chapter 3', description: 'Tree-ear accidentally breaks one of Min\'s pottery pieces and must face the consequences.', status: 'current', questionCount: 5, startTime: 1844 },
+                { title: 'Chapter 4', description: 'Tree-ear begins working for Min to pay for the broken pottery.', status: 'current', questionCount: 5, startTime: 2766 },
+                { title: 'Chapter 5', description: 'Tree-ear learns about different clays and the mysteries of pottery making.', status: 'current', questionCount: 5, startTime: 3691 },
+                { title: 'Chapter 6', description: 'The royal emissary visits the village looking for the finest pottery.', status: 'current', questionCount: 5, startTime: 4633 },
+                { title: 'Chapter 7', description: 'Min works on his pieces for the royal commission with Tree-ear\'s help.', status: 'current', questionCount: 5, startTime: 5575 },
+                { title: 'Chapter 8', description: 'Tree-ear offers to take Min\'s pottery to the royal court in Songdo.', status: 'current', questionCount: 5, startTime: 6517 },
+                { title: 'Chapter 9', description: 'Tree-ear begins his dangerous journey to Songdo carrying the precious pottery.', status: 'current', questionCount: 5, startTime: 7456 },
+                { title: 'Chapter 10', description: 'Tree-ear encounters bandits who destroy the pottery, leaving only a single shard.', status: 'current', questionCount: 5, startTime: 8286 },
+                { title: 'Chapter 11', description: 'Tree-ear continues to Songdo with the single shard and meets the royal emissary.', status: 'current', questionCount: 5, startTime: 9116 },
+                { title: 'Chapter 12', description: 'The emissary is impressed by the shard and gives Min a royal commission.', status: 'current', questionCount: 5, startTime: 9946 },
+                { title: 'Chapter 13', description: 'Tree-ear returns home to find Crane-man has died, but Min and his wife adopt him.', status: 'current', questionCount: 5, startTime: 10776 }
+            ]
+        };
+
+        // 문제 데이터 (정확한 스토리에 기반)
+        const questionsData = {
+            0: [ // Chapter 1
+                {
+                    passage: "Tree-ear was named after the mushroom that grew in wrinkled half-circles on dead or fallen tree trunks, emerging from rotten wood without benefit of parent seed.",
+                    question: "Why was Tree-ear given his particular name?",
+                    options: ["After a beautiful tree in the village", "After the mushroom that grows from dead wood without parent seed, fitting for an orphan", "After his favorite food", "After the sound he made as a baby"],
+                    correct: 1
+                },
+                {
+                    passage: "Crane-man was so called because of his twisted foot and calf, which made it necessary for him to walk with a crutch and stand on one leg, like a crane.",
+                    question: "How did Crane-man get his name?",
+                    options: ["He worked with cranes", "His twisted foot made him stand on one leg like a crane", "He loved watching birds", "He was very tall"],
+                    correct: 1
+                },
+                {
+                    passage: "The village of Ch'ulp'o was known throughout Korea for its fine ceramics, especially the beautiful celadon pottery with its jade-green glaze.",
+                    question: "What was the village of Ch'ulp'o famous for?",
+                    options: ["Its beautiful gardens", "Its fine ceramics, especially celadon pottery with jade-green glaze", "Its skilled fishermen", "Its wealthy merchants"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear would often watch Min, the most skilled potter in the village, as he worked at his wheel, fascinated by the way clay transformed in the master's hands.",
+                    question: "What fascinated Tree-ear about Min's work?",
+                    options: ["How much money Min made", "How fast Min worked", "How clay transformed in the master's hands at the potter's wheel", "How many apprentices Min had"],
+                    correct: 2
+                },
+                {
+                    passage: "When Crane-man greeted Tree-ear with 'Have you hungered well today?' it was their little joke, turning the polite greeting of well-fed people inside out.",
+                    question: "What was special about Crane-man's greeting to Tree-ear?",
+                    options: ["It was in a foreign language", "It was their little joke, turning the greeting of well-fed people inside out", "It was very formal", "It was sung instead of spoken"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2
+                {
+                    passage: "Tree-ear continued to spy on Min's pottery work, hiding behind trees and walls to watch the master create his beautiful pieces.",
+                    question: "How did Tree-ear observe Min's pottery making?",
+                    options: ["He asked permission to watch", "He hid behind trees and walls to spy on Min's work", "Min invited him to watch", "He watched from his bridge"],
+                    correct: 1
+                },
+                {
+                    passage: "Min would sometimes throw away pottery that looked perfect to Tree-ear's untrained eye, showing the master's incredibly high standards.",
+                    question: "What showed Min's high standards as a potter?",
+                    options: ["He worked very slowly", "He would throw away pottery that looked perfect to untrained eyes", "He only worked with expensive clay", "He had many apprentices"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear began to understand that pottery making was both an art and a craft, requiring not just skill but also artistic vision.",
+                    question: "What did Tree-ear begin to understand about pottery making?",
+                    options: ["It was easy to learn", "It was both an art and a craft, requiring skill and artistic vision", "It was only about making money", "It was just manual labor"],
+                    correct: 1
+                },
+                {
+                    passage: "The celadon glaze that made Ch'ulp'o pottery famous was achieved through careful control of the kiln's temperature and atmosphere.",
+                    question: "How was the famous celadon glaze achieved?",
+                    options: ["By using special clay", "Through careful control of the kiln's temperature and atmosphere", "By adding precious stones", "By painting it on afterward"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear dreamed of someday being able to shape clay with his own hands and create something beautiful.",
+                    question: "What was Tree-ear's dream?",
+                    options: ["To become rich", "To someday shape clay with his own hands and create something beautiful", "To leave the village", "To become Min's son"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3
+                {
+                    passage: "One day, Tree-ear crept into Min's yard when he thought no one was around and began examining the pottery that was drying in the sun.",
+                    question: "What did Tree-ear do when he thought Min wasn't around?",
+                    options: ["He ran away", "He crept into Min's yard and examined the pottery drying in the sun", "He called for Crane-man", "He went home"],
+                    correct: 1
+                },
+                {
+                    passage: "When Min suddenly appeared and shouted 'Thief!', Tree-ear was so startled that he dropped the piece he was holding, denting it.",
+                    question: "What happened when Min discovered Tree-ear in his yard?",
+                    options: ["Tree-ear ran away successfully", "Tree-ear was startled by Min's shout and dropped the pottery, denting it", "Min welcomed Tree-ear kindly", "Nothing happened"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear quickly explained that he wasn't stealing, just admiring the pottery, and offered to work for Min to pay for the damage.",
+                    question: "How did Tree-ear respond to Min's accusation?",
+                    options: ["He denied everything", "He explained he was just admiring the pottery and offered to work to pay for damage", "He blamed someone else", "He offered to pay money"],
+                    correct: 1
+                },
+                {
+                    passage: "Min agreed that Tree-ear would work for him for nine days to pay for the broken pottery.",
+                    question: "What arrangement did Min make with Tree-ear?",
+                    options: ["Tree-ear would work for one day", "Tree-ear would work for nine days to pay for the broken pottery", "Tree-ear would be punished", "Tree-ear would leave the village"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear was secretly pleased despite the accident, because it meant he would finally have a chance to be near the pottery workshop.",
+                    question: "How did Tree-ear feel about having to work for Min?",
+                    options: ["He was angry", "He was secretly pleased because he could finally be near the pottery workshop", "He was scared", "He was disappointed"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4
+                {
+                    passage: "Tree-ear's work for Min began with menial tasks like chopping wood, hauling water, and cleaning the workshop, but he was thrilled to be near the pottery.",
+                    question: "What kind of work did Tree-ear first do for Min?",
+                    options: ["Shaping clay on the wheel", "Menial tasks like chopping wood, hauling water, and cleaning", "Painting pottery", "Selling pottery in the market"],
+                    correct: 1
+                },
+                {
+                    passage: "Min was a man of few words and rarely acknowledged Tree-ear's presence, focusing entirely on his pottery work.",
+                    question: "How did Min treat Tree-ear during his work?",
+                    options: ["He was very talkative and friendly", "He rarely acknowledged Tree-ear and focused on his pottery", "He taught him pottery immediately", "He gave him lots of praise"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear learned to anticipate Min's needs, bringing him tools and materials before being asked, earning grudging respect.",
+                    question: "How did Tree-ear improve his relationship with Min?",
+                    options: ["By talking constantly", "By learning to anticipate Min's needs and bringing tools before being asked", "By asking many questions", "By working slowly and carefully"],
+                    correct: 1
+                },
+                {
+                    passage: "The nine days of work passed quickly, but Tree-ear was disappointed when Min did not offer him continued employment.",
+                    question: "What happened at the end of Tree-ear's nine days of work?",
+                    options: ["Min immediately hired him permanently", "Tree-ear was disappointed when Min didn't offer continued employment", "Min taught him to make pottery", "Tree-ear quit before finishing"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear returned to Crane-man under the bridge, but he couldn't stop thinking about the pottery workshop and Min's incredible skill.",
+                    question: "What did Tree-ear do after his work period ended?",
+                    options: ["He found another job", "He returned to Crane-man but couldn't stop thinking about pottery", "He left the village", "He started his own pottery shop"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5
+                {
+                    passage: "Tree-ear continued to find excuses to visit Min's workshop area, gathering firewood nearby and watching the pottery process whenever possible.",
+                    question: "How did Tree-ear continue learning about pottery after his work ended?",
+                    options: ["He enrolled in pottery school", "He found excuses to visit Min's area and watched the process", "He read books about pottery", "He gave up on pottery"],
+                    correct: 1
+                },
+                {
+                    passage: "Min was working on new pieces for a special order, experimenting with different clay mixtures and glazing techniques.",
+                    question: "What was Min working on during this time?",
+                    options: ["Regular everyday pottery", "New pieces for a special order with experimental techniques", "Teaching other apprentices", "Repairing old pottery"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear discovered that different clays came from different areas and each had unique properties that affected the final pottery.",
+                    question: "What did Tree-ear learn about clay?",
+                    options: ["All clay was the same", "Different clays from different areas had unique properties", "Clay was not important for pottery", "Only expensive clay made good pottery"],
+                    correct: 1
+                },
+                {
+                    passage: "The firing process in the kiln was crucial - the temperature and timing had to be perfect to achieve the desired celadon color.",
+                    question: "What did Tree-ear learn about the firing process?",
+                    options: ["Firing was not important", "Temperature and timing in the kiln had to be perfect for celadon color", "Any temperature would work", "Firing took only a few minutes"],
+                    correct: 1
+                },
+                {
+                    passage: "Min's wife, Ajima, sometimes noticed Tree-ear watching from a distance but said nothing, though she seemed less hostile than her husband.",
+                    question: "How did Min's wife react to Tree-ear's presence?",
+                    options: ["She was very angry", "She sometimes noticed him but said nothing and seemed less hostile", "She invited him in immediately", "She never saw him"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6
+                {
+                    passage: "A royal emissary arrived in Ch'ulp'o, announcing that the court was seeking the finest pottery for a special commission from the king.",
+                    question: "Who arrived in the village and why?",
+                    options: ["A merchant looking for cheap pottery", "A royal emissary seeking finest pottery for the king", "A pottery teacher", "A tax collector"],
+                    correct: 1
+                },
+                {
+                    passage: "All the potters in the village were excited about the opportunity to create pottery for the royal court, which would bring great honor and reward.",
+                    question: "How did the village potters react to the royal commission?",
+                    options: ["They were not interested", "They were excited about the honor and reward of creating for the royal court", "They were afraid", "They ignored the announcement"],
+                    correct: 1
+                },
+                {
+                    passage: "The emissary would return in several months to view the finished pieces and select the best work for the royal palace.",
+                    question: "What was the timeline for the royal commission?",
+                    options: ["The emissary wanted pieces immediately", "The emissary would return in several months to select the best work", "The deadline was one week", "There was no specific timeline"],
+                    correct: 1
+                },
+                {
+                    passage: "Min seemed confident but worked even more intensively, perfecting his techniques and experimenting with new glazes.",
+                    question: "How did Min respond to the royal commission opportunity?",
+                    options: ["He gave up pottery", "He seemed confident but worked more intensively, perfecting techniques", "He decided not to participate", "He worked less carefully"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear was fascinated by the increased activity in the pottery district and watched more intently than ever before.",
+                    question: "How did the royal commission affect Tree-ear?",
+                    options: ["He lost interest in pottery", "He was fascinated and watched more intently than ever", "He decided to leave the village", "He stopped visiting Min's workshop"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7
+                {
+                    passage: "Min worked day and night on his pieces for the royal commission, creating some of the most beautiful pottery Tree-ear had ever seen.",
+                    question: "How hard did Min work on his royal commission pieces?",
+                    options: ["He worked only during normal hours", "He worked day and night, creating beautiful pottery", "He worked less than usual", "He asked others to help him"],
+                    correct: 1
+                },
+                {
+                    passage: "One day, Min reluctantly asked Tree-ear to help him by bringing more clay from the riverbank, showing growing trust.",
+                    question: "What showed that Min was beginning to trust Tree-ear?",
+                    options: ["Min ignored Tree-ear completely", "Min reluctantly asked Tree-ear to help bring clay from the riverbank", "Min told him to stay away", "Min gave him money"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear was careful to gather only the finest clay, understanding how important this commission was to Min's reputation.",
+                    question: "How did Tree-ear approach the task of gathering clay?",
+                    options: ["He gathered any clay quickly", "He was careful to gather only the finest clay, understanding its importance", "He forgot to gather clay", "He gathered clay from the wrong place"],
+                    correct: 1
+                },
+                {
+                    passage: "Min's pieces were taking shape beautifully, with elegant forms and the promise of a perfect celadon glaze.",
+                    question: "How were Min's royal commission pieces developing?",
+                    options: ["They were turning out poorly", "They were taking shape beautifully with elegant forms", "Min was having many problems", "The pieces kept breaking"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear began to understand that this commission could change Min's life, bringing recognition from the highest levels of Korean society.",
+                    question: "What did Tree-ear realize about the importance of this commission?",
+                    options: ["It was just another job", "It could change Min's life by bringing recognition from Korean society", "It didn't matter much", "It was only about money"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8
+                {
+                    passage: "When the time came to present the pottery to the royal emissary, Min's pieces were among the most beautiful, but he was nervous about the competition.",
+                    question: "How did Min feel when it was time to present his work?",
+                    options: ["Completely confident", "His pieces were beautiful but he was nervous about competition", "He decided not to present", "He was angry"],
+                    correct: 1
+                },
+                {
+                    passage: "The emissary was impressed with Min's work but said that to truly evaluate it, the pottery needed to be transported to Songdo, the capital city.",
+                    question: "What did the royal emissary decide about Min's pottery?",
+                    options: ["It was not good enough", "It was impressive but needed to be transported to Songdo for evaluation", "He would buy it immediately", "He rejected it completely"],
+                    correct: 1
+                },
+                {
+                    passage: "The journey to Songdo was long and dangerous, and Min was worried about who could safely transport his precious pottery.",
+                    question: "What concern did Min have about getting his pottery to the capital?",
+                    options: ["He didn't want to sell it", "The journey was long and dangerous, and he worried about safe transport", "He had too many pieces", "He didn't know where Songdo was"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear surprised everyone by volunteering to carry Min's pottery to Songdo, despite the risks involved in the journey.",
+                    question: "What surprising offer did Tree-ear make?",
+                    options: ["To buy Min's pottery", "To volunteer to carry Min's pottery to Songdo despite the risks", "To make pottery himself", "To find someone else to help"],
+                    correct: 1
+                },
+                {
+                    passage: "After much consideration, Min agreed to let Tree-ear transport the pottery, recognizing the boy's dedication and careful nature.",
+                    question: "How did Min respond to Tree-ear's offer?",
+                    options: ["He immediately refused", "After consideration, he agreed, recognizing Tree-ear's dedication", "He laughed at the idea", "He ignored the offer"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9
+                {
+                    passage: "Tree-ear carefully packed Min's precious pottery in straw and began the long, difficult journey to Songdo on foot.",
+                    question: "How did Tree-ear begin his journey to the capital?",
+                    options: ["He rode a horse", "He carefully packed the pottery in straw and walked", "He traveled by boat", "He went with a large group"],
+                    correct: 1
+                },
+                {
+                    passage: "The path to Songdo was treacherous, winding through mountains and forests where bandits were known to hide.",
+                    question: "What made the journey to Songdo dangerous?",
+                    options: ["Bad weather only", "Treacherous mountain paths and forests where bandits hid", "Wild animals only", "It was too short"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear traveled mostly at dawn and dusk to avoid the hottest part of the day and reduce the chances of encountering trouble.",
+                    question: "When did Tree-ear prefer to travel and why?",
+                    options: ["All day in the heat", "At dawn and dusk to avoid heat and trouble", "Only at night", "Only during storms"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite his careful planning, Tree-ear worried constantly about the pottery, checking it frequently to make sure it remained undamaged.",
+                    question: "How did Tree-ear feel during the journey?",
+                    options: ["Completely relaxed", "He worried constantly and checked the pottery frequently", "He forgot about the pottery", "He was only thinking about food"],
+                    correct: 1
+                },
+                {
+                    passage: "Each step of the journey brought Tree-ear closer to Songdo, but also deeper into unfamiliar and potentially dangerous territory.",
+                    question: "What did Tree-ear face as he continued toward Songdo?",
+                    options: ["Increasingly familiar territory", "Unfamiliar and potentially dangerous territory", "Easier and safer paths", "Many helpful people"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10
+                {
+                    passage: "On a mountain pass, Tree-ear encountered a group of bandits who demanded he give them everything he was carrying.",
+                    question: "What dangerous situation did Tree-ear face in the mountains?",
+                    options: ["A wild animal attack", "Bandits who demanded everything he carried", "A terrible storm", "Getting lost"],
+                    correct: 1
+                },
+                {
+                    passage: "When the bandits discovered the pottery, they became angry that it wasn't gold or money, and in their rage, they smashed the precious pieces.",
+                    question: "What happened when the bandits found Min's pottery?",
+                    options: ["They were impressed and left", "They were angry it wasn't gold and smashed the pieces", "They decided to keep it", "They helped Tree-ear"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear was devastated as he watched Min's beautiful work destroyed, but he was too frightened and outnumbered to stop the bandits.",
+                    question: "How did Tree-ear react to the destruction of the pottery?",
+                    options: ["He fought the bandits", "He was devastated but too frightened and outnumbered to stop them", "He didn't care", "He ran away immediately"],
+                    correct: 1
+                },
+                {
+                    passage: "After the bandits left, Tree-ear searched desperately through the broken pottery and found one single shard that showed Min's incredible skill.",
+                    question: "What did Tree-ear find after the bandits destroyed the pottery?",
+                    options: ["Nothing at all", "One single shard that showed Min's incredible skill", "All the pottery was fine", "Gold hidden inside"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite losing almost everything, Tree-ear decided to continue to Songdo with the single shard, hoping it would be enough to show Min's talent.",
+                    question: "What decision did Tree-ear make after the disaster?",
+                    options: ["To return home immediately", "To continue to Songdo with the single shard to show Min's talent", "To give up completely", "To search for the bandits"],
+                    correct: 1
+                }
+            ],
+            10: [ // Chapter 11
+                {
+                    passage: "Tree-ear arrived in Songdo exhausted and dirty, carrying only the single shard of Min's beautiful pottery.",
+                    question: "What condition was Tree-ear in when he reached the capital?",
+                    options: ["Well-rested and clean", "Exhausted and dirty, carrying only a single pottery shard", "Angry and frustrated", "Carrying many pottery pieces"],
+                    correct: 1
+                },
+                {
+                    passage: "The royal emissary was initially disappointed to see only a fragment, but when he examined the shard closely, he was amazed by its quality.",
+                    question: "How did the royal emissary react to seeing only a pottery fragment?",
+                    options: ["He was immediately pleased", "Initially disappointed, but amazed when he examined the quality closely", "He refused to look at it", "He was angry with Tree-ear"],
+                    correct: 1
+                },
+                {
+                    passage: "The single shard demonstrated Min's mastery of the potter's art - the perfect celadon glaze and elegant form spoke of exceptional skill.",
+                    question: "What did the single shard reveal about Min's work?",
+                    options: ["That he was an amateur", "His mastery of pottery with perfect glaze and elegant form", "That his work was ordinary", "That he needed more practice"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear told the emissary the complete story of his journey, including the bandit attack and the destruction of the other pieces.",
+                    question: "What did Tree-ear tell the royal emissary?",
+                    options: ["Only that he brought pottery", "The complete story including the bandit attack and destruction", "That Min was the best potter", "That he wanted a reward"],
+                    correct: 1
+                },
+                {
+                    passage: "Impressed by both the pottery's quality and Tree-ear's dedication, the emissary granted Min a royal commission and gave Tree-ear a letter to take back.",
+                    question: "What was the result of Tree-ear's meeting with the emissary?",
+                    options: ["Min was rejected", "Min received a royal commission and Tree-ear got a letter to take back", "Nothing happened", "Tree-ear was punished"],
+                    correct: 1
+                }
+            ],
+            11: [ // Chapter 12
+                {
+                    passage: "Tree-ear began the long journey home to Ch'ulp'o, carrying the precious letter that would change Min's life forever.",
+                    question: "What did Tree-ear carry on his journey home?",
+                    options: ["More pottery to sell", "A precious letter that would change Min's life", "Nothing important", "Gold from the king"],
+                    correct: 1
+                },
+                {
+                    passage: "The return journey seemed easier despite Tree-ear's exhaustion, because he knew he was bringing good news to Min.",
+                    question: "Why did the return journey seem easier for Tree-ear?",
+                    options: ["The paths were better", "He knew he was bringing good news to Min", "He had more money", "He traveled with other people"],
+                    correct: 1
+                },
+                {
+                    passage: "When Tree-ear finally reached Ch'ulp'o, he went directly to Min's workshop to deliver the emissary's letter.",
+                    question: "What did Tree-ear do when he reached his home village?",
+                    options: ["He went to see Crane-man first", "He went directly to Min's workshop to deliver the letter", "He rested at home", "He told everyone in the village"],
+                    correct: 1
+                },
+                {
+                    passage: "Min read the letter in stunned silence, hardly believing that he had received a royal commission based on a single shard of pottery.",
+                    question: "How did Min react to the emissary's letter?",
+                    options: ["He was angry", "He read it in stunned silence, hardly believing the royal commission", "He immediately started working", "He threw the letter away"],
+                    correct: 1
+                },
+                {
+                    passage: "For the first time, Min looked at Tree-ear with something approaching respect and gratitude for the boy's incredible journey.",
+                    question: "How did Min's attitude toward Tree-ear change?",
+                    options: ["He became more hostile", "He looked at Tree-ear with respect and gratitude", "He ignored Tree-ear completely", "He became suspicious"],
+                    correct: 1
+                }
+            ],
+            12: [ // Chapter 13
+                {
+                    passage: "When Tree-ear returned to the bridge to share the good news, he found that Crane-man had died while he was away on his journey.",
+                    question: "What tragic discovery did Tree-ear make when he returned home?",
+                    options: ["The bridge had been destroyed", "Crane-man had died while he was away", "All his belongings were stolen", "The village had changed completely"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear was devastated by the loss of Crane-man, the only family he had ever known, and felt alone in the world.",
+                    question: "How did Tree-ear feel about Crane-man's death?",
+                    options: ["He was relieved", "He was devastated and felt alone, having lost his only family", "He was angry at the village", "He wasn't affected"],
+                    correct: 1
+                },
+                {
+                    passage: "Min and his wife, seeing Tree-ear's grief and recognizing his loyalty and dedication, offered to take him into their home as their son.",
+                    question: "What did Min and his wife do when they saw Tree-ear's grief?",
+                    options: ["They ignored him", "They offered to take him into their home as their son", "They gave him money to leave", "They found him another place to live"],
+                    correct: 1
+                },
+                {
+                    passage: "Tree-ear accepted their offer gratefully, finally finding the family and home he had always dreamed of having.",
+                    question: "How did Tree-ear respond to Min's offer?",
+                    options: ["He rejected it", "He accepted gratefully, finally finding the family he dreamed of", "He asked for time to think", "He decided to leave the village"],
+                    correct: 1
+                },
+                {
+                    passage: "As Min began work on his royal commission, Tree-ear knew that his life had changed forever - from an orphan under a bridge to the son of a master potter.",
+                    question: "How had Tree-ear's life changed by the end of the story?",
+                    options: ["He remained the same", "From an orphan under a bridge to the son of a master potter", "He became a merchant", "He left to become a scholar"],
+                    correct: 1
+                }
+            ]
+        };
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #8B4513, #D2691E)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #8B4513, #D2691E)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #8B4513, #D2691E)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>

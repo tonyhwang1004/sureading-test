@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Tree House: Twister on Tuesday - Level 3-2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #4A90E2 0%, #87CEEB 50%, #FFD700 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #4A90E2;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #4A90E2;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #4A90E2;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4A90E2;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #4A90E2;
+            background: linear-gradient(135deg, #4A90E208, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(74, 144, 226, 0.1);
+            color: #4A90E2;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #87CEEB, #FFD700);
+            color: #333;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4A90E2, #87CEEB);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #4A90E2;
+        }
+
+        .option.selected {
+            background: rgba(74, 144, 226, 0.1);
+            border-color: #4A90E2;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #4A90E2, #87CEEB);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #87CEEB;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Level 3-2 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #4A90E2, #FF6B9D);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🌪️</div>
+                <div class="logo-text">
+                    <h1>Magic Tree House: Twister on Tuesday</h1>
+                    <p>Level 3-2 - Mary Pope Osborne의 마법적인 모험 이야기</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 3-2</div>
+                <div class="breadcrumb">
+                    <span>Magic Tree House: Twister on Tuesday</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🌪️</div>
+                    <div class="book-info">
+                        <h2>Magic Tree House: Twister on Tuesday</h2>
+                        <div class="author">Mary Pope Osborne</div>
+                        <div class="book-summary">
+                            Jack and Annie are caught out in the rain in the most dangerous Magic Tree House mission yet! The magic tree house has whisked them back to Kansas in the 1870s. When they see a twister on the horizon, they are told to get to shelter as fast as possible. But first, they have to help a teacher and her students get to safety! Will they all be able to get out of the storm's path before it's too late?
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">10</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">50</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 3-2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🌪️ 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Magic Tree House: Twister on Tuesday</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Magic Tree House: Twister on Tuesday</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">Magic Tree House: Twister on Tuesday - Mary Pope Osborne</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #4A90E2;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Magic Tree House: Twister on Tuesday 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const fileName = `MTH23_Chapter_${(chapterIndex + 1).toString().padStart(2, '0')}.mp3`;
+            return {
+                primary: `${AUDIO_BASE_URL}MTH23_Twister_on_Tuesday/${fileName}`,
+                alternatives: [`${AUDIO_BASE_URL}MTH23_Twister_on_Tuesday/${fileName}`]
+            };
+        }
+
+        // Magic Tree House: Twister on Tuesday 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioData = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+            audioSource.src = audioData.primary;
+            audioPlayer.load();
+
+            const successHandler = function() {
+                audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 로드 완료!`;
+                audioPlayer.play().then(() => {
+                    audioStatus.innerHTML = `🎵 Chapter ${chapterIndex + 1} 재생 중!`;
+                    document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                }).catch(e => {
+                    console.log('자동 재생 차단됨:', e);
+                    audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 준비됨! ▶️ 재생 버튼을 눌러주세요`;
+                });
+            };
+
+            const errorHandler = function() {
+                audioStatus.innerHTML = '❌ 오디오 파일을 찾을 수 없습니다.';
+            };
+
+            audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+            audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 구간처음으로 함수
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            currentAudio.currentTime = 0;
+        }
+
+        // 기본 오디오 컨트롤 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // Magic Tree House: Twister on Tuesday 도서 데이터
+        const bookData = {
+            id: 'MTH23',
+            title: "Magic Tree House: Twister on Tuesday",
+            author: 'Mary Pope Osborne',
+            cover: '🌪️',
+            progress: 0,
+            chapters: 10,
+            totalQuestions: 50,
+            coverColor: 'linear-gradient(45deg, #4A90E2, #87CEEB)',
+            summary: "Jack and Annie are caught out in the rain in the most dangerous Magic Tree House mission yet! The magic tree house has whisked them back to Kansas in the 1870s. When they see a twister on the horizon, they are told to get to shelter as fast as possible. But first, they have to help a teacher and her students get to safety! Will they all be able to get out of the storm's path before it's too late?",
+            chapterList: [
+                { title: 'Chapter 1: A Stormy Night', description: 'Jack and Annie discover the magic tree house on a stormy Tuesday night and are transported to Kansas in the 1870s.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 2: Prairie Schoolhouse', description: 'Jack and Annie find themselves near a one-room schoolhouse on the Kansas prairie during school hours.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 3: Riding the Plains', description: 'The children meet prairie people and learn about life on the Great Plains in the 1870s.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 4: Dark Clouds', description: 'Ominous storm clouds begin gathering on the horizon, and the wind starts to pick up.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 5: Take Cover!', description: 'A tornado forms in the distance, and everyone must seek shelter immediately for their safety.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 6: The Twister', description: 'The tornado approaches the schoolhouse, creating a terrifying and dangerous situation for everyone.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 7: The Storm Cellar', description: 'Jack, Annie, and the schoolchildren take refuge in an underground storm cellar.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 8: After the Storm', description: 'When the tornado passes, they emerge to see the damage it has caused to the prairie.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 9: A Helping Hand', description: 'Jack and Annie help the teacher and students deal with the aftermath of the storm.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 10: Home Again', description: 'Mission complete, Jack and Annie return to Frog Creek in their own time period.', status: 'current', questionCount: 5 }
+            ]
+        };
+
+        // 문제 데이터 (정확한 스토리에 기반)
+        const questionsData = {
+            0: [ // Chapter 1: A Stormy Night
+                {
+                    passage: "Tuesday night was very windy and rainy. Jack looked out his bedroom window and saw the big oak tree in his yard swaying back and forth.",
+                    question: "What was the weather like on Tuesday night?",
+                    options: ["Sunny and calm", "Windy and rainy", "Snowy and cold", "Foggy and quiet"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie knocked on Jack's door. 'Did you see the tree house?' she whispered. Jack looked toward the tallest oak tree. A dark shape sat among the branches.",
+                    question: "How did Annie let Jack know about the tree house?",
+                    options: ["She called loudly", "She knocked on his door and whispered", "She sent a note", "She called on the phone"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack grabbed his flashlight and followed Annie outside into the windy night. The rain had stopped, but the wind was still blowing hard.",
+                    question: "What did Jack bring with him when they went outside?",
+                    options: ["An umbrella", "A jacket", "A flashlight", "A book"],
+                    correct: 2
+                },
+                {
+                    passage: "The magic tree house was filled with books again. Annie picked up a book about the Kansas prairie. 'I wish we could go there,' she said.",
+                    question: "What kind of book did Annie pick up in the tree house?",
+                    options: ["A book about the Kansas prairie", "A book about the ocean", "A book about dinosaurs", "A book about knights"],
+                    correct: 0
+                },
+                {
+                    passage: "The wind started to blow. The tree house began to spin faster and faster. Then everything was still.",
+                    question: "What happened when Annie made her wish?",
+                    options: ["Nothing happened", "The tree house began to spin", "They fell asleep", "The book disappeared"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: Prairie Schoolhouse
+                {
+                    passage: "Jack and Annie looked out the tree house window. They were in a different place now. Below them stretched endless grassland.",
+                    question: "What did Jack and Annie see when they looked out the window?",
+                    options: ["A forest", "Endless grassland", "A city", "Mountains"],
+                    correct: 1
+                },
+                {
+                    passage: "The sky was gray and cloudy. The wind was bending the prairie grass. In the distance was a small wooden building.",
+                    question: "What was the weather like on the Kansas prairie?",
+                    options: ["Sunny and bright", "Gray and cloudy with wind", "Snowing heavily", "Clear and calm"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie climbed down from the tree house. They could hear voices coming from the small wooden building.",
+                    question: "What could Jack and Annie hear from the building?",
+                    options: ["Music playing", "Animals making noise", "Voices", "Machinery running"],
+                    correct: 2
+                },
+                {
+                    passage: "As they got closer, they saw it was a one-room schoolhouse. Through the windows, they could see children sitting at wooden desks.",
+                    question: "What kind of building was it?",
+                    options: ["A farmhouse", "A store", "A one-room schoolhouse", "A church"],
+                    correct: 2
+                },
+                {
+                    passage: "A young woman stood at the front of the classroom. She was the teacher. She was writing letters on a blackboard.",
+                    question: "What was the teacher doing at the front of the classroom?",
+                    options: ["Reading a book", "Writing letters on a blackboard", "Talking to parents", "Playing music"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: Riding the Plains
+                {
+                    passage: "Jack and Annie watched the prairie school from outside. The children inside were reciting their lessons together.",
+                    question: "What were the children in the schoolhouse doing?",
+                    options: ["Playing games", "Eating lunch", "Reciting their lessons together", "Drawing pictures"],
+                    correct: 2
+                },
+                {
+                    passage: "Suddenly, a man on horseback rode up to the schoolhouse. 'Miss Neely!' he called to the teacher. 'A big storm is coming!'",
+                    question: "How did the man travel to the schoolhouse?",
+                    options: ["On foot", "In a wagon", "On horseback", "By train"],
+                    correct: 2
+                },
+                {
+                    passage: "The teacher, Miss Neely, came outside. 'How bad is the storm, Mr. Peterson?' she asked with a worried look.",
+                    question: "What was the teacher's name?",
+                    options: ["Miss Peterson", "Miss Neely", "Miss Annie", "Miss Johnson"],
+                    correct: 1
+                },
+                {
+                    passage: "'The sky is black to the west,' said Mr. Peterson. 'You'd better dismiss school early and get the children home.'",
+                    question: "What did Mr. Peterson see in the western sky?",
+                    options: ["Sunshine", "Black storm clouds", "Birds flying", "A rainbow"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Neely looked worried. Some of her students lived far away on the prairie. They wouldn't be able to get home in time.",
+                    question: "Why was Miss Neely worried about some of her students?",
+                    options: ["They were too young", "They lived far away and couldn't get home in time", "They didn't have horses", "They were afraid of storms"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: Dark Clouds
+                {
+                    passage: "The teacher rang the school bell. All the children came outside and looked at the dark western sky with frightened faces.",
+                    question: "How did the children look when they saw the dark sky?",
+                    options: ["Happy and excited", "Frightened", "Curious and interested", "Angry"],
+                    correct: 1
+                },
+                {
+                    passage: "'Children who live close by, run home now!' said Miss Neely. 'The rest of you must stay here where it's safe.'",
+                    question: "What did Miss Neely tell the children who lived close by?",
+                    options: ["Stay at school", "Run home now", "Wait for their parents", "Hide in the cellar"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie stepped closer to the schoolhouse. Annie called out, 'We can help!' Miss Neely looked surprised to see them.",
+                    question: "What did Annie call out to Miss Neely?",
+                    options: ["We're lost!", "We can help!", "Where are we?", "We're scared!"],
+                    correct: 1
+                },
+                {
+                    passage: "The wind was getting stronger. It was bending the prairie grass flat and making a loud whooshing sound.",
+                    question: "What was the wind doing to the prairie grass?",
+                    options: ["Making it grow taller", "Bending it flat", "Turning it different colors", "Making it disappear"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Neely pointed to a dark cloud in the distance. 'Look!' she said. The cloud was spinning like a giant gray rope.',",
+                    question: "What did the spinning cloud look like?",
+                    options: ["A giant gray rope", "A flying saucer", "A mountain", "A bird"],
+                    correct: 0
+                }
+            ],
+            4: [ // Chapter 5: Take Cover!
+                {
+                    passage: "'It's a tornado!' shouted Miss Neely. 'Everyone to the storm cellar! Quickly!' She pointed to a small wooden door in the ground.",
+                    question: "Where did Miss Neely tell everyone to go?",
+                    options: ["Inside the schoolhouse", "To the storm cellar", "Up into the tree", "To the nearby farm"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack had read about tornadoes. They were spinning columns of air that could destroy everything in their path.",
+                    question: "What did Jack know about tornadoes?",
+                    options: ["They were harmless", "They were spinning columns of air that could destroy everything", "They only happened at night", "They brought good luck"],
+                    correct: 1
+                },
+                {
+                    passage: "The tornado was getting bigger and closer. It sounded like a freight train roaring across the prairie.",
+                    question: "What did the tornado sound like?",
+                    options: ["A gentle breeze", "A freight train roaring", "Children laughing", "Birds singing"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Neely opened the heavy wooden door to the storm cellar. 'Hurry, children!' she called. The students began climbing down the wooden steps.",
+                    question: "What did the students do when Miss Neely opened the cellar door?",
+                    options: ["They ran away", "They began climbing down the wooden steps", "They stood still", "They went into the schoolhouse"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie helped the smaller children climb down into the dark underground room. They could hear the wind howling above them.",
+                    question: "How did Jack and Annie help?",
+                    options: ["They carried books", "They helped smaller children climb down", "They closed the windows", "They called for help"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6: The Twister
+                {
+                    passage: "Inside the storm cellar, everyone sat close together on wooden benches. The cellar was dark and smelled like earth.",
+                    question: "What was the storm cellar like inside?",
+                    options: ["Bright and airy", "Dark and smelled like earth", "Colorful and warm", "Noisy and crowded"],
+                    correct: 1
+                },
+                {
+                    passage: "Above them, the tornado roared like a monster. The whole cellar shook as the twister passed overhead.",
+                    question: "What happened when the tornado passed overhead?",
+                    options: ["Everything was quiet", "The whole cellar shook", "They could see outside", "The air became warmer"],
+                    correct: 1
+                },
+                {
+                    passage: "Some of the youngest children were crying. Miss Neely held them close and spoke in a calm, gentle voice to help them feel better.",
+                    question: "How did Miss Neely help the frightened children?",
+                    options: ["She told them scary stories", "She held them close and spoke calmly", "She left them alone", "She sang loudly"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack felt scared too, but he tried to be brave like Annie. She was helping Miss Neely comfort the smaller children.",
+                    question: "How was Annie helping during the storm?",
+                    options: ["She was sleeping", "She was reading a book", "She was helping Miss Neely comfort the smaller children", "She was looking for food"],
+                    correct: 2
+                },
+                {
+                    passage: "The roaring sound began to fade away. Slowly, the cellar stopped shaking. The tornado was moving past them.",
+                    question: "How did they know the tornado was moving away?",
+                    options: ["The roaring sound faded and the cellar stopped shaking", "They could see sunshine", "Someone told them", "The door opened by itself"],
+                    correct: 0
+                }
+            ],
+            6: [ // Chapter 7: The Storm Cellar
+                {
+                    passage: "Everyone waited quietly in the storm cellar. Miss Neely listened carefully for any sounds from above.",
+                    question: "What was Miss Neely doing while they waited?",
+                    options: ["Sleeping", "Listening carefully for sounds from above", "Reading a book", "Counting the children"],
+                    correct: 1
+                },
+                {
+                    passage: "'I think it's safe now,' said Miss Neely finally. She climbed the steps and slowly opened the cellar door.",
+                    question: "What did Miss Neely do when she thought it was safe?",
+                    options: ["She stayed in the cellar", "She climbed the steps and opened the door", "She sent the children up first", "She waited longer"],
+                    correct: 1
+                },
+                {
+                    passage: "Sunlight streamed into the cellar. The storm had passed, and the air was calm and still again.",
+                    question: "What was the weather like when the door was opened?",
+                    options: ["Still stormy and dark", "Calm and still with sunlight", "Windy but clear", "Foggy and cold"],
+                    correct: 1
+                },
+                {
+                    passage: "One by one, everyone climbed up out of the storm cellar. The children blinked in the bright sunshine.",
+                    question: "How did the children react to the sunshine?",
+                    options: ["They closed their eyes", "They blinked in the bright sunshine", "They ran away", "They started crying"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack was amazed that they had all stayed safe during such a dangerous storm. The storm cellar had protected them.",
+                    question: "What did Jack realize about their experience?",
+                    options: ["They had been in great danger", "They had all stayed safe because the storm cellar protected them", "The storm wasn't real", "They should have run away"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: After the Storm
+                {
+                    passage: "When they came outside, they saw that the tornado had damaged some buildings in the distance. But the schoolhouse was safe.",
+                    question: "What happened to the schoolhouse during the tornado?",
+                    options: ["It was completely destroyed", "It was damaged but standing", "It was safe and undamaged", "It had moved to a different location"],
+                    correct: 2
+                },
+                {
+                    passage: "Tree branches and pieces of wood were scattered across the prairie. The tornado had picked them up and dropped them.",
+                    question: "What was scattered across the prairie after the storm?",
+                    options: ["Books and papers", "Tree branches and pieces of wood", "Animals and people", "Rocks and stones"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Neely looked around carefully. 'Is everyone here?' she asked, counting her students to make sure they were all safe.",
+                    question: "What did Miss Neely do to check on her students?",
+                    options: ["She called their names", "She counted them to make sure they were all safe", "She asked them to raise their hands", "She looked at their faces"],
+                    correct: 1
+                },
+                {
+                    passage: "The children's parents began arriving on horseback and in wagons. They had been very worried about their children during the storm.",
+                    question: "How did the parents travel to the school?",
+                    options: ["On foot", "On horseback and in wagons", "By train", "By automobile"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie watched as happy families were reunited. Parents hugged their children tightly, grateful that everyone was safe.",
+                    question: "How did the parents react when they saw their children were safe?",
+                    options: ["They were angry", "They hugged their children tightly", "They ignored them", "They asked many questions"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9: A Helping Hand
+                {
+                    passage: "Miss Neely thanked Jack and Annie for their help. 'You were very brave to help us during the storm,' she said with a smile.",
+                    question: "What did Miss Neely say to Jack and Annie?",
+                    options: ["She told them to go away", "She thanked them and said they were very brave", "She asked them where they lived", "She gave them homework"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie helped clean up the scattered debris around the schoolhouse. They wanted to make sure the area was safe for everyone.",
+                    question: "How did Jack and Annie continue to help after the storm?",
+                    options: ["They went home immediately", "They helped clean up debris around the schoolhouse", "They played with the other children", "They explored the prairie"],
+                    correct: 1
+                },
+                {
+                    passage: "'Where do you children live?' asked Miss Neely. 'I want to make sure you get home safely.' Jack and Annie looked at each other.",
+                    question: "What question did Miss Neely ask Jack and Annie?",
+                    options: ["What are your names?", "How old are you?", "Where do you children live?", "What school do you attend?"],
+                    correct: 2
+                },
+                {
+                    passage: "'We live far away,' said Annie. 'But we can get home safely. Thank you for letting us help.' Miss Neely smiled and nodded.",
+                    question: "What did Annie tell Miss Neely about where they lived?",
+                    options: ["They lived nearby", "They lived far away but could get home safely", "They didn't have a home", "They lived in the next town"],
+                    correct: 1
+                },
+                {
+                    passage: "As the sun began to set, Jack and Annie knew it was time to return to the magic tree house and go back to their own time.",
+                    question: "When did Jack and Annie know it was time to leave?",
+                    options: ["When it started raining again", "As the sun began to set", "When all the children went home", "When they got hungry"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: Home Again
+                {
+                    passage: "Jack and Annie walked back across the prairie to the tree house. The magic tree house was waiting for them in the old oak tree.",
+                    question: "Where did Jack and Annie go to return home?",
+                    options: ["To the schoolhouse", "To the magic tree house in the old oak tree", "To a nearby farm", "To the train station"],
+                    correct: 1
+                },
+                {
+                    passage: "They climbed up the rope ladder and found the Pennsylvania book that would take them home to Frog Creek.",
+                    question: "What did they need to find to get home?",
+                    options: ["A magic wand", "The Pennsylvania book", "A special key", "A map"],
+                    correct: 1
+                },
+                {
+                    passage: "'I wish we could go home to Frog Creek,' said Jack, pointing to a picture of their woods in Pennsylvania.",
+                    question: "What did Jack wish for?",
+                    options: ["To stay on the prairie", "To go home to Frog Creek", "To visit another time period", "To meet Morgan again"],
+                    correct: 1
+                },
+                {
+                    passage: "The wind began to blow. The tree house started spinning faster and faster. Then everything was still and quiet.",
+                    question: "What happened when Jack made his wish?",
+                    options: ["Nothing happened", "The tree house started spinning and then became still", "They fell out of the tree", "The book disappeared"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie were back in their own woods in Frog Creek. The storm was over here too, and the night was peaceful and calm.",
+                    question: "What was the weather like when they returned to Frog Creek?",
+                    options: ["Still stormy and windy", "Peaceful and calm", "Snowing heavily", "Hot and humid"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #4A90E2, #87CEEB)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #4A90E2, #87CEEB)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #4A90E2, #87CEEB)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>

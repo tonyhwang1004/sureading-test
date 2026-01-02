@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bridge to Terabithia - Level 3 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2E7D32 0%, #81C784 50%, #FFD54F 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #2E7D32, #FFD54F);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #2E7D32;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #2E7D32;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #2E7D32, #FFD54F);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #2E7D32;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2E7D32;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #2E7D32;
+            background: linear-gradient(135deg, #2E7D3208, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(46, 125, 50, 0.1);
+            color: #2E7D32;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #2E7D32, #81C784);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #FFD54F, #FFA726);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2E7D32, #FFD54F);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2E7D32;
+        }
+
+        .option.selected {
+            background: rgba(46, 125, 50, 0.1);
+            border-color: #2E7D32;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #2E7D32, #FFD54F);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #2E7D32, #FFD54F);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #2E7D32, #FFD54F);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #2E7D32, #81C784);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #FFD54F;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🌉</div>
+                <div class="logo-text">
+                    <h1>Bridge to Terabithia</h1>
+                    <p>Level 3 - Katherine Paterson의 비밀의 숲 테라비시아</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="breadcrumb">
+
+                    <span>Bridge to Terabithia</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🌉</div>
+                    <div class="book-info">
+                        <h2>Bridge to Terabithia</h2>
+                        <div class="author">Katherine Paterson</div>
+                        <div class="book-summary">
+                            Follow the heartwarming friendship between Jess and Leslie as they create the magical kingdom of Terabithia in the woods. This touching story explores friendship, imagination, loss, and growing up through the eyes of two unforgettable characters.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">13</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">65</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 3</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>📖 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+
+                    <a onclick="showBookDetail()">Bridge to Terabithia</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1: Jesse Oliver Aarons, Jr.</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+
+                    <a onclick="showBookDetail()">Bridge to Terabithia</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1: Jesse Oliver Aarons, Jr.</h3>
+            <p id="audio-chapter-subtitle">Bridge to Terabithia - Katherine Paterson</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #2E7D32;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Bridge to Terabithia 도서 데이터 (전체 13챕터)
+        const bookData = {
+            id: 'BTT001',
+            title: "Bridge to Terabithia",
+            author: 'Katherine Paterson',
+            cover: '🌉',
+            progress: 0,
+            chapters: 13,
+            totalQuestions: 65, // 13챕터 × 5문제
+            coverColor: 'linear-gradient(45deg, #2E7D32, #FFD54F)',
+            summary: "Follow the heartwarming friendship between Jess and Leslie as they create the magical kingdom of Terabithia in the woods. This touching story explores friendship, imagination, loss, and growing up through the eyes of two unforgettable characters.",
+            chapterList: [
+                { title: 'Jesse Oliver Aarons, Jr.', description: 'Meet Jess, a fifth-grade boy who dreams of being the fastest runner in school.', status: 'current', questionCount: 5, startTime: 0 },
+                { title: 'Leslie Burke', description: 'A new girl moves next door and becomes an unexpected friend to Jess.', status: 'locked', questionCount: 5, startTime: 480 },
+                { title: 'The Fastest Kid in the Fifth Grade', description: 'Jess loses the race to Leslie, but gains something more valuable.', status: 'locked', questionCount: 5, startTime: 960 },
+                { title: 'Rulers of Terabithia', description: 'Jess and Leslie create their magical kingdom in the woods across the creek.', status: 'locked', questionCount: 5, startTime: 1440 },
+                { title: 'The Giant Killers', description: 'The friends battle imaginary enemies and real bullies at school.', status: 'locked', questionCount: 5, startTime: 1920 },
+                { title: 'The Coming of Prince Terrien', description: 'Leslie gets a puppy who becomes the royal guard of Terabithia.', status: 'locked', questionCount: 5, startTime: 2400 },
+                { title: 'The Golden Room', description: 'Jess visits Leslie\'s house and discovers her family\'s love of books and art.', status: 'locked', questionCount: 5, startTime: 2880 },
+                { title: 'Easter', description: 'Jess goes to church and thinks about Leslie\'s different beliefs.', status: 'locked', questionCount: 5, startTime: 3360 },
+                { title: 'The Evil Spell', description: 'Heavy rains make the creek dangerous, but the friends continue their adventures.', status: 'locked', questionCount: 5, startTime: 3840 },
+                { title: 'The Perfect Day', description: 'Jess and his teacher Miss Edmunds visit Washington D.C. together.', status: 'locked', questionCount: 5, startTime: 4320 },
+                { title: 'No!', description: 'Tragedy strikes when Leslie tries to reach Terabithia alone.', status: 'locked', questionCount: 5, startTime: 4800 },
+                { title: 'Stranded', description: 'Jess struggles to understand and accept what has happened.', status: 'locked', questionCount: 5, startTime: 5280 },
+                { title: 'Building the Bridge', description: 'Jess finds a way to honor Leslie\'s memory and help others reach Terabithia.', status: 'locked', questionCount: 5, startTime: 5760 }
+            ]
+        };
+
+        // 문제 데이터 (전체 13챕터 완료)
+        const questionsData = {
+            0: [ // Chapter 1: Jesse Oliver Aarons, Jr.
+                {
+                    passage: "Jess had been training all summer for the school race. He wanted more than anything to be the fastest runner in the fifth grade.",
+                    question: "What had Jess been doing all summer?",
+                    options: ["Reading books", "Training for the school race", "Playing video games", "Helping on the farm"],
+                    correct: 1
+                },
+                {
+                    passage: "Every morning before the sun came up, Jess would sneak out of the house and run in the cow pasture behind their home.",
+                    question: "When did Jess practice running?",
+                    options: ["After school", "Every morning before sunrise", "At night", "During lunch break"],
+                    correct: 1
+                },
+                {
+                    passage: "Jess lived with his parents and four sisters. He was the only boy in the family, which sometimes made him feel lonely.",
+                    question: "How many sisters did Jess have?",
+                    options: ["Three", "Four", "Five", "Two"],
+                    correct: 1
+                },
+                {
+                    passage: "His father worked in Washington D.C. and was often tired when he came home. Jess wished he could spend more time with his dad.",
+                    question: "Where did Jess's father work?",
+                    options: ["On a farm", "In Washington D.C.", "At a school", "In a factory"],
+                    correct: 1
+                },
+                {
+                    passage: "Jess loved to draw and paint, but he kept this hobby secret because he thought his family wouldn't understand.",
+                    question: "What hobby did Jess keep secret?",
+                    options: ["Playing music", "Drawing and painting", "Writing stories", "Collecting stamps"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: Leslie Burke
+                {
+                    passage: "The Burke family moved into the old Perkins place next door to Jess. They were from Arlington and seemed very different from other families in the area.",
+                    question: "Where did the Burke family move from?",
+                    options: ["Washington D.C.", "Arlington", "Richmond", "Baltimore"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie Burke was about Jess's age, with short blonde hair and blue eyes. She wore jeans and sneakers instead of dresses like most girls.",
+                    question: "How was Leslie different from most girls?",
+                    options: ["She had long hair", "She wore jeans and sneakers instead of dresses", "She was very tall", "She spoke a different language"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. and Mrs. Burke were writers who had come to the country to find peace and quiet for their work. They didn't have a television.",
+                    question: "What were Leslie's parents' profession?",
+                    options: ["Teachers", "Writers", "Farmers", "Doctors"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie was friendly and confident, but she seemed strange to the other kids because she used big words and had different interests.",
+                    question: "Why did other kids think Leslie was strange?",
+                    options: ["She was mean to everyone", "She used big words and had different interests", "She couldn't speak English well", "She was much older than them"],
+                    correct: 1
+                },
+                {
+                    passage: "When Jess first met Leslie, he wasn't sure what to think of her. She was unlike any girl he had ever known.",
+                    question: "How did Jess feel when he first met Leslie?",
+                    options: ["He immediately liked her", "He wasn't sure what to think of her", "He was scared of her", "He thought she was boring"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: The Fastest Kid in the Fifth Grade
+                {
+                    passage: "The big race finally arrived at recess time. All the fifth-grade boys lined up, including Jess who had been preparing for this moment all summer.",
+                    question: "When did the big race take place?",
+                    options: ["After school", "At recess time", "During gym class", "Before school started"],
+                    correct: 1
+                },
+                {
+                    passage: "To everyone's surprise, Leslie asked if she could join the race. The boys laughed because they had never seen a girl run in their race before.",
+                    question: "How did the boys react when Leslie wanted to join the race?",
+                    options: ["They welcomed her", "They laughed because girls had never run in their race", "They were scared", "They ignored her"],
+                    correct: 1
+                },
+                {
+                    passage: "When the race started, Leslie shot ahead of all the boys, including Jess. She ran like the wind and won easily.",
+                    question: "What happened when the race started?",
+                    options: ["Jess won as expected", "All the boys tied", "Leslie shot ahead and won easily", "Nobody finished the race"],
+                    correct: 2
+                },
+                {
+                    passage: "Jess felt disappointed and embarrassed that a girl had beaten him, especially after all his training. But he also felt something else - admiration.",
+                    question: "How did Jess feel after losing to Leslie?",
+                    options: ["Only happy", "Disappointed and embarrassed, but also admiring", "Very angry", "Completely indifferent"],
+                    correct: 1
+                },
+                {
+                    passage: "After the race, Leslie approached Jess and asked if he wanted to be friends. She seemed genuinely interested in getting to know him.",
+                    question: "What did Leslie do after winning the race?",
+                    options: ["She bragged to everyone", "She asked Jess if he wanted to be friends", "She went home immediately", "She ignored Jess completely"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: Rulers of Terabithia
+                {
+                    passage: "Leslie suggested they explore the woods across the creek behind their houses. To get there, they had to swing on an old rope across the water.",
+                    question: "How did Jess and Leslie cross the creek?",
+                    options: ["They walked across a bridge", "They swung on an old rope", "They waded through the water", "They used a boat"],
+                    correct: 1
+                },
+                {
+                    passage: "In the woods, Leslie declared they should create their own secret kingdom. She named it Terabithia, after the magical lands in the books she loved.",
+                    question: "What did Leslie name their secret kingdom?",
+                    options: ["Narnia", "Terabithia", "Wonderland", "Atlantis"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie said that Jess would be King of Terabithia and she would be Queen. Together they would rule over their magical forest kingdom.",
+                    question: "Who would rule Terabithia?",
+                    options: ["Only Leslie as Queen", "Only Jess as King", "Jess as King and Leslie as Queen together", "All the kids from school"],
+                    correct: 2
+                },
+                {
+                    passage: "They made up stories about the creatures that lived in Terabithia - both friendly beings and dangerous enemies that they would have to fight.",
+                    question: "What did they create in Terabithia?",
+                    options: ["Real animals", "Stories about imaginary creatures", "A actual castle", "Nothing special"],
+                    correct: 1
+                },
+                {
+                    passage: "In Terabithia, Jess felt free to be himself. He could be brave and strong, and he didn't have to worry about what anyone else thought.",
+                    question: "How did Jess feel in Terabithia?",
+                    options: ["Scared and worried", "Free to be himself", "Bored and tired", "Confused and lost"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: The Giant Killers
+                {
+                    passage: "At school, Jess and Leslie faced bullies who picked on smaller kids. The worst bully was Gary Fulcher, who seemed to enjoy making others miserable.",
+                    question: "Who was the worst bully at school?",
+                    options: ["Leslie Burke", "Gary Fulcher", "Jess Aarons", "Mrs. Myers"],
+                    correct: 1
+                },
+                {
+                    passage: "In Terabithia, Jess and Leslie pretended that bullies like Gary were evil giants that they had to defeat to protect their kingdom.",
+                    question: "How did they deal with bullies in their imagination?",
+                    options: ["They ignored them", "They pretended bullies were evil giants to defeat", "They became friends with them", "They told their parents"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie taught Jess that they could use their intelligence and creativity to outsmart people who tried to hurt them or others.",
+                    question: "What did Leslie teach Jess about dealing with problems?",
+                    options: ["To always fight back physically", "To use intelligence and creativity", "To run away from trouble", "To tell the teacher immediately"],
+                    correct: 1
+                },
+                {
+                    passage: "When Gary picked on a younger student, Jess and Leslie worked together to stand up to him, just like brave knights in their kingdom.",
+                    question: "What did Jess and Leslie do when Gary bullied a younger student?",
+                    options: ["They watched and did nothing", "They worked together to stand up to him", "They joined Gary in bullying", "They ran away scared"],
+                    correct: 1
+                },
+                {
+                    passage: "Their friendship grew stronger as they supported each other both in the real world and in their imaginary kingdom of Terabithia.",
+                    question: "What happened to their friendship as they faced challenges?",
+                    options: ["It became weaker", "It stayed the same", "It grew stronger", "It ended completely"],
+                    correct: 2
+                }
+            ],
+            5: [ // Chapter 6: The Coming of Prince Terrien
+                {
+                    passage: "For Christmas, Leslie's parents gave her a small puppy. Leslie was overjoyed and immediately fell in love with the little dog.",
+                    question: "What Christmas gift did Leslie receive from her parents?",
+                    options: ["A bicycle", "A small puppy", "Books", "Art supplies"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie named the puppy Prince Terrien, making him the royal guard and protector of Terabithia. The little dog seemed perfect for the role.",
+                    question: "What did Leslie name her puppy?",
+                    options: ["King Terrien", "Prince Terrien", "Duke Terrien", "Sir Terrien"],
+                    correct: 1
+                },
+                {
+                    passage: "P.T., as they called him for short, became a loyal companion who followed Jess and Leslie on all their adventures to Terabithia.",
+                    question: "What did they call Prince Terrien for short?",
+                    options: ["T.P.", "P.T.", "Terry", "Prince"],
+                    correct: 1
+                },
+                {
+                    passage: "The puppy was brave for his size and seemed to understand that he had an important job protecting the magical kingdom.",
+                    question: "How did Prince Terrien behave in Terabithia?",
+                    options: ["He was scared and hid", "He was brave and seemed to understand his job", "He ran away", "He slept all the time"],
+                    correct: 1
+                },
+                {
+                    passage: "Having P.T. with them made their adventures even more exciting and real. The three of them became an inseparable team.",
+                    question: "How did having P.T. affect their adventures?",
+                    options: ["Made them boring", "Made them more exciting and real", "Caused problems", "Ended their friendship"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7: The Golden Room
+                {
+                    passage: "Leslie invited Jess to visit her house for the first time. He was nervous because the Burkes seemed so different from his own family.",
+                    question: "How did Jess feel about visiting Leslie's house?",
+                    options: ["Excited and confident", "Nervous because the Burkes seemed different", "Angry and upset", "Bored and uninterested"],
+                    correct: 1
+                },
+                {
+                    passage: "The Burke house was filled with books, paintings, and interesting objects from around the world. Jess had never seen anything like it.",
+                    question: "What was the Burke house filled with?",
+                    options: ["Television sets", "Books, paintings, and interesting objects", "Sports equipment", "Nothing special"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie showed Jess her parents' study, which she called the 'golden room' because of the warm light that filled it from the windows.",
+                    question: "What did Leslie call her parents' study?",
+                    options: ["The library", "The golden room", "The art room", "The writing room"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. and Mrs. Burke treated Jess like an adult, asking his opinions and really listening to his answers. This was very different from how adults usually treated him.",
+                    question: "How did Leslie's parents treat Jess?",
+                    options: ["Like a little child", "Like an adult, asking his opinions", "They ignored him", "They were mean to him"],
+                    correct: 1
+                },
+                {
+                    passage: "For the first time, Jess felt comfortable sharing his love of art and drawing. The Burkes encouraged his creativity and made him feel talented.",
+                    question: "What did Jess feel comfortable sharing at the Burke house?",
+                    options: ["His sports abilities", "His love of art and drawing", "His problems at school", "His family secrets"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: Easter
+                {
+                    passage: "Easter Sunday arrived, and Jess's family prepared to go to church as they did every Sunday. Jess invited Leslie to come with them.",
+                    question: "What did Jess invite Leslie to do on Easter Sunday?",
+                    options: ["Visit Terabithia", "Come to church with his family", "Have dinner", "Go swimming"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie politely declined, explaining that her family didn't go to church. This made Jess worry about Leslie's soul and what might happen to her.",
+                    question: "Why did Leslie decline the church invitation?",
+                    options: ["She was sick", "Her family didn't go to church", "She had other plans", "She was afraid"],
+                    correct: 1
+                },
+                {
+                    passage: "At church, Jess listened to the sermon about salvation and began to worry that Leslie might go to hell because she didn't believe the same things his family did.",
+                    question: "What made Jess worry during the church sermon?",
+                    options: ["He was bored", "He thought Leslie might go to hell for not believing", "He wanted to leave", "He was hungry"],
+                    correct: 1
+                },
+                {
+                    passage: "After church, Jess talked to Leslie about his concerns. Leslie listened thoughtfully and explained that she had her own way of thinking about God and life.",
+                    question: "How did Leslie respond to Jess's religious concerns?",
+                    options: ["She got angry", "She explained she had her own way of thinking about God", "She agreed to go to church", "She laughed at him"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie's calm and thoughtful response made Jess realize that good people could have different beliefs and still be good friends.",
+                    question: "What did Jess learn from Leslie's response?",
+                    options: ["That she was wrong", "That good people could have different beliefs", "That he should change his beliefs", "That they couldn't be friends"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9: The Evil Spell
+                {
+                    passage: "Heavy spring rains had been falling for days, making the creek much higher and more dangerous than usual. The water rushed by fast and angry.",
+                    question: "What made the creek dangerous in this chapter?",
+                    options: ["It was frozen", "Heavy rains made it higher and faster", "It was too shallow", "There were rocks in it"],
+                    correct: 1
+                },
+                {
+                    passage: "Jess was afraid to swing across the swollen creek on the rope, but he didn't want to admit his fear to Leslie, who seemed fearless.",
+                    question: "How did Jess feel about crossing the dangerous creek?",
+                    options: ["Excited and brave", "Afraid but didn't want to admit it", "Completely confident", "He refused to go"],
+                    correct: 1
+                },
+                {
+                    passage: "Leslie noticed Jess's fear and suggested they could create a different adventure that didn't require crossing the creek that day.",
+                    question: "What did Leslie do when she noticed Jess's fear?",
+                    options: ["She made fun of him", "She suggested a different adventure", "She forced him to cross", "She went home angry"],
+                    correct: 1
+                },
+                {
+                    passage: "They decided that an evil spell had been cast over the creek, making it too dangerous for even the brave rulers of Terabithia to cross.",
+                    question: "How did they explain the dangerous creek in their game?",
+                    options: ["They ignored it", "They said an evil spell had been cast over it", "They blamed the weather", "They said monsters lived in it"],
+                    correct: 1
+                },
+                {
+                    passage: "Instead, they spent the afternoon planning how they would break the evil spell and making their kingdom even more magical.",
+                    question: "What did they do instead of crossing the creek?",
+                    options: ["Went home", "Planned how to break the evil spell", "Played a different game", "Got help from adults"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: The Perfect Day
+                {
+                    passage: "Miss Edmunds, Jess's music teacher, called early in the morning to invite him on a special trip to Washington D.C. to see the art galleries.",
+                    question: "Who invited Jess on a trip to Washington D.C.?",
+                    options: ["His father", "Miss Edmunds, his music teacher", "Leslie", "His mother"],
+                    correct: 1
+                },
+                {
+                    passage: "Jess was excited about the trip because Miss Edmunds was his favorite teacher, and he had always dreamed of seeing real art in a museum.",
+                    question: "Why was Jess excited about the trip?",
+                    options: ["He would miss school", "Miss Edmunds was his favorite teacher and he loved art", "He would see Leslie", "He would get money"],
+                    correct: 1
+                },
+                {
+                    passage: "He thought about inviting Leslie to come along, but decided this was his special time with Miss Edmunds, and he wanted to enjoy it alone.",
+                    question: "Did Jess invite Leslie on the trip?",
+                    options: ["Yes, he invited her", "No, he wanted to enjoy it alone", "He forgot to ask her", "Leslie was already going"],
+                    correct: 1
+                },
+                {
+                    passage: "At the National Gallery, Jess was amazed by the beautiful paintings and sculptures. Miss Edmunds encouraged his appreciation for art.",
+                    question: "How did Jess feel at the National Gallery?",
+                    options: ["Bored and tired", "Amazed by the beautiful art", "Confused and lost", "Homesick"],
+                    correct: 1
+                },
+                {
+                    passage: "It was one of the most perfect days of Jess's life. He felt grown-up and important, sharing his love of art with someone who understood.",
+                    question: "How did Jess describe this day?",
+                    options: ["The worst day ever", "One of the most perfect days of his life", "A boring day", "A scary day"],
+                    correct: 1
+                }
+            ],
+            10: [ // Chapter 11: No!
+                {
+                    passage: "When Jess returned home from his trip, he found his family gathered in the living room with serious, sad expressions on their faces.",
+                    question: "What did Jess notice when he returned home?",
+                    options: ["Everyone was happy", "His family had serious, sad expressions", "No one was home", "They were watching TV"],
+                    correct: 1
+                },
+                {
+                    passage: "His father gently told him that there had been a terrible accident. Leslie had tried to swing across the creek to Terabithia alone.",
+                    question: "What had happened to Leslie?",
+                    options: ["She was sick", "She had moved away", "She had a terrible accident trying to reach Terabithia", "She was just visiting relatives"],
+                    correct: 2
+                },
+                {
+                    passage: "The rope had broken, and Leslie had fallen into the swollen creek. The rescue workers had found her, but it was too late.",
+                    question: "What caused Leslie's accident?",
+                    options: ["She fell from a tree", "The rope broke and she fell into the creek", "She got lost in the woods", "She was hit by a car"],
+                    correct: 1
+                },
+                {
+                    passage: "Jess couldn't believe what he was hearing. He shouted 'No!' over and over, refusing to accept that Leslie was gone forever.",
+                    question: "How did Jess react to the news?",
+                    options: ["He cried quietly", "He shouted 'No!' and refused to believe it", "He said nothing", "He ran to his room"],
+                    correct: 1
+                },
+                {
+                    passage: "The world seemed to stop for Jess. His best friend, the Queen of Terabithia, would never come back to their magical kingdom.",
+                    question: "How did Jess feel about losing Leslie?",
+                    options: ["Slightly sad", "The world seemed to stop for him", "He quickly got over it", "He was angry at her"],
+                    correct: 1
+                }
+            ],
+            11: [ // Chapter 12: Stranded
+                {
+                    passage: "For days after Leslie's death, Jess felt numb and empty. He couldn't eat, couldn't sleep, and couldn't believe she was really gone.",
+                    question: "How did Jess feel in the days after Leslie's death?",
+                    options: ["Happy and relieved", "Numb and empty", "Excited about new friends", "Completely normal"],
+                    correct: 1
+                },
+                {
+                    passage: "He was angry at Leslie for going to Terabithia without him, angry at himself for not being there, and angry at God for letting it happen.",
+                    question: "Who was Jess angry at?",
+                    options: ["Only Leslie", "Leslie, himself, and God", "Only his parents", "Only Miss Edmunds"],
+                    correct: 1
+                },
+                {
+                    passage: "His family tried to comfort him, but Jess felt like no one could understand the special friendship he had shared with Leslie.",
+                    question: "How did Jess feel about his family's attempts to comfort him?",
+                    options: ["Very grateful", "Like no one could understand his special friendship", "Annoyed by their attention", "Completely comforted"],
+                    correct: 1
+                },
+                {
+                    passage: "Jess attended Leslie's funeral, but it felt unreal to him. He kept expecting her to appear and tell him it was all just another one of their make-believe games.",
+                    question: "How did Leslie's funeral feel to Jess?",
+                    options: ["Very real and final", "Unreal, like he expected her to appear", "Happy and celebratory", "Boring and long"],
+                    correct: 1
+                },
+                {
+                    passage: "Mr. and Mrs. Burke, Leslie's parents, were heartbroken but tried to be strong. They thanked Jess for being such a good friend to their daughter.",
+                    question: "How did Leslie's parents treat Jess at the funeral?",
+                    options: ["They blamed him", "They thanked him for being a good friend", "They ignored him", "They were angry at him"],
+                    correct: 1
+                }
+            ],
+            12: [ // Chapter 13: Building the Bridge
+                {
+                    passage: "Slowly, Jess began to realize that Leslie would want him to keep Terabithia alive, not let it die with her.",
+                    question: "What did Jess realize about Terabithia?",
+                    options: ["He should destroy it", "Leslie would want him to keep it alive", "He should never go back", "It was just pretend"],
+                    correct: 1
+                },
+                {
+                    passage: "Jess decided to build a real bridge across the creek so that other children could safely reach Terabithia and experience its magic.",
+                    question: "What did Jess decide to build?",
+                    options: ["A fence", "A real bridge across the creek", "A house", "A monument"],
+                    correct: 1
+                },
+                {
+                    passage: "He brought his little sister May Belle to Terabithia and made her the new Queen, teaching her about the magical kingdom.",
+                    question: "Who did Jess make the new Queen of Terabithia?",
+                    options: ["A girl from school", "His little sister May Belle", "Miss Edmunds", "No one"],
+                    correct: 1
+                },
+                {
+                    passage: "As he showed May Belle around Terabithia, Jess felt Leslie's presence and knew she would be happy that their kingdom would continue.",
+                    question: "How did Jess feel when showing May Belle around Terabithia?",
+                    options: ["Sad and lonely", "He felt Leslie's presence and knew she'd be happy", "Angry and frustrated", "Bored and tired"],
+                    correct: 1
+                },
+                {
+                    passage: "The bridge became a symbol of how Leslie had helped Jess cross from childhood to a deeper understanding of life, friendship, and loss.",
+                    question: "What did the bridge symbolize?",
+                    options: ["Just a way to cross water", "How Leslie helped Jess understand life and friendship", "A waste of time", "Leslie's favorite place"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 자동 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const level = 'level3';
+            const bookId = 'BTT001';
+            const chapterNum = String(chapterIndex + 1).padStart(2, '0');
+
+            const possibleFileNames = [
+                `${bookId}_chapter${chapterNum}.mp3`,
+                `${bookId}_ch${chapterNum}.mp3`,
+                `${bookId}_${chapterNum}.mp3`,
+                `bridge_terabithia_chapter${chapterNum}.mp3`,
+                `bridge_terabithia_ch${chapterNum}.mp3`,
+                `terabithia_${chapterNum}.mp3`,
+                `katherine_paterson_bridge_chapter${chapterNum}.mp3`,
+                `${bookId}.mp3`
+            ];
+
+            return {
+                primary: `${AUDIO_BASE_URL}${level}/${possibleFileNames[0]}`,
+                alternatives: possibleFileNames.map(fileName => `${AUDIO_BASE_URL}${level}/${fileName}`)
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioUrls = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+            // 오디오 정보 영역 다시 보이기 (새로운 오디오 플레이시)
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 찾는 중...';
+
+            function tryLoadAudio(urlIndex = 0) {
+                if (urlIndex >= audioUrls.alternatives.length) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.`;
+                    return;
+                }
+
+                const currentUrl = audioUrls.alternatives[urlIndex];
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    const startTime = chapter.startTime || 0;
+                    audioPlayer.currentTime = startTime;
+                    audioStatus.innerHTML = `✅ 오디오 준비 완료!`;
+                };
+
+                const errorHandler = function() {
+                    setTimeout(() => tryLoadAudio(urlIndex + 1), 100);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+                audioPlayer.addEventListener('error', errorHandler, { once: true });
+            }
+
+            tryLoadAudio(0);
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 기본 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            const currentChapter = parseInt(document.getElementById('audio-chapter-title').textContent.match(/Chapter (\d+)/)[1]) - 1;
+            currentAudio.currentTime = bookData.chapterList[currentChapter]?.startTime || 0;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>Chapter ${index + 1}: ${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progress = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex];
+
+            if (!questions || questions.length === 0) {
+                alert('이 챕터의 문제가 아직 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('learning-chapter-breadcrumb').textContent = `Chapter ${chapterIndex + 1}`;
+
+            showQuestion();
+            updateLearningProgress();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="question-text">문제 ${currentQuestionIndex + 1}</div>
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) selectedOption.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        // 선택지 선택
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`[data-index="${optionIndex}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateNavigationButtons();
+        }
+
+        // 네비게이션
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function updateLearningProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = progress + '%';
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+                if (currentChapterIndex < bookData.chapterList.length - 1) {
+                    bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                }
+            }
+
+            showResults(correctCount, questions.length, score);
+        }
+
+        // 결과 표시
+        function showResults(correct, total, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = score + '%';
+            document.getElementById('total-questions').textContent = total + '문제';
+            document.getElementById('correct-answers').textContent = correct + '문제';
+            document.getElementById('wrong-answers').textContent = (total - correct) + '문제';
+            document.getElementById('final-score').textContent = score + '점';
+
+            let message = '';
+            if (score >= 90) message = '훌륭합니다! 🌟';
+            else if (score >= 80) message = '잘했어요! 👏';
+            else if (score >= 70) message = '좋아요! 👍';
+            else message = '다시 한번 도전해보세요! 💪';
+
+            document.getElementById('result-message').textContent = message;
+        }
+
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        function nextChapter() {
+            if (currentChapterIndex < bookData.chapterList.length - 1) {
+                startLearning(currentChapterIndex + 1);
+            } else {
+                alert('모든 챕터를 완료했습니다! 🎉');
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드
+        window.addEventListener('load', function() {
+            showBookDetail();
+            console.log('🎯 Bridge to Terabithia 학습 시스템이 준비되었습니다!');
+        });
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('audio-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeAudioModal();
+        });
+    </script>
+</body>
+</html>

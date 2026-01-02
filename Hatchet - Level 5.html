@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hatchet - Level 5 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #228B22 0%, #32CD32 50%, #90EE90 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #228B22;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #228B22;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #228B22, #32CD32);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #228B22;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #228B22;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #228B22;
+            background: linear-gradient(135deg, #228B2208, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(34, 139, 34, 0.1);
+            color: #228B22;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #32CD32, #90EE90);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #228B22, #32CD32);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #228B22;
+        }
+
+        .option.selected {
+            background: rgba(34, 139, 34, 0.1);
+            border-color: #228B22;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #32CD32;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* Level 5 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #228B22, #32CD32);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🪓</div>
+                <div class="logo-text">
+                    <h1>Hatchet</h1>
+                    <p>Level 5 - Gary Paulsen의 뉴베리 메달 수상작</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 5</div>
+                <div class="breadcrumb">
+                    <span>Hatchet</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🪓</div>
+                    <div class="book-info">
+                        <h2>Hatchet</h2>
+                        <div class="author">Gary Paulsen</div>
+                        <div class="book-summary">
+                            Thirteen-year-old Brian Robeson is on his way to visit his father in the Canadian wilderness when the pilot of his small plane has a heart attack and dies. Brian manages to land the plane in a remote lake, but now he's stranded in the vast Canadian wilderness with nothing but the clothes on his back and a hatchet his mother gave him as a parting gift. This 1988 Newbery Honor winner is a gripping story of survival, self-reliance, and coming of age in the face of nature's challenges.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">19</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">95</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 5</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🪓 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Hatchet</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Hatchet</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">Hatchet - Gary Paulsen</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #228B22;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+        // Hatchet 도서 데이터 (정확한 19챕터)
+        const bookData = {
+    id: 'HT001',
+    title: "Hatchet",
+    author: 'Gary Paulsen',
+    cover: '🪓',
+    progress: 0,
+    chapters: 19,
+    totalQuestions: 95,
+    coverColor: 'linear-gradient(45deg, #228B22, #32CD32)',
+    summary: "Thirteen-year-old Brian Robeson is on his way to visit his father in the Canadian wilderness when the pilot of his small plane has a heart attack and dies. Brian manages to land the plane in a remote lake, but now he's stranded in the vast Canadian wilderness with nothing but the clothes on his back and a hatchet his mother gave him as a parting gift. This 1988 Newbery Honor winner is a gripping story of survival, self-reliance, and coming of age in the face of nature's challenges.",
+    chapterList: [
+        { title: 'Chapter 1', description: 'Brian flies to Canada to visit his father. The pilot has a heart attack and dies mid-flight.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 2', description: 'Brian struggles to control the plane and crashes into a lake in the Canadian wilderness.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 3', description: 'Brian survives the crash and finds himself alone by the lake, taking stock of his situation.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 4', description: 'Brian searches for food and shelter, eating berries that make him violently sick.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 5', description: 'Brian learns from his mistakes and finds better shelter and food sources.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 6', description: 'A porcupine attacks Brian in his shelter, shooting quills into his leg.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 7', description: 'Brian discovers how to make fire using his hatchet and stones after a dream about his father.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 8', description: 'Brian successfully creates fire and finds turtle eggs to eat, feeling more hopeful.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 9', description: 'Brian tries to catch fish and improve his hunting skills with limited success.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 10', description: 'Brian makes a bow and arrows, but struggles to catch fish effectively.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 11', description: 'Brian sees a plane overhead but cannot get the pilot\'s attention, leaving him devastated.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 12', description: 'Brian falls into despair and attempts suicide, but survives and finds new determination.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 13', description: 'Brian becomes more skilled at hunting and feels he has been \'cut down and made new\'.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 14', description: 'Brian perfects his fishing and hunting skills, becoming more self-sufficient.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 15', description: 'Brian successfully hunts birds (\'foolbirds\') and continues to improve his survival skills.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 16', description: 'A moose attacks Brian, and later a tornado destroys his shelter and stirs up the lake.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 17', description: 'The tornado exposes the plane\'s tail, giving Brian the idea to retrieve the survival pack.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 18', description: 'Brian builds a raft and retrieves the survival pack from the crashed plane.', status: 'current', questionCount: 5 },
+        { title: 'Chapter 19', description: 'Brian opens the survival pack and activates an emergency transmitter, leading to his rescue.', status: 'current', questionCount: 5 }
+    ]
+};
+
+        // 문제 데이터 (실제 책 내용 기반) - 전체 19챕터
+        const questionsData = {
+            0: [ // Chapter 1
+                {
+                    passage: "Brian Robeson stared out the window of the small plane at the endless green northern wilderness below. He was thirteen and the only passenger on the single-engine Cessna 406.",
+                    question: "How old is Brian and what type of plane is he flying in?",
+                    options: ["Twelve years old, flying in a twin-engine plane", "Thirteen years old, flying in a single-engine Cessna 406", "Fourteen years old, flying in a commercial airliner", "Thirteen years old, flying in a helicopter"],
+                    correct: 1
+                },
+                {
+                    passage: "His parents had divorced and the court had decided that Brian would live with his mother during the school year and spend summers with his father in Canada.",
+                    question: "Why is Brian flying to Canada?",
+                    options: ["To visit his grandparents", "To spend summer with his father due to his parents' divorce", "To attend summer camp", "To move there permanently"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian knew 'The Secret' about his mother - something that had caused the divorce but that his father didn't know.",
+                    question: "What does Brian call the information he has about his mother?",
+                    options: ["The Problem", "The Secret", "The Issue", "The Mistake"],
+                    correct: 1
+                },
+                {
+                    passage: "His mother had given him a hatchet as a going-away gift, and Brian had attached it to his belt, though he felt a bit foolish wearing it on the plane.",
+                    question: "What gift did Brian's mother give him?",
+                    options: ["A compass", "A survival knife", "A hatchet", "A camping gear set"],
+                    correct: 2
+                },
+                {
+                    passage: "The pilot was rubbing his shoulder and down the arm now, the left arm, and there was the smell of body gas in the plane. The pilot was having a heart attack.",
+                    question: "What happens to the pilot during the flight?",
+                    options: ["He falls asleep", "He has a heart attack", "He gets food poisoning", "He becomes airsick"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2
+                {
+                    passage: "Brian tried to use the radio to call for help, but received no response except static and the sound of his own voice echoing back.",
+                    question: "What happens when Brian tries to use the radio?",
+                    options: ["Someone answers immediately", "He gets only static and his own echo", "The radio is completely broken", "He successfully contacts air traffic control"],
+                    correct: 1
+                },
+                {
+                    passage: "The plane was running out of fuel, and Brian realized he would have to try to land it somehow, even though he had only briefly touched the controls once when the pilot showed him.",
+                    question: "What problem does Brian face besides the dead pilot?",
+                    options: ["The weather is getting bad", "The plane is running out of fuel", "The engine is overheating", "The radio is making too much noise"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian tried to aim for the lake, thinking water would be softer than trees, but the plane hit the water hard and began to sink.",
+                    question: "Where does Brian try to crash land the plane?",
+                    options: ["In an open field", "On a road", "In a lake", "On a mountain top"],
+                    correct: 2
+                },
+                {
+                    passage: "The plane filled with water quickly, and Brian had to struggle to get out before it sank completely.",
+                    question: "What immediate danger does Brian face after the crash?",
+                    options: ["Wild animals", "The plane filling with water and sinking", "Severe injuries", "Getting lost in the forest"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian managed to swim to shore, coughing up lake water, battered and scared but alive.",
+                    question: "How does Brian survive the plane crash?",
+                    options: ["He parachutes out", "He lands safely on the water", "He swims to shore after the plane sinks", "He climbs out onto the wing"],
+                    correct: 2
+                }
+            ],
+            2: [ // Chapter 3
+                {
+                    passage: "Brian was alone. The words came at him and he tried to push them away, tried not to think them, but they would not leave.",
+                    question: "What realization hits Brian after surviving the crash?",
+                    options: ["He is injured", "He is hungry", "He is completely alone", "He has lost his hatchet"],
+                    correct: 2
+                },
+                {
+                    passage: "He took inventory of what he had: the clothes on his back, a windbreaker, running shoes, socks, jeans, underwear, and the hatchet on his belt.",
+                    question: "What does Brian have with him after the crash?",
+                    options: ["Just his clothes", "His clothes and a compass", "His clothes and the hatchet", "His clothes and some food"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian was incredibly thirsty and hungry. He had never been so thirsty in his life, and his stomach felt like it was eating itself.",
+                    question: "What are Brian's most immediate physical needs?",
+                    options: ["Warmth and shelter", "Water and food", "Medical attention", "Sleep and rest"],
+                    correct: 1
+                },
+                {
+                    passage: "He remembered his English teacher, Perpich, who had always said the most important thing was to stay positive and think of what you have, not what you don't have.",
+                    question: "What advice does Brian remember from his English teacher?",
+                    options: ["Always be prepared", "Stay positive and focus on what you have", "Never give up hope", "Think before you act"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian decided he needed to find shelter, food, and a way to make a fire, though he had no matches.",
+                    question: "What three things does Brian identify as his primary survival needs?",
+                    options: ["Water, warmth, and rescue", "Shelter, food, and fire", "Food, water, and medicine", "Fire, tools, and clothing"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4
+                {
+                    passage: "Brian found some berries and ate them greedily, thinking they tasted wonderful, but they gave him terrible diarrhea and stomach cramps all night.",
+                    question: "What happens when Brian first tries to find food?",
+                    options: ["He catches fish successfully", "He finds berries that make him sick", "He finds nuts and roots", "He can't find any food at all"],
+                    correct: 1
+                },
+                {
+                    passage: "He called them 'gut cherries' because of what they did to his stomach, and he decided to be much more careful about what he ate.",
+                    question: "What does Brian call the berries that made him sick?",
+                    options: ["Poison berries", "Bad berries", "Gut cherries", "Sick berries"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian was amazed at how much the city noises had meant to him - traffic, people talking, the general hum and whine of the city. Here there was just... silence.",
+                    question: "What does Brian notice about the difference between city life and wilderness?",
+                    options: ["The wilderness is too noisy", "The silence of the wilderness without city sounds", "The wildlife makes too much noise", "He prefers the wilderness sounds"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian tried to make a fire by rubbing two sticks together like he had seen on television, but it didn't work and only made his hands raw and sore.",
+                    question: "How does Brian first try to make fire?",
+                    options: ["Using his hatchet on rocks", "Rubbing two sticks together", "Using his glasses and sunlight", "Looking for matches"],
+                    correct: 1
+                },
+                {
+                    passage: "He found a sheltered spot under a rock ledge and tried to make it more comfortable, but everything seemed impossibly difficult.",
+                    question: "Where does Brian decide to make his shelter?",
+                    options: ["In a tree", "Under a rock ledge", "In a cave", "On the beach"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5
+                {
+                    passage: "Brian found raspberry bushes and ate the berries more carefully this time, savoring each one and not gorging himself.",
+                    question: "How does Brian approach eating the raspberries differently?",
+                    options: ["He eats them all at once", "He eats them carefully and doesn't gorge himself", "He refuses to eat them", "He only eats a few and saves the rest"],
+                    correct: 1
+                },
+                {
+                    passage: "While picking raspberries, Brian looked up to see a bear standing about twenty feet away, also eating berries.",
+                    question: "What animal does Brian encounter while picking raspberries?",
+                    options: ["A wolf", "A moose", "A bear", "A deer"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian froze in terror, but the bear just looked at him for a moment, then went back to eating berries and eventually wandered away.",
+                    question: "How does the bear react to Brian?",
+                    options: ["It attacks him", "It runs away immediately", "It looks at him then continues eating and wanders away", "It follows him back to his shelter"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian realized that the bear had no interest in him - they were just sharing the same food source.",
+                    question: "What does Brian learn about the bear?",
+                    options: ["Bears are always dangerous", "The bear had no interest in him", "Bears are afraid of humans", "The bear was protecting its cubs"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian began to feel like he was getting better at being in the wilderness, though he still desperately wanted to go home.",
+                    question: "How is Brian starting to feel about his survival skills?",
+                    options: ["He feels completely hopeless", "He feels like he's getting better at wilderness survival", "He thinks he'll never learn", "He believes he's an expert now"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6
+                {
+                    passage: "Brian woke in the middle of the night to something in his shelter making noise. He couldn't see what it was in the darkness.",
+                    question: "What wakes Brian up in the middle of the night?",
+                    options: ["A thunderstorm", "Something making noise in his shelter", "Nightmares about the crash", "The cold weather"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian threw his hatchet toward the sound and missed the animal, but the hatchet hit the stone wall and sent off a shower of sparks.",
+                    question: "What happens when Brian throws his hatchet at the intruder?",
+                    options: ["He hits the animal", "He misses but the hatchet creates sparks on the stone", "The hatchet breaks", "Nothing happens"],
+                    correct: 1
+                },
+                {
+                    passage: "The animal turned out to be a porcupine, and it shot quills into Brian's leg before leaving, causing him terrible pain.",
+                    question: "What animal had entered Brian's shelter?",
+                    options: ["A raccoon", "A skunk", "A porcupine", "A badger"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian spent a painful time pulling porcupine quills out of his leg, crying from both the pain and his situation.",
+                    question: "How does the porcupine injure Brian?",
+                    options: ["It bites him", "It scratches him", "It shoots quills into his leg", "It knocks him down"],
+                    correct: 2
+                },
+                {
+                    passage: "Despite the pain, Brian remembered the sparks from his hatchet hitting the stone and realized this might be the key to making fire.",
+                    question: "What important discovery does Brian make from this incident?",
+                    options: ["How to keep animals away", "That his hatchet can create sparks on stone", "How to treat injuries", "That he needs better shelter"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7
+                {
+                    passage: "Brian had a dream where his father and his friend Terry were trying to tell him something important about fire, but they couldn't speak - they could only point and gesture.",
+                    question: "What kind of dream does Brian have about making fire?",
+                    options: ["A nightmare about being burned", "His father and Terry trying to tell him about fire", "A dream about being rescued", "A memory of camping with his father"],
+                    correct: 1
+                },
+                {
+                    passage: "When Brian woke up, he saw his hatchet in the morning light and suddenly understood what his dream meant - he could use the hatchet to make sparks.",
+                    question: "How does Brian figure out how to make fire?",
+                    options: ["He remembers a survival book", "He understands his dream about using the hatchet for sparks", "He finds matches in the plane", "He watches animals make fire"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian struck his hatchet against the dark stone and created a shower of sparks, but they didn't catch on the dried grass he had prepared.",
+                    question: "What happens when Brian first tries to make fire with sparks?",
+                    options: ["He immediately gets a fire started", "The sparks appear but don't catch the grass", "The hatchet breaks from hitting the stone", "No sparks appear at all"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian realized he needed finer tinder, so he found some birch bark and made it into fine, fluffy pieces that would catch more easily.",
+                    question: "What does Brian discover he needs for better tinder?",
+                    options: ["Larger pieces of wood", "Fine, fluffy pieces like birch bark", "Paper from his wallet", "Dry leaves only"],
+                    correct: 1
+                },
+                {
+                    passage: "After many attempts, Brian finally got a small fire started and felt overwhelming joy and relief at his success.",
+                    question: "How does Brian feel when he finally makes fire?",
+                    options: ["Disappointed it took so long", "Worried about keeping it going", "Overwhelming joy and relief", "Concerned about the smoke"],
+                    correct: 2
+                }
+            ],
+            7: [ // Chapter 8
+                {
+                    passage: "Brian's fire gave him light, warmth, and protection from mosquitoes. He felt like fire was his friend and companion.",
+                    question: "How does having fire help Brian?",
+                    options: ["Only for cooking food", "Light, warmth, and protection from mosquitoes", "Just for signaling rescuers", "Only for warmth at night"],
+                    correct: 1
+                },
+                {
+                    passage: "In the morning, Brian found strange marks in the sand near the water and followed them to discover a hidden nest of turtle eggs.",
+                    question: "What does Brian discover by following tracks in the sand?",
+                    options: ["A freshwater spring", "A turtle nest with eggs", "Fish trapped in shallow water", "Wild berries"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian broke open the turtle eggs and ate them raw. They didn't taste good, but they provided much-needed protein and nutrition.",
+                    question: "How does Brian eat the turtle eggs?",
+                    options: ["He cooks them over his fire", "He eats them raw", "He only eats the shells", "He saves them for later"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian built a signal fire on top of his rock shelter, planning to light it if he saw or heard a plane.",
+                    question: "Why does Brian build a signal fire?",
+                    options: ["To keep warm at night", "To cook food", "To signal planes for rescue", "To keep animals away"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian felt more hopeful and confident. He was learning to survive and felt like he might actually make it until rescue came.",
+                    question: "How is Brian's attitude changing?",
+                    options: ["He's becoming more desperate", "He's more hopeful and confident about surviving", "He's given up hope of rescue", "He's getting weaker"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9
+                {
+                    passage: "Brian tried to catch fish with his hands but they were too fast. He realized he needed to make some kind of spear.",
+                    question: "Why can't Brian catch fish with his hands?",
+                    options: ["The water is too cold", "The fish are too fast", "There are no fish in the lake", "His hands are too injured"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian made a spear by sharpening the end of a long stick with his hatchet, but when he tried to spear fish, he kept missing.",
+                    question: "What problem does Brian have with his first fishing spear?",
+                    options: ["It breaks immediately", "He keeps missing the fish", "It's too heavy to use", "The point isn't sharp enough"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian didn't understand that water refracts light, making fish appear to be in a different location than they actually are.",
+                    question: "Why does Brian keep missing the fish with his spear?",
+                    options: ["His aim is naturally bad", "He doesn't understand water refraction", "The spear is too short", "He's too weak to throw accurately"],
+                    correct: 1
+                },
+                {
+                    passage: "Frustrated with fishing, Brian decided he needed to learn to hunt birds or small animals for meat.",
+                    question: "What does Brian decide to do when fishing proves difficult?",
+                    options: ["Give up on eating meat", "Learn to hunt birds or small animals", "Only eat plants and berries", "Build a better fishing spear"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian spent time observing the wildlife around him, learning their habits and trying to understand how to hunt them.",
+                    question: "How does Brian prepare for hunting?",
+                    options: ["He practices throwing rocks", "He observes wildlife to learn their habits", "He builds traps immediately", "He looks for hunting equipment"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10
+                {
+                    passage: "Brian decided to make a bow and arrows for hunting. He found a suitable piece of wood and began shaping it with his hatchet.",
+                    question: "What hunting tool does Brian decide to make?",
+                    options: ["A slingshot", "A spear", "A bow and arrows", "Traps"],
+                    correct: 2
+                },
+                {
+                    passage: "Making the bow was harder than Brian expected. The wood kept splitting and he had to start over several times.",
+                    question: "What problem does Brian encounter making his bow?",
+                    options: ["He can't find the right wood", "The wood keeps splitting", "He doesn't have the right tools", "He can't remember how bows work"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian used the string from his shoelaces to string his bow, but it wasn't very strong or effective.",
+                    question: "What does Brian use for bowstring?",
+                    options: ["Rope from the plane", "Vines from trees", "String from his shoelaces", "Strips of fabric"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian's first arrows were crooked and didn't fly straight. He realized he needed to be much more careful in making them.",
+                    question: "What's wrong with Brian's first arrows?",
+                    options: ["They're too short", "They're crooked and don't fly straight", "They're not sharp enough", "They're too heavy"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite the problems with his bow and arrows, Brian felt good about learning to make tools and improving his skills.",
+                    question: "How does Brian feel about his progress making tools?",
+                    options: ["Frustrated and ready to give up", "Good about learning and improving", "Worried he'll never succeed", "Angry at the difficulty"],
+                    correct: 1
+                }
+            ],
+            10: [ // Chapter 11
+                {
+                    passage: "Brian heard the sound of an airplane engine in the distance. His heart leaped with hope - this could be his rescue!",
+                    question: "What does Brian hear that fills him with hope?",
+                    options: ["Voices calling his name", "A boat motor", "An airplane engine", "A helicopter"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian frantically tried to light his signal fire, rushing to get it burning before the plane passed over.",
+                    question: "What does Brian do when he hears the plane?",
+                    options: ["He waves his arms", "He rushes to light his signal fire", "He shouts as loud as he can", "He runs toward the sound"],
+                    correct: 1
+                },
+                {
+                    passage: "The plane flew directly over Brian's location, but the pilot didn't see him or his desperate signals.",
+                    question: "What happens when the plane flies over?",
+                    options: ["The pilot sees Brian and lands", "The pilot sees the smoke and circles back", "The pilot doesn't see Brian or his signals", "The plane crashes nearby"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian watched the plane disappear into the distance, and he felt his hope drain away completely.",
+                    question: "How does Brian feel as the plane disappears?",
+                    options: ["Confident another plane will come", "His hope drains away completely", "Angry at the pilot", "Determined to make a better signal"],
+                    correct: 1
+                },
+                {
+                    passage: "This was the first time Brian had seen any sign of civilization since the crash, and now it was gone.",
+                    question: "Why is this plane sighting so important to Brian?",
+                    options: ["It's the fastest plane he's ever seen", "It's his first sign of civilization since the crash", "It reminds him of the crashed plane", "It proves he's near an airport"],
+                    correct: 1
+                }
+            ],
+            11: [ // Chapter 12
+                {
+                    passage: "After the plane left without seeing him, Brian fell into complete despair. He felt like hope was pointless.",
+                    question: "How does missing the rescue plane affect Brian emotionally?",
+                    options: ["He becomes more determined", "He falls into complete despair", "He gets angry and energized", "He remains optimistic"],
+                    correct: 1
+                },
+                {
+                    passage: "In his darkest moment, Brian took out his hatchet and tried to cut himself, wanting to end his suffering.",
+                    question: "What desperate action does Brian attempt in his despair?",
+                    options: ["He destroys his shelter", "He tries to cut himself with his hatchet", "He throws away all his tools", "He stops eating completely"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian couldn't bring himself to hurt himself badly. The pain brought him back to his senses.",
+                    question: "What stops Brian from seriously harming himself?",
+                    options: ["He hears another plane", "The pain brings him back to his senses", "He thinks of his family", "He sees rescue coming"],
+                    correct: 1
+                },
+                {
+                    passage: "After his suicide attempt, Brian felt like the 'old Brian' had died, and a new, tougher Brian had been born.",
+                    question: "How does Brian feel he has changed after this experience?",
+                    options: ["He feels exactly the same", "The old Brian died and a new, tougher Brian was born", "He feels weaker than before", "He loses all confidence"],
+                    correct: 1
+                },
+                {
+                    passage: "The new Brian was determined to survive and decided he would not let death in again.",
+                    question: "What is the new Brian's attitude toward survival?",
+                    options: ["He still wants to give up", "He's determined to survive and won't let death in", "He's only focused on rescue", "He's afraid to try anything new"],
+                    correct: 1
+                }
+            ],
+            12: [ // Chapter 13
+                {
+                    passage: "The new Brian was more careful, more thoughtful, and much more skilled at wilderness survival.",
+                    question: "How has the 'new Brian' changed in his survival approach?",
+                    options: ["He's more reckless", "He's more careful, thoughtful, and skilled", "He's less confident", "He's given up on learning new skills"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian improved his bow and made better arrows, and his accuracy in hunting began to improve significantly.",
+                    question: "How does Brian's hunting improve?",
+                    options: ["He gives up on hunting", "He improves his bow and arrow accuracy", "He only hunts with traps", "He relies solely on fishing"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian learned to move more quietly and patiently when hunting, understanding that haste would scare away his prey.",
+                    question: "What important hunting technique does Brian learn?",
+                    options: ["To make lots of noise", "To move quickly to catch animals", "To move quietly and patiently", "To only hunt at night"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian's body was changing too - he was losing weight but becoming more muscular and tough from the physical demands of survival.",
+                    question: "How is Brian's body changing from wilderness living?",
+                    options: ["He's getting weaker and sicker", "He's losing weight but becoming more muscular", "He's gaining weight from eating well", "He looks exactly the same"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian felt more at home in the wilderness now. The sounds and rhythms of nature were becoming familiar to him.",
+                    question: "How does Brian feel about living in the wilderness now?",
+                    options: ["He hates it more than ever", "He feels more at home and familiar with nature", "He's constantly afraid", "He still feels completely out of place"],
+                    correct: 1
+                }
+            ],
+            13: [ // Chapter 14
+                {
+                    passage: "Brian finally mastered fishing by understanding how water refraction made fish appear in different locations.",
+                    question: "How does Brian finally succeed at fishing?",
+                    options: ["He builds better spears", "He understands water refraction and fish locations", "He finds a shallow area with trapped fish", "He uses berries as bait"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian caught his first fish and cooked it over his fire. The taste of cooked meat was incredible after so long without it.",
+                    question: "How does Brian prepare his first caught fish?",
+                    options: ["He eats it raw", "He cooks it over his fire", "He smoke-dries it", "He only eats the head"],
+                    correct: 1
+                },
+                {
+                    passage: "With reliable access to fish, Brian felt more secure about his food supply, though he continued to eat berries and turtle eggs too.",
+                    question: "How does successful fishing change Brian's food situation?",
+                    options: ["He only eats fish now", "He feels more secure about food but still eats variety", "He stops looking for other food", "He becomes picky about what he eats"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian learned to smoke and dry fish to preserve them for times when fishing wasn't successful.",
+                    question: "How does Brian preserve extra fish?",
+                    options: ["He buries them in sand", "He keeps them alive in the water", "He smokes and dries them", "He only catches what he can eat immediately"],
+                    correct: 2
+                },
+                {
+                    passage: "Brian felt proud of his growing skills and knowledge. He was becoming a competent wilderness survivor.",
+                    question: "How does Brian feel about his developing survival skills?",
+                    options: ["He thinks he still knows nothing", "He feels proud and competent", "He's overconfident and careless", "He wishes he could learn faster"],
+                    correct: 1
+                }
+            ],
+            14: [ // Chapter 15
+                {
+                    passage: "Brian discovered that some birds, particularly grouse, were not very smart about avoiding danger. He called them 'foolbirds.'",
+                    question: "What does Brian call the grouse and why?",
+                    options: ["Smartbirds because they're clever", "Foolbirds because they're not good at avoiding danger", "Fastbirds because they're quick", "Loudbirds because they make noise"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian successfully hunted a foolbird with his bow and arrow, giving him his first taste of bird meat.",
+                    question: "How does Brian catch his first bird?",
+                    options: ["With a trap", "With his bow and arrow", "With his hands", "With a fishing spear"],
+                    correct: 1
+                },
+                {
+                    passage: "The bird meat was tough and didn't taste great, but it provided valuable protein and made Brian feel more accomplished as a hunter.",
+                    question: "How does Brian feel about his first bird hunt?",
+                    options: ["Disappointed in the taste", "More accomplished as a hunter despite the tough meat", "Sorry for killing the bird", "Worried about hunting more"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian learned to clean and prepare the birds properly, using every part he could and wasting nothing.",
+                    question: "How does Brian approach preparing the birds he catches?",
+                    options: ["He only eats the best parts", "He uses every part and wastes nothing", "He throws away most of the bird", "He only eats the meat raw"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian's hunting success gave him more confidence and made him feel less dependent on just fishing and gathering.",
+                    question: "How does hunting success affect Brian's confidence?",
+                    options: ["It makes him overconfident", "It gives him more confidence and less dependence on other food sources", "It makes him lazy about other food sources", "It doesn't change how he feels"],
+                    correct: 1
+                }
+            ],
+            15: [ // Chapter 16
+                {
+                    passage: "While hunting near the water, Brian was suddenly and violently attacked by a large moose that seemed to come from nowhere.",
+                    question: "What animal suddenly attacks Brian while he's hunting?",
+                    options: ["A bear", "A wolf", "A large moose", "A mountain lion"],
+                    correct: 2
+                },
+                {
+                    passage: "The moose slammed into Brian repeatedly, throwing him around like a rag doll and injuring his ribs and shoulder.",
+                    question: "How does the moose attack injure Brian?",
+                    options: ["It bites him", "It throws him around, injuring his ribs and shoulder", "It steps on his leg", "It only scratches him"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian had no idea why the moose attacked him so viciously - it seemed completely unprovoked.",
+                    question: "Why does the moose attack Brian?",
+                    options: ["Brian threatened its calf", "The attack seems completely unprovoked", "Brian was hunting it", "It was defending its territory"],
+                    correct: 1
+                },
+                {
+                    passage: "That same night, a tornado struck Brian's area, destroying his shelter and scattering his carefully organized supplies.",
+                    question: "What natural disaster hits Brian the same night as the moose attack?",
+                    options: ["A flood", "A tornado", "A blizzard", "An earthquake"],
+                    correct: 1
+                },
+                {
+                    passage: "The tornado churned up the lake so much that it moved the crashed plane, raising part of it above the water's surface.",
+                    question: "How does the tornado affect the crashed plane?",
+                    options: ["It completely destroys it", "It moves it and raises part above water", "It pushes it deeper underwater", "It doesn't affect the plane at all"],
+                    correct: 1
+                }
+            ],
+            16: [ // Chapter 17
+                {
+                    passage: "When Brian saw the plane's tail sticking up out of the water, he remembered that the pilot had mentioned a survival pack in the back.",
+                    question: "What does seeing the exposed plane remind Brian of?",
+                    options: ["The pilot's death", "A survival pack mentioned by the pilot", "His need for rescue", "The crash itself"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian knew that getting to the plane and retrieving the survival pack would be dangerous and difficult, but it could contain things that would help him greatly.",
+                    question: "Why does Brian want to get the survival pack despite the danger?",
+                    options: ["It might contain things to help him survive", "He wants to bury the pilot", "He needs parts from the plane", "He's looking for the radio"],
+                    correct: 0
+                },
+                {
+                    passage: "Brian spent time planning how he could get out to the plane, build some kind of raft, and find a way to get inside.",
+                    question: "How does Brian plan to reach the plane?",
+                    options: ["By swimming directly", "By building a raft", "By wading out at low tide", "By diving from the shore"],
+                    correct: 1
+                },
+                {
+                    passage: "The thought of seeing the pilot's body again filled Brian with dread, but the potential value of the survival pack outweighed his fear.",
+                    question: "What makes Brian reluctant about going to the plane?",
+                    options: ["The water is too cold", "He's afraid of seeing the pilot's body again", "He might damage the plane", "The water is too deep"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian began gathering materials to build a raft, determined to attempt the dangerous mission to the plane.",
+                    question: "What does Brian start doing to prepare for his mission?",
+                    options: ["Practicing diving", "Gathering materials to build a raft", "Making waterproof containers", "Training to hold his breath longer"],
+                    correct: 1
+                }
+            ],
+            17: [ // Chapter 18
+                {
+                    passage: "Brian built a crude but functional raft from logs tied together, and carefully paddled out to the submerged plane.",
+                    question: "How does Brian get to the crashed plane?",
+                    options: ["He swims out", "He builds and uses a raft", "He wades out in shallow water", "He dives directly from shore"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian tried to find a way into the plane but couldn't get in from above water. He realized he'd have to cut through the aluminum hull with his hatchet.",
+                    question: "How does Brian plan to get inside the plane?",
+                    options: ["Through an open door", "By cutting through the aluminum with his hatchet", "Through a window", "Through the cockpit"],
+                    correct: 1
+                },
+                {
+                    passage: "While chopping at the plane's hull, Brian accidentally dropped his hatchet into the lake and had to dive repeatedly to recover it.",
+                    question: "What disaster happens while Brian is trying to get into the plane?",
+                    options: ["The raft falls apart", "He accidentally drops his hatchet in the lake", "He cuts himself badly", "The plane starts sinking more"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian made multiple dangerous dives to the bottom of the lake, finally recovering his precious hatchet.",
+                    question: "How does Brian recover his dropped hatchet?",
+                    options: ["He gives up and finds a replacement", "He makes multiple dangerous dives to retrieve it", "He uses a stick to fish it out", "He waits for it to float up"],
+                    correct: 1
+                },
+                {
+                    passage: "Finally getting into the plane, Brian was horrified to see the pilot's body, partially eaten by fish, but he forced himself to find and retrieve the survival pack.",
+                    question: "What horrifying sight does Brian encounter inside the plane?",
+                    options: ["The plane is completely flooded", "The pilot's body, partially eaten by fish", "Dangerous wildlife", "The plane is collapsing"],
+                    correct: 1
+                }
+            ],
+            18: [ // Chapter 19
+                {
+                    passage: "Brian dragged the heavy survival pack back to shore, exhausted from his ordeal but excited about what might be inside.",
+                    question: "How does Brian feel after retrieving the survival pack?",
+                    options: ["Disappointed and tired", "Exhausted but excited about the contents", "Worried about what he'll find", "Ready to give up"],
+                    correct: 1
+                },
+                {
+                    passage: "Inside the survival pack, Brian found an incredible treasure: freeze-dried food, a sleeping bag, cooking pots, matches, a knife, a first-aid kit, and more.",
+                    question: "What does Brian find in the survival pack?",
+                    options: ["Only old, useless items", "An incredible treasure of survival supplies", "Just food and water", "Nothing useful"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian also found something labeled 'Emergency Transmitter' but when he tried to use it, it seemed broken and made no sound.",
+                    question: "What happens when Brian tries to use the emergency transmitter?",
+                    options: ["It works perfectly", "It seems broken and makes no sound", "It catches fire", "He can't figure out how to use it"],
+                    correct: 1
+                },
+                {
+                    passage: "Brian decided to cook a feast with the freeze-dried food, feeling like he could finally eat a real meal after so many days of survival food.",
+                    question: "What does Brian decide to do with the freeze-dried food?",
+                    options: ["Save it all for emergencies", "Cook a feast and eat a real meal", "Share it with animals", "Test just a small amount"],
+                    correct: 1
+                },
+                {
+                    passage: "As Brian was cooking his meal, he heard the sound of a plane engine. A float plane landed on the lake, and the pilot had heard his emergency transmitter signal.",
+                    question: "How is Brian finally rescued?",
+                    options: ["He signals with smoke", "A plane hears his emergency transmitter and lands", "He swims to find help", "Someone finds him by accident"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+// 🎯 구글 클라우드 스토리지 오디오 URL 설정
+const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+// 🎧 Hatchet 완벽한 시간 매핑 (시작/끝 시간 포함) - 수정된 버전
+const hatchetTimeMapping = {
+    0: { startTime: 1, endTime: 851, duration: 850 },               // Chapter 1: 0:00:01 - 0:14:11 (14분 10초)
+    1: { startTime: 851, endTime: 1739, duration: 888 },            // Chapter 2: 0:14:11 - 0:28:59 (14분 48초)
+    2: { startTime: 1739, endTime: 2037, duration: 298 },           // Chapter 3: 0:28:59 - 0:33:57 (4분 58초)
+    3: { startTime: 2037, endTime: 2852, duration: 815 },           // Chapter 4: 0:33:57 - 0:47:32 (13분 35초)
+    4: { startTime: 2852, endTime: 3774, duration: 922 },           // Chapter 5: 0:47:32 - 1:02:54 (15분 22초)
+    5: { startTime: 3774, endTime: 4553, duration: 779 },           // Chapter 6: 1:02:54 - 1:15:53 (12분 59초)
+    6: { startTime: 4553, endTime: 5357, duration: 804 },           // Chapter 7: 1:15:53 - 1:29:17 (13분 24초)
+    7: { startTime: 5357, endTime: 5958, duration: 601 },           // Chapter 8: 1:29:17 - 1:39:18 (10분 1초)
+    8: { startTime: 5958, endTime: 6448, duration: 490 },           // Chapter 9: 1:39:18 - 1:47:28 (8분 10초)
+    9: { startTime: 6448, endTime: 7056, duration: 608 },           // Chapter 10: 1:47:28 - 1:57:36 (10분 8초)
+    10: { startTime: 7056, endTime: 7511, duration: 455 },          // Chapter 11: 1:57:36 - 2:05:11 (7분 35초)
+    11: { startTime: 7511, endTime: 8123, duration: 612 },          // Chapter 12: 2:05:11 - 2:15:23 (10분 12초)
+    12: { startTime: 8123, endTime: 8728, duration: 605 },          // Chapter 13: 2:15:23 - 2:25:28 (10분 5초)
+    13: { startTime: 8728, endTime: 9314, duration: 586 },          // Chapter 14: 2:25:28 - 2:35:14 (9분 46초)
+    14: { startTime: 9314, endTime: 9969, duration: 655 },          // Chapter 15: 2:35:14 - 2:46:09 (10분 55초)
+    15: { startTime: 9969, endTime: 10931, duration: 962 },         // Chapter 16: 2:46:09 - 3:02:11 (16분 2초)
+    16: { startTime: 10931, endTime: 11768, duration: 837 },        // Chapter 17: 3:02:11 - 3:16:08 (13분 57초)
+    17: { startTime: 11768, endTime: 12503, duration: 735 },        // Chapter 18: 3:16:08 - 3:28:23 (12분 15초)
+    18: { startTime: 12503, endTime: 13342, duration: 839 }         // Chapter 19: 3:28:23 - 3:42:22 (13분 59초)
+};
+
+// 전역 변수
+let currentChapter = 0;
+let currentQuestion = 0;
+let userAnswers = [];
+let questions = [];
+let currentAudio = null;
+let playbackSpeed = 1.0;
+let isChapterMode = false; // 챕터 모드 여부 (챕터 끝에서 자동 정지)
+
+// 🎧 시간을 시:분:초 형식으로 변환하는 함수
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+// 🎧 챕터 길이를 계산하는 함수
+function getChapterDuration(chapterIndex) {
+    const chapter = hatchetTimeMapping[chapterIndex];
+    if (!chapter) return "0:00";
+
+    const minutes = Math.floor(chapter.duration / 60);
+    const seconds = Math.floor(chapter.duration % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// 🎧 Hatchet 오디오 URL 생성 함수 (단일 파일)
+function getAudioUrl(chapterIndex) {
+    const fileName = 'Hatchet_Complete.mp3'; // 수정된 파일명
+    return {
+        primary: `${AUDIO_BASE_URL}HC001_Hatchet/${fileName}`,
+        startTime: hatchetTimeMapping[chapterIndex]?.startTime || 0,
+        endTime: hatchetTimeMapping[chapterIndex]?.endTime || null,
+        duration: hatchetTimeMapping[chapterIndex]?.duration || 0,
+        alternatives: [`${AUDIO_BASE_URL}HC001_Hatchet/${fileName}`]
+    };
+}
+
+// 🎧 챕터 끝 감지 및 자동 정지 함수
+function monitorChapterEnd(audioPlayer, endTime, chapterIndex) {
+    const checkTime = () => {
+        if (isChapterMode && audioPlayer.currentTime >= endTime) {
+            audioPlayer.pause();
+
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 완료! 다음 챕터를 선택하거나 계속 재생하세요.`;
+
+            document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+            console.log(`🏁 Chapter ${chapterIndex + 1} 완료 (${formatTime(endTime)}에서 정지)`);
+
+            // 다음 챕터 자동 제안 (선택사항)
+            if (chapterIndex < 18) {
+                setTimeout(() => {
+                    if (confirm(`Chapter ${chapterIndex + 1}이 완료되었습니다. Chapter ${chapterIndex + 2}를 재생하시겠습니까?`)) {
+                        playChapterAudio(chapterIndex + 1);
+                    }
+                }, 1000);
+            }
+
+            return;
+        }
+
+        // 재생 중이면 계속 체크
+        if (!audioPlayer.paused) {
+            requestAnimationFrame(checkTime);
+        }
+    };
+
+    checkTime();
+}
+
+// 🎧 Hatchet 오디오 재생 함수 (완전 버전)
+function playChapterAudio(chapterIndex) {
+    const chapter = bookData.chapterList[chapterIndex];
+    const audioData = getAudioUrl(chapterIndex);
+
+    document.getElementById('audio-modal').style.display = 'flex';
+    document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}`;
+    document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+    document.getElementById('audio-info').classList.remove('hidden');
+
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const audioStatus = document.getElementById('audio-status');
+
+    // 챕터 모드 활성화
+    isChapterMode = true;
+    currentChapter = chapterIndex;
+
+    audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+    // 단일 파일 로드
+    audioSource.src = audioData.primary;
+    audioPlayer.load();
+
+    const successHandler = function() {
+        // 정확한 챕터 시작점으로 점프
+        audioPlayer.currentTime = audioData.startTime;
+
+        const startTimeDisplay = formatTime(audioData.startTime);
+        const endTimeDisplay = formatTime(audioData.endTime);
+        const durationDisplay = getChapterDuration(chapterIndex);
+
+        audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 준비완료!<br>
+                                📍 구간: ${startTimeDisplay} ~ ${endTimeDisplay} (${durationDisplay})<br>
+                                🎵 ▶️ 재생 버튼을 눌러주세요`;
+
+        // 챕터 끝 감지 시작
+        monitorChapterEnd(audioPlayer, audioData.endTime, chapterIndex);
+
+        // 재생 버튼 이벤트에 챕터 모드 표시 추가
+        const playPauseBtn = document.querySelector('.play-pause-btn');
+        if (playPauseBtn) {
+            playPauseBtn.onclick = function() {
+                if (audioPlayer.paused) {
+                    audioPlayer.play().then(() => {
+                        this.textContent = '⏸️ 일시정지';
+                        audioStatus.innerHTML = `🎵 Chapter ${chapterIndex + 1} 재생 중! (${startTimeDisplay}~${endTimeDisplay})`;
+                        // 재생 시작시 챕터 끝 감지 재시작
+                        monitorChapterEnd(audioPlayer, audioData.endTime, chapterIndex);
+                    }).catch(e => {
+                        console.log('재생 실패:', e);
+                        audioStatus.innerHTML = '❌ 재생에 실패했습니다. 다시 시도해주세요.';
+                    });
+                } else {
+                    audioPlayer.pause();
+                    this.textContent = '▶️ 재생';
+                    audioStatus.innerHTML = `⏸️ Chapter ${chapterIndex + 1} 일시정지됨`;
+                }
+            };
+        }
+    };
+
+    const errorHandler = function() {
+        audioStatus.innerHTML = '❌ 오디오 파일을 찾을 수 없습니다. 파일 경로를 확인해주세요.';
+        console.error('오디오 로드 실패:', audioData.primary);
+    };
+
+    audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+    audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+    currentAudio = audioPlayer;
+    playbackSpeed = 1.0;
+}
+
+// 🎧 전체 오디오북 재생 함수 (챕터 구분 없이 연속 재생)
+function playFullAudiobook() {
+    isChapterMode = false; // 챕터 모드 비활성화
+
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const audioStatus = document.getElementById('audio-status');
+
+    document.getElementById('audio-modal').style.display = 'flex';
+    document.getElementById('audio-chapter-title').textContent = 'Hatchet - 전체 재생';
+    document.getElementById('audio-chapter-subtitle').textContent = '연속 재생 모드';
+
+    audioStatus.textContent = '🔄 전체 오디오북 로딩 중...';
+
+    audioSource.src = `${AUDIO_BASE_URL}HC001_Hatchet/Hatchet_Complete.mp3`;
+    audioPlayer.load();
+
+    audioPlayer.addEventListener('canplaythrough', function() {
+        audioPlayer.currentTime = 0; // 처음부터 시작
+        audioStatus.innerHTML = '✅ 전체 오디오북 준비완료! (총 3시간 42분)<br>🎵 ▶️ 재생 버튼을 눌러주세요';
+    }, { once: true });
+}
+
+// 🎧 구간처음으로 함수 (현재 챕터 시작점으로)
+function resetToChapterStart() {
+    if (!currentAudio) return;
+
+    if (isChapterMode) {
+        const startTime = hatchetTimeMapping[currentChapter]?.startTime || 0;
+        currentAudio.currentTime = startTime;
+
+        const timeDisplay = formatTime(startTime);
+        console.log(`🔄 Chapter ${currentChapter + 1} 시작점으로 이동: ${timeDisplay}`);
+
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `🔄 Chapter ${currentChapter + 1} 시작점으로 이동: ${timeDisplay}`;
+    } else {
+        currentAudio.currentTime = 0;
+        console.log('🔄 전체 오디오북 처음으로 이동');
+    }
+}
+
+// 🎧 다음 챕터로 이동 함수
+function jumpToNextChapter() {
+    if (!currentAudio || !isChapterMode) return;
+
+    const nextChapterIdx = currentChapter + 1;
+
+    if (nextChapterIdx < 19) {
+        playChapterAudio(nextChapterIdx);
+    } else {
+        alert('마지막 챕터입니다!');
+    }
+}
+
+// 🎧 이전 챕터로 이동 함수
+function jumpToPreviousChapter() {
+    if (!currentAudio || !isChapterMode) return;
+
+    const prevChapterIdx = currentChapter - 1;
+
+    if (prevChapterIdx >= 0) {
+        playChapterAudio(prevChapterIdx);
+    } else {
+        alert('첫 번째 챕터입니다!');
+    }
+}
+
+// 🎧 특정 시간으로 점프하는 함수
+function jumpToTime(timeInSeconds) {
+    if (!currentAudio) return;
+
+    currentAudio.currentTime = timeInSeconds;
+    const timeDisplay = formatTime(timeInSeconds);
+    console.log(`⏰ ${timeDisplay}로 이동`);
+}
+
+// 🎧 현재 재생 중인 챕터 정보 표시
+function getCurrentChapterInfo() {
+    if (!currentAudio || !isChapterMode) return null;
+
+    const currentTime = currentAudio.currentTime;
+    let currentChapterInfo = null;
+
+    // 현재 시간이 어느 챕터에 속하는지 찾기
+    for (let i = 0; i < 19; i++) {
+        const chapter = hatchetTimeMapping[i];
+        if (currentTime >= chapter.startTime && currentTime < chapter.endTime) {
+            currentChapterInfo = {
+                chapterNumber: i + 1,
+                startTime: formatTime(chapter.startTime),
+                endTime: formatTime(chapter.endTime),
+                currentTime: formatTime(currentTime),
+                progress: Math.round(((currentTime - chapter.startTime) / chapter.duration) * 100)
+            };
+            break;
+        }
+    }
+
+    return currentChapterInfo;
+}
+
+// 🎧 챕터 정보를 UI에 표시하는 함수
+function updateChapterDisplay() {
+    const info = getCurrentChapterInfo();
+    if (info) {
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `🎵 Chapter ${info.chapterNumber} 재생 중 (${info.progress}% 완료)<br>
+                                📍 ${info.currentTime} / ${info.endTime}`;
+    }
+}
+
+// 🎧 초기화 함수
+function initializeHatchetAudio() {
+    console.log('🎧 Hatchet 오디오 시스템 초기화 완료');
+    console.log('📚 총 19개 챕터, 3시간 42분');
+    console.log('🎯 챕터별 정확한 시작/끝 시간 설정됨 (FFmpeg 분석 기반)');
+
+    // 5초마다 챕터 정보 업데이트 (선택사항)
+    setInterval(() => {
+        if (currentAudio && !currentAudio.paused && isChapterMode) {
+            updateChapterDisplay();
+        }
+    }, 5000);
+}
+
+// 초기화 실행
+document.addEventListener('DOMContentLoaded', initializeHatchetAudio);
+
+// 기본 오디오 컨트롤 함수들
+function closeAudioModal() {
+    document.getElementById('audio-modal').style.display = 'none';
+    if (currentAudio) currentAudio.pause();
+}
+
+function togglePlayPause() {
+    if (!currentAudio) return;
+    if (currentAudio.paused) {
+        currentAudio.play();
+        document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+    } else {
+        currentAudio.pause();
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+    }
+}
+
+function changeSpeed() {
+    if (!currentAudio) return;
+    const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+    const currentIndex = speeds.indexOf(playbackSpeed);
+    playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+    currentAudio.playbackRate = playbackSpeed;
+    document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+}
+
+function downloadAudio() {
+    const audioSource = document.getElementById('audio-source');
+    if (audioSource.src) {
+        const link = document.createElement('a');
+        link.href = audioSource.src;
+        link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+        link.click();
+    }
+}
+
+/*
+🎯 구글 클라우드 스토리지 업로드 정보:
+
+📁 폴더 구조:
+kim-mom-reading-audio/
+└── audio/
+    └── HC001_Hatchet/
+        └── Hatchet_Complete.mp3
+
+📋 업로드 단계:
+1. 현재 폴더의 "Hatchet_Complete.mp3" 파일을 준비
+2. 구글 클라우드 스토리지에서 "HC001_Hatchet" 폴더 생성
+3. "Hatchet_Complete.mp3" 파일을 해당 폴더에 업로드
+4. 파일 공개 설정 (public access)
+
+🔗 최종 URL:
+https://storage.googleapis.com/kim-mom-reading-audio/audio/HC001_Hatchet/Hatchet_Complete.mp3
+
+✅ The Giver와 완전 동일한 구조:
+- FFmpeg 분석 기반 정확한 챕터 타임스탬프
+- 19개 챕터 완벽 지원 (The Giver 23개와 동일 방식)
+- 동일한 함수명과 구조
+- 동일한 UI 상호작용
+- 동일한 챕터 끝 감지 및 자동 정지 기능
+*/
+
+
+
+
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+    if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+    currentChapter = chapterIndex;
+    currentQuestion = 0;
+    userAnswers = [];
+
+    // 이 부분을 명확하게 수정
+    if (questionsData && questionsData[chapterIndex]) {
+        questions = questionsData[chapterIndex];
+        console.log(`Chapter ${chapterIndex + 1}: ${questions.length}개 문제 로드됨`); // 디버깅용
+    } else {
+        questions = [];
+        console.log(`Chapter ${chapterIndex + 1}: 문제 데이터 없음`); // 디버깅용
+    }
+
+    if (questions.length === 0) {
+        alert('이 챕터의 문제가 준비되지 않았습니다.');
+        return;
+    }
+
+    document.getElementById('book-detail-screen').style.display = 'none';
+    document.getElementById('learning-screen').style.display = 'block';
+    document.getElementById('result-screen').style.display = 'none';
+
+    const chapter = bookData.chapterList[chapterIndex];
+    document.getElementById('learning-title').textContent = chapter.title;
+    document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+   showQuestion();
+
+        // 디버깅 정보 추가
+        console.log(`Chapter ${chapterIndex + 1}: ${questions.length}개 문제 로드됨`);
+    }
+
+    // 문제 표시
+    function showQuestion() {
+        console.log(`showQuestion 호출됨: currentQuestion=${currentQuestion}, questions.length=${questions.length}`); // 디버깅용
+
+        if (currentQuestion >= questions.length) {
+            submitAnswers();
+            return;
+        }
+
+        const question = questions[currentQuestion];
+        console.log('현재 문제:', question); // 디버깅용
+
+        const container = document.getElementById('question-container');
+
+        container.innerHTML = `
+            <div class="passage">${question.passage}</div>
+            <div class="question-text">${question.question}</div>
+            <div class="options">
+                ${question.options.map((option, index) =>
+                    `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                        ${String.fromCharCode(65 + index)}. ${option}
+                    </div>`
+                ).join('')}
+            </div>
+        `;
+
+        // 진도 바 업데이트
+        const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+        document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+        document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestion + 1} / ${questions.length}`;
+
+        // 버튼 상태 업데이트
+        document.getElementById('prev-btn').disabled = currentQuestion === 0;
+        document.getElementById('next-btn').style.display = currentQuestion === questions.length - 1 ? 'none' : 'inline-block';
+        document.getElementById('submit-btn').style.display = currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
+
+        // 이전 답변이 있다면 표시
+        if (userAnswers[currentQuestion] !== undefined) {
+            const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestion]}"]`);
+            if (selectedOption) {
+                selectedOption.classList.add('selected');
+            }
+        }
+    }
+
+
+
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestion >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestion];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestion + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestion === 0;
+            document.getElementById('next-btn').style.display = currentQuestion === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestion === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestion] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestion]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestion] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapter].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapter + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapter + 1].status === 'locked') {
+                        bookData.chapterList[currentChapter + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #228B22, #32CD32)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #228B22, #32CD32)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #228B22, #32CD32)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapter);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapter + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapter + 1].status !== 'locked') {
+                    startLearning(currentChapter + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const optionIndex = parseInt(e.key) - 1;
+                    if (optionIndex < questions[currentQuestion]?.options.length) {
+                        selectOption(optionIndex);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            if (audioPlayer) {
+                audioPlayer.addEventListener('play', function() {
+                    document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                });
+
+                audioPlayer.addEventListener('pause', function() {
+                    document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+                });
+
+                audioPlayer.addEventListener('ended', function() {
+                    document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

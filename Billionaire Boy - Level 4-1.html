@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billionaire Boy - Level 4-1 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #FFD700;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #FFD700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFD700;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, #FFD70008, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #FFA500, #FF8C00);
+            color: #333;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #FFD700;
+        }
+
+        .option.selected {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #FFD700;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #FFA500;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* Level 4-1 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #FFD700, #FF6B9D);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">💰</div>
+                <div class="logo-text">
+                    <h1>Billionaire Boy</h1>
+                    <p>Level 4-1 - David Walliams의 유머 가득한 성장 소설</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 4-1</div>
+                <div class="breadcrumb">
+                    <span>Billionaire Boy</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">💰</div>
+                    <div class="book-info">
+                        <h2>Billionaire Boy</h2>
+                        <div class="author">David Walliams</div>
+                        <div class="book-summary">
+                            Joe Spud is the richest twelve-year-old in the country. He has his own bowling alley, his own cinema, even his own butler who is also an orangutan! His father made billions from inventing Bumfresh, a revolutionary toilet paper. But Joe has a billion pounds and not a single friend. When he tries to buy friendship at his posh private school, it only makes things worse. So Joe decides to attend a normal state school in disguise, where he meets Bob - a boy who likes him for who he really is, not for his money. This hilarious and heartwarming story teaches us that the best things in life truly are free.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">26</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">130</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 4-1</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>💰 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들이 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Billionaire Boy</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Billionaire Boy</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">Billionaire Boy - David Walliams</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음으로</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #FFD700;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Billionaire Boy 시간 매핑 (34개 트랙을 26개 챕터로 매핑)
+        const billionaireBoyTimeMapping = {
+            0: { trackFile: '1-01 Meet Joe Spud', startTime: 36 },    // Chapter 1: 1-01 Meet Joe Spud (36초부터)
+            1: { trackFile: '1-03 Bum Boy', startTime: 0 },     // Chapter 2: 1-03 Bum Boy
+            2: { trackFile: '1-05 Who\'s The Fattiest_', startTime: 0 },     // Chapter 3: 1-05 Who's The Fattiest?
+            3: { trackFile: '1-07 Loo Rolls_', startTime: 0 },     // Chapter 4: 1-07 Loo Rolls?
+            4: { trackFile: '1-08 Out Of Date Easter Eggs', startTime: 0 },     // Chapter 5: 1-08 Out Of Date Easter Eggs
+            5: { trackFile: '1-10 The Grubs', startTime: 0 },     // Chapter 6: 1-10 The Grubs
+            6: { trackFile: '1-11 Gerbils On Toast', startTime: 0 },     // Chapter 7: 1-11 Gerbils On Toast
+            7: { trackFile: '2-01 The Witch', startTime: 3 },     // Chapter 8: 2-01 The Witch (3초부터)
+            8: { trackFile: '2-02 Finger_', startTime: 0 },     // Chapter 9: 2-02 Finger?
+            9: { trackFile: '2-04 Dog Spit', startTime: 0 },     // Chapter 10: 2-04 Dog Spit
+            10: { trackFile: '2-05 Camping Holiday', startTime: 0 },    // Chapter 11: 2-05 Camping Holiday
+            11: { trackFile: '2-06 Page 3 Stunner', startTime: 0 },    // Chapter 12: 2-06 Page 3 Stunner
+            12: { trackFile: '2-08 New Girl', startTime: 0 },    // Chapter 13: 2-08 New Girl
+            13: { trackFile: '2-09 The Shape Of A Kiss', startTime: 0 },    // Chapter 14: 2-09 The Shape Of A Kiss
+            14: { trackFile: '2-10 Nip And Tuck', startTime: 0 },    // Chapter 15: 2-10 Nip And Tuck
+            15: { trackFile: '2-11 Peter Bread', startTime: 0 },    // Chapter 16: 2-11 Peter Bread
+            16: { trackFile: '3-01 A Knock On The Toilet Door', startTime: 2 },    // Chapter 17: 3-01 A Knock On The Toilet Door (2초부터)
+            17: { trackFile: '3-02 The Vortex 3000', startTime: 0 },    // Chapter 18: 3-02 The Vortex 3000
+            18: { trackFile: '3-03 A Baboon\'s Bottom', startTime: 0 },    // Chapter 19: 3-03 A Baboon's Bottom
+            19: { trackFile: '3-04 A Beachball Rolled In Hair', startTime: 0 },    // Chapter 20: 3-04 A Beachball Rolled In Hair
+            20: { trackFile: '3-05 A Gcse In Makeup', startTime: 0 },    // Chapter 21: 3-05 A Gcse In Makeup
+            21: { trackFile: '3-06 A New Chapter', startTime: 0 },    // Chapter 22: 3-06 A New Chapter
+            22: { trackFile: '3-07 Canalboat Weekly', startTime: 0 },    // Chapter 23: 3-07 Canalboat Weekly
+            23: { trackFile: '3-08 The Raj-Mobile', startTime: 0 },    // Chapter 24: 3-08 The Raj-Mobile
+            24: { trackFile: '3-09 Broken', startTime: 0 },    // Chapter 25: 3-09 Broken
+            25: { trackFile: '3-10 A Blizzard Of Banknotes', startTime: 0 }     // Chapter 26: 3-10 A Blizzard Of Banknotes
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // Billionaire Boy 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const mapping = billionaireBoyTimeMapping[chapterIndex];
+            if (!mapping) return null;
+            
+            const fileName = `${mapping.trackFile}.mp3`;
+            return {
+                primary: `${AUDIO_BASE_URL}BB001_Billionaire_Boy/${fileName}`,
+                startTime: mapping.startTime,
+                trackFile: mapping.trackFile,
+                alternatives: [`${AUDIO_BASE_URL}BB001_Billionaire_Boy/${fileName}`]
+            };
+        }
+
+        // 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            console.log(`챕터 ${chapterIndex + 1} 오디오 재생 시도`);
+            
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioData = getAudioUrl(chapterIndex);
+
+            if (!audioData) {
+                console.error(`챕터 ${chapterIndex + 1}의 오디오 데이터를 찾을 수 없습니다.`);
+                alert('해당 챕터의 오디오를 찾을 수 없습니다.');
+                return;
+            }
+
+            console.log('오디오 URL:', audioData.primary);
+            console.log('시작 시간:', audioData.startTime);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+            // 기존 이벤트 리스너 제거
+            audioPlayer.removeEventListener('canplaythrough', arguments.callee.successHandler);
+            audioPlayer.removeEventListener('error', arguments.callee.errorHandler);
+
+            audioSource.src = audioData.primary;
+            audioPlayer.load();
+
+            const successHandler = function() {
+                console.log('오디오 로드 성공');
+                // 시간 점프 (시작 시간이 있는 경우)
+                if (audioData.startTime > 0) {
+                    audioPlayer.currentTime = audioData.startTime;
+                }
+
+                // 시간 표시
+                const timeDisplay = audioData.startTime > 0 ? 
+                    ` (${Math.floor(audioData.startTime / 60)}:${Math.floor(audioData.startTime % 60).toString().padStart(2, '0')}부터)` : '';
+
+                audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 로드 완료!${timeDisplay}`;
+
+                audioPlayer.play().then(() => {
+                    console.log('오디오 재생 시작');
+                    audioStatus.innerHTML = `🎵 Chapter ${chapterIndex + 1} 재생 중!${timeDisplay}`;
+                    document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                }).catch(e => {
+                    console.log('자동 재생 차단됨:', e);
+                    audioStatus.innerHTML = `✅ Chapter ${chapterIndex + 1} 준비됨! ▶️ 재생 버튼을 눌러주세요`;
+                });
+            };
+
+            const errorHandler = function(e) {
+                console.error('오디오 로드 실패:', e);
+                console.error('시도한 URL:', audioData.primary);
+                audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다. (${audioData.trackFile})`;
+            };
+
+            // 이벤트 리스너를 함수에 저장하여 나중에 제거할 수 있도록 함
+            arguments.callee.successHandler = successHandler;
+            arguments.callee.errorHandler = errorHandler;
+
+            audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+            audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+            // 추가 디버깅: 네트워크 요청 확인
+            fetch(audioData.primary, { method: 'HEAD' })
+                .then(response => {
+                    if (!response.ok) {
+                        console.error('파일 접근 실패:', response.status, response.statusText);
+                        console.error('URL:', audioData.primary);
+                    } else {
+                        console.log('파일 접근 성공:', response.status);
+                    }
+                })
+                .catch(err => {
+                    console.error('네트워크 오류:', err);
+                    console.error('URL:', audioData.primary);
+                });
+
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 구간처음으로 함수 (현재 챕터 시작점으로)
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+
+            const chapterTitle = document.getElementById('audio-chapter-title').textContent;
+            const chapterMatch = chapterTitle.match(/Chapter (\d+)/);
+
+            if (chapterMatch) {
+                const currentChapterIndex = parseInt(chapterMatch[1]) - 1;
+                const audioData = getAudioUrl(currentChapterIndex);
+                if (audioData) {
+                    currentAudio.currentTime = audioData.startTime;
+                    console.log(`🔄 Chapter ${currentChapterIndex + 1} 시작점으로 이동`);
+                }
+            }
+        }
+
+        // 기본 오디오 컨트롤 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // Billionaire Boy 도서 데이터 (26챕터)
+        const bookData = {
+            id: 'BB001',
+            title: "Billionaire Boy",
+            author: 'David Walliams',
+            cover: '💰',
+            progress: 0,
+            chapters: 26,
+            totalQuestions: 130,
+            coverColor: 'linear-gradient(45deg, #FFD700, #FFA500)',
+            summary: "Joe Spud is the richest twelve-year-old in the country. He has his own bowling alley, his own cinema, even his own butler who is also an orangutan! His father made billions from inventing Bumfresh, a revolutionary toilet paper. But Joe has a billion pounds and not a single friend. When he tries to buy friendship at his posh private school, it only makes things worse. So Joe decides to attend a normal state school in disguise, where he meets Bob - a boy who likes him for who he really is, not for his money. This hilarious and heartwarming story teaches us that the best things in life truly are free.",
+            chapterList: [
+                { title: 'Chapter 1', description: 'Meet Joe Spud - Introduction to the richest boy in the country and his incredible wealth.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 2', description: 'Bum Boy - Joe\'s embarrassment about his father\'s toilet paper business fortune.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 3', description: 'Who\'s The Fattest? - Life at Joe\'s posh private school and the cruel social dynamics.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 4', description: 'Loo Rolls? - More about the Bumfresh empire and Joe\'s daily struggles.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 5', description: 'Out Of Date Easter Eggs - Joe\'s lonely life in his mansion with endless possessions.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 6', description: 'The Grubs - Meet the school bullies who make Joe\'s life miserable.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 7', description: 'Gerbils On Toast - Joe\'s experiences with the awful school food and social isolation.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 8', description: 'The Witch - Joe encounters the strict teacher Miss Spite at his new school.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 9', description: 'Finger? - Joe\'s attempts to fit in and make friends at the comprehensive school.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 10', description: 'Dog Spit - Joe\'s disguise as a poor student and his fear of being discovered.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 11', description: 'Camping Holiday - Joe meets Bob and they begin their unlikely friendship.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 12', description: 'Page 3 Stunner - Mr. Spud\'s relationships with his gold-digging girlfriends.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 13', description: 'New Girl - Lauren arrives at school and catches Joe\'s attention.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 14', description: 'The Shape Of A Kiss - Joe\'s romantic feelings and teenage awkwardness.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 15', description: 'Nip And Tuck - Joe and Bob\'s friendship grows stronger through shared experiences.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 16', description: 'Peter Bread - Joe learns valuable lessons about true friendship and loyalty.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 17', description: 'A Knock On The Toilet Door - Joe\'s secret wealth threatens to be exposed.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 18', description: 'The Vortex 3000 - Technology and gadgets in Joe\'s privileged world.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 19', description: 'A Baboon\'s Bottom - Humorous incidents and Joe\'s growing self-awareness.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 20', description: 'A Beachball Rolled In Hair - Joe\'s attempts to help his friends while hiding his identity.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 21', description: 'A Gcse In Makeup - Joe discovers the truth about Lauren being hired by his father.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 22', description: 'A New Chapter - Joe confronts his father about the deception and manipulation.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 23', description: 'Canalboat Weekly - The Spud family faces financial ruin as their fortune collapses.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 24', description: 'The Raj-Mobile - Joe and his father must learn to live without their wealth.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 25', description: 'Broken - The family deals with losing everything and finding what truly matters.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 26', description: 'A Blizzard Of Banknotes - The happy ending where Joe\'s father marries Bob\'s mother.', status: 'current', questionCount: 5 }
+            ]
+        };
+
+        // 문제 데이터 (샘플 - 처음 3챕터만)
+        const questionsData = {
+            0: [ // Chapter 1
+                {
+                    passage: "Joe Spud was twelve years old and already a billionaire. His father had invented Bumfresh, a revolutionary toilet paper that was wet on one side and dry on the other.",
+                    question: "How did Joe's family become billionaires?",
+                    options: ["By winning the lottery", "By inventing Bumfresh, a revolutionary toilet paper", "By inheriting money from relatives", "By starting a successful restaurant chain"],
+                    correct: 1
+                },
+                {
+                    passage: "Joe lived in a mansion so big that it had its own bowling alley, cinema, and even a go-kart track in the basement.",
+                    question: "What entertainment facilities did Joe have in his mansion?",
+                    options: ["Swimming pool and tennis court", "Bowling alley, cinema, and go-kart track", "Library and music room", "Gym and dance studio"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite having everything money could buy, Joe felt lonely and wished he had just one real friend.",
+                    question: "What was Joe's biggest problem despite his wealth?",
+                    options: ["He was bored with his toys", "He felt lonely and wished for a real friend", "His father was always busy", "He didn't like his mansion"],
+                    correct: 1
+                },
+                {
+                    passage: "Joe's butler was an orangutan named Gerald who could make tea and serve biscuits, though he sometimes ate them himself.",
+                    question: "What was unusual about Joe's butler Gerald?",
+                    options: ["He was very young", "He was an orangutan who could make tea", "He spoke multiple languages", "He was also a chef"],
+                    correct: 1
+                },
+                {
+                    passage: "Joe had tried to make friends by buying expensive gifts for his classmates, but they only wanted his money, not his friendship.",
+                    question: "What happened when Joe tried to buy friendship with expensive gifts?",
+                    options: ["His classmates became his true friends", "The gifts were rejected", "His classmates only wanted his money, not real friendship", "He ran out of money"],
+                    correct: 2
+                }
+            ],
+            1: [ // Chapter 2
+                {
+                    passage: "Joe's bedroom was bigger than most people's entire houses and had a bed made from solid gold.",
+                    question: "What was special about Joe's bedroom?",
+                    options: ["It had a secret passage", "It was bigger than most houses with a solid gold bed", "It had a view of the ocean", "It was decorated with diamonds"],
+                    correct: 1
+                },
+                {
+                    passage: "For breakfast, Joe could have anything he wanted, but the food prepared by his expensive chefs always tasted awful because they tried too hard to be fancy.",
+                    question: "What problem did Joe have with his meals?",
+                    options: ["He was allergic to most foods", "The expensive chefs' fancy food tasted awful", "He could only eat simple foods", "The food was always cold"],
+                    correct: 1
+                },
+                {
+                    passage: "Joe owned a thousand pairs of trainers, but he could only wear one pair at a time, making the rest completely useless.",
+                    question: "What does the story suggest about Joe's excessive possessions?",
+                    options: ["They made him very happy", "They were all necessary", "Having too much made things useless, like only being able to wear one pair of trainers", "They helped him make friends"],
+                    correct: 2
+                },
+                {
+                    passage: "When Joe felt sad, he would go to his private cinema and watch movies alone, which only made him feel more isolated.",
+                    question: "How did Joe's private cinema affect his loneliness?",
+                    options: ["It helped him forget his problems", "It made him feel more isolated watching movies alone", "It attracted friends to visit", "It made him want to become an actor"],
+                    correct: 1
+                },
+                {
+                    passage: "Joe's father was always busy with business meetings and rarely had time to spend with his son.",
+                    question: "What was Joe's relationship like with his father?",
+                    options: ["They spent lots of time together", "His father was always busy and rarely spent time with Joe", "They went on many adventures together", "His father taught him about business every day"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3
+                {
+                    passage: "At his posh private school, Joe was relentlessly bullied by classmates who made fun of him for his father's toilet paper business.",
+                    question: "Why was Joe bullied at his private school?",
+                    options: ["Because he was too smart", "Because his father made money from toilet paper business", "Because he was too short", "Because he couldn't play sports"],
+                    correct: 1
+                },
+                {
+                    passage: "The other wealthy children at Joe's school thought they were better than him because their parents made money from 'respectable' businesses like banking and law.",
+                    question: "How did other wealthy children view Joe's family wealth?",
+                    options: ["They were impressed by his money", "They thought their parents' 'respectable' businesses were better than toilet paper", "They wanted to be his friends", "They ignored him completely"],
+                    correct: 1
+                },
+                {
+                    passage: "Joe's expensive school uniform and designer accessories couldn't protect him from the cruel jokes about 'Bumfresh Boy.'",
+                    question: "What nickname did the bullies give Joe?",
+                    options: ["Rich Boy", "Bumfresh Boy", "Golden Child", "Money Bags"],
+                    correct: 1
+                },
+                {
+                    passage: "When Joe tried to fit in by downplaying his wealth, the bullies only found new ways to torment him.",
+                    question: "What happened when Joe tried to downplay his wealth?",
+                    options: ["The bullying stopped immediately", "He made many new friends", "The bullies found new ways to torment him", "He became the most popular student"],
+                    correct: 2
+                },
+                {
+                    passage: "Joe began to realize that money couldn't buy him acceptance or genuine friendships at school.",
+                    question: "What important lesson was Joe beginning to learn?",
+                    options: ["Money was the most important thing", "Money couldn't buy acceptance or genuine friendships", "He needed more money to be popular", "Private schools were better than state schools"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #FFD700, #FFA500)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #FFD700, #FFA500)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #FFD700, #FFA500)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>

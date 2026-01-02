@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Town at Sundown - Level 2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #CD853F 50%, #F4A460 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #8B4513;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #8B4513;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #8B4513;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #8B4513;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #8B4513;
+            background: linear-gradient(135deg, #8B451308, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(139, 69, 19, 0.1);
+            color: #8B4513;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #F4A460, #DEB887);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8B4513, #CD853F);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #8B4513;
+        }
+
+        .option.selected {
+            background: rgba(139, 69, 19, 0.1);
+            border-color: #8B4513;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #8B4513, #CD853F);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #F4A460;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">👻</div>
+                <div class="logo-text">
+                    <h1>Ghost Town at Sundown</h1>
+                    <p>Level 2 - Mary Pope Osborne의 매직 트리 하우스 10권</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="breadcrumb">
+                    <span>Ghost Town at Sundown</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">👻</div>
+                    <div class="book-info">
+                        <h2>Ghost Town at Sundown</h2>
+                        <div class="author">Mary Pope Osborne</div>
+                        <div class="book-summary">
+                            Jack and Annie travel to the Wild West! They arrive in a ghost town where they meet a lonely ghost and must help him find what he's been searching for. Through acts of kindness and understanding, they discover that sometimes the greatest gift is simply caring about others.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">10</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">50</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🤠 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Ghost Town at Sundown</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1: A Letter from Teddy</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Ghost Town at Sundown</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1: A Letter from Teddy</h3>
+            <p id="audio-chapter-subtitle">Ghost Town at Sundown - Mary Pope Osborne</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #8B4513;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Magic Tree House 10권 도서 데이터 (10챕터)
+        const bookData = {
+            id: 'MTH010',
+            title: "Ghost Town at Sundown",
+            author: 'Mary Pope Osborne',
+            cover: '👻',
+            progress: 0,
+            chapters: 10,
+            totalQuestions: 50, // 10챕터 × 5문제
+            coverColor: 'linear-gradient(45deg, #8B4513, #CD853F)',
+            summary: "Jack and Annie travel to the Wild West! They arrive in a ghost town where they meet a lonely ghost and must help him find what he's been searching for. Through acts of kindness and understanding, they discover that sometimes the greatest gift is simply caring about others.",
+            chapterList: [
+                { title: 'A Letter from Teddy', description: 'Jack and Annie receive a letter from their friend Teddy asking for help.', status: 'current', questionCount: 5, startTime: 0 },
+                { title: 'The Ghost Town', description: 'They arrive in a deserted Wild West town at sundown.', status: 'locked', questionCount: 5, startTime: 300 },
+                { title: 'Rattlesnake Flat', description: 'They explore the empty buildings of Rattlesnake Flat.', status: 'locked', questionCount: 5, startTime: 600 },
+                { title: 'The Saloon', description: 'They discover an old saloon with mysterious signs of life.', status: 'locked', questionCount: 5, startTime: 900 },
+                { title: 'The Ghost', description: 'They meet a lonely ghost who has been waiting for years.', status: 'locked', questionCount: 5, startTime: 1200 },
+                { title: 'The Story of Lonesome Luke', description: 'The ghost tells them his sad story of being left behind.', status: 'locked', questionCount: 5, startTime: 1500 },
+                { title: 'The Horse Thief', description: 'They learn about a wrongful accusation that changed everything.', status: 'locked', questionCount: 5, startTime: 1800 },
+                { title: 'The Locket', description: 'They help the ghost find his lost treasure - a precious locket.', status: 'locked', questionCount: 5, startTime: 2100 },
+                { title: 'Good-bye, Lonesome Luke', description: 'The ghost finds peace and can finally move on.', status: 'locked', questionCount: 5, startTime: 2400 },
+                { title: 'The Gift for Teddy', description: 'They return with a special gift and new understanding.', status: 'locked', questionCount: 5, startTime: 2700 }
+            ]
+        };
+
+        // 문제 데이터 (전체 10챕터 완료)
+        const questionsData = {
+            0: [ // Chapter 1: A Letter from Teddy
+                {
+                    passage: "Jack and Annie found a letter waiting for them in the tree house, written in Teddy's familiar handwriting.",
+                    question: "Who had written the letter that Jack and Annie found?",
+                    options: ["Morgan le Fay", "Teddy", "Their parents", "A stranger"],
+                    correct: 1
+                },
+                {
+                    passage: "The letter asked Jack and Annie to help solve a mystery about a lonely soul who needed their kindness and understanding.",
+                    question: "What did Teddy ask Jack and Annie to help with?",
+                    options: ["Finding treasure", "Solving a mystery about a lonely soul", "Learning magic", "Building something"],
+                    correct: 1
+                },
+                {
+                    passage: "Teddy explained that this mission would teach them about compassion and how sometimes the greatest gift is simply caring about others.",
+                    question: "What would this mission teach Jack and Annie according to Teddy?",
+                    options: ["How to fight", "About compassion and caring for others", "How to find gold", "How to ride horses"],
+                    correct: 1
+                },
+                {
+                    passage: "The letter directed them to look for a book about the American Wild West, specifically about ghost towns.",
+                    question: "What kind of book did the letter tell them to look for?",
+                    options: ["A book about pirates", "A book about the American Wild West and ghost towns", "A book about dinosaurs", "A book about space"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie found the book and opened it to a picture of a dusty, abandoned town with the sun setting behind it.",
+                    question: "What did Annie see in the book?",
+                    options: ["A modern city", "A dusty, abandoned town with the sun setting", "A busy marketplace", "A green forest"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: The Ghost Town
+                {
+                    passage: "The tree house spun and landed them in the middle of a deserted town as the sun was setting in the western sky.",
+                    question: "When did Jack and Annie arrive in the town?",
+                    options: ["At sunrise", "As the sun was setting", "At midnight", "During a storm"],
+                    correct: 1
+                },
+                {
+                    passage: "The town looked completely abandoned, with empty buildings, broken windows, and tumbleweeds blowing down the dusty main street.",
+                    question: "What did the town look like?",
+                    options: ["Busy and crowded", "Completely abandoned with broken windows and tumbleweeds", "Modern and clean", "Full of people"],
+                    correct: 1
+                },
+                {
+                    passage: "A wooden sign at the edge of town read 'Rattlesnake Flat - Population 0' in faded, weathered letters.",
+                    question: "What did the sign at the edge of town say?",
+                    options: ["Welcome Visitors", "Rattlesnake Flat - Population 0", "Danger Keep Out", "Wild West Town"],
+                    correct: 1
+                },
+                {
+                    passage: "The buildings included an old general store, a blacksmith shop, a hotel, and a saloon, all looking like they hadn't been used in years.",
+                    question: "What kinds of buildings did they see in the town?",
+                    options: ["Modern stores and offices", "General store, blacksmith shop, hotel, and saloon", "Schools and libraries", "Factories and warehouses"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack felt an eerie chill in the air, even though the desert evening was still warm from the day's heat.",
+                    question: "How did Jack feel despite the warm evening?",
+                    options: ["Very hot", "An eerie chill in the air", "Completely normal", "Excited and happy"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: Rattlesnake Flat
+                {
+                    passage: "Jack and Annie walked carefully down the main street, their footsteps echoing loudly in the complete silence of the empty town.",
+                    question: "What was notable about their footsteps in the town?",
+                    options: ["They made no sound", "They echoed loudly in the complete silence", "They were muffled", "They sounded like music"],
+                    correct: 1
+                },
+                {
+                    passage: "The windows of the abandoned buildings stared at them like empty eyes, and dust swirled around their feet with every step.",
+                    question: "How did the abandoned buildings seem to Jack and Annie?",
+                    options: ["Welcoming and friendly", "Like empty eyes staring at them", "Bright and cheerful", "Completely invisible"],
+                    correct: 1
+                },
+                {
+                    passage: "They peeked into the general store and saw shelves still lined with old bottles and cans, covered in thick layers of dust.",
+                    question: "What did they see in the general store?",
+                    options: ["Nothing at all", "Shelves with old bottles and cans covered in dust", "Modern groceries", "People shopping"],
+                    correct: 1
+                },
+                {
+                    passage: "The blacksmith shop still had tools hanging on the walls and a cold forge that looked like it hadn't been used in decades.",
+                    question: "What did they find in the blacksmith shop?",
+                    options: ["A working fire", "Tools on walls and a cold forge unused for decades", "Modern equipment", "Nothing useful"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie wondered what had happened to all the people who once lived and worked in this bustling frontier town.",
+                    question: "What did Annie wonder about?",
+                    options: ["Where to find food", "What happened to the people who once lived there", "How to get home", "What time it was"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: The Saloon
+                {
+                    passage: "The old saloon had swinging doors that creaked softly in the evening breeze, as if inviting them to enter.",
+                    question: "What did the saloon doors do in the breeze?",
+                    options: ["Stayed completely still", "Creaked softly as if inviting them in", "Slammed loudly", "Fell off their hinges"],
+                    correct: 1
+                },
+                {
+                    passage: "Inside the saloon, Jack and Annie saw tables and chairs arranged as if people had just left, with playing cards still scattered on one table.",
+                    question: "What did the inside of the saloon look like?",
+                    options: ["Completely empty", "Tables and chairs as if people just left, with scattered playing cards", "Modern and renovated", "Full of current customers"],
+                    correct: 1
+                },
+                {
+                    passage: "Behind the bar, bottles of various shapes and sizes lined the shelves, and an old piano sat silent in the corner.",
+                    question: "What did they see behind the bar and in the corner?",
+                    options: ["Nothing interesting", "Bottles on shelves and an old piano in the corner", "Modern equipment", "A television"],
+                    correct: 1
+                },
+                {
+                    passage: "Suddenly, they heard the faint sound of piano music, even though no one was playing the dusty old instrument.",
+                    question: "What strange thing did they hear in the saloon?",
+                    options: ["Voices talking", "Faint piano music with no one playing", "Dogs barking", "Cars driving by"],
+                    correct: 1
+                },
+                {
+                    passage: "The music seemed sad and lonely, like someone was trying to remember happier times in the ghost town.",
+                    question: "How did the mysterious piano music sound?",
+                    options: ["Happy and cheerful", "Sad and lonely, like remembering happier times", "Loud and scary", "Fast and exciting"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: The Ghost
+                {
+                    passage: "A translucent figure appeared near the piano, shimmering slightly in the dim light of the saloon.",
+                    question: "What kind of figure appeared near the piano?",
+                    options: ["A solid person", "A translucent figure shimmering in the light", "An animal", "A shadow"],
+                    correct: 1
+                },
+                {
+                    passage: "The ghost was a cowboy wearing a hat and boots, but he looked incredibly sad and lonely as he stared at the piano keys.",
+                    question: "What did the ghost look like and how did he seem?",
+                    options: ["Happy and dancing", "A sad and lonely cowboy in hat and boots", "Angry and threatening", "Invisible"],
+                    correct: 1
+                },
+                {
+                    passage: "When the ghost noticed Jack and Annie, he seemed surprised but pleased to finally have someone to talk to after so many years alone.",
+                    question: "How did the ghost react when he saw Jack and Annie?",
+                    options: ["He became angry", "He seemed surprised but pleased to have someone to talk to", "He disappeared", "He ignored them"],
+                    correct: 1
+                },
+                {
+                    passage: "The ghost introduced himself as Lonesome Luke and explained that he had been waiting in the town for over a hundred years.",
+                    question: "What was the ghost's name and how long had he been waiting?",
+                    options: ["Happy Harry, 10 years", "Lonesome Luke, over a hundred years", "Sad Sam, 50 years", "Cowboy Joe, 20 years"],
+                    correct: 1
+                },
+                {
+                    passage: "Lonesome Luke told them that he couldn't leave the town until he found something very important that he had lost long ago.",
+                    question: "Why couldn't Lonesome Luke leave the town?",
+                    options: ["He liked it there", "He had to find something important he had lost", "He was guarding treasure", "He was afraid of leaving"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6: The Story of Lonesome Luke
+                {
+                    passage: "Lonesome Luke began his story, explaining that he used to be a happy cowboy who loved music and had many friends in Rattlesnake Flat.",
+                    question: "What was Lonesome Luke like when he was alive?",
+                    options: ["Mean and unfriendly", "A happy cowboy who loved music and had many friends", "A quiet loner", "A troublemaker"],
+                    correct: 1
+                },
+                {
+                    passage: "He was engaged to marry the schoolteacher, Miss Rose, and they planned to start a family together in the growing town.",
+                    question: "Who was Lonesome Luke planning to marry?",
+                    options: ["Miss Lily", "Miss Rose, the schoolteacher", "Miss Daisy", "Miss Anna"],
+                    correct: 1
+                },
+                {
+                    passage: "One day, someone falsely accused Luke of stealing horses, and the townspeople turned against him before he could prove his innocence.",
+                    question: "What false accusation was made against Luke?",
+                    options: ["Robbing the bank", "Stealing horses", "Cheating at cards", "Starting fights"],
+                    correct: 1
+                },
+                {
+                    passage: "In the confusion and anger, Luke had to flee town quickly, but in his haste, he dropped his most precious possession.",
+                    question: "What happened when Luke had to flee town quickly?",
+                    options: ["He took everything with him", "He dropped his most precious possession", "He said goodbye to everyone", "He burned down the saloon"],
+                    correct: 1
+                },
+                {
+                    passage: "Luke died of a broken heart in the desert, never able to return for what he lost or clear his name.",
+                    question: "What happened to Luke after he fled town?",
+                    options: ["He lived happily elsewhere", "He died of a broken heart in the desert", "He became a famous outlaw", "He found a new town"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7: The Horse Thief
+                {
+                    passage: "Lonesome Luke explained that the real horse thief was a man named Black Bart, who had cleverly framed Luke for the crime.",
+                    question: "Who was the real horse thief according to Luke?",
+                    options: ["Luke himself", "Black Bart, who framed Luke", "The sheriff", "Miss Rose"],
+                    correct: 1
+                },
+                {
+                    passage: "Black Bart had been jealous of Luke's happiness and popularity in town, so he stole the horses and left evidence pointing to Luke.",
+                    question: "Why did Black Bart frame Luke for the crime?",
+                    options: ["For money", "He was jealous of Luke's happiness and popularity", "By accident", "To help Luke"],
+                    correct: 1
+                },
+                {
+                    passage: "The townspeople discovered the truth years later, but by then it was too late - Luke was already dead and the town was dying.",
+                    question: "When did the townspeople discover the truth about the horse theft?",
+                    options: ["Immediately", "Years later, but it was too late", "Never", "The next day"],
+                    correct: 1
+                },
+                {
+                    passage: "One by one, families left Rattlesnake Flat as the mines closed and businesses failed, until the town became completely abandoned.",
+                    question: "What happened to Rattlesnake Flat over time?",
+                    options: ["It grew bigger", "Families left and it became completely abandoned", "It became modern", "Nothing changed"],
+                    correct: 1
+                },
+                {
+                    passage: "Luke's spirit remained trapped in the ghost town, unable to find peace until he could recover what he had lost.",
+                    question: "Why was Luke's spirit trapped in the ghost town?",
+                    options: ["He liked being there", "He couldn't find peace until he recovered what he lost", "He was guarding the town", "He was afraid to leave"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: The Locket
+                {
+                    passage: "Lonesome Luke revealed that what he had lost was a gold locket containing a picture of Miss Rose, his greatest treasure.",
+                    question: "What had Lonesome Luke lost that was so important to him?",
+                    options: ["A bag of gold coins", "A gold locket with Miss Rose's picture", "His horse", "His guitar"],
+                    correct: 1
+                },
+                {
+                    passage: "He had planned to give the locket to Miss Rose as a wedding present, but dropped it when he fled town in panic.",
+                    question: "What had Luke planned to do with the locket?",
+                    options: ["Sell it for money", "Give it to Miss Rose as a wedding present", "Keep it hidden", "Give it to his mother"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie volunteered to help search for the locket, understanding how much it meant to the lonely ghost.",
+                    question: "What did Jack and Annie offer to do?",
+                    options: ["Leave immediately", "Help search for the locket", "Tell Luke to give up", "Find Miss Rose"],
+                    correct: 1
+                },
+                {
+                    passage: "They searched through the dusty streets and buildings, looking carefully under porches and in corners where the locket might have fallen.",
+                    question: "Where did Jack and Annie search for the locket?",
+                    options: ["Only in the saloon", "Through dusty streets, under porches, and in corners", "In the trees", "In the desert"],
+                    correct: 1
+                },
+                {
+                    passage: "Finally, Annie spotted something glinting in the dirt near the old water trough - it was the lost locket, tarnished but intact.",
+                    question: "Where did Annie finally find the locket?",
+                    options: ["In the saloon", "In the dirt near the old water trough", "In a building", "Under the piano"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9: Good-bye, Lonesome Luke
+                {
+                    passage: "When Lonesome Luke held the locket again, his ghostly form began to glow with a warm, peaceful light.",
+                    question: "What happened when Luke held the locket again?",
+                    options: ["Nothing changed", "His form began to glow with warm, peaceful light", "He became solid", "He disappeared instantly"],
+                    correct: 1
+                },
+                {
+                    passage: "He opened the locket to reveal a small, faded photograph of a beautiful young woman with kind eyes - Miss Rose.",
+                    question: "What did Luke see when he opened the locket?",
+                    options: ["Nothing", "A faded photograph of Miss Rose with kind eyes", "A map", "A mirror"],
+                    correct: 1
+                },
+                {
+                    passage: "Luke thanked Jack and Annie with tears of joy, saying that their kindness had given him the greatest gift of all - peace.",
+                    question: "What did Luke say Jack and Annie had given him?",
+                    options: ["Gold", "The greatest gift of all - peace", "A new home", "Fame"],
+                    correct: 1
+                },
+                {
+                    passage: "As Luke held the locket close to his heart, he began to fade away, finally free to join Miss Rose in whatever comes after life.",
+                    question: "What happened to Luke as he held the locket?",
+                    options: ["He became more solid", "He began to fade away, free to join Miss Rose", "He ran away", "He became angry"],
+                    correct: 1
+                },
+                {
+                    passage: "Before disappearing completely, Luke smiled and whispered 'Thank you' to Jack and Annie, his voice fading like an echo.",
+                    question: "What were Luke's last words before disappearing?",
+                    options: ["Goodbye forever", "Thank you", "See you later", "Help others"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: The Gift for Teddy
+                {
+                    passage: "With Lonesome Luke at peace, Jack and Annie returned to the tree house carrying the now-empty locket as a reminder of their adventure.",
+                    question: "What did Jack and Annie take back to the tree house?",
+                    options: ["Gold coins", "The now-empty locket as a reminder", "Nothing", "Luke's hat"],
+                    correct: 1
+                },
+                {
+                    passage: "They realized that their mission had taught them about the power of compassion and how helping others brings peace to everyone involved.",
+                    question: "What lesson did their mission teach them?",
+                    options: ["How to find treasure", "The power of compassion and helping others brings peace", "How to see ghosts", "How to travel in time"],
+                    correct: 1
+                },
+                {
+                    passage: "Back in their own time, they found another letter from Teddy, thanking them for their kindness and asking them to keep the locket.",
+                    question: "What did Teddy's new letter say?",
+                    options: ["Come back immediately", "Thanks for their kindness and to keep the locket", "The mission failed", "Try again"],
+                    correct: 1
+                },
+                {
+                    passage: "Teddy explained that the locket would remind them that love and kindness can transcend time and bring comfort to lost souls.",
+                    question: "What did Teddy say the locket would remind them of?",
+                    options: ["Their adventure", "That love and kindness can transcend time and comfort lost souls", "How to be brave", "The Wild West"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie placed the locket carefully in their room, knowing they had learned that sometimes the greatest magic is simply caring about others.",
+                    question: "What did Jack and Annie learn about the greatest magic?",
+                    options: ["It's about power", "Sometimes it's simply caring about others", "It's about traveling", "It's about finding treasure"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 자동 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const level = 'level2';
+            const bookId = 'MTH010';
+            const chapterNum = String(chapterIndex + 1).padStart(2, '0');
+            
+            const possibleFileNames = [
+                `${bookId}_chapter${chapterNum}.mp3`,
+                `${bookId}_ch${chapterNum}.mp3`,
+                `${bookId}_${chapterNum}.mp3`,
+                `magic_tree_house_10_chapter${chapterNum}.mp3`,
+                `magic_tree_house_10_ch${chapterNum}.mp3`,
+                `ghost_town_at_sundown_${chapterNum}.mp3`,
+                `mary_pope_osborne_10_chapter${chapterNum}.mp3`,
+                `${bookId}.mp3`
+            ];
+            
+            return {
+                primary: `${AUDIO_BASE_URL}${level}/${possibleFileNames[0]}`,
+                alternatives: possibleFileNames.map(fileName => `${AUDIO_BASE_URL}${level}/${fileName}`)
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioUrls = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+            // 오디오 정보 영역 다시 보이기 (새로운 오디오 플레이시)
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 찾는 중...';
+
+            function tryLoadAudio(urlIndex = 0) {
+                if (urlIndex >= audioUrls.alternatives.length) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.`;
+                    return;
+                }
+
+                const currentUrl = audioUrls.alternatives[urlIndex];
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    const startTime = chapter.startTime || 0;
+                    audioPlayer.currentTime = startTime;
+                    audioStatus.innerHTML = `✅ 오디오 준비 완료!`;
+                };
+
+                const errorHandler = function() {
+                    setTimeout(() => tryLoadAudio(urlIndex + 1), 100);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+                audioPlayer.addEventListener('error', errorHandler, { once: true });
+            }
+
+            tryLoadAudio(0);
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 기본 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            const currentChapter = parseInt(document.getElementById('audio-chapter-title').textContent.match(/Chapter (\d+)/)[1]) - 1;
+            currentAudio.currentTime = bookData.chapterList[currentChapter]?.startTime || 0;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>Chapter ${index + 1}: ${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progress = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex];
+
+            if (!questions || questions.length === 0) {
+                alert('이 챕터의 문제가 아직 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('learning-chapter-breadcrumb').textContent = `Chapter ${chapterIndex + 1}`;
+
+            showQuestion();
+            updateLearningProgress();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="question-text">문제 ${currentQuestionIndex + 1}</div>
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) selectedOption.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        // 선택지 선택
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`[data-index="${optionIndex}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateNavigationButtons();
+        }
+
+        // 네비게이션
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function updateLearningProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = progress + '%';
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+                if (currentChapterIndex < bookData.chapterList.length - 1) {
+                    bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                }
+            }
+
+            showResults(correctCount, questions.length, score);
+        }
+
+        // 결과 표시
+        function showResults(correct, total, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = score + '%';
+            document.getElementById('total-questions').textContent = total + '문제';
+            document.getElementById('correct-answers').textContent = correct + '문제';
+            document.getElementById('wrong-answers').textContent = (total - correct) + '문제';
+            document.getElementById('final-score').textContent = score + '점';
+
+            let message = '';
+            if (score >= 90) message = '훌륭합니다! 🌟';
+            else if (score >= 80) message = '잘했어요! 👏';
+            else if (score >= 70) message = '좋아요! 👍';
+            else message = '다시 한번 도전해보세요! 💪';
+
+            document.getElementById('result-message').textContent = message;
+        }
+
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        function nextChapter() {
+            if (currentChapterIndex < bookData.chapterList.length - 1) {
+                startLearning(currentChapterIndex + 1);
+            } else {
+                alert('모든 챕터를 완료했습니다! 🎉');
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드
+        window.addEventListener('load', function() {
+            showBookDetail();
+            console.log('👻 Magic Tree House: Ghost Town at Sundown 학습 시스템이 준비되었습니다!');
+        });
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('audio-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeAudioModal();
+        });
+    </script>
+</body>
+</html>

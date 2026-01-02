@@ -1,0 +1,3300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish in a Tree - Level 4-1 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2c5f41 0%, #6b9080 50%, #a4c3a2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #2c5f41;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #2c5f41;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #2c5f41;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c5f41;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #2c5f41;
+            background: linear-gradient(135deg, #2c5f4108, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(44, 95, 65, 0.1);
+            color: #2c5f41;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #6b9080, #a4c3a2);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2c5f41, #6b9080);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2c5f41;
+        }
+
+        .option.selected {
+            background: rgba(44, 95, 65, 0.1);
+            border-color: #2c5f41;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #6b9080;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Level 5-3 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #2c5f41, #6b9080);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🐟</div>
+                <div class="logo-text">
+                    <h1>Fish in a Tree</h1>
+                    <p>Level 4-1 - Lynda Mullaly Hunt의 감동적인 성장 이야기</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 4-1</div>
+                <div class="breadcrumb">
+                    <span>Fish in a Tree</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🐟</div>
+                    <div class="book-info">
+                        <h2>Fish in a Tree</h2>
+                        <div class="author">Lynda Mullaly Hunt</div>
+                        <div class="book-summary">
+                            Ally Nickerson has been smart enough to fool a lot of smart people. Every time she lands in a new school, she is able to hide her inability to read by creating clever yet disruptive distractions. She is afraid to ask for help; after all, how can you cure dumb? However, her newest teacher Mr. Daniels sees the bright, creative kid underneath the trouble maker. With his help, Ally learns not to be so hard on herself and that dyslexia is nothing to be ashamed of. As her confidence grows, Ally feels free to be herself and the world starts opening up with possibilities.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">51</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">255</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 4-1</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🐟 챕터별 학습</h3>
+                    <div id="chapters-container">
+                        <!-- 챕터들이 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Fish in a Tree</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Fish in a Tree</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">Fish in a Tree - Lynda Mullaly Hunt</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #2c5f41;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+// 🎯 구글 클라우드 스토리지 오디오 URL 설정
+const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+// 🐟 Fish in a Tree 개별 파일 매핑 + 시간 점프 시스템 (51개 챕터)
+const fishInTreeChapterMapping = {
+    1: { title: "Chapter 1: In Trouble Again", file: "FIAT001_chapter01.mp3", startTime: 0 }, // 00초
+    2: { title: "Chapter 2", file: "FIAT001_chapter02.mp3", startTime: 14 }, // 14초
+    3: { title: "Chapter 3", file: "FIAT001_chapter03.mp3", startTime: 43 }, // 43초
+    4: { title: "Chapter 4", file: "FIAT001_chapter04.mp3", startTime: 62 }, // 1분2초
+    5: { title: "Chapter 5", file: "FIAT001_chapter05.mp3", startTime: 323 }, // 5분23초
+    6: { title: "Chapter 6", file: "FIAT001_chapter06.mp3", startTime: 335 }, // 5분35초
+    7: { title: "Chapter 7", file: "FIAT001_chapter07.mp3", startTime: 308 }, // 5분8초
+    8: { title: "Chapter 8", file: "FIAT001_chapter08.mp3", startTime: 170 }, // 2분50초
+    9: { title: "Chapter 9", file: "FIAT001_chapter09.mp3", startTime: 43 }, // 43초
+    10: { title: "Chapter 10", file: "FIAT001_chapter11.mp3", startTime: 99 }, // 11번오디오 1분39초
+    11: { title: "Chapter 11", file: "FIAT001_chapter12.mp3", startTime: 80 }, // 12번오디오 1분20초
+    12: { title: "Chapter 12", file: "FIAT001_chapter13.mp3", startTime: 198 }, // 13번오디오 3분18초
+    13: { title: "Chapter 13", file: "FIAT001_chapter14.mp3", startTime: 187 }, // 14번오디오 3분7초
+    14: { title: "Chapter 14", file: "FIAT001_chapter15.mp3", startTime: 179 }, // 15번오디오 2분59초
+    15: { title: "Chapter 15", file: "FIAT001_chapter16.mp3", startTime: 338 }, // 16번오디오 5분38초
+    16: { title: "Chapter 16", file: "FIAT001_chapter18.mp3", startTime: 0 }, // 18번오디오 00초
+    17: { title: "Chapter 17", file: "FIAT001_chapter20.mp3", startTime: 113 }, // 20번오디오 1분53초
+    18: { title: "Chapter 18", file: "FIAT001_chapter19.mp3", startTime: 142 }, // 19번오디오 2분22초
+    19: { title: "Chapter 19", file: "FIAT001_chapter20.mp3", startTime: 113 }, // 20번오디오 1분53초
+    20: { title: "Chapter 20", file: "FIAT001_chapter21.mp3", startTime: 286 }, // 21번오디오 4분46초
+    21: { title: "Chapter 21", file: "FIAT001_chapter22.mp3", startTime: 339 }, // 22번오디오 5분39초
+    22: { title: "Chapter 22", file: "FIAT001_chapter23.mp3", startTime: 357 }, // 23번오디오 5분57초
+    23: { title: "Chapter 23", file: "FIAT001_chapter24.mp3", startTime: 146 }, // 24번오디오 2분26초
+    24: { title: "Chapter 24", file: "FIAT001_chapter24.mp3", startTime: 401 }, // 24번오디오 6분41초
+    25: { title: "Chapter 25", file: "FIAT001_chapter26.mp3", startTime: 172 }, // 26번오디오 2분52초
+    26: { title: "Chapter 26", file: "FIAT001_chapter27.mp3", startTime: 73 }, // 27번오디오 1분13초
+    27: { title: "Chapter 27", file: "FIAT001_chapter27.mp3", startTime: 367 }, // 27번오디오 6분7초
+    28: { title: "Chapter 28", file: "FIAT001_chapter28.mp3", startTime: 214 }, // 28번오디오 3분34초
+    29: { title: "Chapter 29", file: "FIAT001_chapter29.mp3", startTime: 110 }, // 29번오디오 1분50초
+    30: { title: "Chapter 30", file: "FIAT001_chapter31.mp3", startTime: 154 }, // 31번오디오 2분34초
+    31: { title: "Chapter 31", file: "FIAT001_chapter32.mp3", startTime: 45 }, // 32번오디오 45초
+    32: { title: "Chapter 32", file: "FIAT001_chapter32.mp3", startTime: 361 }, // 32번오디오 6분1초
+    33: { title: "Chapter 33", file: "FIAT001_chapter33.mp3", startTime: 359 }, // 33번오디오 5분59초
+    34: { title: "Chapter 34", file: "FIAT001_chapter34.mp3", startTime: 215 }, // 34번오디오 3분35초
+    35: { title: "Chapter 35", file: "FIAT001_chapter35.mp3", startTime: 394 }, // 35번오디오 6분34초
+    36: { title: "Chapter 36", file: "FIAT001_chapter36.mp3", startTime: 305 }, // 36번오디오 5분5초
+    37: { title: "Chapter 37", file: "FIAT001_chapter37.mp3", startTime: 131 }, // 37번오디오 2분11초
+    38: { title: "Chapter 38", file: "FIAT001_chapter38.mp3", startTime: 145 }, // 38번오디오 2분25초
+    39: { title: "Chapter 39", file: "FIAT001_chapter39.mp3", startTime: 6 }, // 39번오디오 6초
+    40: { title: "Chapter 40", file: "FIAT001_chapter40.mp3", startTime: 166 }, // 40번오디오 2분46초
+    41: { title: "Chapter 41", file: "FIAT001_chapter40.mp3", startTime: 319 }, // 40번오디오 5분19초
+    42: { title: "Chapter 42", file: "FIAT001_chapter42.mp3", startTime: 3 }, // 42번오디오 3초
+    43: { title: "Chapter 43", file: "FIAT001_chapter43.mp3", startTime: 80 }, // 43번오디오 1분20초
+    44: { title: "Chapter 44", file: "FIAT001_chapter43.mp3", startTime: 213 }, // 43번오디오 3분33초
+    45: { title: "Chapter 45", file: "FIAT001_chapter44.mp3", startTime: 44 }, // 44번오디오 44초
+    46: { title: "Chapter 46", file: "FIAT001_chapter44.mp3", startTime: 291 }, // 44번오디오 4분51초
+    47: { title: "Chapter 47", file: "FIAT001_chapter45.mp3", startTime: 163 }, // 45번오디오 2분43초
+    48: { title: "Chapter 48", file: "FIAT001_chapter46.mp3", startTime: 408 }, // 46번오디오 6분48초
+    49: { title: "Chapter 49", file: "FIAT001_chapter48.mp3", startTime: 84 }, // 48번오디오 1분24초
+    50: { title: "Chapter 50", file: "FIAT001_chapter48.mp3", startTime: 256 }, // 48번오디오 4분16초
+    51: { title: "Chapter 51: C-O-U-R-A-GEnius", file: "FIAT001_chapter49.mp3", startTime: 372 } // 49번오디오 6분12초
+};
+
+// 전역 변수
+let currentChapter = 0; // 인덱스 기반 (0-50)
+let currentChapterIndex = 0;
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let questions = [];
+let currentAudio = null;
+let playbackSpeed = 1.0;
+let isAutoPlay = false; // 자동 다음 챕터 재생 설정
+
+// 🎧 시간을 시:분:초 형식으로 변환하는 함수
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+// 🐟 Fish in a Tree 오디오 URL 생성 함수 (개별 파일 + 시간 점프)
+function getAudioUrl(chapterIndex) {
+    const chapterNumber = chapterIndex + 1;
+    const chapterData = fishInTreeChapterMapping[chapterNumber];
+
+    if (!chapterData) {
+        console.error(`Chapter ${chapterNumber} not found in mapping`);
+        return null;
+    }
+
+    return {
+        primary: `${AUDIO_BASE_URL}FIAT001-Fish-in-a-Tree/${chapterData.file}`,
+        startTime: chapterData.startTime,
+        chapterNumber: chapterNumber,
+        title: chapterData.title,
+        file: chapterData.file,
+        alternatives: [`${AUDIO_BASE_URL}FIAT001-Fish-in-a-Tree/${chapterData.file}`]
+    };
+}
+
+// 🐟 Fish in a Tree 챕터 오디오 재생 함수 (샘플과 동일한 방식)
+function playChapterAudio(chapterIndex) {
+    const chapterNumber = chapterIndex + 1;
+
+    if (chapterNumber < 1 || chapterNumber > 51) {
+        alert('유효하지 않은 챕터 번호입니다. (1-51)');
+        return;
+    }
+
+    const audioData = getAudioUrl(chapterIndex);
+    if (!audioData) {
+        alert(`Chapter ${chapterNumber}의 오디오 파일을 찾을 수 없습니다.`);
+        return;
+    }
+
+    document.getElementById('audio-modal').style.display = 'flex';
+    document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterNumber}`;
+    document.getElementById('audio-chapter-subtitle').textContent = `Fish in a Tree - Lynda Mullaly Hunt`;
+
+    const audioInfoElement = document.getElementById('audio-info');
+    if (audioInfoElement) {
+        audioInfoElement.classList.remove('hidden');
+    }
+
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const audioStatus = document.getElementById('audio-status');
+
+    // 현재 챕터 설정
+    currentChapter = chapterIndex;
+    currentChapterIndex = chapterIndex;
+
+    audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+    // 개별 파일 로드
+    audioSource.src = audioData.primary;
+    audioPlayer.load();
+
+    const successHandler = function() {
+        // 🎯 시간 점프! (샘플과 동일한 방식)
+        audioPlayer.currentTime = audioData.startTime;
+
+        // 시간 표시 (분:초 형식)
+        const minutes = Math.floor(audioData.startTime / 60);
+        const seconds = Math.floor(audioData.startTime % 60);
+        const timeDisplay = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        audioStatus.innerHTML = `✅ Chapter ${chapterNumber} 로드 완료! (${timeDisplay}부터)`;
+
+        // 진행률 바 생성
+        createProgressBars();
+
+        // 파일 끝 감지 시작
+        monitorFileEnd(audioPlayer, chapterNumber);
+
+        // 🎯 챕터 클릭 즉시 재생 시도! (샘플과 동일)
+        audioPlayer.play().then(() => {
+            audioStatus.innerHTML = `🎵 Chapter ${chapterNumber} 재생 중! (${timeDisplay}부터)`;
+            document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+        }).catch(e => {
+            console.log('자동 재생 차단됨:', e);
+            audioStatus.innerHTML = `✅ Chapter ${chapterNumber} 준비됨! ▶️ 재생 버튼을 눌러주세요`;
+        });
+    };
+
+    const errorHandler = function() {
+        audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.<br>파일: ${audioData.file}`;
+        console.error('오디오 로드 실패:', audioData.primary);
+    };
+
+    audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+    audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+    currentAudio = audioPlayer;
+    playbackSpeed = 1.0;
+}
+
+// 🎧 구간처음으로 함수 (현재 챕터 시작점으로) - 샘플과 동일한 방식
+function resetToChapterStart() {
+    if (!currentAudio) return;
+
+    // 현재 챕터 번호 추출
+    const chapterTitle = document.getElementById('audio-chapter-title').textContent;
+    const chapterMatch = chapterTitle.match(/Chapter (\d+)/);
+
+    if (chapterMatch) {
+        const currentChapterNumber = parseInt(chapterMatch[1]);
+        const chapterData = fishInTreeChapterMapping[currentChapterNumber];
+
+        if (chapterData) {
+            const startTime = chapterData.startTime;
+            currentAudio.currentTime = startTime;
+
+            console.log(`🔄 Chapter ${currentChapterNumber} 시작점으로 이동: ${Math.floor(startTime/60)}:${Math.floor(startTime%60).toString().padStart(2,'0')}`);
+
+            const audioStatus = document.getElementById('audio-status');
+            const timeDisplay = `${Math.floor(startTime/60)}:${Math.floor(startTime%60).toString().padStart(2,'0')}`;
+            audioStatus.innerHTML = `🔄 Chapter ${currentChapterNumber} 시작점으로 이동 (${timeDisplay})`;
+        }
+    }
+}
+
+// 🎧 파일 끝 감지 및 다음 챕터 제안 함수
+function monitorFileEnd(audioPlayer, chapterNumber) {
+    const endedHandler = function() {
+        const audioStatus = document.getElementById('audio-status');
+        const totalProgress = calculateTotalProgress();
+
+        audioStatus.innerHTML = `✅ Chapter ${chapterNumber} 완료! (전체 진행률: ${totalProgress.percentage}%)`;
+
+        // 진행률 바 100%로 업데이트
+        updateProgressBar(100, totalProgress.percentage);
+
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+        console.log(`🏁 Chapter ${chapterNumber} 완료 - 전체 진행률: ${totalProgress.percentage}%`);
+
+        // 다음 챕터 자동 제안
+        if (chapterNumber < 51) {
+            setTimeout(() => {
+                if (isAutoPlay || confirm(`Chapter ${chapterNumber}이 완료되었습니다.\n전체 진행률: ${totalProgress.percentage}%\n\nChapter ${chapterNumber + 1}을 재생하시겠습니까?`)) {
+                    playChapterAudio(chapterNumber); // 다음 챕터 인덱스
+                }
+            }, 1000);
+        } else {
+            setTimeout(() => {
+                alert('🎉 Fish in a Tree 완독을 축하합니다!\n최종 진행률: 100% 🏆\n\n"Great minds don\'t always think alike" - Lynda Mullaly Hunt');
+            }, 1000);
+        }
+    };
+
+    audioPlayer.addEventListener('ended', endedHandler, { once: true });
+}
+
+// 🎧 연속 재생 모드 토글
+function toggleAutoPlay() {
+    isAutoPlay = !isAutoPlay;
+    const autoPlayBtn = document.querySelector('.auto-play-btn');
+    if (autoPlayBtn) {
+        autoPlayBtn.textContent = isAutoPlay ? '🔄 자동재생 ON' : '🔄 자동재생 OFF';
+        autoPlayBtn.style.backgroundColor = isAutoPlay ? '#27ae60' : '#95a5a6';
+    }
+
+    console.log(`🔄 자동 재생 모드: ${isAutoPlay ? 'ON' : 'OFF'}`);
+}
+
+// 🎧 전체 오디오북 재생 함수
+function playFullAudiobook() {
+    playChapterAudio(0); // chapterIndex 0 = Chapter 1
+    isAutoPlay = true; // 자동 재생 모드 활성화
+
+    setTimeout(() => {
+        document.getElementById('audio-chapter-title').textContent = 'Fish in a Tree - 전체 재생';
+        document.getElementById('audio-chapter-subtitle').textContent = '연속 재생 모드 (Chapter 1부터)';
+    }, 500);
+}
+
+// 🎧 다음/이전 챕터로 이동 함수들
+function jumpToNextChapter() {
+    if (currentChapter >= 50) {
+        alert('마지막 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter + 1);
+}
+
+function jumpToPreviousChapter() {
+    if (currentChapter <= 0) {
+        alert('첫 번째 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter - 1);
+}
+
+// 🎧 특정 챕터로 점프
+function jumpToChapter(chapterNumber) {
+    if (chapterNumber >= 1 && chapterNumber <= 51) {
+        playChapterAudio(chapterNumber - 1);
+    } else {
+        alert('유효하지 않은 챕터 번호입니다. (1-51)');
+    }
+}
+
+// 🎧 10초 앞/뒤로 이동
+function skipForward() {
+    if (!currentAudio) return;
+    currentAudio.currentTime = Math.min(currentAudio.currentTime + 10, currentAudio.duration);
+}
+
+function skipBackward() {
+    if (!currentAudio) return;
+    currentAudio.currentTime = Math.max(currentAudio.currentTime - 10, 0);
+}
+
+// 🎧 현재 재생 중인 챕터 정보 표시
+function getCurrentChapterInfo() {
+    if (!currentAudio) return null;
+
+    const currentTime = currentAudio.currentTime;
+    const duration = currentAudio.duration;
+    const progress = duration > 0 ? Math.round((currentTime / duration) * 100) : 0;
+
+    return {
+        chapterNumber: currentChapter + 1,
+        currentTime: formatTime(currentTime),
+        duration: formatTime(duration),
+        progress: progress
+    };
+}
+
+// 🎧 전체 진행률 계산 함수
+function calculateTotalProgress() {
+    if (!currentAudio) return { percentage: 0, completedChapters: 0 };
+
+    const currentTime = currentAudio.currentTime;
+    const duration = currentAudio.duration;
+    const currentChapterProgress = duration > 0 ? (currentTime / duration) : 0;
+
+    const completedChapters = currentChapter;
+    const totalProgress = (completedChapters + currentChapterProgress) / 51;
+
+    return {
+        percentage: Math.round(totalProgress * 100),
+        completedChapters: completedChapters,
+        currentChapterProgress: Math.round(currentChapterProgress * 100)
+    };
+}
+
+// 🎧 진행률 바 업데이트 함수
+function updateProgressBar(chapterProgress, totalProgress) {
+    let chapterProgressBar = document.getElementById('chapter-progress-bar');
+    if (!chapterProgressBar) {
+        createProgressBars();
+        chapterProgressBar = document.getElementById('chapter-progress-bar');
+    }
+
+    const totalProgressBar = document.getElementById('total-progress-bar');
+
+    if (chapterProgressBar && totalProgressBar) {
+        chapterProgressBar.style.width = `${chapterProgress}%`;
+        totalProgressBar.style.width = `${totalProgress}%`;
+
+        // 색상 변경
+        if (chapterProgress < 30) {
+            chapterProgressBar.style.backgroundColor = '#ff6b6b';
+        } else if (chapterProgress < 70) {
+            chapterProgressBar.style.backgroundColor = '#ffa726';
+        } else {
+            chapterProgressBar.style.backgroundColor = '#66bb6a';
+        }
+    }
+}
+
+// 🎧 진행률 바 생성 함수
+function createProgressBars() {
+    const audioInfo = document.getElementById('audio-info');
+    if (!audioInfo || document.getElementById('progress-container')) return;
+
+    const progressContainer = document.createElement('div');
+    progressContainer.id = 'progress-container';
+    progressContainer.style.cssText = `
+        margin-top: 15px;
+        padding: 10px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 8px;
+    `;
+
+    const chapterProgressContainer = document.createElement('div');
+    chapterProgressContainer.innerHTML = `
+        <div style="font-size: 12px; margin-bottom: 5px; color: #666;">현재 챕터 진행률</div>
+        <div style="width: 100%; height: 8px; background: #ddd; border-radius: 4px; overflow: hidden;">
+            <div id="chapter-progress-bar" style="height: 100%; width: 0%; background: #66bb6a; transition: width 0.3s ease;"></div>
+        </div>
+    `;
+
+    const totalProgressContainer = document.createElement('div');
+    totalProgressContainer.innerHTML = `
+        <div style="font-size: 12px; margin: 10px 0 5px 0; color: #666;">전체 도서 진행률 (51개 챕터)</div>
+        <div style="width: 100%; height: 12px; background: #ddd; border-radius: 6px; overflow: hidden;">
+            <div id="total-progress-bar" style="height: 100%; width: 0%; background: #27ae60; transition: width 0.3s ease;"></div>
+        </div>
+    `;
+
+    progressContainer.appendChild(chapterProgressContainer);
+    progressContainer.appendChild(totalProgressContainer);
+    audioInfo.appendChild(progressContainer);
+}
+
+// 🎧 기본 오디오 컨트롤 함수들 (샘플과 동일)
+function closeAudioModal() {
+    document.getElementById('audio-modal').style.display = 'none';
+    if (currentAudio) currentAudio.pause();
+}
+
+function togglePlayPause() {
+    if (!currentAudio) return;
+    if (currentAudio.paused) {
+        currentAudio.play();
+        document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+    } else {
+        currentAudio.pause();
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+    }
+}
+
+function changeSpeed() {
+    if (!currentAudio) return;
+    const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+    const currentIndex = speeds.indexOf(playbackSpeed);
+    playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+    currentAudio.playbackRate = playbackSpeed;
+    document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+}
+
+function downloadAudio() {
+    const audioSource = document.getElementById('audio-source');
+    if (audioSource.src) {
+        const link = document.createElement('a');
+        link.href = audioSource.src;
+        link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+        link.click();
+    }
+}
+
+// 🎧 챕터 정보를 UI에 표시하는 함수
+function updateChapterDisplay() {
+    const info = getCurrentChapterInfo();
+    if (info) {
+        const audioStatus = document.getElementById('audio-status');
+        const totalProgress = calculateTotalProgress();
+
+        audioStatus.innerHTML = `🎵 Chapter ${info.chapterNumber}/51 재생 중 (${info.progress}% 완료)<br>
+                                📍 ${info.currentTime} / ${info.duration}<br>
+                                📚 전체 진행률: ${totalProgress.percentage}%`;
+
+        updateProgressBar(info.progress, totalProgress.percentage);
+    }
+}
+
+// 🎧 키보드 단축키 지원
+document.addEventListener('keydown', function(event) {
+    const audioModal = document.getElementById('audio-modal');
+    if (!audioModal || audioModal.style.display === 'none') return;
+
+    switch(event.code) {
+        case 'Space':
+            event.preventDefault();
+            togglePlayPause();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            skipBackward();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            skipForward();
+            break;
+        case 'ArrowUp':
+            event.preventDefault();
+            jumpToPreviousChapter();
+            break;
+        case 'ArrowDown':
+            event.preventDefault();
+            jumpToNextChapter();
+            break;
+        case 'KeyR':
+            event.preventDefault();
+            resetToChapterStart();
+            break;
+        case 'Escape':
+            event.preventDefault();
+            closeAudioModal();
+            break;
+    }
+});
+
+// 🐟 초기화 함수
+function initializeFIATAudio() {
+    console.log('🐟 Fish in a Tree 오디오 시스템 초기화 완료');
+    console.log('📚 총 51개 챕터, 개별 파일 + 시간 점프 시스템');
+    console.log('🎯 샘플 방식과 동일한 시간 매핑 적용');
+
+    // 500ms마다 챕터 정보 업데이트
+    setInterval(() => {
+        if (currentAudio && !currentAudio.paused) {
+            updateChapterDisplay();
+        }
+    }, 500);
+}
+
+// 초기화 실행
+document.addEventListener('DOMContentLoaded', initializeFIATAudio);
+
+
+        // Fish in a Tree 도서 데이터 (51챕터)
+        const bookData = {
+            id: 'FIAT001',
+            title: "Fish in a Tree",
+            author: 'Lynda Mullaly Hunt',
+            cover: '🐟',
+            progress: 0,
+            chapters: 51,
+            totalQuestions: 255,
+            coverColor: 'linear-gradient(45deg, #2c5f41, #6b9080)',
+            summary: "Ally Nickerson has been smart enough to fool a lot of smart people. Every time she lands in a new school, she is able to hide her inability to read by creating clever yet disruptive distractions. She is afraid to ask for help; after all, how can you cure dumb? However, her newest teacher Mr. Daniels sees the bright, creative kid underneath the trouble maker. With his help, Ally learns not to be so hard on herself and that dyslexia is nothing to be ashamed of. As her confidence grows, Ally feels free to be herself and the world starts opening up with possibilities.",
+            chapterList: [
+                { title: 'Chapter 1: In Trouble Again', description: 'Ally finds herself in trouble again at her new school.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 2: Yellow Card', description: 'Ally receives a yellow card for her behavior.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 3: Never up to Me', description: 'Ally reflects on how things are never up to her.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 4: Bird in a Cage', description: 'Ally feels trapped like a bird in a cage.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 5: Silver Dollars and Wooden Nickels', description: 'Ally learns about value and worth.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 6: Triple-Sided Coin', description: 'Ally discovers there are multiple sides to every story.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 7: No Grandpas Here', description: 'Ally deals with family and relationships.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 8: Real Trouble', description: 'Ally faces serious consequences for her actions.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 9: Bag Full of Nothing', description: 'Ally feels empty and confused about her situation.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 10: Promises, Promises...', description: 'Ally deals with broken promises and trust issues.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 11: Scrambled Egg', description: 'Ally\'s thoughts feel scrambled and confused.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 12: What\'s Your Problem, Albert?', description: 'Ally meets Albert and learns about his challenges.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 13: Trouble with Flowers', description: 'Ally has an incident involving flowers.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 14: Boxed In and Boxed Out', description: 'Ally feels excluded and trapped.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 15: Ungreased Gears', description: 'Things don\'t work smoothly for Ally.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 16: What I\'ve Got', description: 'Ally reflects on her strengths and weaknesses.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 17: Misfit Lunch', description: 'Ally finds friends among the misfits.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 18: Truths and Untruths', description: 'Ally grapples with honesty and deception.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 19: Not-So-Sweet Secret', description: 'Ally discovers a secret that isn\'t pleasant.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 20: Is This a Good Thing?', description: 'Ally questions whether changes are positive.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 21: Butterfly Wishes', description: 'Ally dreams of transformation and change.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 22: No Way to Treat a Queen', description: 'Ally stands up for herself and others.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 23: Words That Breathe', description: 'Ally discovers the power of meaningful words.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 24: Imaginary Hero', description: 'Ally creates heroes in her imagination.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 25: Celebration or Devastation?', description: 'Ally faces a moment that could go either way.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 26: Worse Than I Thought', description: 'Ally realizes things are more difficult than expected.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 27: Truth or Consequences', description: 'Ally must face the truth about herself.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 28: Nothing Like a New Day', description: 'Ally finds hope in fresh starts.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 29: A Day of Firsts', description: 'Ally experiences many new things.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 30: Mind Movies', description: 'Ally uses her imagination to cope.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 31: What I Know Now', description: 'Ally reflects on her growth and learning.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 32: Impossible Things', description: 'Ally attempts things that seem impossible.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 33: Finding My Voice', description: 'Ally begins to speak up for herself.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 34: Trouble in Paradise', description: 'Problems arise in seemingly good situations.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 35: To-Shay', description: 'Ally learns about acceptance and understanding.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 36: All Mixed Up', description: 'Ally feels confused about her situation.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 37: Cupcakes for Everyone', description: 'Ally experiences kindness and sharing.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 38: The Whole Package', description: 'Ally sees the complete picture of herself.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 39: To-Shay', description: 'More lessons about acceptance and friendship.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 40: Tears of Different Kinds', description: 'Ally experiences various emotions.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 41: Not-So-Secret Letter', description: 'Ally deals with communication and secrets.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 42: The Gifts of No Excuses, Scotch Tape, and Antibiotics', description: 'Ally learns about healing and responsibility.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 43: Set the World on Fire', description: 'Ally finds her passion and purpose.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 44: Tales of a Sixth Grade Something', description: 'Ally reflects on her school experience.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 45: My Brother\'s Question', description: 'Family relationships become important.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 46: Flying Tigers and Baby Elephants', description: 'Ally explores courage and strength.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 47: Great Minds Don\'t Think Alike', description: 'Ally celebrates diversity in thinking.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 48: Oliver\'s Idea of Lucky', description: 'Ally learns about different perspectives on luck.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 49: I See the Light', description: 'Ally has moments of clarity and understanding.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 50: A Hero\'s Job', description: 'Ally discovers what it means to be heroic.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 51: C-O-U-R-A-GEnius', description: 'Ally combines courage and genius to overcome challenges.', status: 'current', questionCount: 5                 }
+             ]
+        };
+
+
+      // Fish in a Tree 문제 데이터 (실제 스토리에 기반한 정확한 내용)
+const questionsData = {
+    0: [ // Chapter 1: In Trouble Again
+        {
+            passage: "Mrs. Hall asks Ally to write one page describing herself for her new teacher.",
+            question: "What assignment does Mrs. Hall give to Ally?",
+            options: ["Write about her summer vacation", "Write one page describing herself for her new teacher", "Complete a math worksheet", "Read a chapter from a book"],
+            correct: 1
+        },
+        {
+            passage: "Ally says she would rather write about something more positive, like throwing up at your own birthday party.",
+            question: "What does Ally say she'd rather write about than describing herself?",
+            options: ["Her favorite food", "Something more positive, like throwing up at your birthday party", "Her family", "Her hobbies"],
+            correct: 1
+        },
+        {
+            passage: "Ally compares teachers to machines that take quarters for bouncy balls - you never know what you're going to get.",
+            question: "How does Ally compare teachers?",
+            options: ["To vending machines", "To machines that take quarters for bouncy balls - you never know what you get", "To librarians", "To parents"],
+            correct: 1
+        },
+        {
+            passage: "Oliver laughs and throws himself on his desk like it's a fumbled football when Ally makes a joke.",
+            question: "How does Oliver react to Ally's joke about climbing a tree with her teeth?",
+            options: ["He ignores her", "He laughs and throws himself on his desk like a fumbled football", "He gets angry", "He tells the teacher"],
+            correct: 1
+        },
+        {
+            passage: "Albert sits up straight like he's waiting for a firecracker to go off when tension builds in the classroom.",
+            question: "How does Albert react when there's tension in the classroom?",
+            options: ["He slouches in his chair", "He sits up straight like waiting for a firecracker to go off", "He leaves the room", "He starts laughing"],
+            correct: 1
+        }
+    ],
+
+    1: [ // Chapter 2: Yellow Card
+        {
+            passage: "Ally gets a yellow card from Mrs. Hall, which means she's in trouble and needs to see the principal.",
+            question: "What does a yellow card mean in Ally's school?",
+            options: ["Good behavior reward", "She's in trouble and needs to see the principal", "Permission to leave class", "Extra credit assignment"],
+            correct: 1
+        },
+        {
+            passage: "Ally has been to the principal's office so many times she practically has a seat with her name on it.",
+            question: "How often has Ally been to the principal's office?",
+            options: ["Never before", "So many times she practically has a seat with her name on it", "Just once", "A few times"],
+            correct: 1
+        },
+        {
+            passage: "Mrs. Silver, the principal, knows Ally well and tries to be understanding about her difficulties.",
+            question: "How does Mrs. Silver, the principal, treat Ally?",
+            options: ["Very harshly", "She knows Ally well and tries to be understanding", "She ignores her", "She's always angry with her"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels like she's always in trouble, even when she's trying her best not to be.",
+            question: "How does Ally feel about always being in trouble?",
+            options: ["She enjoys the attention", "She feels like she's always in trouble even when trying her best", "She doesn't care", "She thinks it's funny"],
+            correct: 1
+        },
+        {
+            passage: "The yellow card system is meant to help students improve their behavior, but Ally feels it just marks her as different.",
+            question: "How does Ally view the yellow card system?",
+            options: ["As very helpful", "She feels it just marks her as different", "As completely fair", "As too easy"],
+            correct: 1
+        }
+    ],
+
+    2: [ // Chapter 3: Never up to Me
+        {
+            passage: "Ally feels like things are never up to her - decisions are always made by other people.",
+            question: "How does Ally feel about control over her life?",
+            options: ["She controls everything", "Things are never up to her - decisions are made by others", "She makes all the decisions", "She shares control equally"],
+            correct: 1
+        },
+        {
+            passage: "Ally's mom works multiple jobs to support the family since her dad left when she was little.",
+            question: "Why does Ally's mom work multiple jobs?",
+            options: ["She loves working", "To support the family since Ally's dad left when she was little", "She's saving for vacation", "She's bored at home"],
+            correct: 1
+        },
+        {
+            passage: "Travis, Ally's older brother, tries to look out for her but has his own struggles with school.",
+            question: "How does Travis, Ally's brother, relate to her?",
+            options: ["He ignores her completely", "He tries to look out for her but has his own school struggles", "He's always mean to her", "He's perfect at everything"],
+            correct: 1
+        },
+        {
+            passage: "Ally draws in her Sketchbook of Impossible Things when she's feeling overwhelmed.",
+            question: "What does Ally do when she's feeling overwhelmed?",
+            options: ["She sleeps", "She draws in her Sketchbook of Impossible Things", "She watches TV", "She calls her friends"],
+            correct: 1
+        },
+        {
+            passage: "The Sketchbook of Impossible Things contains drawings of things Ally wishes were possible but knows aren't.",
+            question: "What does Ally's Sketchbook of Impossible Things contain?",
+            options: ["Regular homework", "Drawings of things she wishes were possible but knows aren't", "Pictures of her family", "School assignments"],
+            correct: 1
+        }
+    ],
+
+    3: [ // Chapter 4: Bird in a Cage
+        {
+            passage: "Ally feels like a bird in a cage when she's trapped in situations she can't control.",
+            question: "How does Ally describe feeling trapped?",
+            options: ["Like a fish out of water", "Like a bird in a cage", "Like a lost puppy", "Like a broken toy"],
+            correct: 1
+        },
+        {
+            passage: "Mrs. Hall announces that the class will have a new teacher, Mr. Daniels, after she leaves.",
+            question: "Who will be the new teacher replacing Mrs. Hall?",
+            options: ["Mrs. Smith", "Mr. Daniels", "Mr. Johnson", "Ms. Brown"],
+            correct: 1
+        },
+        {
+            passage: "Ally worries that a new teacher means starting over with someone who doesn't know her yet.",
+            question: "Why does Ally worry about getting a new teacher?",
+            options: ["She loves Mrs. Hall", "It means starting over with someone who doesn't know her yet", "She hates change", "She'll miss her friends"],
+            correct: 1
+        },
+        {
+            passage: "The class has to write letters to introduce themselves to Mr. Daniels, which makes Ally panic.",
+            question: "What assignment makes Ally panic about the new teacher?",
+            options: ["A math test", "Writing letters to introduce themselves to Mr. Daniels", "Reading aloud", "Giving a presentation"],
+            correct: 1
+        },
+        {
+            passage: "Ally tries to avoid the writing assignment by creating distractions and getting in trouble instead.",
+            question: "How does Ally try to avoid the writing assignment?",
+            options: ["She asks for help", "She creates distractions and gets in trouble instead", "She does it perfectly", "She tells the truth about her struggles"],
+            correct: 1
+        }
+    ],
+
+    4: [ // Chapter 5: Silver Dollars and Wooden Nickels
+        {
+            passage: "Ally's grandpa used to tell her about silver dollars and wooden nickels - being able to tell the difference between what's real and valuable.",
+            question: "What did Ally's grandpa teach her about silver dollars and wooden nickels?",
+            options: ["How to count money", "Being able to tell the difference between what's real and valuable", "How to collect coins", "The history of currency"],
+            correct: 1
+        },
+        {
+            passage: "Ally misses her grandpa terribly and wishes he were still around to help her with her problems.",
+            question: "How does Ally feel about her grandpa?",
+            options: ["She barely remembers him", "She misses him terribly and wishes he could help with her problems", "She's angry with him", "She thinks about him sometimes"],
+            correct: 1
+        },
+        {
+            passage: "Travis finds old coins that belonged to their grandpa and shares them with Ally.",
+            question: "What does Travis find that belonged to their grandpa?",
+            options: ["Old books", "Old coins that he shares with Ally", "Old photographs", "Old tools"],
+            correct: 1
+        },
+        {
+            passage: "The coins remind Ally of her grandpa's wisdom about recognizing true value in people and things.",
+            question: "What do the coins remind Ally about?",
+            options: ["Their family's wealth", "Her grandpa's wisdom about recognizing true value", "Her desire to collect coins", "How much she misses him"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that some people might see her as a wooden nickel when she's really a silver dollar.",
+            question: "What does Ally realize about how people might see her?",
+            options: ["Everyone loves her", "Some might see her as a wooden nickel when she's really a silver dollar", "She's worthless", "She's obviously valuable"],
+            correct: 1
+        }
+    ],
+
+    5: [ // Chapter 6: Triple-Sided Coin
+        {
+            passage: "Mr. Daniels arrives as the new teacher and immediately seems different from other teachers Ally has known.",
+            question: "How does Mr. Daniels seem different when he arrives?",
+            options: ["He's exactly like other teachers", "He immediately seems different from other teachers Ally has known", "He's very strict", "He ignores the students"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels talks about a triple-sided coin, explaining that there are always more than two ways to look at things.",
+            question: "What does Mr. Daniels teach about with the triple-sided coin?",
+            options: ["Magic tricks", "That there are always more than two ways to look at things", "Coin collecting", "Mathematical concepts"],
+            correct: 1
+        },
+        {
+            passage: "Unlike other teachers, Mr. Daniels doesn't immediately ask Ally to read aloud or write something.",
+            question: "How is Mr. Daniels different from other teachers regarding Ally?",
+            options: ["He's much stricter", "He doesn't immediately ask her to read aloud or write", "He ignores her completely", "He gives her extra work"],
+            correct: 1
+        },
+        {
+            passage: "Ally is suspicious of Mr. Daniels' kindness, wondering if it's real or if he'll turn out to be disappointing like other adults.",
+            question: "How does Ally initially react to Mr. Daniels' kindness?",
+            options: ["She trusts him immediately", "She's suspicious, wondering if it's real or if he'll disappoint her", "She dislikes him", "She ignores him"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels seems to notice things about his students that other teachers miss.",
+            question: "What does Mr. Daniels seem to do that other teachers don't?",
+            options: ["Give more homework", "Notice things about students that other teachers miss", "Be more strict", "Talk more loudly"],
+            correct: 1
+        }
+    ],
+
+    6: [ // Chapter 7: No Grandpas Here
+        {
+            passage: "Ally thinks about how there are no grandpas at school to give wisdom and guidance like her grandpa used to.",
+            question: "What does Ally observe about school regarding grandpas?",
+            options: ["There are many grandpas", "There are no grandpas to give wisdom and guidance like hers used to", "Grandpas visit often", "She doesn't think about grandpas"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels begins to show interest in what each student can do well, rather than focusing on what they can't do.",
+            question: "How does Mr. Daniels approach his students differently?",
+            options: ["He focuses on their weaknesses", "He shows interest in what each student can do well", "He treats everyone the same", "He ignores individual differences"],
+            correct: 1
+        },
+        {
+            passage: "Ally starts to feel like maybe Mr. Daniels might be different, but she's still cautious about trusting him.",
+            question: "How does Ally begin to feel about Mr. Daniels?",
+            options: ["She dislikes him more", "She starts to feel he might be different but remains cautious", "She trusts him completely", "She's indifferent"],
+            correct: 1
+        },
+        {
+            passage: "Some of Ally's classmates begin to respond positively to Mr. Daniels' different teaching approach.",
+            question: "How do Ally's classmates react to Mr. Daniels' teaching?",
+            options: ["They all hate it", "Some begin to respond positively to his different approach", "They're confused", "They ignore him"],
+            correct: 1
+        },
+        {
+            passage: "Ally notices that Mr. Daniels doesn't seem to get frustrated when students struggle, unlike her previous teachers.",
+            question: "What does Ally notice about Mr. Daniels when students struggle?",
+            options: ["He gets very angry", "He doesn't seem to get frustrated, unlike her previous teachers", "He gives up on them", "He sends them to the principal"],
+            correct: 1
+        }
+    ],
+
+    7: [ // Chapter 8: Real Trouble
+        {
+            passage: "Shay, one of Ally's classmates, continues to be mean and tries to make Ally feel bad about herself.",
+            question: "How does Shay treat Ally in class?",
+            options: ["She's very kind", "She continues to be mean and tries to make Ally feel bad", "She ignores her", "She helps her with work"],
+            correct: 1
+        },
+        {
+            passage: "Ally gets into real trouble when she acts out during a lesson to avoid having to read aloud.",
+            question: "Why does Ally get into real trouble during a lesson?",
+            options: ["She falls asleep", "She acts out to avoid having to read aloud", "She talks to friends", "She forgets her homework"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels handles Ally's disruption differently than other teachers would have.",
+            question: "How does Mr. Daniels handle Ally's disruption?",
+            options: ["Exactly like other teachers", "Differently than other teachers would have", "He ignores it", "He gets very angry"],
+            correct: 1
+        },
+        {
+            passage: "Instead of just punishing Ally, Mr. Daniels seems to be trying to understand why she acted out.",
+            question: "What does Mr. Daniels do instead of just punishing Ally?",
+            options: ["He gives her detention", "He seems to try to understand why she acted out", "He calls her parents", "He sends her home"],
+            correct: 1
+        },
+        {
+            passage: "Ally is confused by Mr. Daniels' response because she's used to teachers just being angry with her.",
+            question: "Why is Ally confused by Mr. Daniels' response?",
+            options: ["He's too strict", "She's used to teachers just being angry with her", "He praises her", "He gives her rewards"],
+            correct: 1
+        }
+    ],
+
+    8: [ // Chapter 9: Bag Full of Nothing
+        {
+            passage: "Ally feels like she has a bag full of nothing - no talents, no abilities that anyone recognizes or values.",
+            question: "How does Ally describe her feelings about her abilities?",
+            options: ["Like a treasure chest", "Like a bag full of nothing - no recognized talents", "Like a full toolbox", "Like a gift box"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels assigns a project where students can choose how to present their work - writing, drawing, or presenting.",
+            question: "What choice does Mr. Daniels give students for their project?",
+            options: ["Only writing", "They can choose writing, drawing, or presenting", "Only math problems", "Only reading"],
+            correct: 1
+        },
+        {
+            passage: "For the first time, Ally considers that maybe she could succeed at something by using her artistic abilities.",
+            question: "What does Ally consider for the first time regarding the project?",
+            options: ["That she'll definitely fail", "That maybe she could succeed using her artistic abilities", "That she should ask for help", "That she should skip it"],
+            correct: 1
+        },
+        {
+            passage: "Ally decides to create a visual presentation instead of writing, which feels like a huge risk.",
+            question: "What decision does Ally make about her project?",
+            options: ["To write like everyone else", "To create a visual presentation, which feels like a huge risk", "To not do it", "To copy someone else's work"],
+            correct: 1
+        },
+        {
+            passage: "Working on the visual project makes Ally feel more confident than she has in a long time.",
+            question: "How does working on the visual project make Ally feel?",
+            options: ["More anxious", "More confident than she has in a long time", "Frustrated", "Bored"],
+            correct: 1
+        }
+    ],
+
+    9: [ // Chapter 10: Promises, Promises...
+        {
+            passage: "Ally's mom promises to attend the class presentations, but Ally worries she won't be able to because of work.",
+            question: "What does Ally's mom promise, and what does Ally worry about?",
+            options: ["To help with homework, but Ally worries about time", "To attend presentations, but Ally worries she can't because of work", "To buy school supplies", "To meet the teacher"],
+            correct: 1
+        },
+        {
+            passage: "Travis encourages Ally about her presentation, telling her she's good at art and should be proud.",
+            question: "How does Travis support Ally regarding her presentation?",
+            options: ["He criticizes her work", "He encourages her, saying she's good at art and should be proud", "He ignores her", "He tells her to give up"],
+            correct: 1
+        },
+        {
+            passage: "Ally practices her presentation multiple times, trying to prepare for all the things that could go wrong.",
+            question: "How does Ally prepare for her presentation?",
+            options: ["She doesn't prepare at all", "She practices multiple times, preparing for things that could go wrong", "She memorizes someone else's work", "She asks others to do it for her"],
+            correct: 1
+        },
+        {
+            passage: "The night before presentations, Ally has trouble sleeping because she's so nervous.",
+            question: "How does Ally feel the night before presentations?",
+            options: ["Completely calm", "She has trouble sleeping because she's so nervous", "Excited and confident", "Indifferent"],
+            correct: 1
+        },
+        {
+            passage: "Despite her fears, Ally decides to go through with her presentation rather than finding a way to get out of it.",
+            question: "What does Ally decide to do despite her fears?",
+            options: ["Skip school", "Go through with her presentation rather than getting out of it", "Pretend to be sick", "Ask for a different assignment"],
+            correct: 1
+        }
+    ],
+
+    10: [ // Chapter 11: Scrambled Egg
+        {
+            passage: "Ally feels like her brain is like a scrambled egg when she tries to read - everything gets mixed up.",
+            question: "How does Ally describe her brain when trying to read?",
+            options: ["Like a computer", "Like a scrambled egg - everything gets mixed up", "Like a clear window", "Like a smooth road"],
+            correct: 1
+        },
+        {
+            passage: "During her presentation, Ally manages to explain her project clearly using her visual aids.",
+            question: "How does Ally's presentation go?",
+            options: ["She can't speak at all", "She manages to explain her project clearly using visual aids", "She runs away", "She reads from notes"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels praises Ally's creative approach and the thought she put into her project.",
+            question: "How does Mr. Daniels respond to Ally's presentation?",
+            options: ["He criticizes it harshly", "He praises her creative approach and the thought she put in", "He ignores it", "He gives her a poor grade"],
+            correct: 1
+        },
+        {
+            passage: "Some classmates seem impressed by Ally's artistic abilities, which surprises her.",
+            question: "How do some classmates react to Ally's presentation?",
+            options: ["They laugh at her", "They seem impressed by her artistic abilities, surprising her", "They ignore it", "They criticize her work"],
+            correct: 1
+        },
+        {
+            passage: "For the first time in school, Ally feels like she showed something she was good at.",
+            question: "How does Ally feel after her presentation?",
+            options: ["Embarrassed and ashamed", "For the first time, she feels like she showed something she was good at", "Angry and frustrated", "Confused and lost"],
+            correct: 1
+        }
+    ],
+
+    11: [ // Chapter 12: What's Your Problem, Albert?
+        {
+            passage: "Albert is a quiet student who gets picked on by other kids, especially by bullies at lunch.",
+            question: "What happens to Albert at school?",
+            options: ["He's the most popular kid", "He gets picked on by other kids, especially bullies at lunch", "He's the class president", "He's friends with everyone"],
+            correct: 1
+        },
+        {
+            passage: "Ally notices that Albert is very smart but seems to hide his intelligence to avoid more bullying.",
+            question: "What does Ally notice about Albert?",
+            options: ["He's not very smart", "He's very smart but hides his intelligence to avoid bullying", "He doesn't care about school", "He only cares about sports"],
+            correct: 1
+        },
+        {
+            passage: "When bullies target Albert, Ally feels bad for him and starts to understand what it's like to be an outsider.",
+            question: "How does Ally feel when she sees Albert being bullied?",
+            options: ["She laughs along", "She feels bad and starts to understand being an outsider", "She ignores it", "She joins the bullies"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels pairs Albert with other students for group work, helping him connect with classmates.",
+            question: "How does Mr. Daniels help Albert?",
+            options: ["He isolates him from others", "He pairs him with other students for group work", "He ignores the bullying", "He punishes him"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to see that Albert has a lot of knowledge about science and history that impresses her.",
+            question: "What does Ally discover about Albert?",
+            options: ["He knows nothing about academics", "He has impressive knowledge about science and history", "He only likes art", "He's bad at everything"],
+            correct: 1
+        }
+    ],
+
+    12: [ // Chapter 13: Trouble with Flowers
+        {
+            passage: "The class has to read a poem about flowers, and Ally struggles with the words moving around on the page.",
+            question: "What happens when Ally tries to read the flower poem?",
+            options: ["She reads it perfectly", "She struggles with the words moving around on the page", "She refuses to look at it", "She memorizes it easily"],
+            correct: 1
+        },
+        {
+            passage: "Shay makes fun of Ally's reading difficulties in front of the whole class.",
+            question: "How does Shay treat Ally during the reading lesson?",
+            options: ["She helps her", "She makes fun of Ally's reading difficulties in front of the class", "She ignores her", "She encourages her"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels intervenes when Shay is being mean and redirects the class to focus on understanding poetry differently.",
+            question: "How does Mr. Daniels respond when Shay is mean to Ally?",
+            options: ["He ignores it", "He intervenes and redirects the class to understanding poetry differently", "He blames Ally", "He laughs along"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels humiliated and wants to disappear when her reading struggles are exposed in front of everyone.",
+            question: "How does Ally feel when her reading difficulties are exposed?",
+            options: ["Proud and confident", "Humiliated and wanting to disappear", "Happy for the attention", "Indifferent"],
+            correct: 1
+        },
+        {
+            passage: "After class, Mr. Daniels speaks privately with Ally about different ways people can be smart.",
+            question: "What does Mr. Daniels do after the difficult reading lesson?",
+            options: ["He gives Ally detention", "He speaks privately with her about different ways people can be smart", "He ignores what happened", "He calls her parents"],
+            correct: 1
+        }
+    ],
+
+    13: [ // Chapter 14: Boxed In and Boxed Out
+        {
+            passage: "Ally feels boxed in by people's expectations and boxed out of normal classroom activities.",
+            question: "How does Ally describe her situation at school?",
+            options: ["Free and included", "Boxed in by expectations and boxed out of normal activities", "Perfectly comfortable", "Popular and accepted"],
+            correct: 1
+        },
+        {
+            passage: "Keisha, a new student, arrives and doesn't seem to fit into any of the existing social groups.",
+            question: "What is notable about Keisha when she arrives?",
+            options: ["She immediately joins the popular group", "She doesn't seem to fit into any existing social groups", "She's exactly like everyone else", "She becomes class president"],
+            correct: 1
+        },
+        {
+            passage: "Some students make unkind comments about Keisha being different, which bothers Ally.",
+            question: "How do some students treat Keisha, and how does Ally react?",
+            options: ["Everyone welcomes her warmly", "Some make unkind comments about her being different, bothering Ally", "They ignore her completely", "They're all jealous of her"],
+            correct: 1
+        },
+        {
+            passage: "Ally recognizes that Keisha might understand what it feels like to be treated as an outsider.",
+            question: "What does Ally recognize about Keisha?",
+            options: ["That she's just like the popular kids", "That she might understand being treated as an outsider", "That she's mean like Shay", "That she's smarter than everyone"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels makes an effort to include both Ally and Keisha in classroom discussions.",
+            question: "How does Mr. Daniels handle having both Ally and Keisha in class?",
+            options: ["He ignores them both", "He makes an effort to include both in classroom discussions", "He separates them", "He gives them extra homework"],
+            correct: 1
+        }
+    ],
+
+    14: [ // Chapter 15: Ungreased Gears
+        {
+            passage: "Ally describes her brain as having ungreased gears that don't work smoothly like other people's.",
+            question: "How does Ally describe her brain?",
+            options: ["Like a smooth machine", "As having ungreased gears that don't work smoothly", "Like a computer", "As perfectly normal"],
+            correct: 1
+        },
+        {
+            passage: "Travis gets into trouble at his school for fighting, which worries their mom.",
+            question: "What happens with Travis that worries their mom?",
+            options: ["He gets perfect grades", "He gets into trouble for fighting", "He joins the honor society", "He gets a scholarship"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that Travis might be struggling with school in similar ways to her.",
+            question: "What does Ally realize about Travis?",
+            options: ["That he's perfect at everything", "That he might be struggling with school similarly to her", "That he doesn't care about school", "That he's much smarter than her"],
+            correct: 1
+        },
+        {
+            passage: "The family has to meet with Travis's principal, adding stress to their mom's already difficult situation.",
+            question: "What additional stress does the family face?",
+            options: ["Planning a vacation", "Meeting with Travis's principal", "Buying a new house", "Starting a business"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels guilty that her own school problems add to her mom's worries about Travis.",
+            question: "How does Ally feel about her own school problems in relation to Travis's situation?",
+            options: ["She doesn't care", "She feels guilty that her problems add to mom's worries", "She's happy for the distraction", "She blames Travis"],
+            correct: 1
+        }
+    ],
+
+    15: [ // Chapter 16: What I've Got
+        {
+            passage: "Ally starts to think about what she does have rather than focusing only on what she lacks.",
+            question: "What shift in thinking does Ally begin to make?",
+            options: ["Focusing more on what she lacks", "Thinking about what she does have rather than what she lacks", "Giving up completely", "Comparing herself to others more"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels gives Ally a book with lots of pictures and asks her to tell him about it.",
+            question: "What does Mr. Daniels do to help Ally with reading?",
+            options: ["Forces her to read text", "Gives her a book with pictures and asks her to tell about it", "Ignores her reading problems", "Gives her harder books"],
+            correct: 1
+        },
+        {
+            passage: "Ally discovers she can understand stories through pictures and context, even when she can't read all the words.",
+            question: "What does Ally discover about her abilities?",
+            options: ["She can't understand anything", "She can understand stories through pictures and context", "She needs to read every word", "She should give up on books"],
+            correct: 1
+        },
+        {
+            passage: "For the first time, Ally enjoys sharing a story with a teacher instead of feeling ashamed.",
+            question: "How does Ally feel when sharing the story with Mr. Daniels?",
+            options: ["Ashamed and embarrassed", "She enjoys it instead of feeling ashamed for the first time", "Angry and frustrated", "Bored and uninterested"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels tells Ally that there are many different ways to be smart and to understand information.",
+            question: "What important message does Mr. Daniels share with Ally?",
+            options: ["There's only one way to be smart", "There are many different ways to be smart and understand information", "She's not smart at all", "Reading is the only important skill"],
+            correct: 1
+        }
+    ],
+
+    16: [ // Chapter 17: Misfit Lunch
+        {
+            passage: "Ally, Albert, and Keisha start sitting together at lunch, forming their own group of misfits.",
+            question: "What happens with Ally, Albert, and Keisha at lunchtime?",
+            options: ["They sit with the popular kids", "They start sitting together, forming their own group of misfits", "They eat alone separately", "They skip lunch"],
+            correct: 1
+        },
+        {
+            passage: "The three friends discover they each have different strengths and can help each other.",
+            question: "What do the three friends discover about each other?",
+            options: ["They're all exactly the same", "They each have different strengths and can help each other", "They all have the same problems", "They can't help each other"],
+            correct: 1
+        },
+        {
+            passage: "Keisha is confident and stands up for herself and others, which Ally admires.",
+            question: "What does Ally admire about Keisha?",
+            options: ["That she's mean to others", "That she's confident and stands up for herself and others", "That she's exactly like everyone else", "That she never speaks up"],
+            correct: 1
+        },
+        {
+            passage: "Albert shares his extensive knowledge about various subjects, surprising both girls.",
+            question: "How does Albert contribute to the friendship?",
+            options: ["He stays quiet all the time", "He shares his extensive knowledge, surprising both girls", "He only complains", "He tries to be like everyone else"],
+            correct: 1
+        },
+        {
+            passage: "The friendship between the three gives Ally a sense of belonging she's never experienced before.",
+            question: "What does the friendship give Ally?",
+            options: ["More problems", "A sense of belonging she's never experienced before", "Confusion", "Isolation"],
+            correct: 1
+        }
+    ],
+
+    17: [ // Chapter 18: Truths and Untruths
+        {
+            passage: "Ally realizes she's been telling herself untruths about being stupid and worthless.",
+            question: "What does Ally realize about the things she's been telling herself?",
+            options: ["They're all completely true", "She's been telling herself untruths about being stupid and worthless", "She should believe them more", "They don't matter"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels continues to find ways to let Ally show her intelligence without requiring traditional reading and writing.",
+            question: "How does Mr. Daniels continue to help Ally?",
+            options: ["By making her read more", "By finding ways to let her show intelligence without traditional reading/writing", "By ignoring her completely", "By giving her easier work"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to speak up more in class discussions, sharing her ideas and insights.",
+            question: "How does Ally's behavior in class begin to change?",
+            options: ["She becomes more disruptive", "She begins to speak up more, sharing her ideas and insights", "She stops participating completely", "She only talks to friends"],
+            correct: 1
+        },
+        {
+            passage: "Some classmates start to see Ally differently as she demonstrates her knowledge in new ways.",
+            question: "How do some classmates begin to view Ally?",
+            options: ["Exactly the same as before", "They start to see her differently as she demonstrates knowledge in new ways", "They ignore her more", "They become meaner to her"],
+            correct: 1
+        },
+        {
+            passage: "Ally starts to believe that maybe she isn't as different or defective as she thought.",
+            question: "What does Ally start to believe about herself?",
+            options: ["That she's worse than she thought", "That maybe she isn't as different or defective as she thought", "That she should give up", "That nothing has changed"],
+            correct: 1
+        }
+    ],
+
+    18: [ // Chapter 19: Not-So-Sweet Secret
+        {
+            passage: "Ally's struggles with reading and writing have been her secret shame that she's worked hard to hide.",
+            question: "What has been Ally's secret shame?",
+            options: ["Her family's financial problems", "Her struggles with reading and writing that she's worked to hide", "Her artistic abilities", "Her friendship with Albert"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels begins to suspect that Ally might have a learning difference rather than just being unwilling to try.",
+            question: "What does Mr. Daniels begin to suspect about Ally?",
+            options: ["That she's just lazy", "That she might have a learning difference rather than being unwilling", "That she's smarter than everyone", "That she should be in a different class"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels torn between wanting help and being afraid that getting help means admitting there's something wrong with her.",
+            question: "How does Ally feel about the possibility of getting help?",
+            options: ["Completely excited", "Torn between wanting help and fearing it means something's wrong with her", "Totally against it", "Indifferent"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels approaches the topic of learning differences gently, without making Ally feel broken or defective.",
+            question: "How does Mr. Daniels approach discussing learning differences with Ally?",
+            options: ["Very harshly and directly", "Gently, without making her feel broken or defective", "He avoids the topic completely", "By comparing her to other students"],
+            correct: 1
+        },
+        {
+            passage: "Ally worries about what her mom and Travis will think if they find out she needs special help.",
+            question: "What does Ally worry about regarding her family?",
+            options: ["That they'll be proud", "What her mom and Travis will think if they find out she needs help", "That they won't care", "That they already know"],
+            correct: 1
+        }
+    ],
+
+    19: [ // Chapter 20: Is This a Good Thing?
+        {
+            passage: "Mr. Daniels arranges for Ally to be tested for learning differences to better understand how her brain works.",
+            question: "What does Mr. Daniels arrange for Ally?",
+            options: ["Extra homework", "Testing for learning differences to understand how her brain works", "A different teacher", "Punishment for her struggles"],
+            correct: 1
+        },
+        {
+            passage: "Ally is nervous about the testing but also hopeful that it might explain why school has always been so difficult.",
+            question: "How does Ally feel about the upcoming testing?",
+            options: ["Only nervous", "Nervous but also hopeful it might explain why school is difficult", "Completely confident", "Angry about it"],
+            correct: 1
+        },
+        {
+            passage: "The testing process involves various activities that measure different types of thinking and processing.",
+            question: "What does the testing process involve?",
+            options: ["Only reading tests", "Various activities measuring different types of thinking and processing", "Just math problems", "Only writing assignments"],
+            correct: 1
+        },
+        {
+            passage: "During testing, Ally discovers she's actually very good at some types of problem-solving and thinking.",
+            question: "What does Ally discover during the testing?",
+            options: ["She's bad at everything", "She's actually very good at some types of problem-solving and thinking", "She can't do any of the tasks", "She's average at everything"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to understand that having a learning difference doesn't mean she's less intelligent than other people.",
+            question: "What important understanding does Ally develop?",
+            options: ["That she's not intelligent", "That having a learning difference doesn't mean she's less intelligent", "That she should give up", "That intelligence doesn't matter"],
+            correct: 1
+        }
+    ],
+
+    20: [ // Chapter 21: Butterfly Wishes
+        {
+            passage: "Ally learns that she has dyslexia, which explains why letters and words seem to move around on the page.",
+            question: "What does Ally learn about her learning difference?",
+            options: ["She has ADHD", "She has dyslexia, explaining why letters and words move around", "She has autism", "She doesn't have any learning difference"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels explains that many successful and creative people throughout history have had dyslexia.",
+            question: "What does Mr. Daniels tell Ally about dyslexia?",
+            options: ["That it means she can't succeed", "That many successful and creative people have had dyslexia", "That she's the only one", "That it's very rare"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels a mix of relief at having an explanation and worry about what this means for her future.",
+            question: "How does Ally feel upon learning about her dyslexia?",
+            options: ["Only relief", "A mix of relief at having an explanation and worry about her future", "Only worry", "Complete indifference"],
+            correct: 1
+        },
+        {
+            passage: "The diagnosis helps explain why Ally has always been good at creative and visual thinking but struggled with traditional academic tasks.",
+            question: "What does the diagnosis help explain about Ally?",
+            options: ["Why she's bad at everything", "Why she's good at creative/visual thinking but struggles with traditional academics", "Why she should quit school", "Why she's exactly like everyone else"],
+            correct: 1
+        },
+        {
+            passage: "Ally thinks about butterflies and how they transform, wondering if understanding her dyslexia might help her transform too.",
+            question: "What metaphor does Ally use to think about her situation?",
+            options: ["Caterpillars becoming moths", "Butterflies transforming, wondering if understanding dyslexia might help her transform", "Birds learning to fly", "Flowers blooming"],
+            correct: 1
+        }
+    ],
+
+    21: [ // Chapter 22: No Way to Treat a Queen
+        {
+            passage: "Shay continues to be mean to Ally and other students, particularly targeting those she sees as different.",
+            question: "How does Shay continue to behave toward certain students?",
+            options: ["She becomes nicer to everyone", "She continues being mean, particularly targeting those she sees as different", "She ignores everyone", "She helps struggling students"],
+            correct: 1
+        },
+        {
+            passage: "Keisha stands up to Shay when she makes cruel comments, showing courage that Ally admires.",
+            question: "How does Keisha respond when Shay makes cruel comments?",
+            options: ["She joins in the meanness", "She stands up to Shay, showing courage Ally admires", "She runs away", "She ignores it completely"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels addresses the class about treating everyone with respect and kindness, regardless of differences.",
+            question: "What does Mr. Daniels address with the class?",
+            options: ["Only academic subjects", "Treating everyone with respect and kindness, regardless of differences", "Sports and games", "Homework policies"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to find her own voice and confidence, inspired by her friends and Mr. Daniels' support.",
+            question: "What begins to happen with Ally's confidence?",
+            options: ["She becomes more withdrawn", "She begins to find her own voice and confidence", "She gives up completely", "She becomes exactly like Shay"],
+            correct: 1
+        },
+        {
+            passage: "The friendship between Ally, Keisha, and Albert grows stronger as they support each other against negativity.",
+            question: "What happens to the friendship between Ally, Keisha, and Albert?",
+            options: ["It falls apart", "It grows stronger as they support each other against negativity", "They drift apart", "They only see each other occasionally"],
+            correct: 1
+        }
+    ],
+
+    22: [ // Chapter 23: Words That Breathe
+        {
+            passage: "Mr. Daniels introduces the concept that words can 'breathe' and have life when we understand them in context.",
+            question: "What concept does Mr. Daniels introduce about words?",
+            options: ["That words are meaningless", "That words can 'breathe' and have life when understood in context", "That only long words matter", "That words should be avoided"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to experience reading differently when she's not pressured to decode every single word perfectly.",
+            question: "How does Ally's reading experience change?",
+            options: ["It becomes much worse", "She experiences it differently when not pressured to decode every word perfectly", "She gives up reading entirely", "She only reads picture books"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels shows Ally how to use context clues and her intelligence to understand meaning beyond individual words.",
+            question: "What strategy does Mr. Daniels teach Ally?",
+            options: ["To memorize every word", "To use context clues and intelligence to understand meaning beyond words", "To avoid reading altogether", "To only read aloud"],
+            correct: 1
+        },
+        {
+            passage: "Ally discovers that she can understand and enjoy stories when she's not focused on her reading difficulties.",
+            question: "What does Ally discover when she's not focused on her reading difficulties?",
+            options: ["That she hates all stories", "That she can understand and enjoy stories", "That reading is impossible", "That she should only listen to audio"],
+            correct: 1
+        },
+        {
+            passage: "For the first time, Ally feels like reading might be something she can actually do, just differently than others.",
+            question: "How does Ally begin to feel about reading?",
+            options: ["That it's completely impossible", "That it might be something she can do, just differently than others", "That she should never try", "That it's only for smart people"],
+            correct: 1
+        }
+    ],
+
+    23: [ // Chapter 24: Imaginary Hero
+        {
+            passage: "Ally creates an imaginary hero in her mind who faces challenges but overcomes them with unique strengths.",
+            question: "What does Ally create in her imagination?",
+            options: ["A villain story", "An imaginary hero who faces challenges but overcomes them with unique strengths", "A sad story", "A story about school"],
+            correct: 1
+        },
+        {
+            passage: "The imaginary hero represents how Ally is beginning to see herself - as someone with challenges but also with special abilities.",
+            question: "What does the imaginary hero represent for Ally?",
+            options: ["Her fears", "How she's beginning to see herself - with challenges but also special abilities", "Her anger", "Her desire to be normal"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels encourages Ally to write or draw stories about characters who are different but heroic.",
+            question: "What does Mr. Daniels encourage Ally to do creatively?",
+            options: ["Copy other people's stories", "Write or draw stories about characters who are different but heroic", "Stop being creative", "Only write about normal people"],
+            correct: 1
+        },
+        {
+            passage: "Through creating stories, Ally begins to process her own journey and growth in a positive way.",
+            question: "What does creating stories help Ally do?",
+            options: ["Forget about her problems", "Process her own journey and growth in a positive way", "Become more confused", "Avoid dealing with reality"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that heroes in stories often have struggles that make them stronger, just like real people do.",
+            question: "What does Ally realize about heroes in stories?",
+            options: ["They're always perfect", "They often have struggles that make them stronger, like real people", "They never face problems", "They're not realistic"],
+            correct: 1
+        }
+    ],
+
+    24: [ // Chapter 25: Celebration or Devastation?
+        {
+            passage: "Ally faces a major test situation and worries whether it will be a celebration of her progress or a devastation.",
+            question: "What situation does Ally face, and how does she feel about it?",
+            options: ["A party, feeling excited", "A major test, worrying if it will be celebration or devastation", "A field trip, feeling bored", "A presentation, feeling confident"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels arranges for Ally to take tests in a way that accommodates her dyslexia.",
+            question: "How does Mr. Daniels help Ally with testing?",
+            options: ["He gives her the same test as everyone", "He arranges for her to take tests in a way that accommodates her dyslexia", "He excuses her from all tests", "He makes the tests much easier"],
+            correct: 1
+        },
+        {
+            passage: "Ally discovers that when she can show what she knows in ways that work for her brain, she actually knows a lot.",
+            question: "What does Ally discover about her knowledge when testing accommodations are used?",
+            options: ["She knows nothing", "When she can show what she knows in ways that work for her brain, she knows a lot", "She's behind everyone else", "She should give up"],
+            correct: 1
+        },
+        {
+            passage: "The test results surprise both Ally and some of her classmates who had underestimated her abilities.",
+            question: "How do the test results affect others' perceptions of Ally?",
+            options: ["Everyone ignores the results", "They surprise both Ally and classmates who had underestimated her", "They confirm everyone's low expectations", "They make people think less of her"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to understand that her intelligence was always there - she just needed the right ways to show it.",
+            question: "What important realization does Ally have about her intelligence?",
+            options: ["That she's not intelligent", "That her intelligence was always there - she just needed right ways to show it", "That intelligence doesn't matter", "That she should stop trying"],
+            correct: 1
+        }
+    ],
+
+    25: [ // Chapter 26: Worse Than I Thought
+        {
+            passage: "Despite her progress, Ally sometimes still feels like things are worse than she thought when she faces new challenges.",
+            question: "How does Ally sometimes still feel despite her progress?",
+            options: ["Always completely confident", "That things are worse than she thought when facing new challenges", "That everything is perfect", "That she has no more problems"],
+            correct: 1
+        },
+        {
+            passage: "Travis gets into more serious trouble at school, causing additional stress for the family.",
+            question: "What happens with Travis that affects the family?",
+            options: ["He gets honors", "He gets into more serious trouble, causing additional family stress", "He graduates early", "He gets a scholarship"],
+            correct: 1
+        },
+        {
+            passage: "Ally worries that her own needs for support are taking away from helping Travis with his problems.",
+            question: "What does Ally worry about regarding her family situation?",
+            options: ["That she's getting too much attention", "That her needs for support are taking away from helping Travis", "That her family doesn't care", "That Travis is jealous"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels helps Ally understand that everyone deserves support and that getting help doesn't take away from others.",
+            question: "What does Mr. Daniels help Ally understand about getting support?",
+            options: ["That she doesn't deserve help", "That everyone deserves support and getting help doesn't take from others", "That she should handle everything alone", "That only one person can get help"],
+            correct: 1
+        },
+        {
+            passage: "Ally learns that setbacks and difficult days are normal parts of growth, not signs of failure.",
+            question: "What does Ally learn about setbacks and difficult days?",
+            options: ["They mean she's failing", "They're normal parts of growth, not signs of failure", "They should be avoided", "They mean she should quit"],
+            correct: 1
+        }
+    ],
+
+    26: [ // Chapter 27: Truth or Consequences
+        {
+            passage: "Ally faces a situation where she must choose between telling the truth about her learning differences or hiding them.",
+            question: "What choice does Ally face regarding her learning differences?",
+            options: ["Whether to change schools", "Whether to tell the truth about them or hide them", "Whether to get tutoring", "Whether to tell her friends"],
+            correct: 1
+        },
+        {
+            passage: "Ally decides to be honest about her dyslexia with her classmates, despite feeling vulnerable.",
+            question: "What decision does Ally make about her dyslexia?",
+            options: ["To keep it completely secret", "To be honest about it with classmates, despite feeling vulnerable", "To lie about having it", "To only tell her family"],
+            correct: 1
+        },
+        {
+            passage: "Most of her classmates respond with understanding and some share their own struggles or differences.",
+            question: "How do most classmates respond when Ally shares about her dyslexia?",
+            options: ["They make fun of her", "They respond with understanding and some share their own struggles", "They ignore her", "They avoid her completely"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that being honest about her challenges actually makes her feel stronger, not weaker.",
+            question: "How does being honest about her challenges make Ally feel?",
+            options: ["Much weaker", "Stronger, not weaker", "Embarrassed", "Angry"],
+            correct: 1
+        },
+        {
+            passage: "The experience teaches Ally that truth often leads to connection and understanding rather than rejection.",
+            question: "What does this experience teach Ally about truth?",
+            options: ["That truth always hurts", "That truth often leads to connection and understanding rather than rejection", "That lies are better", "That she should never be honest"],
+            correct: 1
+        }
+    ],
+
+    27: [ // Chapter 28: Nothing Like a New Day
+        {
+            passage: "Ally begins each day with more hope and confidence than she used to have.",
+            question: "How does Ally begin to approach each new day?",
+            options: ["With dread and fear", "With more hope and confidence than she used to have", "With complete indifference", "With anger"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels continues to find new ways to help Ally and other students succeed in their own unique ways.",
+            question: "What does Mr. Daniels continue to do for his students?",
+            options: ["Use only traditional teaching methods", "Find new ways to help students succeed in their own unique ways", "Focus only on the smartest students", "Ignore individual differences"],
+            correct: 1
+        },
+        {
+            passage: "Ally starts to help other struggling students, sharing strategies that work for her.",
+            question: "How does Ally begin to help others?",
+            options: ["She keeps all strategies to herself", "She starts helping other struggling students, sharing strategies that work", "She ignores other students", "She only helps her close friends"],
+            correct: 1
+        },
+        {
+            passage: "The friendship between Ally, Keisha, and Albert becomes a source of strength for all three.",
+            question: "What does the friendship between the three students become?",
+            options: ["A source of conflict", "A source of strength for all three", "Less important over time", "Competitive and jealous"],
+            correct: 1
+        },
+        {
+            passage: "Ally notices that she's looking forward to school more often than dreading it.",
+            question: "How has Ally's attitude toward school changed?",
+            options: ["She dreads it more than ever", "She's looking forward to it more often than dreading it", "She feels exactly the same", "She wants to quit"],
+            correct: 1
+        }
+    ],
+
+    28: [ // Chapter 29: A Day of Firsts
+        {
+            passage: "Ally experiences many 'firsts' - first time volunteering to read, first time helping another student, first time feeling proud in class.",
+            question: "What kind of 'firsts' does Ally experience?",
+            options: ["First times being in trouble", "First time volunteering to read, helping others, feeling proud in class", "First times failing tests", "First times being absent"],
+            correct: 1
+        },
+        {
+            passage: "When Ally volunteers to read aloud, she uses strategies Mr. Daniels taught her and successfully shares a passage.",
+            question: "What happens when Ally volunteers to read aloud?",
+            options: ["She can't do it at all", "She uses strategies Mr. Daniels taught and successfully shares a passage", "She runs out of the room", "She starts crying"],
+            correct: 1
+        },
+        {
+            passage: "Her classmates applaud her effort, and Ally feels a sense of accomplishment she's never experienced before.",
+            question: "How do classmates and Ally react to her reading success?",
+            options: ["They ignore her", "They applaud her effort and she feels accomplishment she's never experienced", "They make fun of her", "They seem disappointed"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that taking risks and trying new things can lead to positive outcomes.",
+            question: "What does Ally realize about taking risks?",
+            options: ["That they always end badly", "That taking risks and trying new things can lead to positive outcomes", "That she should never take risks", "That risks don't matter"],
+            correct: 1
+        },
+        {
+            passage: "The day becomes a turning point where Ally truly believes she can succeed academically.",
+            question: "What makes this day significant for Ally?",
+            options: ["It's just like any other day", "It becomes a turning point where she truly believes she can succeed", "It's the worst day ever", "Nothing important happens"],
+            correct: 1
+        }
+    ],
+
+    29: [ // Chapter 30: Mind Movies
+        {
+            passage: "Ally describes how she sees 'mind movies' - vivid mental images that help her understand and remember information.",
+            question: "What are 'mind movies' that Ally describes?",
+            options: ["Real movies she watches", "Vivid mental images that help her understand and remember information", "Dreams she has at night", "Stories she reads in books"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels explains that having a visual and creative mind is actually a strength, not a weakness.",
+            question: "What does Mr. Daniels tell Ally about her visual and creative mind?",
+            options: ["That it's a problem", "That it's actually a strength, not a weakness", "That she should ignore it", "That it's very rare"],
+            correct: 1
+        },
+        {
+            passage: "Ally learns to use her 'mind movies' as a tool for learning and understanding complex concepts.",
+            question: "How does Ally learn to use her 'mind movies'?",
+            options: ["To avoid learning", "As a tool for learning and understanding complex concepts", "Only for entertainment", "To confuse herself"],
+            correct: 1
+        },
+        {
+            passage: "Other students become interested in Ally's creative approach to learning and ask her to share her techniques.",
+            question: "How do other students respond to Ally's creative learning approach?",
+            options: ["They think it's weird", "They become interested and ask her to share her techniques", "They ignore it completely", "They make fun of it"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that what she once thought made her strange actually makes her special and valuable.",
+            question: "What realization does Ally have about her differences?",
+            options: ["That they make her inferior", "That what she thought made her strange actually makes her special and valuable", "That she should hide them", "That they don't matter"],
+            correct: 1
+        }
+    ],
+
+    30: [ // Chapter 31: What I Know Now
+        {
+            passage: "Ally reflects on everything she's learned about herself, her abilities, and her worth as a person.",
+            question: "What does Ally reflect on in this chapter?",
+            options: ["Only her failures", "Everything she's learned about herself, her abilities, and her worth", "What she wants for lunch", "Her weekend plans"],
+            correct: 1
+        },
+        {
+            passage: "She understands now that having dyslexia doesn't define her - it's just one part of who she is.",
+            question: "What does Ally understand about her dyslexia now?",
+            options: ["That it defines everything about her", "That it doesn't define her - it's just one part of who she is", "That it makes her worthless", "That she should be ashamed of it"],
+            correct: 1
+        },
+        {
+            passage: "Ally knows that she has strengths in creativity, problem-solving, and understanding others that are valuable.",
+            question: "What strengths does Ally recognize in herself?",
+            options: ["She has no strengths", "Creativity, problem-solving, and understanding others", "Only academic skills", "Only athletic abilities"],
+            correct: 1
+        },
+        {
+            passage: "She appreciates Mr. Daniels for seeing her potential when she couldn't see it herself.",
+            question: "How does Ally feel about Mr. Daniels?",
+            options: ["She's angry with him", "She appreciates him for seeing her potential when she couldn't", "She's indifferent toward him", "She thinks he was wrong about her"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that everyone has challenges and that having support makes all the difference.",
+            question: "What important understanding does Ally develop about challenges and support?",
+            options: ["That only she has challenges", "That everyone has challenges and support makes all the difference", "That challenges don't matter", "That people should handle everything alone"],
+            correct: 1
+        }
+    ],
+
+    31: [ // Chapter 32: Impossible Things
+        {
+            passage: "Ally looks back at her Sketchbook of Impossible Things and realizes many of those 'impossible' things are now possible.",
+            question: "What does Ally realize about her Sketchbook of Impossible Things?",
+            options: ["That everything is still impossible", "That many of those 'impossible' things are now possible", "That she should throw it away", "That it was just for fun"],
+            correct: 1
+        },
+        {
+            passage: "Things like feeling smart, having friends, and succeeding in school are no longer impossible dreams.",
+            question: "What things are no longer impossible dreams for Ally?",
+            options: ["Nothing has changed", "Feeling smart, having friends, and succeeding in school", "Only getting good grades", "Only making one friend"],
+            correct: 1
+        },
+        {
+            passage: "Ally starts drawing new pictures in her sketchbook - things that represent her hopes and goals for the future.",
+            question: "What does Ally start drawing in her sketchbook now?",
+            options: ["The same impossible things", "New pictures representing her hopes and goals for the future", "Nothing at all", "Only sad pictures"],
+            correct: 1
+        },
+        {
+            passage: "She realizes that 'impossible' often just means 'I haven't found the right way yet.'",
+            question: "What does Ally realize about the word 'impossible'?",
+            options: ["That it always means never", "That it often just means 'I haven't found the right way yet'", "That it's always true", "That it doesn't exist"],
+            correct: 1
+        },
+        {
+            passage: "Ally's new understanding gives her courage to set bigger goals and dream bigger dreams.",
+            question: "What does Ally's new understanding give her?",
+            options: ["Fear of the future", "Courage to set bigger goals and dream bigger dreams", "Desire to give up", "Confusion about her abilities"],
+            correct: 1
+        }
+    ],
+
+    32: [ // Chapter 33: Finding My Voice
+        {
+            passage: "Ally discovers that she has found her voice - both literally in speaking up and figuratively in expressing who she is.",
+            question: "What has Ally discovered about finding her voice?",
+            options: ["That she should stay quiet", "That she has found her voice in speaking up and expressing who she is", "That her voice doesn't matter", "That she should only whisper"],
+            correct: 1
+        },
+        {
+            passage: "She speaks up more in class discussions and isn't afraid to share her unique perspectives.",
+            question: "How does Ally participate in class now?",
+            options: ["She never speaks", "She speaks up more and isn't afraid to share her unique perspectives", "She only repeats what others say", "She argues with everyone"],
+            correct: 1
+        },
+        {
+            passage: "Ally stands up for other students who are being treated unfairly, using her voice to help others.",
+            question: "How does Ally use her voice to help others?",
+            options: ["She doesn't help anyone", "She stands up for students who are being treated unfairly", "She only helps herself", "She makes fun of struggling students"],
+            correct: 1
+        },
+        {
+            passage: "Her confidence in expressing herself grows as she realizes her thoughts and ideas have value.",
+            question: "What happens to Ally's confidence in expressing herself?",
+            options: ["It disappears completely", "It grows as she realizes her thoughts and ideas have value", "It stays the same", "It makes her arrogant"],
+            correct: 1
+        },
+        {
+            passage: "Ally understands that finding your voice is about being authentic and true to yourself.",
+            question: "What does Ally understand about finding your voice?",
+            options: ["That it means being loud", "That it's about being authentic and true to yourself", "That it means copying others", "That it doesn't matter"],
+            correct: 1
+        }
+    ],
+
+    33: [ // Chapter 34: Trouble in Paradise
+        {
+            passage: "Even with her progress, Ally faces new challenges and realizes that growth isn't always a straight line.",
+            question: "What does Ally realize about growth and progress?",
+            options: ["That it's always smooth", "That growth isn't always a straight line", "That she should stop trying", "That progress is impossible"],
+            correct: 1
+        },
+        {
+            passage: "A substitute teacher who doesn't understand Ally's needs creates difficulties and frustration.",
+            question: "What creates new difficulties for Ally?",
+            options: ["Her friends abandoning her", "A substitute teacher who doesn't understand her needs", "Failing all her tests", "Moving to a new school"],
+            correct: 1
+        },
+        {
+            passage: "Ally has to advocate for herself and explain her learning accommodations to someone who is skeptical.",
+            question: "What does Ally have to do with the substitute teacher?",
+            options: ["Hide her needs completely", "Advocate for herself and explain her learning accommodations", "Give up and not participate", "Ask to go home"],
+            correct: 1
+        },
+        {
+            passage: "The experience teaches Ally that she will need to be her own advocate throughout her life.",
+            question: "What important lesson does this experience teach Ally?",
+            options: ["That she can't succeed", "That she will need to be her own advocate throughout life", "That teachers are all mean", "That she should avoid challenges"],
+            correct: 1
+        },
+        {
+            passage: "Despite the setback, Ally doesn't let it destroy her newfound confidence and self-worth.",
+            question: "How does Ally handle this setback?",
+            options: ["She gives up completely", "She doesn't let it destroy her newfound confidence and self-worth", "She becomes very angry", "She stops trying in school"],
+            correct: 1
+        }
+    ],
+
+    34: [ // Chapter 35: To-Shay
+        {
+            passage: "Ally learns about the word 'touché' and how it means acknowledging when someone makes a good point.",
+            question: "What does Ally learn about the word 'touché'?",
+            options: ["That it's a French food", "That it means acknowledging when someone makes a good point", "That it's a type of dance", "That it's an insult"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels uses the concept of 'touché' to teach about respecting different viewpoints and ideas.",
+            question: "How does Mr. Daniels use the concept of 'touché' in teaching?",
+            options: ["To criticize students", "To teach about respecting different viewpoints and ideas", "To avoid discussions", "To end arguments quickly"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to appreciate that there can be multiple right answers and ways of thinking about problems.",
+            question: "What does Ally begin to appreciate about problem-solving?",
+            options: ["That there's only one right answer", "That there can be multiple right answers and ways of thinking", "That answers don't matter", "That thinking is pointless"],
+            correct: 1
+        },
+        {
+            passage: "She learns to say 'touché' when others make good points, showing intellectual humility and growth.",
+            question: "How does Ally show intellectual growth?",
+            options: ["By never admitting others are right", "By saying 'touché' when others make good points, showing humility", "By arguing with everyone", "By staying silent always"],
+            correct: 1
+        },
+        {
+            passage: "The lesson helps Ally understand that learning means being open to new ideas and changing your mind.",
+            question: "What does this lesson teach Ally about learning?",
+            options: ["That you should never change your mind", "That learning means being open to new ideas and changing your mind", "That learning is impossible", "That ideas don't matter"],
+            correct: 1
+        }
+    ],
+
+    35: [ // Chapter 36: All Mixed Up
+        {
+            passage: "Ally reflects on how she used to feel all mixed up and confused about her abilities and worth.",
+            question: "How does Ally reflect on her past feelings?",
+            options: ["That she was always confident", "That she used to feel all mixed up and confused about her abilities", "That nothing has changed", "That she was always happy"],
+            correct: 1
+        },
+        {
+            passage: "She realizes that what she thought was being 'mixed up' was actually her brain working differently, not wrongly.",
+            question: "What realization does Ally have about being 'mixed up'?",
+            options: ["That she really was confused", "That it was her brain working differently, not wrongly", "That she should be ashamed", "That everyone is mixed up"],
+            correct: 1
+        },
+        {
+            passage: "Ally understands now that different doesn't mean defective - it means unique and valuable.",
+            question: "What does Ally understand about being different?",
+            options: ["That different means defective", "That different doesn't mean defective - it means unique and valuable", "That different is always bad", "That everyone should be the same"],
+            correct: 1
+        },
+        {
+            passage: "She appreciates how Mr. Daniels helped her sort through the confusion to find her strengths.",
+            question: "How does Ally feel about Mr. Daniels' help?",
+            options: ["She doesn't appreciate it", "She appreciates how he helped her sort through confusion to find strengths", "She thinks he made things worse", "She wishes he had left her alone"],
+            correct: 1
+        },
+        {
+            passage: "Ally now sees her dyslexia as part of what makes her creative and innovative in her thinking.",
+            question: "How does Ally now view her dyslexia?",
+            options: ["As only a disability", "As part of what makes her creative and innovative in thinking", "As something to hide", "As completely negative"],
+            correct: 1
+        }
+    ],
+
+    36: [ // Chapter 37: Cupcakes for Everyone
+        {
+            passage: "The class has a celebration, and Ally feels included and valued as part of the group.",
+            question: "How does Ally feel during the class celebration?",
+            options: ["Left out and ignored", "Included and valued as part of the group", "Angry and resentful", "Bored and uninterested"],
+            correct: 1
+        },
+        {
+            passage: "Ally contributes to the celebration by creating decorations that showcase her artistic talents.",
+            question: "How does Ally contribute to the celebration?",
+            options: ["She doesn't participate", "She creates decorations that showcase her artistic talents", "She only watches others", "She complains about everything"],
+            correct: 1
+        },
+        {
+            passage: "Her classmates compliment her work and acknowledge her special abilities.",
+            question: "How do Ally's classmates respond to her contributions?",
+            options: ["They ignore her work", "They compliment her work and acknowledge her special abilities", "They criticize everything", "They don't notice"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that she has found her place in the classroom community.",
+            question: "What important realization does Ally have?",
+            options: ["That she doesn't belong anywhere", "That she has found her place in the classroom community", "That she should change schools", "That she prefers being alone"],
+            correct: 1
+        },
+        {
+            passage: "The celebration represents how far Ally has come from feeling like an outsider to being a valued member.",
+            question: "What does the celebration represent for Ally?",
+            options: ["Nothing important", "How far she's come from outsider to valued member", "That nothing has changed", "That she's still an outsider"],
+            correct: 1
+        }
+    ],
+
+    37: [ // Chapter 38: The Whole Package
+        {
+            passage: "Ally learns to see herself as 'the whole package' - someone with both challenges and amazing strengths.",
+            question: "How does Ally learn to see herself?",
+            options: ["As only her weaknesses", "As 'the whole package' with both challenges and amazing strengths", "As perfect in every way", "As hopeless"],
+            correct: 1
+        },
+        {
+            passage: "She understands that everyone has strengths and struggles, and that's what makes people interesting and human.",
+            question: "What does Ally understand about people in general?",
+            options: ["That some people are perfect", "That everyone has strengths and struggles, making them interesting and human", "That only she has problems", "That struggles should be hidden"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels proud of her growth and the person she is becoming.",
+            question: "How does Ally feel about her personal growth?",
+            options: ["Ashamed and disappointed", "Proud of her growth and the person she is becoming", "Indifferent", "Worried about the future"],
+            correct: 1
+        },
+        {
+            passage: "She realizes that accepting all parts of herself has made her stronger and more confident.",
+            question: "What has accepting all parts of herself done for Ally?",
+            options: ["Made her weaker", "Made her stronger and more confident", "Made her confused", "Made her angry"],
+            correct: 1
+        },
+        {
+            passage: "Ally looks forward to continuing to grow and learn in ways that work for her unique mind.",
+            question: "How does Ally feel about her future learning?",
+            options: ["She dreads it", "She looks forward to continuing to grow and learn in ways that work for her unique mind", "She wants to quit", "She's completely uncertain"],
+            correct: 1
+        }
+    ],
+
+    38: [ // Chapter 39: To-Shay (Again)
+        {
+            passage: "Ally encounters another situation where she needs to acknowledge a good point someone else makes.",
+            question: "What situation does Ally encounter?",
+            options: ["She needs to argue with someone", "She needs to acknowledge a good point someone else makes", "She needs to prove she's right", "She needs to stay silent"],
+            correct: 1
+        },
+        {
+            passage: "This time, Ally is able to gracefully acknowledge the other person's perspective without feeling diminished.",
+            question: "How does Ally handle acknowledging someone else's good point?",
+            options: ["She gets angry and defensive", "She gracefully acknowledges it without feeling diminished", "She pretends not to hear", "She changes the subject"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that being able to say 'touché' shows intellectual maturity and confidence.",
+            question: "What does Ally realize about saying 'touché'?",
+            options: ["That it shows weakness", "That it shows intellectual maturity and confidence", "That it's meaningless", "That she should avoid it"],
+            correct: 1
+        },
+        {
+            passage: "She appreciates how much she has grown in her ability to engage in respectful discussions.",
+            question: "What does Ally appreciate about her growth?",
+            options: ["Nothing has changed", "How much she has grown in engaging in respectful discussions", "That she argues better now", "That she avoids all discussions"],
+            correct: 1
+        },
+        {
+            passage: "The experience reinforces that learning involves both teaching and being taught.",
+            question: "What does this experience reinforce about learning?",
+            options: ["That learning is one-way", "That learning involves both teaching and being taught", "That teaching is impossible", "That only teachers can teach"],
+            correct: 1
+        }
+    ],
+
+    39: [ // Chapter 40: Tears of Different Kinds
+        {
+            passage: "Ally reflects on how she used to cry tears of frustration and sadness, but now sometimes cries tears of joy and pride.",
+            question: "How have the types of tears Ally cries changed?",
+            options: ["She never cries anymore", "She used to cry from frustration, now sometimes from joy and pride", "She cries more than ever", "She only cries when angry"],
+            correct: 1
+        },
+        {
+            passage: "When Ally achieves something she once thought impossible, she experiences overwhelming happiness.",
+            question: "How does Ally feel when achieving something she thought impossible?",
+            options: ["Disappointed", "Overwhelmed with happiness", "Confused", "Angry"],
+            correct: 1
+        },
+        {
+            passage: "She realizes that tears can represent many different emotions, not just sadness.",
+            question: "What does Ally realize about tears?",
+            options: ["They only mean sadness", "They can represent many different emotions, not just sadness", "They should be avoided", "They are meaningless"],
+            correct: 1
+        },
+        {
+            passage: "Ally's family notices the positive changes in her and expresses pride in her growth.",
+            question: "How does Ally's family respond to her changes?",
+            options: ["They don't notice anything", "They notice positive changes and express pride in her growth", "They're worried about her", "They think she's gotten worse"],
+            correct: 1
+        },
+        {
+            passage: "The chapter shows how emotional growth accompanies academic and social growth.",
+            question: "What does this chapter demonstrate about different types of growth?",
+            options: ["That only academic growth matters", "How emotional growth accompanies academic and social growth", "That growth is impossible", "That emotions don't matter"],
+            correct: 1
+        }
+    ],
+
+    40: [ // Chapter 41: Not-So-Secret Letter
+        {
+            passage: "Ally writes a letter expressing her gratitude to Mr. Daniels for believing in her and helping her discover her potential.",
+            question: "What does Ally write in her letter to Mr. Daniels?",
+            options: ["Complaints about school", "Gratitude for believing in her and helping discover her potential", "Requests for easier work", "Nothing important"],
+            correct: 1
+        },
+        {
+            passage: "In the letter, Ally describes how Mr. Daniels changed her life by seeing her strengths instead of focusing on her weaknesses.",
+            question: "How does Ally say Mr. Daniels changed her life?",
+            options: ["By making school harder", "By seeing her strengths instead of focusing on weaknesses", "By ignoring her completely", "By giving her special treatment"],
+            correct: 1
+        },
+        {
+            passage: "Ally shares the letter with her mom, who becomes emotional reading about her daughter's growth.",
+            question: "How does Ally's mom react when she reads the letter?",
+            options: ["She doesn't care", "She becomes emotional reading about her daughter's growth", "She gets angry", "She doesn't understand it"],
+            correct: 1
+        },
+        {
+            passage: "The letter represents Ally's ability to express herself clearly and thoughtfully in writing.",
+            question: "What does the letter represent about Ally's abilities?",
+            options: ["That she can't write", "Her ability to express herself clearly and thoughtfully in writing", "That she needs more help", "That writing is impossible for her"],
+            correct: 1
+        },
+        {
+            passage: "Mr. Daniels treasures the letter as evidence of how much his student has grown and learned.",
+            question: "How does Mr. Daniels feel about receiving the letter?",
+            options: ["He throws it away", "He treasures it as evidence of how much his student has grown", "He's disappointed", "He doesn't read it"],
+            correct: 1
+        }
+    ],
+
+    41: [ // Chapter 42: The Gifts of No Excuses, Scotch Tape, and Antibiotics
+        {
+            passage: "Ally reflects on unexpected 'gifts' that have helped her - like Mr. Daniels' policy of no excuses, which pushed her to try.",
+            question: "What unexpected 'gift' does Ally reflect on?",
+            options: ["Getting easier assignments", "Mr. Daniels' no excuses policy that pushed her to try", "Being ignored by teachers", "Having lower expectations"],
+            correct: 1
+        },
+        {
+            passage: "She thinks about how 'scotch tape' represents the small supports that helped hold her together during difficult times.",
+            question: "What does 'scotch tape' represent in Ally's metaphor?",
+            options: ["School supplies", "Small supports that helped hold her together during difficult times", "Things that are broken", "Temporary solutions"],
+            correct: 1
+        },
+        {
+            passage: "The 'antibiotics' metaphor represents how the right help at the right time can heal and strengthen someone.",
+            question: "What does the 'antibiotics' metaphor represent?",
+            options: ["Medical treatment", "How the right help at the right time can heal and strengthen", "Being sick", "Taking medicine"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that what seemed like challenges were often disguised opportunities for growth.",
+            question: "What does Ally realize about her challenges?",
+            options: ["That they were all unfair", "That they were often disguised opportunities for growth", "That they were meaningless", "That they should have been avoided"],
+            correct: 1
+        },
+        {
+            passage: "She appreciates how different types of support and intervention have contributed to her success.",
+            question: "What does Ally appreciate about her journey?",
+            options: ["That she did it all alone", "How different types of support and intervention contributed to her success", "That it was easy", "That nothing helped"],
+            correct: 1
+        }
+    ],
+
+    42: [ // Chapter 43: Set the World on Fire
+        {
+            passage: "Mr. Daniels tells Ally and her classmates that they have the potential to 'set the world on fire' in positive ways.",
+            question: "What does Mr. Daniels tell his students about their potential?",
+            options: ["That they should be careful", "That they have potential to 'set the world on fire' in positive ways", "That they should have low expectations", "That success is impossible"],
+            correct: 1
+        },
+        {
+            passage: "Ally begins to dream about how she might use her creativity and unique perspective to make a difference.",
+            question: "What does Ally begin to dream about?",
+            options: ["Being exactly like everyone else", "Using her creativity and unique perspective to make a difference", "Avoiding all challenges", "Hiding her abilities"],
+            correct: 1
+        },
+        {
+            passage: "She realizes that her different way of thinking could be exactly what the world needs for solving problems.",
+            question: "What does Ally realize about her different thinking?",
+            options: ["That it's always wrong", "That it could be exactly what the world needs for solving problems", "That she should change it", "That it doesn't matter"],
+            correct: 1
+        },
+        {
+            passage: "Ally starts to see herself as someone who could contribute something valuable and unique to the world.",
+            question: "How does Ally begin to see herself?",
+            options: ["As having nothing to offer", "As someone who could contribute something valuable and unique", "As inferior to others", "As needing to copy others"],
+            correct: 1
+        },
+        {
+            passage: "The encouragement fills Ally with excitement about her future possibilities rather than dread about her limitations.",
+            question: "How does the encouragement affect Ally's view of the future?",
+            options: ["It makes her more worried", "It fills her with excitement about possibilities rather than dread about limitations", "It doesn't change anything", "It makes her sad"],
+            correct: 1
+        }
+    ],
+
+    43: [ // Chapter 44: Tales of a Sixth Grade Something
+        {
+            passage: "Ally reflects on her sixth-grade year and how it has been transformative in ways she never expected.",
+            question: "How does Ally view her sixth-grade year?",
+            options: ["As completely terrible", "As transformative in ways she never expected", "As exactly what she expected", "As a waste of time"],
+            correct: 1
+        },
+        {
+            passage: "She thinks about how she started the year feeling like a 'nothing' and now feels like a 'something' special.",
+            question: "How has Ally's self-perception changed during the year?",
+            options: ["She feels worse about herself", "She started feeling like 'nothing' and now feels like 'something' special", "Nothing has changed", "She's more confused than ever"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that sixth grade became the year she discovered who she really is and what she's capable of.",
+            question: "What did sixth grade become for Ally?",
+            options: ["The worst year ever", "The year she discovered who she really is and what she's capable of", "Just another school year", "A year to forget"],
+            correct: 1
+        },
+        {
+            passage: "She appreciates how the challenges of sixth grade led to the most important growth of her life.",
+            question: "How does Ally view the challenges of sixth grade?",
+            options: ["As unnecessary obstacles", "As leading to the most important growth of her life", "As completely unfair", "As meaningless"],
+            correct: 1
+        },
+        {
+            passage: "Ally looks forward to seventh grade with confidence instead of the fear she used to feel about new situations.",
+            question: "How does Ally feel about seventh grade?",
+            options: ["Terrified and worried", "Confident instead of the fear she used to feel", "Completely uncertain", "Wanting to repeat sixth grade"],
+            correct: 1
+        }
+    ],
+
+    44: [ // Chapter 45: My Brother's Question
+        {
+            passage: "Travis asks Ally what she learned from Mr. Daniels, and she realizes she has learned much more than academic skills.",
+            question: "When Travis asks what she learned, what does Ally realize?",
+            options: ["That she learned nothing", "That she learned much more than just academic skills", "That she only learned math", "That learning doesn't matter"],
+            correct: 1
+        },
+        {
+            passage: "Ally explains to Travis that she learned she's not broken and doesn't need to be fixed.",
+            question: "What important lesson does Ally share with Travis?",
+            options: ["That she's broken and needs fixing", "That she's not broken and doesn't need to be fixed", "That everyone is broken", "That fixing things is impossible"],
+            correct: 1
+        },
+        {
+            passage: "She tells Travis that different minds work in different ways, and that's not a bad thing.",
+            question: "What does Ally tell Travis about different minds?",
+            options: ["That they're all wrong", "That different minds work in different ways, and that's not bad", "That everyone should think the same", "That differences don't exist"],
+            correct: 1
+        },
+        {
+            passage: "Travis seems to understand and appears relieved to hear that struggles don't mean someone is stupid.",
+            question: "How does Travis respond to Ally's explanation?",
+            options: ["He disagrees completely", "He seems to understand and appears relieved", "He gets angry", "He doesn't listen"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that sharing what she's learned might help others who struggle like she did.",
+            question: "What does Ally realize about sharing her learning?",
+            options: ["That she should keep it secret", "That sharing might help others who struggle like she did", "That no one would understand", "That her experience doesn't matter"],
+            correct: 1
+        }
+    ],
+
+    45: [ // Chapter 46: Flying Tigers and Baby Elephants
+        {
+            passage: "Albert shares his knowledge about Flying Tigers (WWII fighter planes) and how they used creative tactics to succeed.",
+            question: "What does Albert share about Flying Tigers?",
+            options: ["That they were actual tigers", "That they were WWII fighter planes that used creative tactics", "That they were baby elephants", "That they were fictional"],
+            correct: 1
+        },
+        {
+            passage: "Albert explains how the baby elephant metaphor represents how young elephants are taught they can't break free, even when they grow strong enough.",
+            question: "What does the baby elephant metaphor represent?",
+            options: ["Actual elephant training", "How young elephants are taught they can't break free, even when strong enough", "Circus performances", "Animal cruelty"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that she was like a baby elephant, believing she couldn't succeed when she actually could.",
+            question: "How does Ally relate to the baby elephant metaphor?",
+            options: ["She doesn't understand it", "She was like a baby elephant, believing she couldn't succeed when she could", "She thinks it's silly", "She relates more to tigers"],
+            correct: 1
+        },
+        {
+            passage: "Albert's wisdom about breaking free from limiting beliefs inspires all three friends.",
+            question: "How does Albert's wisdom affect the three friends?",
+            options: ["It confuses them", "His wisdom about breaking free from limiting beliefs inspires them", "They ignore him", "It makes them sad"],
+            correct: 1
+        },
+        {
+            passage: "The friends discuss how creative thinking and different approaches can lead to success, like the Flying Tigers.",
+            question: "What do the friends discuss about success?",
+            options: ["That success is impossible", "How creative thinking and different approaches can lead to success", "That there's only one way to succeed", "That success doesn't matter"],
+            correct: 1
+        }
+    ],
+
+    46: [ // Chapter 47: Great Minds Don't Think Alike
+        {
+            passage: "Mr. Daniels teaches the class that 'great minds don't think alike' - diversity of thought leads to innovation.",
+            question: "What does Mr. Daniels teach about great minds?",
+            options: ["That they all think the same", "That great minds don't think alike - diversity leads to innovation", "That thinking doesn't matter", "That there's only one right way to think"],
+            correct: 1
+        },
+        {
+            passage: "Ally understands that her different way of thinking is actually an asset, not a liability.",
+            question: "What does Ally understand about her different thinking?",
+            options: ["That it's always wrong", "That her different way of thinking is actually an asset, not a liability", "That she should hide it", "That it needs to be fixed"],
+            correct: 1
+        },
+        {
+            passage: "The class discusses famous inventors and creators who thought differently and changed the world.",
+            question: "What does the class discuss about famous inventors?",
+            options: ["That they were all the same", "Famous inventors who thought differently and changed the world", "That invention is impossible", "That creativity doesn't matter"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels proud to be part of a group of diverse thinkers rather than ashamed of being different.",
+            question: "How does Ally feel about being a diverse thinker?",
+            options: ["Ashamed and embarrassed", "Proud to be part of diverse thinkers rather than ashamed", "Confused about her place", "Indifferent"],
+            correct: 1
+        },
+        {
+            passage: "She realizes that the world needs all kinds of minds working together to solve complex problems.",
+            question: "What does Ally realize about different types of minds?",
+            options: ["That only one type matters", "That the world needs all kinds of minds working together", "That differences cause problems", "That thinking is overrated"],
+            correct: 1
+        }
+    ],
+
+    47: [ // Chapter 48: Oliver's Idea of Lucky
+        {
+            passage: "Oliver, who often acts out in class, shares his perspective on what it means to be 'lucky' in school.",
+            question: "What does Oliver share about being 'lucky'?",
+            options: ["That luck doesn't exist", "His perspective on what it means to be 'lucky' in school", "That he's always unlucky", "That school is about luck"],
+            correct: 1
+        },
+        {
+            passage: "Oliver reveals that he sometimes feels unlucky because school is hard for him in different ways.",
+            question: "What does Oliver reveal about his school experience?",
+            options: ["That school is easy", "That he sometimes feels unlucky because school is hard in different ways", "That he loves everything about school", "That he doesn't care about school"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that many students struggle in ways that aren't always visible to others.",
+            question: "What does Ally realize about student struggles?",
+            options: ["That only she struggles", "That many students struggle in ways not always visible to others", "That no one else has problems", "That struggles don't exist"],
+            correct: 1
+        },
+        {
+            passage: "The conversation helps the class understand that everyone has challenges, even those who seem to have it easy.",
+            question: "What does the conversation help the class understand?",
+            options: ["That some people are perfect", "That everyone has challenges, even those who seem to have it easy", "That challenges are rare", "That talking doesn't help"],
+            correct: 1
+        },
+        {
+            passage: "Ally appreciates how sharing struggles creates connection and understanding among classmates.",
+            question: "What does Ally appreciate about sharing struggles?",
+            options: ["That it creates drama", "How sharing struggles creates connection and understanding", "That it causes problems", "That it should be avoided"],
+            correct: 1
+        }
+    ],
+
+    48: [ // Chapter 49: I See the Light
+        {
+            passage: "Ally has a moment of clarity where she truly understands her own worth and potential.",
+            question: "What kind of moment does Ally experience?",
+            options: ["A moment of confusion", "A moment of clarity about her own worth and potential", "A moment of sadness", "A moment of anger"],
+            correct: 1
+        },
+        {
+            passage: "She 'sees the light' about how her mind works and how she can use her strengths effectively.",
+            question: "What does Ally 'see the light' about?",
+            options: ["That she can't succeed", "How her mind works and how she can use her strengths effectively", "That she should give up", "That nothing matters"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that understanding herself is the key to unlocking her potential.",
+            question: "What does Ally realize is the key to unlocking her potential?",
+            options: ["Being like everyone else", "Understanding herself", "Avoiding challenges", "Getting perfect grades"],
+            correct: 1
+        },
+        {
+            passage: "She feels a sense of hope and excitement about her future that she's never experienced before.",
+            question: "How does Ally feel about her future?",
+            options: ["Hopeless and scared", "Hopeful and excited in a way she's never experienced", "Uncertain and worried", "Indifferent"],
+            correct: 1
+        },
+        {
+            passage: "The 'light' represents Ally's newfound self-awareness and confidence in her abilities.",
+            question: "What does the 'light' represent for Ally?",
+            options: ["Confusion about herself", "Newfound self-awareness and confidence in her abilities", "Fear of the future", "Desire to be different"],
+            correct: 1
+        }
+    ],
+
+    49: [ // Chapter 50: A Hero's Job
+        {
+            passage: "Ally reflects on what it means to be a hero and realizes that heroes come in many forms.",
+            question: "What does Ally reflect on about heroes?",
+            options: ["That heroes don't exist", "What it means to be a hero and that heroes come in many forms", "That only famous people are heroes", "That being a hero is impossible"],
+            correct: 1
+        },
+        {
+            passage: "She understands that Mr. Daniels was a hero to her by believing in her when she couldn't believe in herself.",
+            question: "How was Mr. Daniels a hero to Ally?",
+            options: ["He wasn't a hero", "By believing in her when she couldn't believe in herself", "By giving her easy work", "By ignoring her problems"],
+            correct: 1
+        },
+        {
+            passage: "Ally realizes that she can be a hero to others by sharing her story and helping those who struggle.",
+            question: "How can Ally be a hero to others?",
+            options: ["By keeping her story secret", "By sharing her story and helping those who struggle", "By pretending to be perfect", "By avoiding other struggling students"],
+            correct: 1
+        },
+        {
+            passage: "She understands that a hero's job is to help others see their own potential and worth.",
+            question: "What does Ally understand about a hero's job?",
+            options: ["To be famous", "To help others see their own potential and worth", "To solve every problem", "To be perfect"],
+            correct: 1
+        },
+        {
+            passage: "Ally feels ready to take on the role of helping others who feel lost or different.",
+            question: "How does Ally feel about helping others?",
+            options: ["Reluctant and scared", "Ready to take on the role of helping others who feel lost or different", "Uninterested", "Overwhelmed"],
+            correct: 1
+        }
+    ],
+
+    50: [ // Chapter 51: C-O-U-R-A-GEnius
+        {
+            passage: "In the final chapter, Ally demonstrates both courage and genius as she helps another struggling student.",
+            question: "What does Ally demonstrate in the final chapter?",
+            options: ["Fear and confusion", "Both courage and genius as she helps another struggling student", "Anger and resentment", "Indifference"],
+            correct: 1
+        },
+        {
+            passage: "Ally approaches Travis's friend who is struggling in school, offering understanding and support.",
+            question: "What does Ally do with Travis's struggling friend?",
+            options: ["Ignores him completely", "Approaches him offering understanding and support", "Makes fun of his struggles", "Tells him to figure it out alone"],
+            correct: 1
+        },
+        {
+            passage: "She uses what she learned from Mr. Daniels to help someone else see that they're not stupid or broken.",
+            question: "How does Ally help the struggling student?",
+            options: ["By doing his work for him", "By using what she learned to help him see he's not stupid or broken", "By telling him to try harder", "By avoiding the situation"],
+            correct: 1
+        },
+        {
+            passage: "The title 'C-O-U-R-A-GEnius' combines courage and genius, showing how Ally has grown.",
+            question: "What does the chapter title 'C-O-U-R-A-GEnius' represent?",
+            options: ["A spelling mistake", "A combination of courage and genius, showing Ally's growth", "Just a funny word", "Her dyslexia"],
+            correct: 1
+        },
+        {
+            passage: "Ally's journey comes full circle as she becomes the supportive person she needed when she was struggling.",
+            question: "How does Ally's journey come full circle?",
+            options: ["She goes back to struggling", "She becomes the supportive person she needed when struggling", "Nothing changes", "She forgets her past"],
+            correct: 1
+        }
+    ]
+};
+
+  // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+       // 챕터 그리드 생성 (Fish in a Tree - 단순 그리드, 3부 구조 없음)
+function generateChapterGrid() {
+    const container = document.getElementById('chapters-container');
+    container.innerHTML = '';
+
+    const grid = document.createElement('div');
+    grid.className = 'chapters-grid';
+
+    bookData.chapterList.forEach((chapter, chapterIndex) => {
+        const chapterCard = document.createElement('div');
+        chapterCard.className = `chapter-card ${chapter.status}`;
+
+        chapterCard.innerHTML = `
+            <div class="chapter-header">
+                <div class="chapter-info">
+                    <h4>${chapter.title}</h4>
+                    <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                </div>
+                <div class="chapter-status ${chapter.status}">
+                    ${chapter.status === 'completed' ? '✅ 완료' :
+                      chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                </div>
+            </div>
+            <div class="chapter-actions">
+                <button class="chapter-btn audio-btn" onclick="playChapterAudio(${chapterIndex})"
+                        ${chapter.status === 'locked' ? 'disabled' : ''}>
+                    🎧 오디오
+                </button>
+                <button class="chapter-btn quiz-btn" onclick="startLearning(${chapterIndex})"
+                        ${chapter.status === 'locked' ? 'disabled' : ''}>
+                    📝 문제풀기
+                </button>
+            </div>
+        `;
+
+        grid.appendChild(chapterCard);
+    });
+
+    container.appendChild(grid);
+}
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #1a1a1a, #8B0000)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #1a1a1a, #8B0000)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #1a1a1a, #8B0000)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>
+

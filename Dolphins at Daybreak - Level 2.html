@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolphins at Daybreak - Level 2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #006994 0%, #0891b2 50%, #67e8f9 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #006994, #0891b2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #006994;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #006994;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #006994, #0891b2);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #006994;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #006994;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #006994;
+            background: linear-gradient(135deg, #00699408, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(0, 105, 148, 0.1);
+            color: #006994;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #006994, #0891b2);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #67e8f9, #22d3ee);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #006994, #0891b2);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #006994;
+        }
+
+        .option.selected {
+            background: rgba(0, 105, 148, 0.1);
+            border-color: #006994;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #006994, #0891b2);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #006994, #0891b2);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #006994, #0891b2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #006994, #0891b2);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #67e8f9;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🐬</div>
+                <div class="logo-text">
+                    <h1>Dolphins at Daybreak</h1>
+                    <p>Level 2 - Mary Pope Osborne의 매직 트리 하우스 9권</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="breadcrumb">
+                    <span>Dolphins at Daybreak</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🐬</div>
+                    <div class="book-info">
+                        <h2>Dolphins at Daybreak</h2>
+                        <div class="author">Mary Pope Osborne</div>
+                        <div class="book-summary">
+                            Jack and Annie travel to a coral reef in the Pacific Ocean! They discover an underwater paradise filled with colorful fish, sea turtles, and dolphins. When they get caught in a dangerous storm, they must use their wits and help from sea creatures to survive.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">10</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">50</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🌊 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Dolphins at Daybreak</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1: Master Librarians</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Dolphins at Daybreak</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1: Master Librarians</h3>
+            <p id="audio-chapter-subtitle">Dolphins at Daybreak - Mary Pope Osborne</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #006994;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Magic Tree House 9권 도서 데이터 (10챕터)
+        const bookData = {
+            id: 'MTH009',
+            title: "Dolphins at Daybreak",
+            author: 'Mary Pope Osborne',
+            cover: '🐬',
+            progress: 0,
+            chapters: 10,
+            totalQuestions: 50, // 10챕터 × 5문제
+            coverColor: 'linear-gradient(45deg, #006994, #0891b2)',
+            summary: "Jack and Annie travel to a coral reef in the Pacific Ocean! They discover an underwater paradise filled with colorful fish, sea turtles, and dolphins. When they get caught in a dangerous storm, they must use their wits and help from sea creatures to survive.",
+            chapterList: [
+                { title: 'Master Librarians', description: 'Jack and Annie learn about their new roles as Master Librarians.', status: 'current', questionCount: 5, startTime: 0 },
+                { title: 'The Coral Reef', description: 'They travel to a beautiful coral reef in the Pacific Ocean.', status: 'locked', questionCount: 5, startTime: 300 },
+                { title: 'Underwater Paradise', description: 'They explore the amazing underwater world full of sea life.', status: 'locked', questionCount: 5, startTime: 600 },
+                { title: 'Swimming with Fish', description: 'Jack and Annie swim among colorful tropical fish.', status: 'locked', questionCount: 5, startTime: 900 },
+                { title: 'The Mini-Submarine', description: 'They discover a small submarine to explore the ocean depths.', status: 'locked', questionCount: 5, startTime: 1200 },
+                { title: 'Octopus Trouble', description: 'They encounter a giant octopus in the deep waters.', status: 'locked', questionCount: 5, startTime: 1500 },
+                { title: 'The Storm', description: 'A dangerous storm threatens their underwater adventure.', status: 'locked', questionCount: 5, startTime: 1800 },
+                { title: 'Dolphin Rescue', description: 'Friendly dolphins come to help them during the storm.', status: 'locked', questionCount: 5, startTime: 2100 },
+                { title: 'The Answer Book', description: 'They find a special book that helps them understand nature.', status: 'locked', questionCount: 5, startTime: 2400 },
+                { title: 'A Gift for Teddy and Kathleen', description: 'They return with a special gift for their young friends.', status: 'locked', questionCount: 5, startTime: 2700 }
+            ]
+        };
+
+        // 문제 데이터 (전체 10챕터 완료)
+        const questionsData = {
+            0: [ // Chapter 1: Master Librarians
+                {
+                    passage: "Morgan le Fay appeared in the tree house and announced that Jack and Annie had proven themselves worthy of a special honor.",
+                    question: "What did Morgan le Fay announce to Jack and Annie?",
+                    options: ["They were in trouble", "They had proven themselves worthy of a special honor", "They needed to go home", "They were too young"],
+                    correct: 1
+                },
+                {
+                    passage: "Morgan explained that they would become Master Librarians, which meant they could help other people by finding answers to important questions.",
+                    question: "What would Jack and Annie become?",
+                    options: ["Master Teachers", "Master Librarians", "Master Scientists", "Master Artists"],
+                    correct: 1
+                },
+                {
+                    passage: "She gave them a special library card that would allow them to go on research missions to help people solve problems.",
+                    question: "What did Morgan give them for their new role?",
+                    options: ["A magic wand", "A special library card", "New books", "A map"],
+                    correct: 1
+                },
+                {
+                    passage: "Their first mission was to help solve a problem for their young friends Teddy and Kathleen, who lived in Camelot.",
+                    question: "Who were Jack and Annie supposed to help on their first mission?",
+                    options: ["Their parents", "Teddy and Kathleen from Camelot", "Other librarians", "Morgan le Fay"],
+                    correct: 1
+                },
+                {
+                    passage: "Morgan opened a book about ocean research and told them to find the answer to what lives in the ocean and helps people.",
+                    question: "What research question did Morgan give them?",
+                    options: ["What lives in the forest", "What lives in the ocean and helps people", "What lives in the sky", "What lives underground"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: The Coral Reef
+                {
+                    passage: "Jack and Annie found themselves in a mini-submarine near a beautiful coral reef in the warm, clear waters of the Pacific Ocean.",
+                    question: "Where did Jack and Annie find themselves?",
+                    options: ["In a boat on a lake", "In a mini-submarine near a coral reef", "On a beach", "In a swimming pool"],
+                    correct: 1
+                },
+                {
+                    passage: "Through the submarine's windows, they could see an amazing underwater world with bright coral formations in every color imaginable.",
+                    question: "What could they see through the submarine windows?",
+                    options: ["Nothing but darkness", "An amazing underwater world with colorful coral", "Other submarines", "Fish only"],
+                    correct: 1
+                },
+                {
+                    passage: "The coral reef was like an underwater city, bustling with life and providing homes for thousands of different sea creatures.",
+                    question: "What was the coral reef compared to?",
+                    options: ["A desert", "An underwater city bustling with life", "A mountain", "A forest"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack opened their research book and learned that coral reefs are some of the most diverse ecosystems on Earth.",
+                    question: "What did Jack learn about coral reefs from the research book?",
+                    options: ["They are empty places", "They are some of the most diverse ecosystems on Earth", "They are dangerous", "They are artificial"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie was amazed by the bright colors and wanted to explore outside the submarine to get a closer look at the sea life.",
+                    question: "What did Annie want to do?",
+                    options: ["Stay in the submarine", "Explore outside to get a closer look", "Go home", "Take pictures only"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: Underwater Paradise
+                {
+                    passage: "Jack and Annie put on special diving gear that allowed them to breathe underwater and swim freely among the coral formations.",
+                    question: "What did Jack and Annie put on to explore underwater?",
+                    options: ["Regular clothes", "Special diving gear to breathe underwater", "Heavy boots", "Life jackets only"],
+                    correct: 1
+                },
+                {
+                    passage: "Swimming through the coral reef felt like floating through a magical underwater garden filled with living sculptures.",
+                    question: "What did swimming through the coral reef feel like?",
+                    options: ["Floating through a magical underwater garden", "Running through a forest", "Climbing a mountain", "Walking through a city"],
+                    correct: 1
+                },
+                {
+                    passage: "They saw sea anemones that looked like underwater flowers, swaying gently in the ocean currents with their tentacles.",
+                    question: "What sea creatures looked like underwater flowers?",
+                    options: ["Fish", "Sea anemones swaying with tentacles", "Sharks", "Whales"],
+                    correct: 1
+                },
+                {
+                    passage: "Colorful parrotfish were munching on coral, and cleaner fish were busy removing parasites from larger fish.",
+                    question: "What were the fish doing in the reef?",
+                    options: ["Fighting each other", "Parrotfish munching coral and cleaner fish removing parasites", "Sleeping", "Hiding"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie discovered that the coral reef was like a busy underwater community where every creature had an important job to do.",
+                    question: "What did Annie discover about the coral reef?",
+                    options: ["It was empty", "It was like a busy community where every creature had a job", "It was dangerous", "It was boring"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: Swimming with Fish
+                {
+                    passage: "Schools of bright yellow and blue fish swam around Jack and Annie in perfect formation, creating a living rainbow.",
+                    question: "What did the schools of fish create around Jack and Annie?",
+                    options: ["A wall", "A living rainbow in perfect formation", "A dangerous situation", "Nothing special"],
+                    correct: 1
+                },
+                {
+                    passage: "A large, gentle sea turtle glided by, and Jack read that sea turtles have been swimming in the oceans for over 100 million years.",
+                    question: "What did Jack learn about sea turtles?",
+                    options: ["They are new to the ocean", "They have been swimming in oceans for over 100 million years", "They only live in lakes", "They can't swim well"],
+                    correct: 1
+                },
+                {
+                    passage: "The sea turtle seemed curious about the children and swam closer, allowing them to gently touch its ancient shell.",
+                    question: "How did the sea turtle react to Jack and Annie?",
+                    options: ["It swam away quickly", "It seemed curious and let them touch its shell", "It attacked them", "It ignored them"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie noticed that many of the fish seemed to be following patterns and working together, like they were part of a underwater dance.",
+                    question: "What did Annie notice about the fish behavior?",
+                    options: ["They were fighting", "They followed patterns and worked together like an underwater dance", "They were scared", "They were sleeping"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack learned from the book that fish often swim in schools for protection and to help each other find food.",
+                    question: "Why do fish swim in schools according to the book?",
+                    options: ["To race each other", "For protection and to help find food", "To play games", "To sleep together"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: The Mini-Submarine
+                {
+                    passage: "When they needed to explore deeper parts of the ocean, Jack and Annie returned to their special mini-submarine.",
+                    question: "Why did Jack and Annie return to the mini-submarine?",
+                    options: ["They were tired", "To explore deeper parts of the ocean", "They were scared", "To go home"],
+                    correct: 1
+                },
+                {
+                    passage: "The submarine had advanced technology that allowed them to go deeper than regular scuba divers could safely go.",
+                    question: "What was special about their submarine?",
+                    options: ["It was very old", "It had advanced technology for deep diving", "It was very slow", "It couldn't go underwater"],
+                    correct: 1
+                },
+                {
+                    passage: "As they descended deeper, the sunlight from above became dimmer and the water turned from bright blue to deep blue-green.",
+                    question: "What happened as they went deeper in the ocean?",
+                    options: ["It got brighter", "The sunlight became dimmer and water turned blue-green", "Nothing changed", "It became warmer"],
+                    correct: 1
+                },
+                {
+                    passage: "They used the submarine's powerful lights to illuminate the deep-sea creatures that lived in the darker waters.",
+                    question: "What did they use to see deep-sea creatures?",
+                    options: ["Sunlight", "The submarine's powerful lights", "Flashlights", "Candles"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack was amazed to learn that much of the deep ocean had never been explored and contained creatures unknown to science.",
+                    question: "What amazed Jack about the deep ocean?",
+                    options: ["It was empty", "Much of it had never been explored and contained unknown creatures", "It was exactly like shallow water", "It was too small"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6: Octopus Trouble
+                {
+                    passage: "A giant octopus suddenly appeared near their submarine, wrapping its long tentacles around the vessel.",
+                    question: "What happened with the giant octopus?",
+                    options: ["It swam away", "It wrapped its tentacles around their submarine", "It waved hello", "It asked for help"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack read that octopuses are highly intelligent creatures that can solve problems and use tools to get what they want.",
+                    question: "What did Jack learn about octopuses?",
+                    options: ["They are not very smart", "They are highly intelligent and can solve problems and use tools", "They only eat plants", "They can't see well"],
+                    correct: 1
+                },
+                {
+                    passage: "The octopus seemed curious about the submarine rather than aggressive, gently exploring it with its tentacles.",
+                    question: "How did the octopus behave toward the submarine?",
+                    options: ["Very aggressively", "Curious rather than aggressive, gently exploring", "Scared and hiding", "Completely ignoring it"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie remembered that octopuses are usually shy creatures and this one was probably just investigating something new in its territory.",
+                    question: "What did Annie remember about octopus behavior?",
+                    options: ["They are always dangerous", "They are usually shy and investigate new things", "They are always friendly", "They never approach anything"],
+                    correct: 1
+                },
+                {
+                    passage: "After a few moments, the octopus lost interest and gracefully swam away, changing colors as it moved through the water.",
+                    question: "What did the octopus do after investigating?",
+                    options: ["Attacked the submarine", "Gracefully swam away, changing colors", "Stayed attached", "Called other octopuses"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7: The Storm
+                {
+                    passage: "Dark clouds gathered above the ocean surface, and the water began to churn and become rough with strong currents.",
+                    question: "What weather conditions began to develop?",
+                    options: ["Clear skies", "Dark clouds gathered and water became rough", "Light rain", "Perfect weather"],
+                    correct: 1
+                },
+                {
+                    passage: "The storm created dangerous underwater currents that pushed their submarine off course and made it difficult to control.",
+                    question: "How did the storm affect their submarine?",
+                    options: ["Made it faster", "Created dangerous currents that pushed it off course", "Had no effect", "Made it easier to control"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie realized they needed to find shelter quickly, as the storm was getting stronger and more dangerous.",
+                    question: "What did Jack and Annie realize about the storm?",
+                    options: ["It was getting weaker", "They needed to find shelter quickly as it got stronger", "It would end soon", "It was not dangerous"],
+                    correct: 1
+                },
+                {
+                    passage: "The rough waters made it hard to see clearly, and they worried about being separated from the coral reef area.",
+                    question: "What problem did the rough waters create?",
+                    options: ["Made them move faster", "Made it hard to see and worry about being separated from the reef", "Improved their vision", "Made navigation easier"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie suggested they try to signal for help, even though they weren't sure if anyone else was in the area.",
+                    question: "What did Annie suggest they do?",
+                    options: ["Keep exploring", "Try to signal for help", "Go to sleep", "Ignore the storm"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: Dolphin Rescue
+                {
+                    passage: "Suddenly, a pod of dolphins appeared near their submarine, clicking and whistling as if they were trying to communicate.",
+                    question: "What appeared near their submarine during the storm?",
+                    options: ["Sharks", "A pod of dolphins clicking and whistling", "Whales", "Other submarines"],
+                    correct: 1
+                },
+                {
+                    passage: "The dolphins seemed to understand that Jack and Annie were in trouble and began to guide them toward calmer waters.",
+                    question: "What did the dolphins do when they saw Jack and Annie?",
+                    options: ["Swam away", "Understood they were in trouble and guided them to calmer waters", "Ignored them", "Made the storm worse"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack read that dolphins are known for helping humans in distress and have saved many people throughout history.",
+                    question: "What did Jack learn about dolphins helping humans?",
+                    options: ["They never help humans", "They are known for helping humans and have saved many throughout history", "They only help other dolphins", "They are afraid of humans"],
+                    correct: 1
+                },
+                {
+                    passage: "The dolphins worked together as a team, surrounding the submarine and using their bodies to help push it away from the dangerous currents.",
+                    question: "How did the dolphins help the submarine?",
+                    options: ["They called for other help", "They worked as a team, surrounding and pushing it away from currents", "They swam ahead only", "They just watched"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie was amazed by the intelligence and kindness of the dolphins, who seemed to genuinely care about helping them.",
+                    question: "What amazed Annie about the dolphins?",
+                    options: ["Their size", "Their intelligence and kindness in genuinely caring to help", "Their speed", "Their color"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9: The Answer Book
+                {
+                    passage: "Safe in the calmer waters thanks to the dolphins, Jack and Annie found a special research book floating near their submarine.",
+                    question: "What did Jack and Annie find in the calmer waters?",
+                    options: ["Treasure", "A special research book floating near them", "More dolphins", "Another submarine"],
+                    correct: 1
+                },
+                {
+                    passage: "The book contained detailed information about how sea creatures, especially dolphins, help humans and other animals in the ocean.",
+                    question: "What information did the special book contain?",
+                    options: ["Recipes for food", "How sea creatures, especially dolphins, help humans and animals", "Weather predictions", "Maps of the ocean"],
+                    correct: 1
+                },
+                {
+                    passage: "They learned that dolphins have saved countless drowning swimmers, guided lost ships to safety, and even helped fishermen find fish.",
+                    question: "What examples of dolphin help did they learn about?",
+                    options: ["Dolphins only help other dolphins", "Saved drowning swimmers, guided ships, and helped fishermen", "Dolphins avoid all humans", "Dolphins create storms"],
+                    correct: 1
+                },
+                {
+                    passage: "The book explained that dolphins have a natural instinct to help others and are one of the most caring creatures in the ocean.",
+                    question: "What did the book explain about dolphins' nature?",
+                    options: ["They are naturally aggressive", "They have a natural instinct to help others and are very caring", "They are always scared", "They only care about food"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack realized this was the answer to their research question - dolphins are what live in the ocean and help people.",
+                    question: "What answer did Jack realize they had found?",
+                    options: ["Fish help people", "Dolphins are what live in the ocean and help people", "Whales help people", "Sharks help people"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: A Gift for Teddy and Kathleen
+                {
+                    passage: "Before leaving the ocean, the friendly dolphins brought Jack and Annie a beautiful conch shell as a gift.",
+                    question: "What gift did the dolphins bring Jack and Annie?",
+                    options: ["A fish", "A beautiful conch shell", "Seaweed", "A rock"],
+                    correct: 1
+                },
+                {
+                    passage: "Back in the tree house, Jack and Annie looked at their research notes and the conch shell, excited to share their discoveries.",
+                    question: "What did Jack and Annie have to share from their ocean adventure?",
+                    options: ["Nothing", "Research notes and the conch shell", "Only pictures", "Just stories"],
+                    correct: 1
+                },
+                {
+                    passage: "Morgan le Fay appeared and congratulated them on successfully completing their first mission as Master Librarians.",
+                    question: "What did Morgan le Fay congratulate them for?",
+                    options: ["Finding treasure", "Successfully completing their first mission as Master Librarians", "Swimming well", "Making friends with fish"],
+                    correct: 1
+                },
+                {
+                    passage: "She explained that they had learned an important lesson about how animals and humans can help each other in times of need.",
+                    question: "What important lesson had they learned according to Morgan?",
+                    options: ["How to swim", "How animals and humans can help each other in times of need", "How to find shells", "How to control submarines"],
+                    correct: 1
+                },
+                {
+                    passage: "With the conch shell and their new knowledge, Jack and Annie were ready to help Teddy and Kathleen understand the importance of ocean creatures.",
+                    question: "What were Jack and Annie ready to do with their new knowledge?",
+                    options: ["Keep it secret", "Help Teddy and Kathleen understand the importance of ocean creatures", "Forget about it", "Only use it for themselves"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 자동 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const level = 'level2';
+            const bookId = 'MTH009';
+            const chapterNum = String(chapterIndex + 1).padStart(2, '0');
+            
+            const possibleFileNames = [
+                `${bookId}_chapter${chapterNum}.mp3`,
+                `${bookId}_ch${chapterNum}.mp3`,
+                `${bookId}_${chapterNum}.mp3`,
+                `magic_tree_house_9_chapter${chapterNum}.mp3`,
+                `magic_tree_house_9_ch${chapterNum}.mp3`,
+                `dolphins_at_daybreak_${chapterNum}.mp3`,
+                `mary_pope_osborne_9_chapter${chapterNum}.mp3`,
+                `${bookId}.mp3`
+            ];
+            
+            return {
+                primary: `${AUDIO_BASE_URL}${level}/${possibleFileNames[0]}`,
+                alternatives: possibleFileNames.map(fileName => `${AUDIO_BASE_URL}${level}/${fileName}`)
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioUrls = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+            // 오디오 정보 영역 다시 보이기 (새로운 오디오 플레이시)
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 찾는 중...';
+
+            function tryLoadAudio(urlIndex = 0) {
+                if (urlIndex >= audioUrls.alternatives.length) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.`;
+                    return;
+                }
+
+                const currentUrl = audioUrls.alternatives[urlIndex];
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    const startTime = chapter.startTime || 0;
+                    audioPlayer.currentTime = startTime;
+                    audioStatus.innerHTML = `✅ 오디오 준비 완료!`;
+                };
+
+                const errorHandler = function() {
+                    setTimeout(() => tryLoadAudio(urlIndex + 1), 100);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+                audioPlayer.addEventListener('error', errorHandler, { once: true });
+            }
+
+            tryLoadAudio(0);
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 기본 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            const currentChapter = parseInt(document.getElementById('audio-chapter-title').textContent.match(/Chapter (\d+)/)[1]) - 1;
+            currentAudio.currentTime = bookData.chapterList[currentChapter]?.startTime || 0;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>Chapter ${index + 1}: ${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progress = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex];
+
+            if (!questions || questions.length === 0) {
+                alert('이 챕터의 문제가 아직 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('learning-chapter-breadcrumb').textContent = `Chapter ${chapterIndex + 1}`;
+
+            showQuestion();
+            updateLearningProgress();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="question-text">문제 ${currentQuestionIndex + 1}</div>
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) selectedOption.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        // 선택지 선택
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`[data-index="${optionIndex}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateNavigationButtons();
+        }
+
+        // 네비게이션
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function updateLearningProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = progress + '%';
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+                if (currentChapterIndex < bookData.chapterList.length - 1) {
+                    bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                }
+            }
+
+            showResults(correctCount, questions.length, score);
+        }
+
+        // 결과 표시
+        function showResults(correct, total, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = score + '%';
+            document.getElementById('total-questions').textContent = total + '문제';
+            document.getElementById('correct-answers').textContent = correct + '문제';
+            document.getElementById('wrong-answers').textContent = (total - correct) + '문제';
+            document.getElementById('final-score').textContent = score + '점';
+
+            let message = '';
+            if (score >= 90) message = '훌륭합니다! 🌟';
+            else if (score >= 80) message = '잘했어요! 👏';
+            else if (score >= 70) message = '좋아요! 👍';
+            else message = '다시 한번 도전해보세요! 💪';
+
+            document.getElementById('result-message').textContent = message;
+        }
+
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        function nextChapter() {
+            if (currentChapterIndex < bookData.chapterList.length - 1) {
+                startLearning(currentChapterIndex + 1);
+            } else {
+                alert('모든 챕터를 완료했습니다! 🎉');
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드
+        window.addEventListener('load', function() {
+            showBookDetail();
+            console.log('🐬 Magic Tree House: Dolphins at Daybreak 학습 시스템이 준비되었습니다!');
+        });
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('audio-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeAudioModal();
+        });
+    </script>
+</body>
+</html>

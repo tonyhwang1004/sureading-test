@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The War That Saved My Life - Level 5 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2C3E50 0%, #3498DB 50%, #85C1E9 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #2C3E50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #2C3E50;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2C3E50;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #2C3E50;
+            background: linear-gradient(135deg, #2C3E5008, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(44, 62, 80, 0.1);
+            color: #2C3E50;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #3498DB, #85C1E9);
+            color: #333;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2C3E50, #3498DB);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2C3E50;
+        }
+
+        .option.selected {
+            background: rgba(44, 62, 80, 0.1);
+            border-color: #2C3E50;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #2C3E50, #3498DB);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #3498DB;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* Level 5 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #2C3E50, #85C1E9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🕊️</div>
+                <div class="logo-text">
+                    <h1>The War That Saved My Life</h1>
+                    <p>Level 5 - Kimberly Brubaker Bradley의 뉴베리 아너 수상작</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 5</div>
+                <div class="breadcrumb">
+                    <span>The War That Saved My Life</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🕊️</div>
+                    <div class="book-info">
+                        <h2>The War That Saved My Life</h2>
+                        <div class="author">Kimberly Brubaker Bradley</div>
+                        <div class="book-summary">
+                            Ten-year-old Ada has never left her one-room London apartment due to her abusive mother's shame over Ada's clubfoot. When WWII evacuations begin, Ada escapes with her younger brother Jamie to the English countryside, where they're reluctantly taken in by Susan Smith. Through learning to ride Susan's pony Butter, Ada discovers freedom, friendship, and her own worth. This Newbery Honor-winning tale explores themes of resilience, healing from trauma, and finding family in unexpected places during wartime Britain.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">46</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">230</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 5</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🕊️ 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The War That Saved My Life</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The War That Saved My Life</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">The War That Saved My Life - Kimberly Brubaker Bradley</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #2C3E50;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+// 🎯 The War That Saved My Life 시간 매핑 (46개 챕터)
+const warThatSavedMyLifeTimeMapping = {
+    0: { startTime: 0, endTime: 598, duration: 598 },
+    1: { startTime: 598, endTime: 1196, duration: 598 },
+    2: { startTime: 1196, endTime: 1794, duration: 598 },
+    3: { startTime: 1794, endTime: 2392, duration: 598 },
+    4: { startTime: 2392, endTime: 2990, duration: 598 },
+    5: { startTime: 2990, endTime: 3588, duration: 598 },
+    6: { startTime: 3588, endTime: 4186, duration: 598 },
+    7: { startTime: 4186, endTime: 4784, duration: 598 },
+    8: { startTime: 4784, endTime: 5382, duration: 598 },
+    9: { startTime: 5382, endTime: 5980, duration: 598 },
+    10: { startTime: 5980, endTime: 6578, duration: 598 },
+    11: { startTime: 6578, endTime: 7176, duration: 598 },
+    12: { startTime: 7176, endTime: 7774, duration: 598 },
+    13: { startTime: 7774, endTime: 8372, duration: 598 },
+    14: { startTime: 8372, endTime: 8970, duration: 598 },
+    15: { startTime: 8970, endTime: 9568, duration: 598 },
+    16: { startTime: 9568, endTime: 10166, duration: 598 },
+    17: { startTime: 10166, endTime: 10764, duration: 598 },
+    18: { startTime: 10764, endTime: 11362, duration: 598 },
+    19: { startTime: 11362, endTime: 11960, duration: 598 },
+    20: { startTime: 11960, endTime: 12558, duration: 598 },
+    21: { startTime: 12558, endTime: 13156, duration: 598 },
+    22: { startTime: 13156, endTime: 13754, duration: 598 },
+    23: { startTime: 13754, endTime: 14352, duration: 598 },
+    24: { startTime: 14352, endTime: 14950, duration: 598 },
+    25: { startTime: 14950, endTime: 15548, duration: 598 },
+    26: { startTime: 15548, endTime: 16146, duration: 598 },
+    27: { startTime: 16146, endTime: 16744, duration: 598 },
+    28: { startTime: 16744, endTime: 17342, duration: 598 },
+    29: { startTime: 17342, endTime: 17940, duration: 598 },
+    30: { startTime: 17940, endTime: 18538, duration: 598 },
+    31: { startTime: 18538, endTime: 19136, duration: 598 },
+    32: { startTime: 19136, endTime: 19734, duration: 598 },
+    33: { startTime: 19734, endTime: 20332, duration: 598 },
+    34: { startTime: 20332, endTime: 20930, duration: 598 },
+    35: { startTime: 20930, endTime: 21528, duration: 598 },
+    36: { startTime: 21528, endTime: 22126, duration: 598 },
+    37: { startTime: 22126, endTime: 22724, duration: 598 },
+    38: { startTime: 22724, endTime: 23322, duration: 598 },
+    39: { startTime: 23322, endTime: 23920, duration: 598 },
+    40: { startTime: 23920, endTime: 24518, duration: 598 },
+    41: { startTime: 24518, endTime: 25116, duration: 598 },
+    42: { startTime: 25116, endTime: 25714, duration: 598 },
+    43: { startTime: 25714, endTime: 26312, duration: 598 },
+    44: { startTime: 26312, endTime: 26910, duration: 598 },
+    45: { startTime: 26910, endTime: 27499, duration: 589 }
+};
+
+// 전역 변수
+let currentChapter = 0; // 인덱스 기반 (0-45)
+let currentChapterIndex = 0;
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let questions = [];
+let currentAudio = null;
+let playbackSpeed = 1.0;
+let isChapterMode = true; // 통합 파일에서 챕터 모드
+
+// 🎧 시간을 시:분:초 형식으로 변환하는 함수
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+// 🎯 The War That Saved My Life 오디오 URL 생성 함수 (통합 파일)
+function getAudioUrl(chapterIndex) {
+    const chapterNumber = chapterIndex + 1;
+    const chapterData = warThatSavedMyLifeTimeMapping[chapterIndex];
+
+    if (!chapterData) {
+        console.error(`Chapter ${chapterNumber} 데이터를 찾을 수 없습니다.`);
+        return null;
+    }
+
+    return {
+        primary: `${AUDIO_BASE_URL}WTSML001-War-That-Saved-My-Life/The_War_That_Saved_My_Life_Complete.mp3`,
+        chapterNumber: chapterNumber,
+        title: `Chapter ${chapterNumber}`,
+        startTime: chapterData.startTime,
+        endTime: chapterData.endTime,
+        duration: chapterData.duration,
+        file: 'The_War_That_Saved_My_Life_Complete.mp3'
+    };
+}
+
+// 🎧 챕터 끝 감지 및 다음 챕터 제안 함수
+function monitorChapterEnd(audioPlayer, chapterIndex) {
+    const chapterData = warThatSavedMyLifeTimeMapping[chapterIndex];
+    if (!chapterData) return;
+
+    const checkEnd = () => {
+        if (audioPlayer.currentTime >= chapterData.endTime) {
+            const chapterNumber = chapterIndex + 1;
+            const audioStatus = document.getElementById('audio-status');
+            const totalProgress = calculateTotalProgress();
+
+            audioStatus.innerHTML = `✅ Chapter ${chapterNumber} 완료! (전체 진행률: ${totalProgress.percentage}%)`;
+
+            // 진행률 바 100%로 업데이트
+            updateProgressBar(100, totalProgress.percentage);
+
+            document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+            console.log(`🏁 Chapter ${chapterNumber} 완료 - 전체 진행률: ${totalProgress.percentage}%`);
+
+            // 다음 챕터 자동 재생 (메시지 없이)
+            if (chapterIndex < 45) {
+                setTimeout(() => {
+                    playChapterAudio(chapterIndex + 1);
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    alert('🎉 The War That Saved My Life 완독을 축하합니다!\n최종 진행률: 100% 🏆');
+                }, 1000);
+            }
+
+            // 감시 중단
+            clearInterval(endMonitor);
+        }
+    };
+
+    // 0.5초마다 체크
+    const endMonitor = setInterval(checkEnd, 500);
+
+    // 오디오가 완전히 끝나면 감시 중단
+    audioPlayer.addEventListener('ended', () => {
+        clearInterval(endMonitor);
+    }, { once: true });
+}
+
+// 🎯 The War That Saved My Life 챕터 오디오 재생 함수
+function playChapterAudio(chapterIndex) {
+    // chapterIndex는 0-45, chapterNumber는 1-46
+    const chapterNumber = chapterIndex + 1;
+
+    if (chapterIndex < 0 || chapterIndex > 45) {
+        alert('유효하지 않은 챕터 번호입니다. (1-46)');
+        return;
+    }
+
+    const audioData = getAudioUrl(chapterIndex);
+    if (!audioData) {
+        alert(`Chapter ${chapterNumber}의 오디오 데이터를 찾을 수 없습니다.`);
+        return;
+    }
+
+    document.getElementById('audio-modal').style.display = 'flex';
+    document.getElementById('audio-chapter-title').textContent = audioData.title;
+    document.getElementById('audio-chapter-subtitle').textContent = `The War That Saved My Life - Kimberly Brubaker Bradley`;
+
+    const audioInfoElement = document.getElementById('audio-info');
+    if (audioInfoElement) {
+        audioInfoElement.classList.remove('hidden');
+    }
+
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const audioStatus = document.getElementById('audio-status');
+
+    // 현재 챕터 설정 (인덱스로 저장)
+    currentChapter = chapterIndex;
+    currentChapterIndex = chapterIndex;
+
+    audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+    // 통합 파일 로드
+    audioSource.src = audioData.primary;
+    audioPlayer.load();
+
+    const successHandler = function() {
+        // 해당 챕터 시작 지점으로 이동
+        audioPlayer.currentTime = audioData.startTime;
+
+        audioStatus.innerHTML = `✅ ${audioData.title} 준비완료!<br>
+                                📁 파일: ${audioData.file}<br>
+                                ⏰ 시간: ${formatTime(audioData.startTime)} ~ ${formatTime(audioData.endTime)} (${formatTime(audioData.duration)})<br>
+                                🎵 ▶️ 재생 버튼을 눌러주세요`;
+
+        // 진행률 바 생성
+        createProgressBars();
+
+        // 초기 진행률 표시
+        updateChapterDisplay();
+
+        // 챕터 끝 감지 시작
+        monitorChapterEnd(audioPlayer, chapterIndex);
+    };
+
+    const errorHandler = function() {
+        audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.<br>파일: ${audioData.file}`;
+        console.error('오디오 로드 실패:', audioData.primary);
+    };
+
+    audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+    audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+    currentAudio = audioPlayer;
+    playbackSpeed = 1.0;
+}
+
+// 🎧 전체 오디오북 재생 함수 (1번 챕터부터 순차 재생)
+function playFullAudiobook() {
+    playChapterAudio(0); // chapterIndex 0 = Chapter 1
+
+    // 전체 재생 모드 표시
+    setTimeout(() => {
+        document.getElementById('audio-chapter-title').textContent = 'The War That Saved My Life - 전체 재생';
+        document.getElementById('audio-chapter-subtitle').textContent = '연속 재생 모드 (Chapter 1부터)';
+    }, 500);
+}
+
+// 🎧 구간처음으로 함수 (현재 챕터 처음으로)
+function resetToChapterStart() {
+    if (!currentAudio) return;
+
+    const audioData = getAudioUrl(currentChapter);
+    if (audioData) {
+        currentAudio.currentTime = audioData.startTime;
+        console.log(`🔄 Chapter ${currentChapter + 1} 처음으로 이동`);
+
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `🔄 Chapter ${currentChapter + 1} 처음으로 이동`;
+    }
+}
+
+// 🎧 다음 챕터로 이동 함수
+function jumpToNextChapter() {
+    if (currentChapter >= 45) { // 인덱스 45 = Chapter 46
+        alert('마지막 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter + 1);
+}
+
+// 🎧 이전 챕터로 이동 함수
+function jumpToPreviousChapter() {
+    if (currentChapter <= 0) { // 인덱스 0 = Chapter 1
+        alert('첫 번째 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter - 1);
+}
+
+// 🎧 특정 챕터로 점프
+function jumpToChapter(chapterNumber) {
+    if (chapterNumber >= 1 && chapterNumber <= 46) {
+        playChapterAudio(chapterNumber - 1); // chapterNumber를 인덱스로 변환
+    } else {
+        alert('유효하지 않은 챕터 번호입니다. (1-46)');
+    }
+}
+
+// 🎧 10초 앞/뒤로 이동 (챕터 범위 내에서)
+function skipForward() {
+    if (!currentAudio) return;
+
+    const audioData = getAudioUrl(currentChapter);
+    if (audioData) {
+        const newTime = Math.min(currentAudio.currentTime + 10, audioData.endTime);
+        currentAudio.currentTime = newTime;
+    }
+}
+
+function skipBackward() {
+    if (!currentAudio) return;
+
+    const audioData = getAudioUrl(currentChapter);
+    if (audioData) {
+        const newTime = Math.max(currentAudio.currentTime - 10, audioData.startTime);
+        currentAudio.currentTime = newTime;
+    }
+}
+
+// 🎧 현재 재생 중인 챕터 정보 표시
+function getCurrentChapterInfo() {
+    if (!currentAudio) return null;
+
+    const audioData = getAudioUrl(currentChapter);
+    if (!audioData) return null;
+
+    const currentTime = currentAudio.currentTime;
+    const chapterCurrentTime = currentTime - audioData.startTime;
+    const chapterDuration = audioData.duration;
+    const progress = chapterDuration > 0 ? Math.round((chapterCurrentTime / chapterDuration) * 100) : 0;
+
+    return {
+        chapterNumber: currentChapter + 1, // 사용자에게는 1-46으로 표시
+        currentTime: formatTime(chapterCurrentTime),
+        totalCurrentTime: formatTime(currentTime),
+        duration: formatTime(chapterDuration),
+        progress: Math.max(0, Math.min(100, progress))
+    };
+}
+
+// 🎧 챕터 정보를 UI에 표시하는 함수
+function updateChapterDisplay() {
+    const info = getCurrentChapterInfo();
+    if (info) {
+        const audioStatus = document.getElementById('audio-status');
+        const totalProgress = calculateTotalProgress();
+
+        audioStatus.innerHTML = `🎵 Chapter ${info.chapterNumber}/46 재생 중 (${info.progress}% 완료)<br>
+                                📍 ${info.currentTime} / ${info.duration} (전체: ${info.totalCurrentTime})<br>
+                                📚 전체 진행률: ${totalProgress.percentage}% (${totalProgress.completedChapters}/46 챕터)`;
+
+        // 진행률 바 업데이트
+        updateProgressBar(info.progress, totalProgress.percentage);
+    }
+}
+
+// 🎧 전체 진행률 계산 함수
+function calculateTotalProgress() {
+    if (!currentAudio) return { percentage: 0, completedChapters: 0 };
+
+    const audioData = getAudioUrl(currentChapter);
+    if (!audioData) return { percentage: 0, completedChapters: 0 };
+
+    const currentTime = currentAudio.currentTime;
+    const chapterCurrentTime = currentTime - audioData.startTime;
+    const chapterDuration = audioData.duration;
+    const currentChapterProgress = chapterDuration > 0 ? (chapterCurrentTime / chapterDuration) : 0;
+
+    // 완료된 챕터 수 + 현재 챕터 진행률
+    const completedChapters = currentChapter; // 이전 챕터들은 완료로 간주
+    const totalProgress = (completedChapters + Math.max(0, currentChapterProgress)) / 46;
+
+    return {
+        percentage: Math.round(totalProgress * 100),
+        completedChapters: completedChapters,
+        currentChapterProgress: Math.round(Math.max(0, currentChapterProgress) * 100)
+    };
+}
+
+// 🎧 진행률 바 업데이트 함수
+function updateProgressBar(chapterProgress, totalProgress) {
+    // 챕터 진행률 바
+    let chapterProgressBar = document.getElementById('chapter-progress-bar');
+    if (!chapterProgressBar) {
+        createProgressBars();
+        chapterProgressBar = document.getElementById('chapter-progress-bar');
+    }
+
+    // 전체 진행률 바
+    const totalProgressBar = document.getElementById('total-progress-bar');
+
+    if (chapterProgressBar && totalProgressBar) {
+        chapterProgressBar.style.width = `${chapterProgress}%`;
+        totalProgressBar.style.width = `${totalProgress}%`;
+
+        // 색상 변경 (진행률에 따라)
+        if (chapterProgress < 30) {
+            chapterProgressBar.style.backgroundColor = '#ff6b6b';
+        } else if (chapterProgress < 70) {
+            chapterProgressBar.style.backgroundColor = '#ffa726';
+        } else {
+            chapterProgressBar.style.backgroundColor = '#66bb6a';
+        }
+
+        if (totalProgress < 30) {
+            totalProgressBar.style.backgroundColor = '#e74c3c';
+        } else if (totalProgress < 70) {
+            totalProgressBar.style.backgroundColor = '#f39c12';
+        } else {
+            totalProgressBar.style.backgroundColor = '#27ae60';
+        }
+    }
+}
+
+// 🎧 진행률 바 생성 함수
+function createProgressBars() {
+    const audioInfo = document.getElementById('audio-info');
+    if (!audioInfo || document.getElementById('progress-container')) return;
+
+    const progressContainer = document.createElement('div');
+    progressContainer.id = 'progress-container';
+    progressContainer.style.cssText = `
+        margin-top: 15px;
+        padding: 10px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 8px;
+    `;
+
+    // 챕터 진행률 바
+    const chapterProgressContainer = document.createElement('div');
+    chapterProgressContainer.innerHTML = `
+        <div style="font-size: 12px; margin-bottom: 5px; color: #666;">현재 챕터 진행률</div>
+        <div style="width: 100%; height: 8px; background: #ddd; border-radius: 4px; overflow: hidden;">
+            <div id="chapter-progress-bar" style="height: 100%; width: 0%; background: #66bb6a; transition: width 0.3s ease;"></div>
+        </div>
+    `;
+
+    // 전체 진행률 바
+    const totalProgressContainer = document.createElement('div');
+    totalProgressContainer.innerHTML = `
+        <div style="font-size: 12px; margin: 10px 0 5px 0; color: #666;">전체 도서 진행률</div>
+        <div style="width: 100%; height: 12px; background: #ddd; border-radius: 6px; overflow: hidden;">
+            <div id="total-progress-bar" style="height: 100%; width: 0%; background: #27ae60; transition: width 0.3s ease;"></div>
+        </div>
+    `;
+
+    progressContainer.appendChild(chapterProgressContainer);
+    progressContainer.appendChild(totalProgressContainer);
+    audioInfo.appendChild(progressContainer);
+}
+
+// 🎧 기본 오디오 컨트롤 함수들
+function closeAudioModal() {
+    document.getElementById('audio-modal').style.display = 'none';
+    if (currentAudio) {
+        currentAudio.pause();
+    }
+}
+
+function togglePlayPause() {
+    if (!currentAudio) return;
+
+    if (currentAudio.paused) {
+        currentAudio.play().then(() => {
+            document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = `🎵 Chapter ${currentChapter + 1} 재생 중!`;
+        }).catch(e => {
+            console.log('재생 실패:', e);
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = '❌ 재생에 실패했습니다. 다시 시도해주세요.';
+        });
+    } else {
+        currentAudio.pause();
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `⏸️ Chapter ${currentChapter + 1} 일시정지됨`;
+    }
+}
+
+function changeSpeed() {
+    if (!currentAudio) return;
+
+    const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+    const currentIndex = speeds.indexOf(playbackSpeed);
+    playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+    currentAudio.playbackRate = playbackSpeed;
+
+    const speedBtn = document.querySelector('.speed-btn');
+    if (speedBtn) {
+        speedBtn.textContent = `${playbackSpeed}x`;
+    }
+
+    console.log(`🎵 재생 속도 변경: ${playbackSpeed}x`);
+}
+
+function downloadAudio() {
+    const audioSource = document.getElementById('audio-source');
+    if (audioSource.src) {
+        const link = document.createElement('a');
+        link.href = audioSource.src;
+        link.download = 'The_War_That_Saved_My_Life_Complete.mp3';
+        link.click();
+
+        console.log(`📥 오디오 다운로드 시작: The_War_That_Saved_My_Life_Complete.mp3`);
+    } else {
+        alert('다운로드할 오디오 파일이 없습니다.');
+    }
+}
+
+// 🎧 키보드 단축키 지원
+document.addEventListener('keydown', function(event) {
+    const audioModal = document.getElementById('audio-modal');
+    if (!audioModal || audioModal.style.display === 'none') return;
+
+    switch(event.code) {
+        case 'Space':
+            event.preventDefault();
+            togglePlayPause();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            skipBackward();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            skipForward();
+            break;
+        case 'ArrowUp':
+            event.preventDefault();
+            jumpToPreviousChapter();
+            break;
+        case 'ArrowDown':
+            event.preventDefault();
+            jumpToNextChapter();
+            break;
+        case 'KeyS':
+            event.preventDefault();
+            changeSpeed();
+            break;
+        case 'KeyR':
+            event.preventDefault();
+            resetToChapterStart();
+            break;
+        case 'Escape':
+            event.preventDefault();
+            closeAudioModal();
+            break;
+    }
+});
+
+// 🎯 초기화 함수
+function initializeWarThatSavedMyLifeAudio() {
+    console.log('🎯 The War That Saved My Life 오디오 시스템 초기화 완료');
+    console.log('📚 총 46개 챕터, 통합 파일 시스템 (7시간 38분 19초)');
+    console.log('🎯 파일명: The_War_That_Saved_My_Life_Complete.mp3');
+    console.log('📊 실시간 진행률 표시 기능 포함');
+    console.log('⌨️ 키보드 단축키: Space(재생/정지), ←→(10초 스킵), ↑↓(챕터 이동), S(속도), R(처음으로), ESC(닫기)');
+
+    // 1초마다 챕터 정보 업데이트 (더 자주 업데이트)
+    setInterval(() => {
+        if (currentAudio && !currentAudio.paused) {
+            updateChapterDisplay();
+        }
+    }, 1000);
+}
+
+// 초기화 실행 (DOM 로드 후)
+document.addEventListener('DOMContentLoaded', initializeWarThatSavedMyLifeAudio);
+
+
+        // The War That Saved My Life 도서 데이터 (46챕터)
+        const bookData = {
+            id: 'WTSML001',
+            title: "The War That Saved My Life",
+            author: 'Kimberly Brubaker Bradley',
+            cover: '🕊️',
+            progress: 0,
+            chapters: 46,
+            totalQuestions: 230,
+            coverColor: 'linear-gradient(45deg, #2C3E50, #3498DB)',
+            summary: "Ten-year-old Ada has never left her one-room London apartment due to her abusive mother's shame over Ada's clubfoot. When WWII evacuations begin, Ada escapes with her younger brother Jamie to the English countryside, where they're reluctantly taken in by Susan Smith. Through learning to ride Susan's pony Butter, Ada discovers freedom, friendship, and her own worth. This Newbery Honor-winning tale explores themes of resilience, healing from trauma, and finding family in unexpected places during wartime Britain.",
+            chapterList: [
+                // Chapters 1-10: Ada's Confined Life & Escape
+                { title: 'Chapter 1', description: 'Ada sits by the window, punished by her mother for talking to Stephen White. Life in the one-room flat.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 2', description: 'Ada learns about the war and children\'s evacuation. Mam refuses to let Ada go.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 3', description: 'Ada secretly teaches herself to walk despite tremendous pain from her clubfoot.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 4', description: 'Evacuation day arrives. Ada escapes with Jamie, leaving their abusive mother behind.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 5', description: 'The train journey to Kent. Ada sees grass and countryside for the first time.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 6', description: 'Arrival at Kent station. No families want the dirty, unwanted children.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 7', description: 'Lady Thorton takes Ada and Jamie to Susan Smith\'s cottage.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 8', description: 'Susan reluctantly agrees to take them. Ada sees Butter the pony for the first time.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 9', description: 'First bath and clean clothes. Ada experiences hot water and proper food.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 10', description: 'Visit to Dr. Stuart. Ada learns her condition has a name: clubfoot.', status: 'current', questionCount: 5 },
+
+                // Chapters 11-20: Learning and Growing
+                { title: 'Chapter 11', description: 'Discussion about surgery for Ada\'s foot. Susan promises to write to Mam.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 12', description: 'Jamie starts school. Ada is deemed unfit for education due to her disability.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 13', description: 'Ada begins learning to read with Susan\'s patient help and simple books.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 14', description: 'Ada starts helping with household chores, feeling useful for the first time.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 15', description: 'Ada discovers Butter is neglected and begins secretly approaching the pony.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 16', description: 'First successful contact with Butter, who responds gently to Ada\'s touch.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 17', description: 'Ada climbs onto Butter\'s back for the first time, experiencing freedom.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 18', description: 'Susan discovers Ada riding Butter and initially reacts with anger and fear.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 19', description: 'Susan teaches Ada proper riding techniques and horse care.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 20', description: 'Ada meets Margaret Thorton, who becomes her first real friend.', status: 'current', questionCount: 5 },
+
+                // Chapters 21-30: War Intensifies & Relationships Deepen
+                { title: 'Chapter 21', description: 'The war becomes more real. Village prepares defenses and air raid shelters.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 22', description: 'Ada sees the English Channel from a hill while riding Butter.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 23', description: 'First air raid siren. Ada has panic attacks in the shelter, remembering the cabinet.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 24', description: 'Susan adds herbs to the shelter to help Ada\'s trauma responses.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 25', description: 'Jamie\'s teacher ties his left hand, forcing him to write right-handed.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 26', description: 'Susan confronts the teacher and protects Jamie from abuse.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 27', description: 'Ada and Susan\'s relationship deepens through shared experiences and trust.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 28', description: 'Susan shares stories about her life and her deceased friend Becky.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 29', description: 'Christmas approaches. Susan prepares gifts and celebrations for the children.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 30', description: 'Christmas Day. Ada has an emotional breakdown from receiving love and kindness.', status: 'current', questionCount: 5 },
+
+                // Chapters 31-40: Ada's Growing Confidence & War Escalation
+                { title: 'Chapter 31', description: 'Susan comforts Ada and explains that learning to accept love takes time.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 32', description: 'The Battle of Britain intensifies with more frequent air raids.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 33', description: 'Wounded RAF pilots arrive in the village for medical treatment.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 34', description: 'Susan turns part of her house into a makeshift medical facility.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 35', description: 'Ada helps care for wounded soldiers, discovering her talent for caregiving.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 36', description: 'Ada spots a suspicious man near the coast and suspects German spy activity.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 37', description: 'Ada reports the spy to authorities despite her physical limitations.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 38', description: 'The spy is captured. Ada becomes a local hero in newspapers.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 39', description: 'Ada\'s confidence grows from being recognized and contributing meaningfully.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 40', description: 'Susan continues writing letters to Mam about Ada\'s surgery with no response.', status: 'current', questionCount: 5 },
+
+                // Chapters 41-46: Climax & Resolution
+                { title: 'Chapter 41', description: 'Government demands payment for Ada and Jamie\'s care from their mother.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 42', description: 'Discovery that Mam has been collecting payment money while the children live with Susan.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 43', description: 'Mam threatens to take the children back to London to avoid paying support.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 44', description: 'Mam arrives unexpectedly to collect Ada and Jamie from Susan\'s care.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 45', description: 'Confrontation between Mam and Susan. Ada refuses to abandon Jamie and returns to London.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 46', description: 'London bombing and final rescue. Susan brings Ada and Jamie home safely to their new family.', status: 'current', questionCount: 5 }
+            ]
+        };
+
+
+        // 문제 데이터 (실제 스토리에 기반한 정확한 내용)
+const questionsData = {
+    0: [ // Chapter 1
+        {
+            passage: "Ada sits by the window of their one-room flat in London, watching the world outside that she's never been allowed to join.",
+            question: "Where does Ada spend most of her time in the flat?",
+            options: ["In bed", "By the window watching outside", "In the kitchen", "Reading books"],
+            correct: 1
+        },
+        {
+            passage: "Mam screams at Ada and slaps her hard because Ada was talking to Stephen White through the window.",
+            question: "Why does Mam become angry with Ada?",
+            options: ["Ada broke something", "Ada was talking to Stephen White through the window", "Ada didn't do her chores", "Ada was reading"],
+            correct: 1
+        },
+        {
+            passage: "Mam keeps Ada confined to the flat because she's ashamed of Ada's crippled foot and believes Ada is not fit to be seen.",
+            question: "Why does Mam keep Ada inside the flat?",
+            options: ["Ada is too young", "She's ashamed of Ada's crippled foot", "It's too dangerous outside", "Ada prefers to stay inside"],
+            correct: 1
+        },
+        {
+            passage: "Ada slides over the smear of blood on the floor so her mother won't see it after being hit.",
+            question: "What does Ada do with the blood on the floor?",
+            options: ["Cleans it up immediately", "Slides over it to hide it from her mother", "Shows it to Jamie", "Ignores it completely"],
+            correct: 1
+        },
+        {
+            passage: "Ada is responsible for making tea, fixing dinner, and taking care of her younger brother Jamie.",
+            question: "What are Ada's responsibilities in the household?",
+            options: ["Just playing with Jamie", "Making tea, fixing dinner, and caring for Jamie", "Only cleaning", "Nothing - she's just a child"],
+            correct: 1
+        }
+    ],
+    1: [ // Chapter 2
+        {
+            passage: "Jamie tells Ada about Hitler, the war starting, and how children might be evacuated from London to the countryside.",
+            question: "What important news does Jamie share with Ada?",
+            options: ["School is starting", "About Hitler, the war, and children's evacuation", "They're getting new clothes", "Mother is happy"],
+            correct: 1
+        },
+        {
+            passage: "Ada learns that children are being sent away from London to keep them safe from expected bombing attacks.",
+            question: "Why are children being evacuated from London?",
+            options: ["For a holiday", "To keep them safe from bombing attacks", "Because schools are closing", "To work on farms"],
+            correct: 1
+        },
+        {
+            passage: "Mam refuses to let Ada be evacuated, claiming that nobody would want to take care of a crippled child.",
+            question: "What is Mam's reason for refusing Ada's evacuation?",
+            options: ["Ada is needed at home", "Nobody would want to take care of a crippled child", "It costs too much money", "Ada doesn't want to go"],
+            correct: 1
+        },
+        {
+            passage: "Ada realizes that if Jamie is evacuated without her, she will be left alone with their abusive mother.",
+            question: "What does Ada fear about the evacuation?",
+            options: ["Jamie will forget her", "She'll be left alone with their abusive mother", "She'll miss London", "She won't understand the war"],
+            correct: 1
+        },
+        {
+            passage: "Ada begins to understand that the war might be her only chance for freedom if she can learn to walk.",
+            question: "How does Ada view the war?",
+            options: ["As something terrifying", "As her only chance for freedom", "As an inconvenience", "As something that doesn't affect her"],
+            correct: 1
+        }
+    ],
+    2: [ // Chapter 3
+        {
+            passage: "Ada secretly practices walking when her mother is at work, enduring tremendous pain from her twisted clubfoot.",
+            question: "What does Ada do in secret while her mother is away?",
+            options: ["Reads books", "Practices walking despite tremendous pain", "Talks to neighbors", "Sleeps"],
+            correct: 1
+        },
+        {
+            passage: "Ada's determination to learn to walk is driven by her desperate desire to escape with Jamie during the evacuation.",
+            question: "What motivates Ada to endure the pain of learning to walk?",
+            options: ["To impress her mother", "Her desperate desire to escape with Jamie", "To become independent", "To play outside"],
+            correct: 1
+        },
+        {
+            passage: "Each step causes Ada excruciating pain, but she forces herself to practice every day to build strength.",
+            question: "How does Ada approach her walking practice?",
+            options: ["She gives up when it hurts", "She practices every day despite excruciating pain", "She asks for help", "She only tries occasionally"],
+            correct: 1
+        },
+        {
+            passage: "Ada keeps her walking practice completely secret from both her mother and Jamie, knowing the consequences would be severe.",
+            question: "Who knows about Ada's walking practice?",
+            options: ["Jamie", "Her mother", "The neighbors", "No one - it's completely secret"],
+            correct: 3
+        },
+        {
+            passage: "By the end of her practice sessions, Ada can take several painful steps across their small room.",
+            question: "What progress has Ada made by the end of the chapter?",
+            options: ["She can run", "She can take several painful steps across the room", "She can walk perfectly", "She hasn't improved at all"],
+            correct: 1
+        }
+    ],
+    3: [ // Chapter 4
+        {
+            passage: "The evacuation day arrives, and Ada decides she will not let Jamie go alone, despite Mam's refusal to include her.",
+            question: "What does Ada decide on evacuation day?",
+            options: ["To stay home", "She will not let Jamie go alone", "To tell her mother everything", "To hide until it's over"],
+            correct: 1
+        },
+        {
+            passage: "While Mam sleeps late, Ada helps Jamie get ready and secretly prepares to escape with him.",
+            question: "What does Ada do while her mother sleeps?",
+            options: ["Makes breakfast", "Helps Jamie get ready and prepares to escape", "Cleans the flat", "Waits for instructions"],
+            correct: 1
+        },
+        {
+            passage: "Ada uses her secretly learned walking ability to make it down the three flights of stairs for the first time in her life.",
+            question: "How does Ada manage to leave the building?",
+            options: ["Jamie carries her", "She crawls down", "She uses her secretly learned walking ability", "Her mother helps"],
+            correct: 2
+        },
+        {
+            passage: "For the first time ever, Ada steps outside into the world beyond their flat, feeling overwhelmed by the open space.",
+            question: "What happens when Ada first goes outside?",
+            options: ["She immediately wants to go back", "She steps outside for the first time ever", "She gets lost", "She faints"],
+            correct: 1
+        },
+        {
+            passage: "Ada and Jamie join the other evacuee children at the collection point, with Ada terrified but determined.",
+            question: "Where do Ada and Jamie go after leaving the flat?",
+            options: ["To school", "To the collection point with other evacuee children", "To a neighbor's house", "To the hospital"],
+            correct: 1
+        }
+    ],
+    4: [ // Chapter 5
+        {
+            passage: "On the train to Kent, Ada experiences motion sickness but is amazed by seeing green grass and countryside for the first time.",
+            question: "How does Ada react to the train journey?",
+            options: ["She sleeps the whole time", "She's sick but amazed by seeing grass and countryside", "She's completely comfortable", "She refuses to look outside"],
+            correct: 1
+        },
+        {
+            passage: "Ada doesn't know how to use a proper toilet and has to ask Jamie for help in the train's bathroom.",
+            question: "What difficulty does Ada face on the train?",
+            options: ["She can't read the signs", "She doesn't know how to use a proper toilet", "She loses her ticket", "She can't find Jamie"],
+            correct: 1
+        },
+        {
+            passage: "When Ada sees herself in a mirror for the first time, she's shocked by how dirty and thin she looks compared to other children.",
+            question: "What shocks Ada when she sees her reflection?",
+            options: ["How pretty she is", "How dirty and thin she looks", "Her hair color", "Her height"],
+            correct: 1
+        },
+        {
+            passage: "Ada and Jamie are clearly the dirtiest and most neglected-looking children on the entire train.",
+            question: "How do Ada and Jamie compare to other evacuee children?",
+            options: ["They're the cleanest", "They're clearly the dirtiest and most neglected", "They look exactly the same", "They're the best dressed"],
+            correct: 1
+        },
+        {
+            passage: "Despite her fear and discomfort, Ada feels growing excitement about the unknown adventure ahead.",
+            question: "What emotion grows in Ada during the journey?",
+            options: ["Pure fear", "Growing excitement about the unknown adventure", "Homesickness", "Anger at Jamie"],
+            correct: 1
+        }
+    ],
+    5: [ // Chapter 6
+        {
+            passage: "At Kent station, families choose children to take home, but no one wants Ada and Jamie due to their poor appearance.",
+            question: "What happens when Ada and Jamie arrive at Kent station?",
+            options: ["They're immediately chosen", "No one wants them due to their poor appearance", "They're sent back to London", "They choose their own family"],
+            correct: 1
+        },
+        {
+            passage: "Ada watches as other children are picked by families while she and Jamie are left standing alone.",
+            question: "What does Ada observe at the station?",
+            options: ["Everyone is friendly", "Other children are picked while she and Jamie are left alone", "All children are treated equally", "Families are fighting"],
+            correct: 1
+        },
+        {
+            passage: "Lady Thorton, who organizes the evacuation, is left with the unwanted children including Ada and Jamie.",
+            question: "Who is responsible for the children that aren't chosen?",
+            options: ["The train conductor", "Lady Thorton who organizes evacuations", "A school teacher", "The police"],
+            correct: 1
+        },
+        {
+            passage: "Ada observes the beautiful Kent countryside with wonder, having never seen such green fields and open spaces.",
+            question: "How does Ada react to seeing the Kent countryside?",
+            options: ["She's frightened", "She observes with wonder at the green fields", "She wants to go home", "She falls asleep"],
+            correct: 1
+        },
+        {
+            passage: "Despite being unwanted, Ada feels a small spark of hope that maybe life could be different in this place.",
+            question: "What does Ada feel despite being rejected?",
+            options: ["Complete despair", "A small spark of hope that life could be different", "Anger at everyone", "Nothing at all"],
+            correct: 1
+        }
+    ],
+    6: [ // Chapter 7
+        {
+            passage: "Lady Thorton drives Ada and Jamie to a cottage where a woman named Susan Smith lives alone.",
+            question: "Where does Lady Thorton take the children?",
+            options: ["To her own home", "To Susan Smith's cottage", "To an orphanage", "To a school"],
+            correct: 1
+        },
+        {
+            passage: "Susan Smith argues with Lady Thorton, insisting she never agreed to take any evacuee children.",
+            question: "How does Susan initially react to the children arriving?",
+            options: ["She welcomes them warmly", "She argues that she never agreed to take children", "She immediately starts cooking", "She calls for help"],
+            correct: 1
+        },
+        {
+            passage: "Lady Thorton pressures Susan by saying it's her patriotic duty to help with the war effort by taking in evacuees.",
+            question: "How does Lady Thorton convince Susan?",
+            options: ["She offers money", "She says it's her patriotic duty for the war effort", "She threatens her", "She begs desperately"],
+            correct: 1
+        },
+        {
+            passage: "Ada notices a beautiful pony in the field behind Susan's cottage and is immediately fascinated by it.",
+            question: "What captures Ada's attention at Susan's cottage?",
+            options: ["A vegetable garden", "A beautiful pony in the field", "A cat", "The size of the house"],
+            correct: 1
+        },
+        {
+            passage: "Susan finally agrees reluctantly, warning that she doesn't know anything about caring for children.",
+            question: "What warning does Susan give when she agrees?",
+            options: ["She's very strict", "She doesn't know anything about caring for children", "She's very poor", "She travels frequently"],
+            correct: 1
+        }
+    ],
+    7: [ // Chapter 8
+        {
+            passage: "Susan shows Ada and Jamie to separate bedrooms - the first time Ada has ever had her own private space.",
+            question: "What is significant about the sleeping arrangements?",
+            options: ["The rooms are very fancy", "It's Ada's first time having her own private space", "The beds are too small", "They have to share"],
+            correct: 1
+        },
+        {
+            passage: "Susan runs a hot bath for the children, and Ada experiences running hot water for the very first time.",
+            question: "What new experience does Ada have during bath time?",
+            options: ["Swimming", "Running hot water for the first time", "Bubble bath", "A large bathtub"],
+            correct: 1
+        },
+        {
+            passage: "While bathing the children, Susan discovers the extent of Ada's neglect - malnutrition, skin problems, and poor hygiene.",
+            question: "What does Susan discover about Ada's physical condition?",
+            options: ["She's perfectly healthy", "Malnutrition, skin problems, and poor hygiene", "She's very strong", "She has no problems"],
+            correct: 1
+        },
+        {
+            passage: "Susan provides the children with clean clothes and prepares more food than Ada has seen in months.",
+            question: "What does Susan provide that amazes Ada?",
+            options: ["New toys", "Clean clothes and more food than she's seen in months", "Books to read", "Games to play"],
+            correct: 1
+        },
+        {
+            passage: "For the first time in her life, Ada goes to sleep in a clean bed with a full stomach and warm clothes.",
+            question: "What makes Ada's first night special?",
+            options: ["She can't sleep", "First time sleeping clean, fed, and warm", "She has nightmares", "She misses her mother"],
+            correct: 1
+        }
+    ],
+    8: [ // Chapter 9
+        {
+            passage: "Ada wakes up confused and disoriented, having never before slept in a real bed with clean sheets.",
+            question: "Why is Ada confused when she wakes up?",
+            options: ["She doesn't remember where she is", "She's never slept in a real bed with clean sheets", "She's sick", "She had strange dreams"],
+            correct: 1
+        },
+        {
+            passage: "Susan prepares a breakfast of eggs, bacon, and toast - food that Ada has only dreamed about eating.",
+            question: "What does Susan's breakfast represent to Ada?",
+            options: ["Normal food", "Food she has only dreamed about eating", "Too much food", "Strange foreign food"],
+            correct: 1
+        },
+        {
+            passage: "Ada remains suspicious of Susan's kindness, expecting to be hurt or punished at any moment.",
+            question: "How does Ada react to Susan's kindness?",
+            options: ["She trusts immediately", "She remains suspicious, expecting punishment", "She takes it for granted", "She demands more"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains the house rules, including that the children must not go near the pony without permission.",
+            question: "What important rule does Susan give about the pony?",
+            options: ["They can ride it anytime", "They must not go near it without permission", "They must feed it daily", "They should avoid it completely"],
+            correct: 1
+        },
+        {
+            passage: "Despite the warning, Ada is already planning how she might get closer to the beautiful pony named Butter.",
+            question: "What is Ada secretly planning?",
+            options: ["To run away", "How to get closer to the pony named Butter", "To contact her mother", "To explore the village"],
+            correct: 1
+        }
+    ],
+    9: [ // Chapter 10
+        {
+            passage: "Susan takes Ada and Jamie to see Dr. Stuart, who is shocked by the extent of Ada's untreated clubfoot.",
+            question: "What shocks Dr. Stuart when he examines Ada?",
+            options: ["How tall she is", "The extent of her untreated clubfoot", "Her intelligence", "Her good health"],
+            correct: 1
+        },
+        {
+            passage: "Dr. Stuart explains that Ada's clubfoot could have been easily treated as a baby, but now will require surgery.",
+            question: "What does Dr. Stuart say about Ada's condition?",
+            options: ["It can't be fixed", "Could have been treated as baby, now needs surgery", "It will heal naturally", "It's perfectly normal"],
+            correct: 1
+        },
+        {
+            passage: "For the first time, Ada learns that her condition has an actual name - clubfoot - and that it's not her fault.",
+            question: "What important discovery does Ada make?",
+            options: ["Her condition is getting worse", "Her condition has a name and it's not her fault", "She's the only one with this problem", "It will hurt forever"],
+            correct: 1
+        },
+        {
+            passage: "Dr. Stuart prescribes medicines for Ada's other health problems and recommends proper nutrition and fresh air.",
+            question: "What treatment does Dr. Stuart recommend?",
+            options: ["Only surgery", "Medicines, proper nutrition, and fresh air", "Complete bed rest", "Special shoes only"],
+            correct: 1
+        },
+        {
+            passage: "For the first time in her life, Ada feels hope that her pain might not be permanent.",
+            question: "What new emotion does Ada experience after the doctor visit?",
+            options: ["Fear", "Hope that her pain might not be permanent", "Anger", "Confusion"],
+            correct: 1
+        }
+    ],
+    10: [ // Chapter 11
+        {
+            passage: "Susan explains that surgery for Ada's foot requires money and written permission from Ada's mother.",
+            question: "What obstacles exist for Ada's surgery?",
+            options: ["The doctor refuses", "It requires money and her mother's permission", "Ada is too young", "No hospital is available"],
+            correct: 1
+        },
+        {
+            passage: "Ada feels devastated learning that her mother's approval is needed, knowing Mam will never agree to help her.",
+            question: "Why does Ada feel devastated about needing permission?",
+            options: ["She misses her mother", "She knows Mam will never agree to help", "She's afraid of surgery", "It costs too much"],
+            correct: 1
+        },
+        {
+            passage: "Susan promises to write letters to Ada's mother trying to convince her to allow the surgery.",
+            question: "What does Susan promise to do?",
+            options: ["Visit London", "Write letters to convince Ada's mother", "Pay for everything", "Find another doctor"],
+            correct: 1
+        },
+        {
+            passage: "Dr. Stuart fits Ada with crutches to help her walk more easily and with much less pain.",
+            question: "What immediate help does Dr. Stuart provide?",
+            options: ["Special shoes", "Crutches to help her walk with less pain", "A wheelchair", "Pain medicine only"],
+            correct: 1
+        },
+        {
+            passage: "Using crutches for the first time, Ada is amazed by how much faster and easier movement becomes.",
+            question: "How do the crutches affect Ada's mobility?",
+            options: ["They make walking harder", "Movement becomes much faster and easier", "They don't help at all", "They hurt her arms"],
+            correct: 1
+        }
+    ],
+    11: [ // Chapter 12
+        {
+            passage: "Jamie begins attending the village school while Ada is told she's unfit for formal education due to her disability.",
+            question: "What happens regarding school for the children?",
+            options: ["Both attend school", "Jamie attends but Ada is deemed unfit", "Neither goes to school", "Ada goes but Jamie doesn't"],
+            correct: 1
+        },
+        {
+            passage: "While Jamie is at school, Ada spends her time watching Butter the pony and longing to get closer.",
+            question: "How does Ada spend her time when Jamie is at school?",
+            options: ["Reading books", "Watching Butter and longing to get closer", "Cleaning house", "Sleeping"],
+            correct: 1
+        },
+        {
+            passage: "Susan gives Ada simple household chores, treating her like a capable person rather than an invalid.",
+            question: "How does Susan treat Ada regarding work?",
+            options: ["Like an invalid who can't work", "Like a capable person with chores", "Like a guest who shouldn't work", "Like a servant"],
+            correct: 1
+        },
+        {
+            passage: "Ada discovers that Susan has been neglecting Butter's care, which makes her angry on the pony's behalf.",
+            question: "What discovery makes Ada angry?",
+            options: ["Susan is mean to children", "Susan has been neglecting Butter's care", "Jamie is unhappy", "The house is dirty"],
+            correct: 1
+        },
+        {
+            passage: "Despite Susan's rules, Ada begins secretly approaching Butter when no one is watching.",
+            question: "What does Ada begin doing secretly?",
+            options: ["Writing letters", "Approaching Butter when no one watches", "Leaving the property", "Reading Susan's books"],
+            correct: 1
+        }
+    ],
+    12: [ // Chapter 13
+        {
+            passage: "Susan begins teaching Ada to read using simple picture books, starting with basic letters and words.",
+            question: "What does Susan begin teaching Ada?",
+            options: ["Mathematics", "Reading using simple picture books", "Writing stories", "Geography"],
+            correct: 1
+        },
+        {
+            passage: "Ada feels frustrated and embarrassed by her inability to read, believing she's stupid and worthless.",
+            question: "How does Ada feel about not knowing how to read?",
+            options: ["Proud and confident", "Frustrated and embarrassed, feeling stupid", "Excited to learn", "Completely indifferent"],
+            correct: 1
+        },
+        {
+            passage: "Susan patiently explains that Ada's ignorance is not her fault but the result of her mother's neglect.",
+            question: "How does Susan explain Ada's lack of education?",
+            options: ["Ada is naturally slow", "It's not her fault but due to neglect", "Ada didn't try hard enough", "Some people can't learn"],
+            correct: 1
+        },
+        {
+            passage: "As Ada begins recognizing letters and simple words, she experiences the joy of understanding written language.",
+            question: "What joy does Ada experience as she learns?",
+            options: ["Writing her name", "Understanding written language", "Memorizing poems", "Spelling long words"],
+            correct: 1
+        },
+        {
+            passage: "Susan reads stories aloud each evening, introducing Ada and Jamie to literature and imagination.",
+            question: "What new experience does Susan provide in the evenings?",
+            options: ["Radio programs", "Reading stories aloud", "Music lessons", "Art classes"],
+            correct: 1
+        }
+    ],
+    13: [ // Chapter 14
+        {
+            passage: "Ada learns to help with cooking, cleaning, and other household tasks, developing practical life skills.",
+            question: "What new skills does Ada develop?",
+            options: ["Only reading", "Cooking, cleaning, and household tasks", "Just horse riding", "Only gardening"],
+            correct: 1
+        },
+        {
+            passage: "Susan teaches Ada to sew, starting with simple stitches and gradually working up to mending clothes.",
+            question: "What specific skill does Susan teach Ada?",
+            options: ["Knitting", "Sewing, starting with simple stitches", "Embroidery", "Weaving"],
+            correct: 1
+        },
+        {
+            passage: "Ada takes great pride in being useful and contributing to the household rather than being a burden.",
+            question: "How does Ada feel about helping with housework?",
+            options: ["She hates all work", "She takes pride in being useful rather than a burden", "She thinks it's unfair", "She prefers being lazy"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains how wartime rationing works and involves Ada in planning meals with limited ingredients.",
+            question: "What does Susan teach Ada about wartime life?",
+            options: ["How to hide from bombs", "How rationing works and meal planning", "Military strategy", "How to send letters"],
+            correct: 1
+        },
+        {
+            passage: "Ada begins to understand that she has intelligence and capabilities that were never recognized before.",
+            question: "What realization does Ada come to about herself?",
+            options: ["She's not very smart", "She has intelligence and capabilities never recognized", "She's exactly like her mother said", "She can't learn anything"],
+            correct: 1
+        }
+    ],
+    14: [ // Chapter 15
+        {
+            passage: "Ada discovers that Butter is lonely and neglected, just like she was in London, creating a bond between them.",
+            question: "What does Ada realize about Butter?",
+            options: ["Butter is perfectly happy", "Butter is lonely and neglected like she was", "Butter is wild and dangerous", "Butter doesn't like people"],
+            correct: 1
+        },
+        {
+            passage: "Despite the rules against it, Ada begins spending more time near Butter's field, watching and learning his behavior.",
+            question: "What does Ada do despite the rules?",
+            options: ["Stays away from Butter", "Spends time near Butter's field watching him", "Tells Susan about Butter", "Ignores the pony completely"],
+            correct: 1
+        },
+        {
+            passage: "Ada notices that Butter needs grooming, proper feeding, and attention that he's not receiving from Susan.",
+            question: "What does Ada notice about Butter's care?",
+            options: ["He's perfectly cared for", "He needs grooming, feeding, and attention he's not getting", "Susan spoils him too much", "He's too wild to care for"],
+            correct: 1
+        },
+        {
+            passage: "Ada feels angry that such a beautiful, gentle creature is being neglected and wants to help him.",
+            question: "How does Ada feel about Butter's situation?",
+            options: ["She doesn't care", "She feels angry about his neglect and wants to help", "She thinks it's normal", "She's afraid of him"],
+            correct: 1
+        },
+        {
+            passage: "Ada begins to understand that both she and Butter need love, care, and attention to thrive.",
+            question: "What does Ada understand about herself and Butter?",
+            options: ["They're both dangerous", "They both need love, care, and attention to thrive", "They should be left alone", "They're both perfect as they are"],
+            correct: 1
+        }
+    ],
+    15: [ // Chapter 16
+        {
+            passage: "Ada makes her first direct contact with Butter, approaching him slowly and speaking softly.",
+            question: "How does Ada first approach Butter directly?",
+            options: ["She runs up to him", "She approaches slowly and speaks softly", "She brings Susan with her", "She throws food at him"],
+            correct: 1
+        },
+        {
+            passage: "To Ada's amazement, Butter is gentle and responsive to her touch, nuzzling her hand when she pets him.",
+            question: "How does Butter respond to Ada's touch?",
+            options: ["He runs away", "He's gentle and responsive, nuzzling her hand", "He bites her", "He ignores her completely"],
+            correct: 1
+        },
+        {
+            passage: "Ada realizes that Butter has been as lonely as she was, and they understand each other's need for companionship.",
+            question: "What does Ada realize about Butter's emotional state?",
+            options: ["He's always been happy", "He's been as lonely as she was", "He prefers being alone", "He doesn't have emotions"],
+            correct: 1
+        },
+        {
+            passage: "Ada begins bringing Butter small treats and fresh water, secretly caring for him when Susan isn't around.",
+            question: "How does Ada begin caring for Butter?",
+            options: ["She asks Susan for permission", "She brings treats and water secretly", "She only watches from far away", "She tells others to help"],
+            correct: 1
+        },
+        {
+            passage: "For the first time since arriving in Kent, Ada feels truly useful and needed by another living being.",
+            question: "What does caring for Butter give Ada?",
+            options: ["Something to complain about", "Feeling truly useful and needed", "More work to do", "Fear and worry"],
+            correct: 1
+        }
+    ],
+    16: [ // Chapter 17
+        {
+            passage: "Against all rules and common sense, Ada attempts to climb onto Butter's back using a wooden crate for height.",
+            question: "How does Ada attempt to get on Butter's back?",
+            options: ["With Susan's help", "Using a wooden crate for height", "From the ground", "She doesn't try"],
+            correct: 1
+        },
+        {
+            passage: "To her complete amazement, Butter stands perfectly still and allows Ada to sit on his back.",
+            question: "How does Butter react when Ada climbs on?",
+            options: ["He throws her off", "He stands perfectly still and allows her to sit", "He runs away with her", "He lies down"],
+            correct: 1
+        },
+        {
+            passage: "Sitting on Butter's back, Ada experiences true freedom and joy for the first time in her life.",
+            question: "What does Ada experience while sitting on Butter?",
+            options: ["Fear of heights", "True freedom and joy for the first time", "Dizziness", "Pain in her foot"],
+            correct: 1
+        },
+        {
+            passage: "Ada discovers that her clubfoot doesn't matter when she's riding - she feels completely normal and capable.",
+            question: "What does Ada discover about her disability while riding?",
+            options: ["It gets worse", "It doesn't matter - she feels normal and capable", "It's more painful", "It makes riding impossible"],
+            correct: 1
+        },
+        {
+            passage: "This magical moment of connection with Butter becomes the beginning of Ada's journey toward healing and self-worth.",
+            question: "What does this moment with Butter represent for Ada?",
+            options: ["Just a fun activity", "The beginning of her journey toward healing and self-worth", "A dangerous mistake", "Something to hide forever"],
+            correct: 1
+        }
+    ],
+    17: [ // Chapter 18
+        {
+            passage: "Susan discovers Ada riding Butter and initially reacts with shock, anger, and fear for Ada's safety.",
+            question: "How does Susan initially react to finding Ada riding Butter?",
+            options: ["She's pleased", "With shock, anger, and fear for safety", "She joins in", "She ignores it"],
+            correct: 1
+        },
+        {
+            passage: "Susan scolds Ada harshly, explaining all the ways she could have been seriously injured or killed.",
+            question: "Why does Susan scold Ada?",
+            options: ["For being outside", "Explaining how she could have been injured or killed", "For not asking permission", "For bothering Butter"],
+            correct: 1
+        },
+        {
+            passage: "Ada tries to explain that she and Butter understand each other, but Susan doesn't initially believe her.",
+            question: "How does Ada defend her actions?",
+            options: ["She apologizes immediately", "She explains that she and Butter understand each other", "She blames Jamie", "She runs away"],
+            correct: 1
+        },
+        {
+            passage: "Despite her anger, Susan notices how calm and happy Butter seems with Ada, which surprises her.",
+            question: "What does Susan notice about Butter with Ada?",
+            options: ["He seems angry", "He seems calm and happy", "He seems frightened", "He seems sick"],
+            correct: 1
+        },
+        {
+            passage: "Susan realizes she's been neglecting Butter and that Ada has been providing the care he needed.",
+            question: "What does Susan realize about Butter's care?",
+            options: ["She's been perfect", "She's been neglecting him and Ada provided needed care", "Butter doesn't need care", "Ada has been harmful"],
+            correct: 1
+        }
+    ],
+    18: [ // Chapter 19
+        {
+            passage: "After her initial anger subsides, Susan decides to teach Ada proper riding techniques and horse safety.",
+            question: "What does Susan decide to do after her anger subsides?",
+            options: ["Forbid Ada from riding", "Teach Ada proper riding techniques and safety", "Sell Butter", "Move away"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains to Ada the basics of horse care, including grooming, feeding, and understanding horse behavior.",
+            question: "What does Susan teach Ada about horses?",
+            options: ["Only how to stay away", "Basics of care including grooming, feeding, and behavior", "Just riding techniques", "Only safety rules"],
+            correct: 1
+        },
+        {
+            passage: "Ada proves to be a natural with horses, quickly learning and applying everything Susan teaches her.",
+            question: "How does Ada respond to horse care lessons?",
+            options: ["She struggles to learn", "She's a natural, quickly learning everything", "She's not interested", "She's too afraid"],
+            correct: 1
+        },
+        {
+            passage: "Susan begins to see that riding gives Ada confidence and joy that nothing else has provided.",
+            question: "What does Susan observe about riding's effect on Ada?",
+            options: ["It makes her tired", "It gives her confidence and joy like nothing else", "It makes her rebellious", "It scares her"],
+            correct: 1
+        },
+        {
+            passage: "Both Susan and Ada begin to understand that this partnership between Ada and Butter is special and healing.",
+            question: "What do Susan and Ada realize about Ada and Butter's relationship?",
+            options: ["It's dangerous", "It's special and healing", "It's temporary", "It's ordinary"],
+            correct: 1
+        }
+    ],
+    19: [ // Chapter 20
+        {
+            passage: "Ada meets Margaret Thorton, Lady Thorton's daughter, who is an accomplished rider and immediately friendly.",
+            question: "Who does Ada meet and what is she like?",
+            options: ["A mean girl from school", "Margaret Thorton, an accomplished rider who's friendly", "An old woman", "Another evacuee"],
+            correct: 1
+        },
+        {
+            passage: "Margaret doesn't seem bothered by Ada's clubfoot and treats her as an equal, which amazes Ada.",
+            question: "How does Margaret treat Ada's disability?",
+            options: ["She stares rudely", "She doesn't seem bothered and treats Ada as equal", "She feels sorry for her", "She avoids looking"],
+            correct: 1
+        },
+        {
+            passage: "Margaret offers to teach Ada advanced riding techniques and introduces her to other horses on the estate.",
+            question: "What does Margaret offer to do for Ada?",
+            options: ["Lend her money", "Teach advanced riding and introduce other horses", "Take her to London", "Buy her clothes"],
+            correct: 1
+        },
+        {
+            passage: "Through Margaret, Ada learns about different types of horses and their individual personalities and needs.",
+            question: "What does Ada learn from Margaret?",
+            options: ["How to read better", "About different horses and their personalities", "How to cook", "Village gossip"],
+            correct: 1
+        },
+        {
+            passage: "For the first time, Ada has a friend her own age who shares her interests and doesn't judge her.",
+            question: "What's significant about Ada's friendship with Margaret?",
+            options: ["Margaret is much older", "First friend her age who shares interests without judging", "Margaret is very bossy", "They disagree about everything"],
+            correct: 1
+        }
+    ],
+    20: [ // Chapter 21
+        {
+            passage: "The war becomes more real as the village prepares defenses, builds air raid shelters, and practices blackout procedures.",
+            question: "How does the war become more real to the village?",
+            options: ["Soldiers visit", "Village prepares defenses, shelters, and blackout procedures", "Bombs fall nearby", "Rationing ends"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains blackout rules - all windows must be covered so enemy planes can't see lights below.",
+            question: "What are the blackout rules Susan explains?",
+            options: ["No candles allowed", "All windows covered so planes can't see lights", "Everyone sleeps outside", "No cooking after dark"],
+            correct: 1
+        },
+        {
+            passage: "Ada helps prepare the cottage for blackout by covering windows with thick curtains and black paper.",
+            question: "How does Ada help with blackout preparations?",
+            options: ["By hiding in the cellar", "Covering windows with curtains and black paper", "By digging trenches", "By storing food"],
+            correct: 1
+        },
+        {
+            passage: "The village children practice air raid drills, learning to take cover quickly when warning sirens sound.",
+            question: "What do village children practice?",
+            options: ["Military marching", "Air raid drills to take cover when sirens sound", "First aid", "Growing vegetables"],
+            correct: 1
+        },
+        {
+            passage: "Ada realizes that even in this peaceful countryside, the war threatens everyone's safety and way of life.",
+            question: "What does Ada realize about the war's reach?",
+            options: ["Only cities are in danger", "Even peaceful countryside is threatened by war", "The countryside is completely safe", "War will end soon"],
+            correct: 1
+        }
+    ],
+    21: [ // Chapter 22
+        {
+            passage: "While riding Butter, Ada climbs a tall hill and sees the English Channel for the first time in her life.",
+            question: "What does Ada see from the hill while riding?",
+            options: ["Mountains", "The English Channel for the first time", "Other villages", "London in the distance"],
+            correct: 1
+        },
+        {
+            passage: "Ada doesn't initially understand what the vast expanse of water is until Susan explains it's the English Channel.",
+            question: "What does Ada need Susan to explain?",
+            options: ["Why the sky is blue", "What the vast expanse of water is - the English Channel", "How to ride better", "Where Jamie is"],
+            correct: 1
+        },
+        {
+            passage: "From the hilltop, Ada can also see the village church spire and understand the geography of her new home.",
+            question: "What else can Ada see from the hilltop?",
+            options: ["Her old London flat", "The village church spire and local geography", "German planes", "Other evacuees"],
+            correct: 1
+        },
+        {
+            passage: "Susan is impressed that Ada has learned to navigate the countryside and find her way to the hill.",
+            question: "What impresses Susan about Ada's ride?",
+            options: ["How fast she rode", "That she learned to navigate and find the hill", "That she stayed clean", "That Butter behaved"],
+            correct: 1
+        },
+        {
+            passage: "Ada feels a sense of freedom and accomplishment from exploring and discovering new places on her own.",
+            question: "What does Ada feel from her exploration?",
+            options: ["Fear of getting lost", "Freedom and accomplishment from discovering new places", "Homesickness", "Worry about Susan"],
+            correct: 1
+        }
+    ],
+    22: [ // Chapter 23
+        {
+            passage: "The first air raid siren sounds, and everyone must rush to the underground shelter Susan has prepared.",
+            question: "What happens when the first air raid siren sounds?",
+            options: ["Everyone goes to sleep", "Everyone rushes to the underground shelter", "They turn off lights", "They hide under beds"],
+            correct: 1
+        },
+        {
+            passage: "In the dark, cramped shelter, Ada has a severe panic attack, reminded of being locked in the cabinet at home.",
+            question: "What happens to Ada in the air raid shelter?",
+            options: ["She falls asleep peacefully", "She has a severe panic attack remembering the cabinet", "She helps others stay calm", "She reads a book"],
+            correct: 1
+        },
+        {
+            passage: "Susan recognizes Ada's distress and wraps her in a blanket, trying to calm her traumatic flashbacks.",
+            question: "How does Susan help Ada during her panic attack?",
+            options: ["She ignores her", "She wraps her in a blanket and calms her flashbacks", "She tells her to be quiet", "She leaves the shelter"],
+            correct: 1
+        },
+        {
+            passage: "Ada explains that the smell and confined feeling of the shelter triggers memories of her punishment cabinet.",
+            question: "What triggers Ada's panic in the shelter?",
+            options: ["The darkness only", "The smell and confined feeling reminding her of the cabinet", "Other people", "The sounds outside"],
+            correct: 1
+        },
+        {
+            passage: "After the all-clear sounds, Susan promises to make the shelter more comfortable for Ada's needs.",
+            question: "What does Susan promise after Ada's panic attack?",
+            options: ["To avoid using the shelter", "To make the shelter more comfortable for Ada", "To send Ada away", "To ignore the problem"],
+            correct: 1
+        }
+    ],
+    23: [ // Chapter 24
+        {
+            passage: "Susan brings herbs like rosemary, lavender, and mint to make the bomb shelter smell pleasant instead of damp and moldy.",
+            question: "How does Susan improve the bomb shelter for Ada?",
+            options: ["She adds electric lights", "She brings herbs to make it smell pleasant", "She makes it bigger", "She paints the walls"],
+            correct: 1
+        },
+        {
+            passage: "The pleasant herbal scents help Ada feel calmer during the next air raid, reducing her panic responses.",
+            question: "How do the herbs affect Ada during air raids?",
+            options: ["They make her sneeze", "The pleasant scents help her feel calmer", "They don't help at all", "She still panics completely"],
+            correct: 1
+        },
+        {
+            passage: "Susan also brings books, games, and comfortable cushions to help pass time during long air raids.",
+            question: "What else does Susan add to help during air raids?",
+            options: ["Food and water only", "Books, games, and comfortable cushions", "A radio", "Musical instruments"],
+            correct: 1
+        },
+        {
+            passage: "Ada realizes that Susan is learning to understand her specific trauma and needs, not just treating her like any child.",
+            question: "What does Ada realize about Susan's care?",
+            options: ["Susan treats all children the same", "Susan learns her specific trauma and needs", "Susan doesn't understand her", "Susan is just being polite"],
+            correct: 1
+        },
+        {
+            passage: "This thoughtful care makes Ada begin to trust that Susan truly wants her to feel safe and comfortable.",
+            question: "How does Susan's thoughtful care affect Ada?",
+            options: ["It makes her more suspicious", "She begins to trust that Susan truly wants her safe", "It doesn't change anything", "It makes her more fearful"],
+            correct: 1
+        }
+    ],
+    24: [ // Chapter 25
+        {
+            passage: "Jamie comes home from school with red welts on his wrist, but refuses to explain how he got them.",
+            question: "What concerning sign does Jamie show?",
+            options: ["A black eye", "Red welts on his wrist he won't explain", "Torn clothes", "Missing homework"],
+            correct: 1
+        },
+        {
+            passage: "Susan notices Jamie's injury and becomes very concerned about what might be happening at school.",
+            question: "How does Susan react to Jamie's injury?",
+            options: ["She ignores it", "She becomes very concerned about school", "She blames Jamie", "She laughs it off"],
+            correct: 1
+        },
+        {
+            passage: "Jamie seems withdrawn and unhappy, no longer excited about going to school each day.",
+            question: "How has Jamie's attitude toward school changed?",
+            options: ["He's more excited", "He's withdrawn and no longer excited", "He loves it more", "He doesn't care either way"],
+            correct: 1
+        },
+        {
+            passage: "Susan decides to visit the school the next day to investigate what's causing Jamie's distress and injury.",
+            question: "What does Susan decide to do about Jamie's problems?",
+            options: ["Keep him home", "Visit the school to investigate", "Write a letter", "Ask other parents"],
+            correct: 1
+        },
+        {
+            passage: "Ada worries about Jamie and feels protective of her younger brother, knowing how cruel adults can be to children.",
+            question: "How does Ada feel about Jamie's situation?",
+            options: ["She doesn't notice", "She worries and feels protective, knowing adults can be cruel", "She thinks it's normal", "She's jealous of his attention"],
+            correct: 1
+        }
+    ],
+    25: [ // Chapter 26
+        {
+            passage: "Susan discovers that Jamie's teacher has been tying his left hand to his desk to force him to write right-handed.",
+            question: "What shocking discovery does Susan make at school?",
+            options: ["Jamie is failing", "The teacher ties his left hand to force right-handed writing", "Jamie is bullying others", "The school is closing"],
+            correct: 1
+        },
+        {
+            passage: "The teacher justifies this cruel practice by claiming that left-handedness is a mark of the devil and must be corrected.",
+            question: "How does the teacher justify her actions?",
+            options: ["It's school policy", "She claims left-handedness is a mark of the devil", "It makes him stronger", "All children must be right-handed"],
+            correct: 1
+        },
+        {
+            passage: "Susan angrily confronts the teacher, immediately untying Jamie and condemning the abusive treatment.",
+            question: "How does Susan respond to discovering the abuse?",
+            options: ["She asks for an explanation", "She angrily confronts and condemns the treatment", "She agrees with the teacher", "She leaves quietly"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains that left-handedness is completely natural and not evil, defending Jamie's right to use his dominant hand.",
+            question: "What does Susan tell the teacher about left-handedness?",
+            options: ["It's a serious problem", "It's completely natural and not evil", "It can be cured", "It's very rare"],
+            correct: 1
+        },
+        {
+            passage: "Susan removes Jamie from that teacher's class and arranges for him to be taught by someone more understanding.",
+            question: "What action does Susan take regarding Jamie's education?",
+            options: ["She homeschools him", "She removes him and finds a more understanding teacher", "She moves him to another school", "She lets him quit"],
+            correct: 1
+        }
+    ],
+    26: [ // Chapter 27
+        {
+            passage: "This incident with Jamie's teacher makes Ada see Susan as a fierce protector who will fight for the children in her care.",
+            question: "How does the school incident change Ada's view of Susan?",
+            options: ["She becomes afraid of Susan", "She sees Susan as a fierce protector who fights for them", "She thinks Susan is too aggressive", "It doesn't change her view"],
+            correct: 1
+        },
+        {
+            passage: "Ada and Susan's relationship deepens as they spend more time together working, talking, and sharing experiences.",
+            question: "How does Ada and Susan's relationship develop?",
+            options: ["They become more distant", "Their relationship deepens through shared time and experiences", "They start arguing more", "Susan becomes stricter"],
+            correct: 1
+        },
+        {
+            passage: "Susan shares stories about her life before the war and her close friendship with Becky, who died before the children arrived.",
+            question: "What personal information does Susan share?",
+            options: ["Her childhood fears", "Stories about her life and friendship with Becky", "Her financial problems", "Her family secrets"],
+            correct: 1
+        },
+        {
+            passage: "Ada learns that Susan is still grieving Becky's death and has been struggling with loneliness and sadness.",
+            question: "What does Ada learn about Susan's emotional state?",
+            options: ["Susan is always happy", "Susan is grieving and struggling with loneliness", "Susan misses her family", "Susan is angry about the war"],
+            correct: 1
+        },
+        {
+            passage: "Susan admits that having Ada and Jamie has helped her heal from grief by giving her purpose and family again.",
+            question: "How have the children affected Susan's grief?",
+            options: ["They made it worse", "They've helped her heal by giving purpose and family", "They haven't changed anything", "They remind her of sad times"],
+            correct: 1
+        }
+    ],
+    27: [ // Chapter 28
+        {
+            passage: "Ada begins to understand that helping each other heal is what real families do, even chosen families like theirs.",
+            question: "What does Ada learn about families?",
+            options: ["Families are only blood relatives", "Helping each other heal is what real families do", "Families always fight", "Families must be perfect"],
+            correct: 1
+        },
+        {
+            passage: "Susan shares more details about her relationship with Becky and how they supported each other through difficult times.",
+            question: "What does Susan reveal about her relationship with Becky?",
+            options: ["They barely knew each other", "How they supported each other through difficult times", "They were business partners", "They often fought"],
+            correct: 1
+        },
+        {
+            passage: "Ada learns that Susan and Becky lived together as partners, understanding a different kind of love and family.",
+            question: "What does Ada learn about Susan and Becky's relationship?",
+            options: ["They were sisters", "They lived together as partners - a different kind of family", "They were just roommates", "They were competitors"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains that society doesn't always accept different kinds of love and family arrangements, which can be lonely.",
+            question: "What does Susan teach Ada about society?",
+            options: ["Everyone accepts everything", "Society doesn't always accept different kinds of love", "Only traditional families matter", "Love doesn't matter"],
+            correct: 1
+        },
+        {
+            passage: "This revelation helps Ada understand why Susan was initially reluctant to take in children and seemed so sad.",
+            question: "What does this revelation help Ada understand?",
+            options: ["Why Susan was rich", "Why Susan was initially reluctant and seemed sad", "Why Susan doesn't like children", "Why Susan moved to the country"],
+            correct: 1
+        }
+    ],
+    28: [ // Chapter 29
+        {
+            passage: "Christmas approaches, and Susan plans to celebrate with Ada and Jamie, buying them gifts and preparing special food.",
+            question: "How does Susan prepare for Christmas?",
+            options: ["She ignores it completely", "She plans celebration with gifts and special food", "She only makes regular dinner", "She sends them away"],
+            correct: 1
+        },
+        {
+            passage: "Ada has never experienced a real Christmas celebration and doesn't know what to expect or how to behave.",
+            question: "What is Ada's experience with Christmas?",
+            options: ["She's had many wonderful Christmases", "She's never experienced a real Christmas", "She doesn't like Christmas", "She only remembers bad Christmases"],
+            correct: 1
+        },
+        {
+            passage: "Susan makes Ada a beautiful new dress - the first pretty, well-fitting clothing Ada has ever owned.",
+            question: "What special gift does Susan make for Ada?",
+            options: ["A toy horse", "A beautiful new dress - her first pretty clothing", "A book", "A pair of shoes"],
+            correct: 1
+        },
+        {
+            passage: "When Ada receives the dress, she becomes overwhelmed with emotions she doesn't understand or know how to express.",
+            question: "How does Ada react to receiving the dress?",
+            options: ["She's simply happy", "She becomes overwhelmed with emotions she can't express", "She rejects it", "She's not impressed"],
+            correct: 1
+        },
+        {
+            passage: "Ada struggles to believe that someone would give her something beautiful without expecting anything in return.",
+            question: "What does Ada struggle to understand about the gift?",
+            options: ["Why it's so expensive", "That someone would give her something beautiful without expecting anything", "How to wear it", "Whether it fits properly"],
+            correct: 1
+        }
+    ],
+    29: [ // Chapter 30
+        {
+            passage: "On Christmas morning, Ada has an emotional breakdown, unable to cope with receiving so much love and kindness.",
+            question: "What happens to Ada on Christmas morning?",
+            options: ["She's perfectly happy", "She has an emotional breakdown from receiving love", "She gets sick", "She runs away"],
+            correct: 1
+        },
+        {
+            passage: "All the suppressed trauma and emotions from years of abuse come pouring out in uncontrollable tears and sobbing.",
+            question: "What causes Ada's breakdown?",
+            options: ["She doesn't like her gifts", "Years of suppressed trauma and emotions pour out", "She misses her mother", "She's tired"],
+            correct: 1
+        },
+        {
+            passage: "Susan holds Ada while she cries, understanding that this emotional release is part of Ada's healing process.",
+            question: "How does Susan respond to Ada's breakdown?",
+            options: ["She gets angry", "She holds Ada, understanding it's part of healing", "She calls the doctor", "She leaves Ada alone"],
+            correct: 1
+        },
+        {
+            passage: "Three RAF pilots from the nearby airfield join them for Christmas dinner, bringing wartime stories and camaraderie.",
+            question: "Who joins them for Christmas dinner?",
+            options: ["Lady Thorton's family", "Three RAF pilots from the nearby airfield", "Other evacuee children", "Village neighbors"],
+            correct: 1
+        },
+        {
+            passage: "Despite the emotional difficulty, Ada begins to understand what it feels like to be part of a loving family.",
+            question: "What does Ada begin to understand despite her difficulties?",
+            options: ["That she should leave", "What it feels like to be part of a loving family", "That she's ungrateful", "That Christmas is scary"],
+            correct: 1
+        }
+    ],
+    30: [ // Chapter 31
+        {
+            passage: "Susan gently explains to Ada that it's completely normal to feel overwhelmed when learning to accept love after trauma.",
+            question: "What does Susan explain about Ada's overwhelming feelings?",
+            options: ["She's being ungrateful", "It's normal to feel overwhelmed when learning to accept love", "She should stop crying", "She's being silly"],
+            correct: 1
+        },
+        {
+            passage: "Susan shares that she also struggled with accepting help and kindness after losing Becky and facing rejection.",
+            question: "What personal experience does Susan share?",
+            options: ["Her happy childhood", "Her struggle accepting help after losing Becky", "Her successful career", "Her wealthy family"],
+            correct: 1
+        },
+        {
+            passage: "Ada learns that healing from trauma takes time and that emotional setbacks are a normal part of the process.",
+            question: "What does Ada learn about healing from trauma?",
+            options: ["It happens instantly", "It takes time and setbacks are normal", "It's impossible", "Only doctors can help"],
+            correct: 1
+        },
+        {
+            passage: "Susan assures Ada that she deserves love, kindness, and beautiful things simply because she exists and is valuable.",
+            question: "What important message does Susan give Ada?",
+            options: ["She must earn love", "She deserves love simply because she exists and is valuable", "Only good children deserve love", "Love must be paid for"],
+            correct: 1
+        },
+        {
+            passage: "This conversation becomes a turning point in Ada's ability to trust others and accept care without suspicion.",
+            question: "What effect does this conversation have on Ada?",
+            options: ["It makes her more suspicious", "It becomes a turning point in trusting and accepting care", "It confuses her more", "It makes her sadder"],
+            correct: 1
+        }
+    ],
+    31: [ // Chapter 32
+        {
+            passage: "The Battle of Britain intensifies with more frequent air raids and bombing runs over southern England.",
+            question: "How does the war situation escalate?",
+            options: ["The war ends", "The Battle of Britain intensifies with more air raids", "Fighting moves elsewhere", "Everything becomes peaceful"],
+            correct: 1
+        },
+        {
+            passage: "The village experiences almost nightly bombing runs as German planes target British airfields and coastal defenses.",
+            question: "What does the village experience during this period?",
+            options: ["Complete safety", "Almost nightly bombing runs targeting airfields", "Celebrations", "Normal peaceful life"],
+            correct: 1
+        },
+        {
+            passage: "Ada becomes accustomed to the routine of air raids: sirens, shelter, waiting, all-clear, and checking for damage.",
+            question: "How does Ada adapt to the bombing?",
+            options: ["She panics every time", "She becomes accustomed to the air raid routine", "She refuses to use shelters", "She sleeps through everything"],
+            correct: 1
+        },
+        {
+            passage: "The nearby RAF airfield becomes a primary target, bringing the war very close to their daily lives.",
+            question: "What brings the war close to their lives?",
+            options: ["Soldiers moving in", "The nearby RAF airfield becomes a primary target", "Rationing increases", "More evacuees arrive"],
+            correct: 1
+        },
+        {
+            passage: "Despite the danger, Susan insists that maintaining normal routines helps preserve everyone's sanity and hope.",
+            question: "How does Susan cope with the increased danger?",
+            options: ["She panics constantly", "She insists normal routines preserve sanity and hope", "She wants to evacuate", "She gives up hope"],
+            correct: 1
+        }
+    ],
+    32: [ // Chapter 33
+        {
+            passage: "Wounded RAF pilots and soldiers begin arriving in the village for medical treatment and recovery.",
+            question: "Who begins arriving in the village?",
+            options: ["More evacuee children", "Wounded RAF pilots and soldiers needing treatment", "Government officials", "Foreign refugees"],
+            correct: 1
+        },
+        {
+            passage: "Susan volunteers to help care for the wounded, turning part of her cottage into a makeshift medical facility.",
+            question: "How does Susan contribute to the war effort?",
+            options: ["She joins the military", "She turns her cottage into a makeshift medical facility", "She moves away", "She only hides"],
+            correct: 1
+        },
+        {
+            passage: "Ada and Jamie help by bringing water, food, and comfort to the injured men who are far from home.",
+            question: "How do the children help with wounded soldiers?",
+            options: ["They stay away", "They bring water, food, and comfort", "They just watch", "They complain about noise"],
+            correct: 1
+        },
+        {
+            passage: "Ada discovers she has a natural talent for comforting people in pain and distress, making them feel better.",
+            question: "What talent does Ada discover about herself?",
+            options: ["She's good at singing", "She has a talent for comforting people in pain", "She can cook well", "She's good at cleaning"],
+            correct: 1
+        },
+        {
+            passage: "The wounded soldiers are amazed by Ada's strength and compassion despite her own disability and difficult past.",
+            question: "How do the soldiers react to Ada?",
+            options: ["They ignore her", "They're amazed by her strength and compassion", "They feel sorry for her", "They ask her to leave"],
+            correct: 1
+        }
+    ],
+    33: [ // Chapter 34
+        {
+            passage: "Ada finds deep purpose and meaning in helping care for wounded soldiers who are fighting for their country's freedom.",
+            question: "What does caring for soldiers give Ada?",
+            options: ["Extra work only", "Deep purpose and meaning helping those fighting for freedom", "Money", "Recognition from others"],
+            correct: 1
+        },
+        {
+            passage: "One young pilot tells Ada that her kindness and gentle care remind him of his beloved sister back home.",
+            question: "What does a young pilot tell Ada?",
+            options: ["She's annoying", "Her kindness reminds him of his beloved sister", "She should become a nurse", "She talks too much"],
+            correct: 1
+        },
+        {
+            passage: "Ada learns about different parts of Britain from the soldiers' stories of their homes, families, and peacetime lives.",
+            question: "What does Ada learn from soldiers' stories?",
+            options: ["Military tactics", "About different parts of Britain and their families", "How to fly planes", "Secret information"],
+            correct: 1
+        },
+        {
+            passage: "Susan observes how naturally Ada takes to caregiving and suggests she might become a nurse or doctor someday.",
+            question: "What career does Susan suggest for Ada?",
+            options: ["Teacher", "Nurse or doctor based on her natural caregiving", "Pilot", "Writer"],
+            correct: 1
+        },
+        {
+            passage: "For the first time, Ada can envision a future where her experiences with suffering help her contribute meaningfully to society.",
+            question: "What does Ada begin to envision for her future?",
+            options: ["A life of luxury", "Using her experiences with suffering to contribute meaningfully", "Returning to London", "Never changing"],
+            correct: 1
+        }
+    ],
+    34: [ // Chapter 35
+        {
+            passage: "While riding Butter along the coast, Ada spots a suspicious man in a small boat near the shoreline acting strangely.",
+            question: "What does Ada see while riding along the coast?",
+            options: ["A lost child", "A suspicious man in a boat acting strangely", "Wild animals", "A crashed plane"],
+            correct: 1
+        },
+        {
+            passage: "The man appears to be watching the RAF airfield through binoculars and taking notes or photographs.",
+            question: "What suspicious activity is the man doing?",
+            options: ["Fishing peacefully", "Watching the airfield and taking notes or photos", "Swimming", "Looking for shells"],
+            correct: 1
+        },
+        {
+            passage: "Ada remembers warnings about German spies and realizes this might be enemy reconnaissance of British defenses.",
+            question: "What does Ada suspect about the man?",
+            options: ["He's a tourist", "He might be a German spy doing reconnaissance", "He's lost", "He's a local fisherman"],
+            correct: 1
+        },
+        {
+            passage: "Despite her physical limitations, Ada rides Butter as fast as possible to alert the village authorities.",
+            question: "How does Ada respond to seeing the suspicious man?",
+            options: ["She hides and waits", "She rides fast to alert authorities despite limitations", "She approaches the man", "She goes home quietly"],
+            correct: 1
+        },
+        {
+            passage: "Ada reports her sighting to the village constable, providing detailed descriptions of the man and his suspicious activities.",
+            question: "What does Ada do with her information?",
+            options: ["Keeps it secret", "Reports to constable with detailed descriptions", "Tells only Susan", "Forgets about it"],
+            correct: 1
+        }
+    ],
+    35: [ // Chapter 36
+        {
+            passage: "The authorities take Ada's spy report very seriously and immediately set up surveillance of the coastal area.",
+            question: "How do authorities respond to Ada's report?",
+            options: ["They ignore her", "They take it seriously and set up surveillance", "They laugh at her", "They scold her"],
+            correct: 1
+        },
+        {
+            passage: "The next day, British intelligence officers capture the man Ada spotted, confirming he was indeed a German spy.",
+            question: "What happens to the man Ada reported?",
+            options: ["He escapes", "Intelligence officers capture him - he was a German spy", "He turns out innocent", "He disappears"],
+            correct: 1
+        },
+        {
+            passage: "Ada becomes a local hero, with newspapers reporting how a brave evacuee girl helped catch an enemy agent.",
+            question: "How does Ada become famous?",
+            options: ["For her riding skills", "Newspapers report how she helped catch an enemy spy", "For helping soldiers", "For academic achievements"],
+            correct: 1
+        },
+        {
+            passage: "The recognition makes Ada uncomfortable because she's not used to positive attention or being called brave and heroic.",
+            question: "How does Ada feel about the recognition?",
+            options: ["Very proud", "Uncomfortable - not used to positive attention", "Demanding more praise", "Completely confident"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains that Ada's quick thinking and courage saved lives by stopping enemy intelligence gathering operations.",
+            question: "How does Susan explain the importance of Ada's actions?",
+            options: ["It was just luck", "Her quick thinking and courage saved lives", "Anyone could have done it", "It wasn't important"],
+            correct: 1
+        }
+    ],
+    36: [ // Chapter 37
+        {
+            passage: "Ada's confidence grows significantly from being recognized as a hero and contributing meaningfully to the war effort.",
+            question: "How does being a hero affect Ada?",
+            options: ["She becomes arrogant", "Her confidence grows from meaningful contribution", "She becomes fearful", "It doesn't change her"],
+            correct: 1
+        },
+        {
+            passage: "Village children who previously ignored or avoided Ada now look up to her and want to be her friend.",
+            question: "How do village children's attitudes toward Ada change?",
+            options: ["They still ignore her", "They now look up to her and want friendship", "They become jealous", "They avoid her more"],
+            correct: 1
+        },
+        {
+            passage: "Ada realizes that her disability doesn't define her worth - her actions, character, and courage do.",
+            question: "What important realization does Ada have about herself?",
+            options: ["Her disability makes her special", "Her actions and character define worth, not disability", "She needs to hide her disability", "Disability doesn't matter at all"],
+            correct: 1
+        },
+        {
+            passage: "The spy incident helps Ada understand that she can be useful and valued in ways she never imagined possible.",
+            question: "What does the spy incident teach Ada about her potential?",
+            options: ["She should become a spy", "She can be useful and valued in unexpected ways", "She's only good at spotting danger", "She should stick to riding horses"],
+            correct: 1
+        },
+        {
+            passage: "Susan observes Ada's growing self-confidence with pride and joy, seeing her transformation from broken to whole.",
+            question: "How does Susan feel watching Ada's confidence grow?",
+            options: ["Worried about her becoming proud", "Pride and joy at seeing her transformation", "Concerned she's changing too much", "Indifferent to changes"],
+            correct: 1
+        }
+    ],
+    37: [ // Chapter 38
+        {
+            passage: "Ada's riding skills have improved dramatically through daily practice and Margaret's advanced instruction.",
+            question: "How have Ada's riding abilities developed?",
+            options: ["They've gotten worse", "They've improved dramatically through practice", "They stayed the same", "She stopped riding"],
+            correct: 1
+        },
+        {
+            passage: "Fred Grimes, the farrier, suggests that Ada could compete in local horse shows if she wanted to.",
+            question: "What does Fred Grimes suggest about Ada's abilities?",
+            options: ["She should stop riding", "She could compete in local horse shows", "She needs more lessons", "She's not ready for anything"],
+            correct: 1
+        },
+        {
+            passage: "Ada dreams of jumping Butter over fences but knows she's not quite ready for such advanced and dangerous maneuvers.",
+            question: "What does Ada dream of doing with Butter?",
+            options: ["Selling him", "Jumping fences, though she knows she's not ready", "Teaching others", "Racing competitively"],
+            correct: 1
+        },
+        {
+            passage: "Margaret and Ada practice riding together regularly, with Margaret teaching Ada advanced techniques and safety.",
+            question: "How do Margaret and Ada spend time together?",
+            options: ["Avoiding each other", "Practicing riding with Margaret teaching advanced techniques", "Only talking", "Competing against each other"],
+            correct: 1
+        },
+        {
+            passage: "Susan watches Ada's progress with amazement, seeing how far she's come from the frightened, broken girl who arrived.",
+            question: "How does Susan view Ada's transformation?",
+            options: ["She doesn't notice changes", "With amazement at how far she's come", "She's disappointed", "She thinks Ada hasn't changed"],
+            correct: 1
+        }
+    ],
+    38: [ // Chapter 39
+        {
+            passage: "A government official arrives with a letter demanding payment for Ada and Jamie's care during their evacuation.",
+            question: "What does a government official bring?",
+            options: ["Good news about war", "A letter demanding payment for children's care", "New evacuees", "Military orders"],
+            correct: 1
+        },
+        {
+            passage: "The letter states that if payment isn't received soon, the children will be returned to their mother in London.",
+            question: "What threat does the government letter contain?",
+            options: ["Children moved elsewhere", "They'll be returned to mother if no payment", "Susan will be arrested", "House will be taken"],
+            correct: 1
+        },
+        {
+            passage: "Susan is shocked to learn she's supposed to be receiving money from the government for the children's care.",
+            question: "What shocks Susan about the payment demand?",
+            options: ["Amount is too high", "She didn't know she was supposed to receive money", "She's been overpaid", "Government is wrong"],
+            correct: 1
+        },
+        {
+            passage: "Lady Thorton explains that someone has been intercepting and stealing the payment meant for Ada and Jamie's care.",
+            question: "What does Lady Thorton reveal about missing payments?",
+            options: ["There never were payments", "Someone has been intercepting the money", "Payments were cancelled", "Susan spent the money"],
+            correct: 1
+        },
+        {
+            passage: "Investigation reveals that Ada's mother has been collecting the money while the children live with Susan.",
+            question: "Who has been stealing the payment money?",
+            options: ["Lady Thorton", "Ada's mother while children live with Susan", "Government officials", "Unknown criminals"],
+            correct: 1
+        }
+    ],
+    39: [ // Chapter 40
+        {
+            passage: "Susan continues writing multiple letters to Ada's mother requesting permission for the desperately needed foot surgery.",
+            question: "What does Susan repeatedly write about?",
+            options: ["Asking for money", "Requesting permission for foot surgery", "Complaining about behavior", "Requesting visits"],
+            correct: 1
+        },
+        {
+            passage: "Months pass without any response from Mam, leaving Ada's medical future uncertain and painful.",
+            question: "How does Ada's mother respond to surgery requests?",
+            options: ["She writes back immediately", "Months pass without any response", "She sends money", "She visits in person"],
+            correct: 1
+        },
+        {
+            passage: "Susan considers legal options for obtaining medical consent without the mother's permission to help Ada.",
+            question: "What does Susan consider when getting no response?",
+            options: ["Giving up on surgery", "Legal options for medical consent without permission", "Moving to another country", "Sending Ada back"],
+            correct: 1
+        },
+        {
+            passage: "Dr. Stuart explains that Ada's condition will worsen without treatment, making surgery increasingly urgent and necessary.",
+            question: "What does Dr. Stuart say about delaying surgery?",
+            options: ["It can wait indefinitely", "Condition will worsen, making surgery urgent", "Surgery no longer needed", "Any doctor can do it"],
+            correct: 1
+        },
+        {
+            passage: "Ada tries to remain hopeful while secretly fearing that her mother's silence means she'll never get the help she needs.",
+            question: "How does Ada feel about her mother's silence?",
+            options: ["Completely confident", "Tries to stay hopeful while fearing she'll never get help", "Doesn't care about surgery", "Happy to avoid surgery"],
+            correct: 1
+        }
+    ],
+    40: [ // Chapter 41
+        {
+            passage: "Ada's mother is contacted about the payment fraud and threatened with serious legal action and consequences.",
+            question: "What happens when Ada's mother is confronted about fraud?",
+            options: ["She apologizes immediately", "She's threatened with serious legal action", "She returns money", "She disappears"],
+            correct: 1
+        },
+        {
+            passage: "Instead of facing consequences, Mam decides to come and collect Ada and Jamie to avoid paying support.",
+            question: "How does Ada's mother respond to legal threats?",
+            options: ["She pays back money", "She decides to collect children to avoid paying", "She admits wrongdoing", "She goes into hiding"],
+            correct: 1
+        },
+        {
+            passage: "Susan receives a telegram announcing that Mam will arrive within days to take the children back to London.",
+            question: "What alarming news does Susan receive?",
+            options: ["War is ending", "Mam will arrive within days to take children", "More evacuees coming", "House must be evacuated"],
+            correct: 1
+        },
+        {
+            passage: "Ada is terrified at the prospect of returning to her abusive mother and losing everything she's gained.",
+            question: "How does Ada react to news of her mother's arrival?",
+            options: ["She's excited", "She's terrified of returning to abuse and losing everything", "She doesn't care", "She wants to hide"],
+            correct: 1
+        },
+        {
+            passage: "The threat of losing Ada and Jamie devastates Susan, who has come to love them as her own children.",
+            question: "How does Susan feel about possibly losing the children?",
+            options: ["She's relieved", "She's devastated, having come to love them as her own", "She doesn't mind", "She's angry at them"],
+            correct: 1
+        }
+    ],
+    41: [ // Chapter 42
+        {
+            passage: "Susan discusses with Lady Thorton the possibility of getting legal guardianship to authorize Ada's surgery and keep the children.",
+            question: "What legal option does Susan discuss?",
+            options: ["Adopting both children", "Getting legal guardianship for surgery and keeping them", "Sending children elsewhere", "Ignoring the mother"],
+            correct: 1
+        },
+        {
+            passage: "Lady Thorton explains the complex legal process and potential serious consequences of challenging parental rights.",
+            question: "What does Lady Thorton explain about challenging parental rights?",
+            options: ["It's very simple", "The complex process and potential serious consequences", "It's impossible", "It costs nothing"],
+            correct: 1
+        },
+        {
+            passage: "Susan weighs the risk of losing Ada and Jamie if the legal challenge fails against Ada's desperate medical needs.",
+            question: "What difficult decision does Susan face?",
+            options: ["Whether to move away", "Risking losing children if challenge fails vs. Ada's medical needs", "Whether to write more letters", "Whether to contact newspapers"],
+            correct: 1
+        },
+        {
+            passage: "Ada overhears part of this conversation and realizes how much Susan is willing to sacrifice for her wellbeing.",
+            question: "What does Ada realize when she overhears?",
+            options: ["Susan doesn't care", "How much Susan is willing to sacrifice for her wellbeing", "Susan wants to get rid of her", "Surgery isn't important"],
+            correct: 1
+        },
+        {
+            passage: "The uncertainty creates terrible tension in their happy household as everyone worries about the future.",
+            question: "How does legal uncertainty affect their household?",
+            options: ["Nothing changes", "Creates terrible tension as everyone worries", "Everyone becomes happier", "They stop thinking about it"],
+            correct: 1
+        }
+    ],
+    42: [ // Chapter 43
+        {
+            passage: "Susan shares more details about her relationship with Becky and how they created a loving home together.",
+            question: "What does Susan reveal about life with Becky?",
+            options: ["They barely knew each other", "How they created a loving home together", "They were business partners only", "They often fought"],
+            correct: 1
+        },
+        {
+            passage: "Ada learns that Susan and Becky lived as partners in a romantic relationship, understanding love comes in many forms.",
+            question: "What does Ada learn about Susan and Becky's relationship?",
+            options: ["They were sisters", "They lived as romantic partners - love comes in many forms", "They were just friends", "They were competitors"],
+            correct: 1
+        },
+        {
+            passage: "Susan explains that society often rejects different kinds of love, which made their relationship difficult and secretive.",
+            question: "What does Susan teach about society and different relationships?",
+            options: ["Everyone accepts everything", "Society often rejects different kinds of love", "Only traditional families exist", "Love doesn't matter"],
+            correct: 1
+        },
+        {
+            passage: "Ada realizes that Susan understands what it's like to be different, rejected, and judged harshly by others.",
+            question: "What does Ada realize about Susan's experiences?",
+            options: ["Susan always fit in perfectly", "Susan understands being different, rejected, and judged", "Susan never faced difficulties", "Susan doesn't understand anything"],
+            correct: 1
+        },
+        {
+            passage: "This revelation deepens Ada's bond with Susan as she understands they both know about being outsiders and finding acceptance.",
+            question: "How does this revelation affect their relationship?",
+            options: ["It creates distance", "Deepens their bond through shared experience of being outsiders", "It confuses Ada", "It makes no difference"],
+            correct: 1
+        }
+    ],
+    43: [ // Chapter 44
+        {
+            passage: "Mam arrives unexpectedly at Susan's cottage to take Ada and Jamie back to London immediately.",
+            question: "What happens when Mam arrives at the cottage?",
+            options: ["She comes for a visit", "She arrives to take children back to London immediately", "She brings gifts", "She apologizes"],
+            correct: 1
+        },
+        {
+            passage: "Mam is furious about the surgery requests and berates Ada harshly, slapping her in front of Susan.",
+            question: "How does Mam react to seeing Ada?",
+            options: ["She hugs her lovingly", "She's furious and berates Ada, slapping her", "She cries with joy", "She ignores her"],
+            correct: 1
+        },
+        {
+            passage: "Susan is horrified by Mam's immediate violence toward Ada and steps in to protect her.",
+            question: "How does Susan react to Mam's violence?",
+            options: ["She agrees with Mam", "She's horrified and steps in to protect Ada", "She leaves the room", "She calls the police"],
+            correct: 1
+        },
+        {
+            passage: "Mam declares that Ada belongs to her and no surgery will ever be allowed because Ada doesn't deserve help.",
+            question: "What does Mam declare about Ada's surgery?",
+            options: ["She'll pay for it", "No surgery will ever be allowed because Ada doesn't deserve help", "She'll consider it", "Doctors can decide"],
+            correct: 1
+        },
+        {
+            passage: "Despite Susan's offers of protection, Ada refuses to abandon Jamie and agrees to return to London with Mam.",
+            question: "What does Ada decide despite Susan's protection?",
+            options: ["She stays with Susan", "She refuses to abandon Jamie and returns with Mam", "She runs away", "She calls for help"],
+            correct: 1
+        }
+    ],
+    44: [ // Chapter 45
+        {
+            passage: "Back in London, Mam immediately takes away Ada's crutches and confines her to the flat again.",
+            question: "What does Mam do when they return to London?",
+            options: ["Gives Ada more freedom", "Takes away crutches and confines her again", "Buys new clothes", "Enrolls her in school"],
+            correct: 1
+        },
+        {
+            passage: "Ada realizes how much she's grown and changed when she sees how small and terrible their old flat really is.",
+            question: "What does Ada realize about their old flat?",
+            options: ["It's beautiful", "How small and terrible it really is after her growth", "It's exactly the same", "It's been improved"],
+            correct: 1
+        },
+        {
+            passage: "Mam is furious that Ada has learned to read and can now think for herself, threatening worse punishments.",
+            question: "How does Mam react to Ada's education?",
+            options: ["She's proud", "She's furious Ada learned to read and think, threatening punishment", "She doesn't notice", "She's pleased"],
+            correct: 1
+        },
+        {
+            passage: "Ada confronts Mam about the stolen evacuation money and her lies, showing new courage and strength.",
+            question: "How does Ada confront her mother?",
+            options: ["She doesn't say anything", "She confronts her about stolen money and lies with new courage", "She apologizes", "She begs for forgiveness"],
+            correct: 1
+        },
+        {
+            passage: "Mam admits she never wanted children and wishes Ada had never been born, revealing her true cruelty.",
+            question: "What does Mam admit to Ada?",
+            options: ["She loves her", "She never wanted children and wishes Ada was never born", "She made mistakes", "She wants to change"],
+            correct: 1
+        }
+    ],
+    45: [ // Chapter 46
+        {
+            passage: "London comes under heavy bombing attack, with sirens wailing and explosions rocking the city.",
+            question: "What happens to London in the final chapter?",
+            options: ["Nothing changes", "London comes under heavy bombing attack", "War ends peacefully", "Everyone celebrates"],
+            correct: 1
+        },
+        {
+            passage: "During the bombing, Mam abandons Ada and Jamie, running away to save herself without helping them.",
+            question: "What does Mam do during the bombing?",
+            options: ["She protects the children", "She abandons them and runs away to save herself", "She calls for help", "She hides with them"],
+            correct: 1
+        },
+        {
+            passage: "Ada uses all her strength and courage to help Jamie escape from their flat during the dangerous bombing.",
+            question: "How does Ada respond during the bombing?",
+            options: ["She panics and hides", "She uses her strength and courage to help Jamie escape", "She waits for help", "She follows her mother"],
+            correct: 1
+        },
+        {
+            passage: "Susan arrives in London searching for Ada and Jamie, having traveled through dangerous conditions to find them.",
+            question: "What does Susan do during the London bombing?",
+            options: ["She stays safely in Kent", "She travels through dangerous conditions to find them", "She waits for news", "She contacts authorities"],
+            correct: 1
+        },
+        {
+            passage: "Susan finds Ada and Jamie and brings them home safely to Kent, where they finally become a real family forever.",
+            question: "How does the story end?",
+            options: ["Children stay in London", "Susan finds them and brings them home to become a real family", "Everyone moves away", "War continues without resolution"],
+            correct: 1
+        }
+    ]
+};
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) { // 70점 이상이면 통과
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #2C3E50, #3498DB)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #2C3E50, #3498DB)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #2C3E50, #3498DB)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+
+        // 오디오 플레이어 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+    </script>
+</body>
+</html>

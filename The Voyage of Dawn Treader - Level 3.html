@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Voyage of Dawn Treader - Level 3 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0066CC 0%, #87CEEB 50%, #FFD700 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #0066CC, #FFD700);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #0066CC;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #0066CC;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #0066CC, #FFD700);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #0066CC;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0066CC;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #0066CC;
+            background: linear-gradient(135deg, #0066CC08, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(0, 102, 204, 0.1);
+            color: #0066CC;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #0066CC, #00BFFF);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #0066CC, #FFD700);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #0066CC;
+        }
+
+        .option.selected {
+            background: rgba(0, 102, 204, 0.1);
+            border-color: #0066CC;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #0066CC, #FFD700);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #0066CC, #FFD700);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #0066CC, #FFD700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #0066CC, #00BFFF);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #FFD700;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🚢</div>
+                <div class="logo-text">
+                    <h1>The Voyage of Dawn Treader</h1>
+                    <p>Level 3 - C.S. Lewis의 나니아 연대기 3편</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="breadcrumb">
+
+                    <span>The Voyage of Dawn Treader</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🚢</div>
+                    <div class="book-info">
+                        <h2>The Voyage of Dawn Treader</h2>
+                        <div class="author">C.S. Lewis</div>
+                        <div class="book-summary">
+                            Edmund and Lucy return to Narnia with their cousin Eustace aboard the Dawn Treader, the ship of King Caspian. They sail to the edge of the world searching for seven lost lords and encounter dragons, sea serpents, and magical islands in this epic ocean adventure.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">16</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">80</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 3</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>📖 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+
+                    <a onclick="showBookDetail()">The Voyage of Dawn Treader</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1: The Picture in the Bedroom</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+
+                    <a onclick="showBookDetail()">The Voyage of Dawn Treader</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1: The Picture in the Bedroom</h3>
+            <p id="audio-chapter-subtitle">The Voyage of Dawn Treader - C.S. Lewis</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #0066CC;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // The Voyage of Dawn Treader 도서 데이터 (전체 16챕터)
+        const bookData = {
+            id: 'VDT001',
+            title: "The Voyage of Dawn Treader",
+            author: 'C.S. Lewis',
+            cover: '🚢',
+            progress: 0,
+            chapters: 16,
+            totalQuestions: 80, // 16챕터 × 5문제
+            coverColor: 'linear-gradient(45deg, #0066CC, #FFD700)',
+            summary: "Edmund and Lucy return to Narnia with their cousin Eustace aboard the Dawn Treader, the ship of King Caspian. They sail to the edge of the world searching for seven lost lords and encounter dragons, sea serpents, and magical islands in this epic ocean adventure.",
+            chapterList: [
+                { title: 'The Picture in the Bedroom', description: 'Edmund, Lucy, and Eustace are pulled into Narnia through a magical painting.', status: 'current', questionCount: 5, startTime: 0 },
+                { title: 'On Board the Dawn Treader', description: 'The children meet King Caspian and learn about his quest to find seven lost lords.', status: 'locked', questionCount: 5, startTime: 480 },
+                { title: 'The Lone Islands', description: 'The crew encounters slave traders on the Lone Islands.', status: 'locked', questionCount: 5, startTime: 960 },
+                { title: 'What Caspian Did There', description: 'Caspian liberates the Lone Islands and appoints a new governor.', status: 'locked', questionCount: 5, startTime: 1440 },
+                { title: 'The Storm and What Came of It', description: 'A terrible storm drives the ship to an unknown island.', status: 'locked', questionCount: 5, startTime: 1920 },
+                { title: 'The Adventures of Eustace', description: 'Eustace becomes a dragon due to his greed and selfishness.', status: 'locked', questionCount: 5, startTime: 2400 },
+                { title: 'How the Adventure Ended', description: 'Aslan transforms Eustace back into a boy, changed for the better.', status: 'locked', questionCount: 5, startTime: 2880 },
+                { title: 'Two Narrow Escapes', description: 'The crew faces invisible enemies and a dangerous sea serpent.', status: 'locked', questionCount: 5, startTime: 3360 },
+                { title: 'The Island of the Voices', description: 'Lucy helps the Dufflepuds become visible again by reading a magic spell.', status: 'locked', questionCount: 5, startTime: 3840 },
+                { title: 'The Magician\'s Book', description: 'Lucy reads from a powerful magic book and meets the magician Coriakin.', status: 'locked', questionCount: 5, startTime: 4320 },
+                { title: 'The Dark Island', description: 'The crew rescues Lord Rhoop from the island where dreams come true.', status: 'locked', questionCount: 5, startTime: 4800 },
+                { title: 'The Three Sleepers', description: 'They discover three of the lost lords in an enchanted sleep.', status: 'locked', questionCount: 5, startTime: 5280 },
+                { title: 'The Beginning of the End of the World', description: 'The ship reaches the edge of the world where the water becomes sweet.', status: 'locked', questionCount: 5, startTime: 5760 },
+                { title: 'The Wonders of the Last Sea', description: 'They encounter sea people and see lilies that grow on the sea.', status: 'locked', questionCount: 5, startTime: 6240 },
+                { title: 'The Very End of the World', description: 'Reepicheep reaches Aslan\'s Country while Edmund and Lucy say goodbye.', status: 'locked', questionCount: 5, startTime: 6720 },
+                { title: 'The Return Home', description: 'The children return to England, forever changed by their adventure.', status: 'locked', questionCount: 5, startTime: 7200 }
+            ]
+        };
+
+        // 문제 데이터 (전체 16챕터 - 샘플로 첫 5챕터만 포함)
+        const questionsData = {
+            0: [ // Chapter 1: The Picture in the Bedroom
+                {
+                    passage: "Edmund and Lucy were staying with their aunt and uncle because their parents were away. They had to share the house with their cousin Eustace, who was a very disagreeable boy.",
+                    question: "Why were Edmund and Lucy staying with their relatives?",
+                    options: ["Their parents were on vacation", "Their parents were away", "They wanted to visit their cousin", "Their school was closed"],
+                    correct: 1
+                },
+                {
+                    passage: "Eustace Clarence Scrubb almost deserved his name. He was the sort of boy who liked to pull the wings off flies and tease smaller children.",
+                    question: "What kind of personality did Eustace have?",
+                    options: ["Kind and gentle", "Disagreeable and mean", "Shy and quiet", "Friendly and helpful"],
+                    correct: 1
+                },
+                {
+                    passage: "In Lucy's room hung a picture of a ship with a dragon's head at the prow. The ship looked so real that you could almost feel the wind filling its purple sail.",
+                    question: "What was special about the picture in Lucy's room?",
+                    options: ["It was very expensive", "It looked so real you could almost feel the wind", "It was painted by a famous artist", "It glowed in the dark"],
+                    correct: 1
+                },
+                {
+                    passage: "While they were looking at the picture, Eustace made rude comments about it. Suddenly, the picture began to change and water started dripping from the frame.",
+                    question: "What happened while they were looking at the picture?",
+                    options: ["Nothing unusual", "Water started dripping from the frame", "The picture fell off the wall", "The room became dark"],
+                    correct: 1
+                },
+                {
+                    passage: "Before they knew it, Edmund, Lucy, and Eustace were pulled into the picture and found themselves in the cold water of the Narnian sea.",
+                    question: "Where did the children end up?",
+                    options: ["Still in the bedroom", "In the cold water of the Narnian sea", "In a different room", "In the garden"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: On Board the Dawn Treader
+                {
+                    passage: "The children were rescued from the water by the crew of the Dawn Treader. The ship's captain was none other than King Caspian, now grown up and ruling Narnia.",
+                    question: "Who was the captain of the Dawn Treader?",
+                    options: ["A stranger", "King Caspian", "An old sea captain", "Prince Edmund"],
+                    correct: 1
+                },
+                {
+                    passage: "Caspian explained that he was on a voyage to find seven lords who had been loyal to his father. They had sailed eastward years ago and never returned.",
+                    question: "What was the purpose of Caspian's voyage?",
+                    options: ["To explore new lands", "To find seven lost lords", "To trade with other countries", "To escape from enemies"],
+                    correct: 1
+                },
+                {
+                    passage: "Eustace was seasick and complained about everything - the food, the sleeping arrangements, and the rough treatment he received from the crew.",
+                    question: "How did Eustace react to being on the ship?",
+                    options: ["He loved the adventure", "He was seasick and complained about everything", "He quickly made friends with the crew", "He wanted to become a sailor"],
+                    correct: 1
+                },
+                {
+                    passage: "Reepicheep, the brave mouse, was also aboard the ship. He was seeking Aslan's Country, which he believed lay somewhere beyond the Eastern Sea.",
+                    question: "What was Reepicheep seeking?",
+                    options: ["Treasure", "Fame and glory", "Aslan's Country", "A way back to Narnia"],
+                    correct: 2
+                },
+                {
+                    passage: "The Dawn Treader was a beautiful ship with purple sails and a dragon's head at the prow. It was built for long voyages across the unknown seas.",
+                    question: "What did the Dawn Treader look like?",
+                    options: ["A simple fishing boat", "A beautiful ship with purple sails and a dragon's head", "A warship with black sails", "A small rowboat"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: The Lone Islands
+                {
+                    passage: "The first stop on their journey was the Lone Islands, which belonged to Narnia. However, when they arrived, they found the islands had changed greatly.",
+                    question: "What did they discover about the Lone Islands?",
+                    options: ["They were exactly the same", "They had changed greatly", "They were uninhabited", "They had been destroyed"],
+                    correct: 1
+                },
+                {
+                    passage: "Caspian, Edmund, Lucy, and Eustace went ashore to explore. They were captured by slave traders who planned to sell them in the slave market.",
+                    question: "What happened when they went ashore?",
+                    options: ["They were welcomed by the governor", "They were captured by slave traders", "They found treasure", "They got lost in the jungle"],
+                    correct: 1
+                },
+                {
+                    passage: "The slave traders didn't recognize Caspian as the King of Narnia. They treated all the captives as ordinary prisoners to be sold.",
+                    question: "How did the slave traders treat Caspian?",
+                    options: ["With great respect as a king", "As an ordinary prisoner", "As a dangerous enemy", "They let him go free"],
+                    correct: 1
+                },
+                {
+                    passage: "Lord Bern, one of the seven lost lords, was living on the island. When he learned of Caspian's identity, he immediately came to help rescue them.",
+                    question: "Who helped rescue the captives?",
+                    options: ["The ship's crew", "Lord Bern, one of the lost lords", "Local villagers", "No one - they escaped alone"],
+                    correct: 1
+                },
+                {
+                    passage: "Eustace was particularly frightened by the whole experience. He had never imagined that such dangerous adventures could happen in real life.",
+                    question: "How did Eustace feel about being captured?",
+                    options: ["Excited and thrilled", "Particularly frightened", "Angry and defiant", "Calm and brave"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: What Caspian Did There
+                {
+                    passage: "Caspian was furious to discover that slave trading was happening in his territory. As the rightful king, he immediately declared it illegal.",
+                    question: "How did Caspian react to the slave trading?",
+                    options: ["He ignored it", "He was furious and declared it illegal", "He decided to profit from it", "He thought it was acceptable"],
+                    correct: 1
+                },
+                {
+                    passage: "The current governor, Gumpas, was corrupt and had allowed the slave trade to flourish. He cared more about money than justice.",
+                    question: "What kind of governor was Gumpas?",
+                    options: ["Honest and fair", "Corrupt and only cared about money", "Strict but just", "Kind but weak"],
+                    correct: 1
+                },
+                {
+                    passage: "Caspian removed Gumpas from power and appointed Lord Bern as the new Duke of the Lone Islands. Bern promised to rule justly and end slavery.",
+                    question: "What did Caspian do about the leadership of the islands?",
+                    options: ["He left Gumpas in charge", "He appointed Lord Bern as the new Duke", "He decided to rule the islands himself", "He abandoned the islands"],
+                    correct: 1
+                },
+                {
+                    passage: "Before leaving, Caspian established new laws to protect the people and ensure that the slave trade would never return to the Lone Islands.",
+                    question: "What did Caspian do before leaving the islands?",
+                    options: ["He took all the treasure", "He established new laws to protect the people", "He burned down the slave markets", "He left without making any changes"],
+                    correct: 1
+                },
+                {
+                    passage: "Lord Bern gave them supplies and information about the eastern seas. He warned them of the dangers they might face on their journey.",
+                    question: "How did Lord Bern help the travelers?",
+                    options: ["He refused to help them", "He gave them supplies and information about the eastern seas", "He tried to stop them from leaving", "He only gave them money"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: The Storm and What Came of It
+                {
+                    passage: "As they sailed further east, the Dawn Treader encountered a terrible storm. The winds were so strong that they could barely control the ship.",
+                    question: "What natural disaster did the Dawn Treader encounter?",
+                    options: ["A drought", "A terrible storm", "An earthquake", "A tidal wave"],
+                    correct: 1
+                },
+                {
+                    passage: "For days, they were blown off course by the fierce winds. No one knew where they were, and their supply of fresh water began to run low.",
+                    question: "What problems did the storm cause?",
+                    options: ["The ship was destroyed", "They were blown off course and water ran low", "All the crew became sick", "They lost their treasure"],
+                    correct: 1
+                },
+                {
+                    passage: "Eustace became even more disagreeable during the storm. He blamed everyone else for their troubles and complained constantly about the conditions.",
+                    question: "How did Eustace behave during the storm?",
+                    options: ["He became helpful and brave", "He became even more disagreeable and complained constantly", "He stayed quiet and scared", "He tried to take control of the ship"],
+                    correct: 1
+                },
+                {
+                    passage: "Finally, the storm subsided and they found themselves near an unknown island. The crew was relieved to see land where they could find fresh water and food.",
+                    question: "What happened when the storm ended?",
+                    options: ["They were still lost at sea", "They found themselves near an unknown island", "They had returned to Narnia", "The ship was completely destroyed"],
+                    correct: 1
+                },
+                {
+                    passage: "The island appeared to be uninhabited, with thick forests and high mountains. It seemed like a good place to repair the ship and gather supplies.",
+                    question: "What did the unknown island look like?",
+                    options: ["A desert with no vegetation", "Uninhabited with thick forests and high mountains", "A busy port city", "A frozen wasteland"],
+                    correct: 1
+                }
+            ]
+            // Note: 나머지 챕터들(5-15)의 문제는 공간상 생략하고 첫 5챕터만 포함
+            // 실제 구현시에는 모든 16챕터의 문제가 필요합니다
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 자동 오디오 URL 생성 함수
+        function getAudioUrl(chapterIndex) {
+            const level = 'level3';
+            const bookId = 'VDT001';
+            const chapterNum = String(chapterIndex + 1).padStart(2, '0');
+
+            const possibleFileNames = [
+                `${bookId}_chapter${chapterNum}.mp3`,
+                `${bookId}_ch${chapterNum}.mp3`,
+                `${bookId}_${chapterNum}.mp3`,
+                `voyage_dawn_treader_chapter${chapterNum}.mp3`,
+                `voyage_dawn_treader_ch${chapterNum}.mp3`,
+                `dawn_treader_${chapterNum}.mp3`,
+                `narnia_vdt_chapter${chapterNum}.mp3`,
+                `${bookId}.mp3`
+            ];
+
+            return {
+                primary: `${AUDIO_BASE_URL}${level}/${possibleFileNames[0]}`,
+                alternatives: possibleFileNames.map(fileName => `${AUDIO_BASE_URL}${level}/${fileName}`)
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioUrls = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+            // 오디오 정보 영역 다시 보이기 (새로운 오디오 플레이시)
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 찾는 중...';
+
+            function tryLoadAudio(urlIndex = 0) {
+                if (urlIndex >= audioUrls.alternatives.length) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.`;
+                    return;
+                }
+
+                const currentUrl = audioUrls.alternatives[urlIndex];
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    const startTime = chapter.startTime || 0;
+                    audioPlayer.currentTime = startTime;
+                    audioStatus.innerHTML = `✅ 오디오 준비 완료!`;
+                };
+
+                const errorHandler = function() {
+                    setTimeout(() => tryLoadAudio(urlIndex + 1), 100);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+                audioPlayer.addEventListener('error', errorHandler, { once: true });
+            }
+
+            tryLoadAudio(0);
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 기본 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            const currentChapter = parseInt(document.getElementById('audio-chapter-title').textContent.match(/Chapter (\d+)/)[1]) - 1;
+            currentAudio.currentTime = bookData.chapterList[currentChapter]?.startTime || 0;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>Chapter ${index + 1}: ${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progress = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex];
+
+            if (!questions || questions.length === 0) {
+                alert('이 챕터의 문제가 아직 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('learning-chapter-breadcrumb').textContent = `Chapter ${chapterIndex + 1}`;
+
+            showQuestion();
+            updateLearningProgress();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="question-text">문제 ${currentQuestionIndex + 1}</div>
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) selectedOption.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        // 선택지 선택
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`[data-index="${optionIndex}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateNavigationButtons();
+        }
+
+        // 네비게이션
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function updateLearningProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = progress + '%';
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+                if (currentChapterIndex < bookData.chapterList.length - 1) {
+                    bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                }
+            }
+
+            showResults(correctCount, questions.length, score);
+        }
+
+        // 결과 표시
+        function showResults(correct, total, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = score + '%';
+            document.getElementById('total-questions').textContent = total + '문제';
+            document.getElementById('correct-answers').textContent = correct + '문제';
+            document.getElementById('wrong-answers').textContent = (total - correct) + '문제';
+            document.getElementById('final-score').textContent = score + '점';
+
+            let message = '';
+            if (score >= 90) message = '훌륭합니다! 🌟';
+            else if (score >= 80) message = '잘했어요! 👏';
+            else if (score >= 70) message = '좋아요! 👍';
+            else message = '다시 한번 도전해보세요! 💪';
+
+            document.getElementById('result-message').textContent = message;
+        }
+
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        function nextChapter() {
+            if (currentChapterIndex < bookData.chapterList.length - 1) {
+                startLearning(currentChapterIndex + 1);
+            } else {
+                alert('모든 챕터를 완료했습니다! 🎉');
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드
+        window.addEventListener('load', function() {
+            showBookDetail();
+            console.log('🎯 The Voyage of Dawn Treader 학습 시스템이 준비되었습니다!');
+        });
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('audio-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeAudioModal();
+        });
+    </script>
+</body>
+</html>

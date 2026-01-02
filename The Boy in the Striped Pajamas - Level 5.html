@@ -1,0 +1,3230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Boy in the Striped Pajamas - Level 4-2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2C1810 0%, #8B4513 50%, #D2691E 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #2C1810;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .print-nav-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .print-nav-btn:hover {
+            background: linear-gradient(45deg, #218838, #1ea085);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #2C1810;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #2C1810;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2C1810;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #2C1810;
+            background: linear-gradient(135deg, #2C181008, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(44, 24, 16, 0.1);
+            color: #2C1810;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #8B4513, #D2691E);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2C1810, #8B4513);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2C1810;
+        }
+
+        .option.selected {
+            background: rgba(44, 24, 16, 0.1);
+            border-color: #2C1810;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 인쇄 모달 */
+        .print-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .print-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-print {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .print-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .print-header h2 {
+            color: #2C1810;
+            margin-bottom: 10px;
+        }
+
+        .chapter-selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .chapter-select-card {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .chapter-select-card:hover {
+            border-color: #2C1810;
+            background: #e9ecef;
+        }
+
+        .chapter-select-card.selected {
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
+        }
+
+        .chapter-select-card h4 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-select-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .print-options {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .print-options h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .option-group {
+            margin-bottom: 15px;
+        }
+
+        .option-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .option-group input[type="checkbox"],
+        .option-group input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2C1810;
+        }
+
+        .print-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .print-action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .print-action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #2C1810, #8B4513);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #8B4513;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* Level 4-2 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #2C1810, #DC143C);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 인쇄용 스타일 */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                font-family: 'Malgun Gothic', sans-serif !important;
+            }
+
+            .container, .header, .nav-buttons, .print-modal, .audio-modal {
+                display: none !important;
+            }
+
+            .print-content {
+                display: block !important;
+                margin: 0 !important;
+                padding: 20px !important;
+            }
+
+            .print-question {
+                page-break-inside: avoid;
+                margin-bottom: 25px;
+                border: 1px solid #ddd;
+                padding: 15px;
+                border-radius: 8px;
+            }
+
+            .print-chapter-header {
+                page-break-after: avoid;
+                border-bottom: 2px solid #333;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            .print-passage {
+                background: #f5f5f5 !important;
+                padding: 15px;
+                margin: 10px 0;
+                border-left: 4px solid #333;
+                font-style: italic;
+            }
+
+            .print-options {
+                margin: 10px 0;
+            }
+
+            .print-option {
+                margin: 5px 0;
+                padding: 5px;
+            }
+
+            .print-answer-space {
+                margin-top: 10px;
+                border-top: 1px dashed #ccc;
+                padding-top: 10px;
+            }
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+
+            .chapter-selection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .print-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🏭</div>
+                <div class="logo-text">
+                    <h1>The Boy in the Striped Pajamas</h1>
+                    <p>Level 4-2 - John Boyne의 홀로코스트 우화</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn print-nav-btn" onclick="showPrintModal()">🖨️ 문제 인쇄</button>
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 4-2</div>
+                <div class="breadcrumb">
+                    <span>The Boy in the Striped Pajamas</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">🏭</div>
+                    <div class="book-info">
+                        <h2>The Boy in the Striped Pajamas</h2>
+                        <div class="author">John Boyne</div>
+                        <div class="book-summary">
+                            Nine-year-old Bruno lives in Berlin with his Nazi commandant father until the family moves to a house near Auschwitz concentration camp, which Bruno calls "Out-With." From his bedroom window, Bruno sees people in striped pajamas behind a fence. When he befriends a Jewish boy named Shmuel through the fence, their innocent friendship leads to a tragic ending that exposes the horror of the Holocaust through a child's eyes. This controversial yet powerful fable explores themes of innocence, friendship, and the consequences of hatred and prejudice.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">20</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">140</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 4-2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>🏭 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Boy in the Striped Pajamas</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Boy in the Striped Pajamas</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 인쇄 모달 -->
+    <div class="print-modal" id="print-modal">
+        <div class="print-modal-content">
+            <button class="close-print" onclick="closePrintModal()">×</button>
+            <div class="print-header">
+                <h2>🖨️ 문제지 인쇄</h2>
+                <p>인쇄할 챕터와 옵션을 선택하세요</p>
+            </div>
+
+            <div class="chapter-selection-grid" id="chapter-selection-grid">
+                <!-- 챕터 선택 카드들이 여기에 생성됩니다 -->
+            </div>
+
+            <div class="print-options">
+                <h3>📋 인쇄 옵션</h3>
+                
+                <div class="option-group">
+                    <label>
+                        <input type="checkbox" id="include-passages" checked>
+                        지문 포함하기
+                    </label>
+                    <label>
+                        <input type="checkbox" id="include-answers" checked>
+                        정답지 포함하기
+                    </label>
+                    <label>
+                        <input type="checkbox" id="large-font">
+                        큰 글씨로 인쇄 (14pt → 16pt)
+                    </label>
+                </div>
+            </div>
+
+            <div class="print-actions">
+                <button class="print-action-btn btn-secondary" onclick="selectAllChapters()">전체 선택</button>
+                <button class="print-action-btn btn-secondary" onclick="clearSelection()">선택 해제</button>
+                <button class="print-action-btn btn-success" onclick="generatePreview()">미리보기</button>
+                <button class="print-action-btn btn-primary" onclick="printSelected()">인쇄하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">The Boy in the Striped Pajamas - John Boyne</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #2C1810;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 인쇄용 숨겨진 콘텐츠 -->
+    <div class="print-content" id="print-content" style="display: none;">
+        <!-- 인쇄할 내용이 여기에 동적으로 생성됩니다 -->
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+       // 📖 The Boy in the Striped Pajamas 단일 파일 + 챕터 타임스탬프 매핑 (20개 챕터)
+const tbspChapterMapping = {
+    1: { title: "Chapter 1", startTime: 58, endTime: 795 },
+    2: { title: "Chapter 2", startTime: 797, endTime: 1550 },
+    3: { title: "Chapter 3", startTime: 1553, endTime: 2185 },
+    4: { title: "Chapter 4", startTime: 2186, endTime: 2911 },
+    5: { title: "Chapter 5", startTime: 2912, endTime: 4115 },
+    6: { title: "Chapter 6", startTime: 4134, endTime: 5019 },
+    7: { title: "Chapter 7", startTime: 5020, endTime: 6532 },
+    8: { title: "Chapter 8", startTime: 6533, endTime: 7166 },
+    9: { title: "Chapter 9", startTime: 7167, endTime: 7807 },
+    10: { title: "Chapter 10", startTime: 7818, endTime: 9186 },
+    11: { title: "Chapter 11", startTime: 9188, endTime: 9884 },
+    12: { title: "Chapter 12", startTime: 9885, endTime: 10514 },
+    13: { title: "Chapter 13", startTime: 10515, endTime: 11767 },
+    14: { title: "Chapter 14", startTime: 11768, endTime: 12555 },
+    15: { title: "Chapter 15", startTime: 12565, endTime: 13339 },
+    16: { title: "Chapter 16", startTime: 13342, endTime: 14087 },
+    17: { title: "Chapter 17", startTime: 14088, endTime: 14601 },
+    18: { title: "Chapter 18", startTime: 14602, endTime: 15134 },
+    19: { title: "Chapter 19", startTime: 15135, endTime: 16163 },
+    20: { title: "Chapter 20", startTime: 16164, endTime: 16400 }
+};
+
+        // 전역 변수
+        let currentChapter = 1;
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+        let isChapterMode = true;
+        let totalDuration = 16362.906649;
+        let selectedChaptersForPrint = [];
+
+        // 🎧 시간을 시:분:초 형식으로 변환하는 함수
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+
+            if (hours > 0) {
+                return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            } else {
+                return `${minutes}:${secs.toString().padStart(2, '0')}`;
+            }
+        }
+
+        // 📖 The Boy in the Striped Pajamas 오디오 URL 생성 함수 (단일 파일)
+        function getAudioUrl(chapterNumber = null) {
+            const fileName = 'The_Boy_in_the_Striped_Pajamas_Complete.mp3';
+            return {
+                primary: `${AUDIO_BASE_URL}TBSP001_The_Boy_in_the_Striped_Pajamas/${fileName}`,
+                alternatives: [`${AUDIO_BASE_URL}TBSP001_The_Boy_in_the_Striped_Pajamas/${fileName}`],
+                file: fileName,
+                totalDuration: totalDuration
+            };
+        }
+
+        // 🎧 현재 재생 시간으로부터 챕터 찾기
+        function getCurrentChapterFromTime(currentTime) {
+            for (let i = 1; i <= 20; i++) {
+                const chapter = tbspChapterMapping[i];
+                if (currentTime >= chapter.startTime && currentTime < chapter.endTime) {
+                    return i;
+                }
+            }
+            return 20;
+        }
+
+        // 🎧 챕터 끝 감지 및 다음 챕터 제안 함수
+        function monitorChapterEnd(audioPlayer, targetChapter) {
+            const checkChapterEnd = function() {
+                if (!audioPlayer || audioPlayer.paused) return;
+
+                const currentTime = audioPlayer.currentTime;
+                const chapterData = tbspChapterMapping[targetChapter];
+
+                if (currentTime >= chapterData.endTime) {
+                    if (isChapterMode) {
+                        audioPlayer.pause();
+                        const audioStatus = document.getElementById('audio-status');
+                        const totalProgress = calculateTotalProgress();
+                        audioStatus.innerHTML = `✅ Chapter ${targetChapter} 완료! (전체 진행률: ${totalProgress.percentage}%)`;
+                        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+                        if (targetChapter < 20) {
+                            setTimeout(() => {
+                                if (confirm(`Chapter ${targetChapter}이 완료되었습니다.\n전체 진행률: ${totalProgress.percentage}%\n\nChapter ${targetChapter + 1}을 재생하시겠습니까?`)) {
+                                    playChapterAudio(targetChapter);
+                                }
+                            }, 1000);
+                        } else {
+                            setTimeout(() => {
+                                alert('🎉 The Boy in the Striped Pajamas 완독을 축하합니다!\n최종 진행률: 100% 🏆');
+                            }, 1000);
+                        }
+                        return;
+                    }
+                }
+
+                const detectedChapter = getCurrentChapterFromTime(currentTime);
+                if (detectedChapter !== currentChapter) {
+                    currentChapter = detectedChapter;
+                    updateChapterDisplay();
+                }
+                setTimeout(checkChapterEnd, 500);
+            };
+            setTimeout(checkChapterEnd, 500);
+        }
+
+        // 📖 The Boy in the Striped Pajamas 챕터 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapterNumber = chapterIndex + 1;
+
+            if (chapterNumber < 1 || chapterNumber > 20) {
+                alert('유효하지 않은 챕터 번호입니다. (1-20)');
+                return;
+            }
+
+            const chapterData = tbspChapterMapping[chapterNumber];
+            const audioData = getAudioUrl();
+
+            if (!chapterData) {
+                alert(`Chapter ${chapterNumber}의 정보를 찾을 수 없습니다.`);
+                return;
+            }
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = chapterData.title;
+            document.getElementById('audio-chapter-subtitle').textContent = `The Boy in the Striped Pajamas - John Boyne`;
+
+            const audioInfoElement = document.getElementById('audio-info');
+            if (audioInfoElement) {
+                audioInfoElement.classList.remove('hidden');
+            }
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            currentChapter = chapterNumber;
+            currentChapterIndex = chapterIndex;
+            isChapterMode = true;
+
+            audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+            audioSource.src = audioData.primary;
+            audioPlayer.load();
+
+            const successHandler = function() {
+                audioPlayer.currentTime = chapterData.startTime;
+                audioStatus.innerHTML = `✅ ${chapterData.title} 준비완료!<br>
+                                        📁 파일: ${audioData.file}<br>
+                                        ⏰ 구간: ${formatTime(chapterData.startTime)} - ${formatTime(chapterData.endTime)}<br>
+                                        🎵 ▶️ 재생 버튼을 눌러주세요`;
+                createProgressBars();
+                updateChapterDisplay();
+                monitorChapterEnd(audioPlayer, chapterNumber);
+            };
+
+            const errorHandler = function() {
+                audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.<br>파일: ${audioData.file}`;
+                console.error('오디오 로드 실패:', audioData.primary);
+            };
+
+            audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+            audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 🎧 전체 진행률 계산 함수
+        function calculateTotalProgress() {
+            if (!currentAudio) return { percentage: 0, completedChapters: 0 };
+
+            const currentTime = currentAudio.currentTime;
+            const totalProgress = Math.round((currentTime / totalDuration) * 100);
+
+            let completedChapters = 0;
+            for (let i = 1; i <= 20; i++) {
+                const chapterData = tbspChapterMapping[i];
+                if (currentTime >= chapterData.endTime) {
+                    completedChapters++;
+                }
+            }
+
+            return {
+                percentage: Math.max(0, Math.min(100, totalProgress)),
+                completedChapters: completedChapters,
+                currentTime: formatTime(currentTime),
+                totalTime: formatTime(totalDuration)
+            };
+        }
+
+        // 🎧 현재 재생 중인 챕터 정보 표시
+        function getCurrentChapterInfo() {
+            if (!currentAudio) return null;
+
+            const currentTime = currentAudio.currentTime;
+            const duration = currentAudio.duration;
+            const detectedChapter = getCurrentChapterFromTime(currentTime);
+            const chapterData = tbspChapterMapping[detectedChapter];
+
+            if (!chapterData) return null;
+
+            const chapterProgress = Math.round(((currentTime - chapterData.startTime) / (chapterData.endTime - chapterData.startTime)) * 100);
+            const clampedProgress = Math.max(0, Math.min(100, chapterProgress));
+
+            return {
+                chapterNumber: detectedChapter,
+                currentTime: formatTime(currentTime),
+                totalDuration: formatTime(duration),
+                chapterStartTime: formatTime(chapterData.startTime),
+                chapterEndTime: formatTime(chapterData.endTime),
+                chapterProgress: clampedProgress,
+                chapterDuration: formatTime(chapterData.endTime - chapterData.startTime)
+            };
+        }
+
+        // 🎧 챕터 정보를 UI에 표시하는 함수
+        function updateChapterDisplay() {
+            const info = getCurrentChapterInfo();
+            if (info) {
+                const audioStatus = document.getElementById('audio-status');
+                const totalProgress = calculateTotalProgress();
+
+                if (isChapterMode) {
+                    audioStatus.innerHTML = `🎵 Chapter ${info.chapterNumber}/20 재생 중 (${info.chapterProgress}% 완료)<br>
+                                            📍 ${info.currentTime} / ${info.chapterEndTime} (챕터 길이: ${info.chapterDuration})<br>
+                                            📚 전체 진행률: ${totalProgress.percentage}% (${totalProgress.completedChapters}/20 챕터)`;
+                } else {
+                    audioStatus.innerHTML = `🎵 전체 재생 중 - Chapter ${info.chapterNumber}/20<br>
+                                            📍 ${info.currentTime} / ${info.totalDuration}<br>
+                                            📚 전체 진행률: ${totalProgress.percentage}%`;
+                }
+                updateProgressBar(info.chapterProgress, totalProgress.percentage);
+            }
+        }
+
+        // 🎧 진행률 바 업데이트 함수
+        function updateProgressBar(chapterProgress, totalProgress) {
+            let chapterProgressBar = document.getElementById('chapter-progress-bar');
+            if (!chapterProgressBar) {
+                createProgressBars();
+                chapterProgressBar = document.getElementById('chapter-progress-bar');
+            }
+
+            const totalProgressBar = document.getElementById('total-progress-bar');
+
+            if (chapterProgressBar && totalProgressBar) {
+                chapterProgressBar.style.width = `${chapterProgress}%`;
+                totalProgressBar.style.width = `${totalProgress}%`;
+
+                if (chapterProgress < 30) {
+                    chapterProgressBar.style.backgroundColor = '#ff6b6b';
+                } else if (chapterProgress < 70) {
+                    chapterProgressBar.style.backgroundColor = '#ffa726';
+                } else {
+                    chapterProgressBar.style.backgroundColor = '#66bb6a';
+                }
+
+                if (totalProgress < 30) {
+                    totalProgressBar.style.backgroundColor = '#e74c3c';
+                } else if (totalProgress < 70) {
+                    totalProgressBar.style.backgroundColor = '#f39c12';
+                } else {
+                    totalProgressBar.style.backgroundColor = '#27ae60';
+                }
+            }
+        }
+
+        // 🎧 진행률 바 생성 함수
+        function createProgressBars() {
+            const audioInfo = document.getElementById('audio-info');
+            if (!audioInfo || document.getElementById('progress-container')) return;
+
+            const progressContainer = document.createElement('div');
+            progressContainer.id = 'progress-container';
+            progressContainer.style.cssText = `
+                margin-top: 15px;
+                padding: 10px;
+                background: rgba(0,0,0,0.1);
+                border-radius: 8px;
+            `;
+
+            const chapterProgressContainer = document.createElement('div');
+            chapterProgressContainer.innerHTML = `
+                <div style="font-size: 12px; margin-bottom: 5px; color: #666;">현재 챕터 진행률</div>
+                <div style="width: 100%; height: 8px; background: #ddd; border-radius: 4px; overflow: hidden;">
+                    <div id="chapter-progress-bar" style="height: 100%; width: 0%; background: #66bb6a; transition: width 0.3s ease;"></div>
+                </div>
+            `;
+
+            const totalProgressContainer = document.createElement('div');
+            totalProgressContainer.innerHTML = `
+                <div style="font-size: 12px; margin: 10px 0 5px 0; color: #666;">전체 도서 진행률</div>
+                <div style="width: 100%; height: 12px; background: #ddd; border-radius: 6px; overflow: hidden;">
+                    <div id="total-progress-bar" style="height: 100%; width: 0%; background: #27ae60; transition: width 0.3s ease;"></div>
+                </div>
+            `;
+
+            progressContainer.appendChild(chapterProgressContainer);
+            progressContainer.appendChild(totalProgressContainer);
+            audioInfo.appendChild(progressContainer);
+        }
+
+        // 🎧 기본 오디오 컨트롤 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+
+            if (currentAudio.paused) {
+                currentAudio.play().then(() => {
+                    document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+                    const audioStatus = document.getElementById('audio-status');
+                    const modeText = isChapterMode ? `Chapter ${currentChapter}` : '전체 재생';
+                    audioStatus.innerHTML = `🎵 ${modeText} 재생 중!`;
+                }).catch(e => {
+                    console.log('재생 실패:', e);
+                    const audioStatus = document.getElementById('audio-status');
+                    audioStatus.innerHTML = '❌ 재생에 실패했습니다. 다시 시도해주세요.';
+                });
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+                const audioStatus = document.getElementById('audio-status');
+                const modeText = isChapterMode ? `Chapter ${currentChapter}` : '전체 재생';
+                audioStatus.innerHTML = `⏸️ ${modeText} 일시정지됨`;
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+
+            const speedBtn = document.querySelector('.speed-btn');
+            if (speedBtn) {
+                speedBtn.textContent = `${playbackSpeed}x`;
+            }
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = 'The_Boy_in_the_Striped_Pajamas_Complete.mp3';
+                link.click();
+            } else {
+                alert('다운로드할 오디오 파일이 없습니다.');
+            }
+        }
+
+        // The Boy in the Striped Pajamas 도서 데이터 (20챕터)
+        const bookData = {
+            id: 'TBSP001',
+            title: "The Boy in the Striped Pajamas",
+            author: 'John Boyne',
+            cover: '🏭',
+            progress: 0,
+            chapters: 20,
+            totalQuestions: 140,
+            coverColor: 'linear-gradient(45deg, #2C1810, #8B4513)',
+            summary: "Nine-year-old Bruno lives in Berlin with his Nazi commandant father until the family moves to a house near Auschwitz concentration camp, which Bruno calls 'Out-With.' From his bedroom window, Bruno sees people in striped pajamas behind a fence. When he befriends a Jewish boy named Shmuel through the fence, their innocent friendship leads to a tragic ending that exposes the horror of the Holocaust through a child's eyes. This controversial yet powerful fable explores themes of innocence, friendship, and the consequences of hatred and prejudice.",
+            chapterList: [
+                { title: 'Chapter 1', description: 'Bruno discovers Maria packing his belongings and learns his family must move from Berlin.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 2', description: 'Bruno explores his new home and sees people in striped pajamas through his bedroom window.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 3', description: 'Bruno meets his sister Gretel and they observe the strange camp from his window.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 4', description: 'Bruno asks his father about the people behind the fence and receives a disturbing answer.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 5', description: 'Bruno talks to Maria about their new home and Father\'s work.', status: 'current', questionCount: 15 },
+                { title: 'Chapter 6', description: 'Bruno hurts himself on a swing and is treated by Pavel, a mysterious waiter.', status: 'current', questionCount:  15 },
+                { title: 'Chapter 7', description: 'Bruno and Gretel meet their new tutor, Herr Liszt, who teaches them about history and geography.', status: 'current', questionCount:  15 },
+                { title: 'Chapter 8', description: 'Lieutenant Kotler arrives and Bruno dislikes him, while Gretel develops a crush.', status: 'current', questionCount:  15 },
+                { title: 'Chapter 9', description: 'Bruno begins exploring along the fence and discovers it extends much farther than expected.', status: 'current', questionCount:  15 },
+                { title: 'Chapter 10', description: 'Bruno meets Shmuel, a boy his age on the other side of the fence wearing striped pajamas.', status: 'current', questionCount:  15 },
+                { title: 'Chapter 11', description: 'Flashback to the Fury\'s dinner visit in Berlin, revealing Bruno\'s father\'s promotion.', status: 'current', questionCount:  15 },
+                { title: 'Chapter 12', description: 'Bruno learns more about Shmuel\'s life and brings him food during their meetings.', status: 'current', questionCount:  15 },
+                { title: 'Chapter 13', description: 'Bruno asks questions about the striped pajamas and notices Shmuel\'s black eye.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 14', description: 'Bruno accidentally mentions Shmuel to Gretel but calls him an imaginary friend.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 15', description: 'Bruno discovers Shmuel cleaning glasses in his house and denies knowing him to Lieutenant Kotler.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 16', description: 'Bruno\'s grandmother dies and Kotler is transferred after arguments with Bruno\'s parents.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 17', description: 'Bruno learns his family will return to Berlin, but he doesn\'t want to leave Shmuel.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 18', description: 'Bruno agrees to help Shmuel find his missing father by crossing to the other side of the fence.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 19', description: 'Bruno puts on striped pajamas and crawls under the fence to search for Shmuel\'s father.', status: 'current', questionCount: 5 },
+                { title: 'Chapter 20', description: 'Bruno and Shmuel are caught in a group march and disappear, leading to the tragic conclusion.', status: 'current', questionCount: 5 }
+            ]
+        };
+
+         // 문제 데이터 (실제 스토리에 기반한 정확한 내용)
+        const questionsData = {
+            0: [ // Chapter 1
+                {
+                    passage: "When Bruno came home from school one day, he was surprised to find Maria, the family's maid, packing all his belongings into four large wooden crates.",
+                    question: "What surprised Bruno when he came home from school?",
+                    options: ["His father was home early", "Maria was packing his belongings into wooden crates", "His friends were visiting", "His room was being painted"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno had always been taught to treat Maria respectfully and not just imitate the way Father spoke to her.",
+                    question: "How had Bruno been taught to treat Maria?",
+                    options: ["Respectfully, not like Father spoke to her", "With suspicion and distrust", "As if she were invisible", "Only when necessary"],
+                    correct: 0
+                },
+                {
+                    passage: "Mother explained that Maria was packing because the whole family would soon be going on a 'great adventure.'",
+                    question: "How did Mother describe their upcoming move?",
+                    options: ["A necessary business trip", "A great adventure", "A temporary vacation", "A punishment from Father's work"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno was told that his father's employer had a very special new job for him, and the family would have to close up their house in Berlin.",
+                    question: "Why was the family moving according to Mother?",
+                    options: ["They were being evicted", "Father had a special new job from his employer", "The house was too small", "They needed to save money"],
+                    correct: 1
+                },
+                {
+                    passage: "The family servants - Maria, the cook, and the butler Lars - would come with them to the new house.",
+                    question: "Who would accompany the family to their new home?",
+                    options: ["Only Maria", "Maria, the cook, and Lars the butler", "Just the immediate family", "Father's colleagues"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2
+                {
+                    passage: "Looking from his bedroom window, Bruno could see a fence that extended as far as the eye could see, with people living on the other side.",
+                    question: "What could Bruno see from his bedroom window?",
+                    options: ["A beautiful garden", "A fence extending far with people on the other side", "Other houses like theirs", "An empty field"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno noticed that everyone on the other side of the fence was wearing the same outfit: grey striped pajamas with grey striped caps.",
+                    question: "What were all the people behind the fence wearing?",
+                    options: ["Regular work clothes", "Grey striped pajamas and caps", "Military uniforms", "Colorful clothing"],
+                    correct: 1
+                },
+                {
+                    passage: "There were boys, men, and elderly men living together, but Bruno couldn't see any women from his window.",
+                    question: "What types of people did Bruno observe behind the fence?",
+                    options: ["Only children", "Boys, men, and elderly men - but no women", "Families with children", "Only adults"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno wondered why so many people would choose to live in such a strange place that looked uncomfortable.",
+                    question: "What did Bruno wonder about the people behind the fence?",
+                    options: ["Why they wore the same clothes", "Why they would choose to live in such an uncomfortable-looking place", "Why they didn't wave at him", "Why there were so many of them"],
+                    correct: 1
+                },
+                {
+                    passage: "The new house was much smaller than their Berlin home, with only three floors instead of five.",
+                    question: "How did the new house compare to their Berlin home?",
+                    options: ["It was exactly the same size", "It was much smaller with three floors instead of five", "It was larger and more impressive", "It had more rooms but fewer floors"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3
+                {
+                    passage: "Bruno found his twelve-year-old sister Gretel in her room, whom he referred to as 'A Hopeless Case.'",
+                    question: "What did Bruno call his sister Gretel?",
+                    options: ["The Smart One", "A Hopeless Case", "The Favorite", "Trouble Maker"],
+                    correct: 1
+                },
+                {
+                    passage: "Gretel told Bruno that their new location was called 'Out-With,' though she seemed to know more about it than Bruno did.",
+                    question: "What did Gretel tell Bruno their new location was called?",
+                    options: ["The Countryside", "Out-With", "The Camp", "The New Territory"],
+                    correct: 1
+                },
+                {
+                    passage: "When Bruno showed Gretel the view from his window, she could see the fence, buildings, and smokestacks in the distance.",
+                    question: "What additional detail could Gretel see that Bruno had missed?",
+                    options: ["A playground", "Smokestacks in the distance", "A river", "Mountains"],
+                    correct: 1
+                },
+                {
+                    passage: "Gretel wondered aloud where all the women were, since she could only see boys and men behind the fence.",
+                    question: "What did Gretel wonder about the people behind the fence?",
+                    options: ["Why they were all working", "Where all the women were", "Why they looked sad", "What they were building"],
+                    correct: 1
+                },
+                {
+                    passage: "Both children noticed that some people behind the fence appeared to be on crutches, some carried spades, and some children were crying.",
+                    question: "What concerning details did Bruno and Gretel observe about the people?",
+                    options: ["They were all very tall", "Some were on crutches, some carried spades, and some children were crying", "They were all singing", "They were playing games"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4
+                {
+                    passage: "Bruno entered his father's new office and said he wanted to go home to Berlin.",
+                    question: "What did Bruno tell his father when he visited his office?",
+                    options: ["He loved their new home", "He wanted to go home to Berlin", "He was excited about exploring", "He had made new friends"],
+                    correct: 1
+                },
+                {
+                    passage: "When Bruno asked who the people outside his window were, his father replied that they were not people at all.",
+                    question: "How did Father respond when Bruno asked about the people behind the fence?",
+                    options: ["They were workers", "They were not people at all", "They were neighbors", "They were visitors"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno saluted his father with 'Heil Hitler' before leaving his office, as was expected.",
+                    question: "How did Bruno end his conversation with Father?",
+                    options: ["With a handshake", "By saluting with 'Heil Hitler'", "With a hug", "By saying goodbye"],
+                    correct: 1
+                },
+                {
+                    passage: "Father told Bruno to give Out-With a chance because it was their home now 'for the foreseeable future.'",
+                    question: "What did Father tell Bruno about how long they would stay?",
+                    options: ["Just for a few months", "For the foreseeable future", "Until the war ended", "Only one year"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno left his father's office feeling more confused than ever about their new situation.",
+                    question: "How did Bruno feel after talking to his father?",
+                    options: ["Completely satisfied", "More confused than ever", "Excited about staying", "Ready to make friends"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5
+    {
+        passage: "Bruno looked at their new house with disappointment, finding it much smaller and less impressive than their home in Berlin.",
+        question: "What was Bruno's reaction to the new house?",
+        options: ["Excitement", "Disappointment", "Curiosity", "Fear"],
+        correct: 1
+    },
+    {
+        passage: "Maria worked as the family's maid, helping with household duties and taking care of the children.",
+        question: "Who is Maria in the story?",
+        options: ["A teacher", "A family friend", "The maid", "Bruno's cousin"],
+        correct: 2
+    },
+    {
+        passage: "Bruno deeply missed his friends and the familiar life he had left behind when his family moved from Berlin.",
+        question: "What does Bruno miss about Berlin?",
+        options: ["His father", "His school", "His grandparents", "His friends and home"],
+        correct: 3
+    },
+    {
+        passage: "From his bedroom window, Bruno could see a fenced-in area with many people wearing the same type of clothing.",
+        question: "What can Bruno see from his bedroom window?",
+        options: ["A city skyline", "A forest", "A farm", "A fenced-in area with people"],
+        correct: 3
+    },
+    {
+        passage: "Bruno observed that the people outside looked thin, tired, and very sad, which struck him as unusual.",
+        question: "How does Bruno describe the people he sees outside?",
+        options: ["Happy", "Friendly", "Strange", "Sad-looking"],
+        correct: 3
+    },
+    {
+        passage: "Chapter 5 creates a tense atmosphere as Bruno begins to sense something unusual about their new environment.",
+        question: "What is the tone of Chapter 5?",
+        options: ["Joyful", "Tense", "Hopeful", "Mysterious"],
+        correct: 1
+    },
+    {
+        passage: "Bruno's parents explained that they moved to their new home because of Father's important work assignment.",
+        question: "What is Bruno told about their new home?",
+        options: ["It's temporary", "It's a reward", "It's for safety", "It's because of Father's job"],
+        correct: 3
+    },
+    {
+        passage: "Bruno felt confused and displaced in his new surroundings, unsure about what was happening around him.",
+        question: "What emotion best describes Bruno's feelings?",
+        options: ["Joy", "Confusion", "Anger", "Excitement"],
+        correct: 1
+    },
+    {
+        passage: "Bruno was unhappy because he had to leave behind all his school friends and the familiar life he knew in Berlin.",
+        question: "Why is Bruno unhappy?",
+        options: ["He has no toys", "He misses his friends", "The food is bad", "His room is small"],
+        correct: 1
+    },
+    {
+        passage: "Bruno's mother tried to comfort him and help him adjust to their new living situation.",
+        question: "What does Bruno's mother try to do?",
+        options: ["Punish him", "Comfort him", "Ignore him", "Move back to Berlin"],
+        correct: 1
+    },
+    {
+        passage: "Bruno generally found his sister Gretel annoying and often dismissed her opinions and behavior.",
+        question: "How does Bruno feel about his sister?",
+        options: ["Loyal", "Loving", "Dismissive", "Jealous"],
+        correct: 2
+    },
+    {
+        passage: "Through Bruno's innocent observations of the separated people, themes of isolation begin to emerge in the story.",
+        question: "What theme is introduced through Bruno's observations?",
+        options: ["War", "Isolation", "Freedom", "Peace"],
+        correct: 1
+    },
+    {
+        passage: "Bruno noticed that all the people on the other side of the fence wore identical striped uniforms, which seemed strange to him.",
+        question: "What seems unusual about the people outside?",
+        options: ["They are smiling", "They wear uniforms", "They look alike", "They are playing"],
+        correct: 1
+    },
+    {
+        passage: "From conversations and observations, Bruno began to understand that his father was a soldier with an important position.",
+        question: "What is Father's role hinted to be?",
+        options: ["Soldier", "Doctor", "Teacher", "Chef"],
+        correct: 0
+    },
+    {
+        passage: "The bleak and isolated environment around their new home contributed to the depressing mood of the story.",
+        question: "How does the environment contribute to the mood?",
+        options: ["It's lively", "It's depressing", "It's cheerful", "It's exciting"],
+        correct: 1
+    }
+],
+5: [ // Chapter 6
+    {
+        passage: "Maria herself told Bruno about her past and her family's relationship with his father over the years.",
+        question: "Who tells Bruno about Maria's past?",
+        options: ["His sister", "His father", "His mother", "Maria herself"],
+        correct: 3
+    },
+    {
+        passage: "Bruno learned that Maria had been with their family for years and had a long history of service with them.",
+        question: "What does Bruno learn about Maria?",
+        options: ["She's uneducated", "She's been with them for years", "She wants to leave", "She is from Berlin"],
+        correct: 1
+    },
+    {
+        passage: "Bruno began to feel sympathy for Maria when she shared her personal life story and the struggles her family had faced.",
+        question: "Why does Bruno begin to feel sympathy for Maria?",
+        options: ["He hears about her kindness", "He learns she was poor", "He sees her cry", "She shares her life story"],
+        correct: 1
+    },
+    {
+        passage: "Maria described Bruno's father as generous and helpful to her family during their times of need.",
+        question: "How does Maria describe Father?",
+        options: ["Cruel", "Loyal", "Generous", "Strict"],
+        correct: 2
+    },
+    {
+        passage: "This chapter revealed that Maria was a complicated person with her own history and feelings about their situation.",
+        question: "What does this chapter reveal about Maria?",
+        options: ["She is lazy", "She is scared", "She is complicated", "She is untrustworthy"],
+        correct: 2
+    },
+    {
+        passage: "Bruno was surprised to learn about Maria's background and personal history that he had never known before.",
+        question: "How does Bruno react to hearing about Maria's background?",
+        options: ["He ignores it", "He is surprised", "He laughs", "He tells his sister"],
+        correct: 1
+    },
+    {
+        passage: "The chapter begins to explore themes of social class differences and how they affect people's lives.",
+        question: "What theme begins to emerge in this chapter?",
+        options: ["Social class differences", "Jealousy", "Hope", "Adventure"],
+        correct: 0
+    },
+    {
+        passage: "Mother instructed Bruno to respect Maria and understand that she had her own dignity and worth.",
+        question: "What does Mother instruct Bruno to do?",
+        options: ["Stay quiet", "Apologize", "Respect Maria", "Help Maria"],
+        correct: 2
+    },
+    {
+        passage: "Maria viewed her job with loyalty and dedication, despite the difficult circumstances they were all facing.",
+        question: "How does Maria view her job?",
+        options: ["With resentment", "With loyalty", "With fear", "With apathy"],
+        correct: 1
+    },
+    {
+        passage: "Maria explained that Bruno's father had saved her family by providing them with work and support when they needed it most.",
+        question: "What does Maria say about Bruno's father?",
+        options: ["He saved her family", "He scares her", "He ignores her", "He yells at her"],
+        correct: 0
+    },
+    {
+        passage: "Learning about Maria's story confused Bruno about his father, making him see Father in a more complex way.",
+        question: "How does this information affect Bruno's opinion of his father?",
+        options: ["It confuses him", "It makes him proud", "He gets angry", "It doesn't change"],
+        correct: 0
+    },
+    {
+        passage: "Maria represented the value of gratitude and loyalty despite difficult circumstances.",
+        question: "What value does Maria represent in this chapter?",
+        options: ["Freedom", "Gratitude", "Justice", "Honesty"],
+        correct: 1
+    },
+    {
+        passage: "Bruno began to understand that not everyone was equal and that some people had harder lives than others.",
+        question: "What does Bruno begin to understand?",
+        options: ["Not everyone is equal", "He must obey", "His father is bad", "Berlin is better"],
+        correct: 0
+    },
+    {
+        passage: "The chapter used flashback as a literary technique when Maria revealed her past experiences.",
+        question: "What literary technique is used when Maria reveals her past?",
+        options: ["Flashback", "Foreshadowing", "Irony", "Symbolism"],
+        correct: 0
+    },
+    {
+        passage: "The mood of Chapter 6 was reflective as Bruno contemplated what he learned about Maria's life.",
+        question: "What is the mood of Chapter 6?",
+        options: ["Joyful", "Respectful", "Reflective", "Dark"],
+        correct: 2
+    }
+],
+6: [ // Chapter 7
+    {
+        passage: "Lieutenant Kotler, a young German soldier, began visiting Bruno's home and making himself comfortable there.",
+        question: "Who visits Bruno's home in Chapter 7?",
+        options: ["The Fury", "Grandmother", "Lieutenant Kotler", "Bruno's teacher"],
+        correct: 3
+    },
+    {
+        passage: "Bruno remained curious about the people in striped pajamas that he could see from his window.",
+        question: "What is Bruno curious about?",
+        options: ["The people in the striped pajamas", "The food", "The uniforms", "The trains"],
+        correct: 2
+    },
+    {
+        passage: "Bruno missed his friends from Berlin more than anyone else from his old life.",
+        question: "Who does Bruno miss the most?",
+        options: ["His father", "His teacher", "His friends from Berlin", "His grandmother"],
+        correct: 1
+    },
+    {
+        passage: "Maria was nervous because she was afraid of the soldiers and their unpredictable behavior.",
+        question: "Why is Maria nervous?",
+        options: ["She lost something", "She's afraid of the soldiers", "Bruno's father yelled at her", "She saw something scary"],
+        correct: 2
+    },
+    {
+        passage: "Bruno learned that Pavel, who worked in their house, had previously been a doctor before his current situation.",
+        question: "What new detail does Bruno learn about Pavel?",
+        options: ["He is married", "He can cook", "He was a doctor", "He is from Poland"],
+        correct: 1
+    },
+    {
+        passage: "Bruno felt unsure and lonely about his family's situation in their new home.",
+        question: "How does Bruno feel about his family's situation?",
+        options: ["Excited", "Proud", "Unsure and lonely", "Happy"],
+        correct: 1
+    },
+    {
+        passage: "Father insisted that being at their new home was an honor and important for their family.",
+        question: "What does Father insist about their new home?",
+        options: ["It is temporary", "It is an honor to be there", "They'll leave soon", "He doesn't like it either"],
+        correct: 1
+    },
+    {
+        passage: "Chapter 7 explored themes of loneliness and questions about identity in their new environment.",
+        question: "What theme is explored in Chapter 7?",
+        options: ["Adventure", "Loneliness and identity", "Humor", "Romance"],
+        correct: 1
+    },
+    {
+        passage: "The soldiers' behavior toward Pavel and Maria made Bruno question the authority figures around him.",
+        question: "What makes Bruno question authority figures?",
+        options: ["Their uniforms", "Their behavior toward Pavel and Maria", "Their discipline", "Their stories"],
+        correct: 2
+    },
+    {
+        passage: "The literary device of irony was shown through Bruno's limited understanding of the events around him.",
+        question: "What literary device is shown in Bruno's limited understanding?",
+        options: ["Irony", "Symbolism", "Allegory", "Simile"],
+        correct: 0
+    },
+    {
+        passage: "Bruno was confused by his father's explanations because they seemed contradictory to what he observed.",
+        question: "Why is Bruno confused by his father's explanations?",
+        options: ["They are too simple", "They're contradictory", "He doesn't listen", "They're in German"],
+        correct: 2
+    },
+    {
+        passage: "This chapter showed that children naturally question their surroundings when things don't make sense.",
+        question: "What does this chapter say about childhood?",
+        options: ["Children are obedient", "Children accept war", "Children question their surroundings", "Children are quiet"],
+        correct: 0
+    },
+    {
+        passage: "The author showed contrast between innocence and cruelty through Bruno's innocent questions about disturbing situations.",
+        question: "How does the author show contrast between innocence and cruelty?",
+        options: ["Through Pavel", "Through Kotler", "Through Bruno's questions", "Through Father's silence"],
+        correct: 2
+    },
+    {
+        passage: "Bruno started to realize that there was something strange and disturbing about 'Out-With' and their situation.",
+        question: "What does Bruno start to realize about 'Out-With'?",
+        options: ["It's a fun place", "It's not safe", "There's something strange about it", "It's near Berlin"],
+        correct: 3
+    },
+    {
+        passage: "This chapter deepened the reader's sympathy for Bruno because he was alone and confused in a difficult situation.",
+        question: "Why does this chapter deepen the reader's sympathy for Bruno?",
+        options: ["He's misunderstood", "He's playful", "He's alone and confused", "He's brave"],
+        correct: 1
+    }
+],
+7: [ // Chapter 8
+    {
+        passage: "In Chapter 8, Lieutenant Kotler visited Bruno's home and became a regular presence there.",
+        question: "Who visits Bruno's home in Chapter 8?",
+        options: ["The Fury", "Grandmother", "Lieutenant Kotler", "Bruno's teacher"],
+        correct: 0
+    },
+    {
+        passage: "Shmuel's clothing was notable because he wore the distinctive striped uniform that all people on his side wore.",
+        question: "What is notable about Shmuel's clothing?",
+        options: ["It's colorful", "It's torn", "It's striped", "It's dirty"],
+        correct: 2
+    },
+    {
+        passage: "Bruno and Shmuel were separated by a tall fence with barbed wire that divided their two worlds.",
+        question: "What separates Bruno and Shmuel?",
+        options: ["A wall", "A fence", "A river", "A train track"],
+        correct: 1
+    },
+    {
+        passage: "Shmuel told Bruno that he was originally from Poland before being brought to the camp.",
+        question: "Where is Shmuel from?",
+        options: ["Germany", "Russia", "Poland", "France"],
+        correct: 2
+    },
+    {
+        passage: "Bruno brought questions to the fence when he visited Shmuel, trying to understand his friend's situation.",
+        question: "What does Bruno bring to the fence?",
+        options: ["Books", "Food", "Questions", "A drawing"],
+        correct: 2
+    },
+    {
+        passage: "Shmuel seemed sad and thin to Bruno, very different from the healthy, well-fed children Bruno knew.",
+        question: "How does Shmuel seem to Bruno?",
+        options: ["Angry", "Excited", "Sad and thin", "Happy and talkative"],
+        correct: 2
+    },
+    {
+        passage: "Bruno was surprised to discover that he and Shmuel shared the same birthday, creating an immediate connection.",
+        question: "What surprises Bruno about Shmuel?",
+        options: ["He speaks English", "He is friendly", "He shares the same birthday", "He wears shoes"],
+        correct: 2
+    },
+    {
+        passage: "The shared birthday symbolized the friendship and fate that would connect these two boys from different worlds.",
+        question: "What does this shared birthday symbolize?",
+        options: ["Friendship and fate", "Coincidence", "Conflict", "Tradition"],
+        correct: 0
+    },
+    {
+        passage: "Shmuel was behind the fence because he was a prisoner in the concentration camp, though Bruno didn't understand this.",
+        question: "Why is Shmuel behind the fence?",
+        options: ["He's a soldier", "He's in trouble", "He's a prisoner", "He works there"],
+        correct: 2
+    },
+    {
+        passage: "Bruno didn't understand Shmuel's situation because his innocence prevented him from grasping the horrible reality.",
+        question: "How does Bruno react to Shmuel's situation?",
+        options: ["He doesn't understand", "He feels guilty", "He cries", "He tells his father"],
+        correct: 0
+    },
+    {
+        passage: "Chapter 8 highlighted the theme of isolation and friendship developing despite terrible circumstances.",
+        question: "What theme does Chapter 8 highlight?",
+        options: ["War and duty", "Isolation and friendship", "Ambition", "Freedom"],
+        correct: 1
+    },
+    {
+        passage: "The meeting at the fence was important because it foreshadowed the tragic ending of their story.",
+        question: "Why is the meeting at the fence important?",
+        options: ["It foreshadows the ending", "It brings food", "It shows Bruno is brave", "It causes a fight"],
+        correct: 0
+    },
+    {
+        passage: "The author created tension by hinting at the danger surrounding Shmuel while showing Bruno's innocence.",
+        question: "How does the author create tension in this chapter?",
+        options: ["By using dialogue", "By describing weather", "By hinting danger", "By showing kindness"],
+        correct: 0
+    },
+    {
+        passage: "The friendship between Bruno and Shmuel was unique because they came from completely different worlds separated by hatred.",
+        question: "What makes the friendship between Bruno and Shmuel unique?",
+        options: ["They're from different worlds", "They're both rich", "They go to school", "They're both prisoners"],
+        correct: 3
+    },
+    {
+        passage: "The chapter ended with a feeling of hope as the boys began their unusual friendship.",
+        question: "What feeling ends the chapter?",
+        options: ["Fear", "Hope", "Laughter", "Disappointment"],
+        correct: 1
+    }
+],
+8: [ // Chapter 9
+    {
+        passage: "In Chapter 9, Lieutenant Kotler visited Bruno's home and became a more regular presence there.",
+        question: "Who visits Bruno's home in Chapter 9?",
+        options: ["The Fury", "Grandmother", "Lieutenant Kotler", "Bruno's teacher"],
+        correct: 2
+    },
+    {
+        passage: "Bruno remained curious about the people in the striped pajamas that he could observe from his bedroom window.",
+        question: "What is Bruno curious about?",
+        options: ["The people in the striped pajamas", "The food", "The uniforms", "The trains"],
+        correct: 0
+    },
+    {
+        passage: "Bruno missed his friends from Berlin most of all, feeling isolated in his new environment.",
+        question: "Who does Bruno miss the most?",
+        options: ["His father", "His teacher", "His friends from Berlin", "His grandmother"],
+        correct: 2
+    },
+    {
+        passage: "Maria was nervous because she was afraid of the soldiers and their unpredictable, harsh behavior.",
+        question: "Why is Maria nervous?",
+        options: ["She lost something", "She's afraid of the soldiers", "Bruno's father yelled at her", "She saw something scary"],
+        correct: 1
+    },
+    {
+        passage: "Bruno learned that Pavel was a doctor in his previous life, which confused Bruno about why he was now a servant.",
+        question: "What new detail does Bruno learn about Pavel?",
+        options: ["He is married", "He can cook", "He was a doctor", "He is from Poland"],
+        correct: 2
+    },
+    {
+        passage: "Bruno felt unsure and lonely about his family's situation, not understanding the significance of their move.",
+        question: "How does Bruno feel about his family's situation?",
+        options: ["Excited", "Proud", "Unsure and lonely", "Happy"],
+        correct: 2
+    },
+    {
+        passage: "Father insisted that it was an honor to be at their new location and important for the country.",
+        question: "What does Father insist about their new home?",
+        options: ["It is temporary", "It is an honor to be there", "They'll leave soon", "He doesn't like it either"],
+        correct: 1
+    },
+    {
+        passage: "Chapter 9 explored themes of loneliness and identity as Bruno struggled to understand his new world.",
+        question: "What theme is explored in Chapter 9?",
+        options: ["Adventure", "Loneliness and identity", "Humor", "Romance"],
+        correct: 1
+    },
+    {
+        passage: "The soldiers' behavior toward Pavel and Maria made Bruno question the authority figures around him.",
+        question: "What makes Bruno question authority figures?",
+        options: ["Their uniforms", "Their behavior toward Pavel and Maria", "Their discipline", "Their stories"],
+        correct: 1
+    },
+    {
+        passage: "The literary device of irony was shown through Bruno's limited understanding of the terrible events around him.",
+        question: "What literary device is shown in Bruno's limited understanding?",
+        options: ["Irony", "Symbolism", "Allegory", "Simile"],
+        correct: 1
+    },
+    {
+        passage: "Bruno was confused by his father's explanations because they seemed contradictory to what he was observing.",
+        question: "Why is Bruno confused by his father's explanations?",
+        options: ["They are too simple", "They're contradictory", "He doesn't listen", "They're in German"],
+        correct: 2
+    },
+    {
+        passage: "This chapter showed that children naturally question their surroundings when things seem wrong or confusing.",
+        question: "What does this chapter say about childhood?",
+        options: ["Children are obedient", "Children accept war", "Children question their surroundings", "Children are quiet"],
+        correct: 2
+    },
+    {
+        passage: "The author showed contrast between innocence and cruelty through Bruno's innocent questions about disturbing situations.",
+        question: "How does the author show contrast between innocence and cruelty?",
+        options: ["Through Pavel", "Through Kotler", "Through Bruno's questions", "Through Father's silence"],
+        correct: 2
+    },
+    {
+        passage: "Bruno started to realize that there was something strange and unsettling about 'Out-With' and their situation there.",
+        question: "What does Bruno start to realize about 'Out-With'?",
+        options: ["It's a fun place", "It's not safe", "There's something strange about it", "It's near Berlin"],
+        correct: 2
+    },
+    {
+        passage: "This chapter deepened the reader's sympathy for Bruno because he was alone and confused about his circumstances.",
+        question: "Why does this chapter deepen the reader's sympathy for Bruno?",
+        options: ["He's misunderstood", "He's playful", "He's alone and confused", "He's brave"],
+        correct: 2
+    }
+],
+9: [ // Chapter 10
+    {
+        passage: "In Chapter 10, Bruno met a boy named Shmuel at the fence during one of his explorations.",
+        question: "Who does Bruno meet at the fence?",
+        options: ["A soldier", "A doctor", "A boy named Shmuel", "Lieutenant Kotler"],
+        correct: 2
+    },
+    {
+        passage: "Shmuel's clothing was notable because he wore the distinctive striped uniform that all prisoners wore.",
+        question: "What is notable about Shmuel's clothing?",
+        options: ["It's colorful", "It's striped", "It's torn", "It's dirty"],
+        correct: 1
+    },
+    {
+        passage: "Bruno and Shmuel were separated by a tall fence with barbed wire that divided their worlds.",
+        question: "What separates Bruno and Shmuel?",
+        options: ["A wall", "A fence", "A river", "A train track"],
+        correct: 1
+    },
+    {
+        passage: "Shmuel told Bruno that he was originally from Poland before being brought to the concentration camp.",
+        question: "Where is Shmuel from?",
+        options: ["Germany", "Russia", "Poland", "France"],
+        correct: 2
+    },
+    {
+        passage: "Bruno brought questions to their meetings, trying to understand Shmuel's situation and life.",
+        question: "What does Bruno bring to the fence?",
+        options: ["Books", "Food", "Questions", "A drawing"],
+        correct: 2
+    },
+    {
+        passage: "Shmuel appeared sad and extremely thin to Bruno, very different from the healthy children Bruno knew.",
+        question: "How does Shmuel seem to Bruno?",
+        options: ["Angry", "Excited", "Sad and thin", "Happy and talkative"],
+        correct: 2
+    },
+    {
+        passage: "Bruno was surprised to discover that he and Shmuel shared the same birthday, April 15th, 1934.",
+        question: "What surprises Bruno about Shmuel?",
+        options: ["He speaks English", "He is friendly", "He shares the same birthday", "He wears shoes"],
+        correct: 2
+    },
+    {
+        passage: "The shared birthday symbolized the friendship and fate that would connect these two boys despite their different circumstances.",
+        question: "What does this shared birthday symbolize?",
+        options: ["Friendship and fate", "Coincidence", "Conflict", "Tradition"],
+        correct: 0
+    },
+    {
+        passage: "Shmuel was behind the fence because he was a prisoner in the concentration camp, though Bruno didn't understand this reality.",
+        question: "Why is Shmuel behind the fence?",
+        options: ["He's a soldier", "He's in trouble", "He's a prisoner", "He works there"],
+        correct: 2
+    },
+    {
+        passage: "Bruno didn't understand Shmuel's situation because his innocence prevented him from grasping the horrible truth.",
+        question: "How does Bruno react to Shmuel's situation?",
+        options: ["He doesn't understand", "He feels guilty", "He cries", "He tells his father"],
+        correct: 0
+    },
+    {
+        passage: "Chapter 10 highlighted the theme of isolation and friendship developing despite the terrible circumstances surrounding them.",
+        question: "What theme does Chapter 10 highlight?",
+        options: ["War and duty", "Isolation and friendship", "Ambition", "Freedom"],
+        correct: 1
+    },
+    {
+        passage: "The meeting at the fence was important because it foreshadowed the tragic ending that would come later in the story.",
+        question: "Why is the meeting at the fence important?",
+        options: ["It foreshadows the ending", "It brings food", "It shows Bruno is brave", "It causes a fight"],
+        correct: 0
+    },
+    {
+        passage: "The author created tension by hinting at the danger surrounding Shmuel while showing Bruno's complete innocence.",
+        question: "How does the author create tension in this chapter?",
+        options: ["By using dialogue", "By describing weather", "By hinting danger", "By showing kindness"],
+        correct: 2
+    },
+    {
+        passage: "The friendship between Bruno and Shmuel was unique because they were from completely different worlds divided by hatred and war.",
+        question: "What makes the friendship between Bruno and Shmuel unique?",
+        options: ["They're from different worlds", "They're both rich", "They go to school", "They're both prisoners"],
+        correct: 0
+    },
+    {
+        passage: "The chapter ended with a feeling of hope as Bruno found a friend, though the reader sensed impending tragedy.",
+        question: "What feeling ends the chapter?",
+        options: ["Fear", "Hope", "Laughter", "Disappointment"],
+        correct: 1
+    }
+],
+10: [ // Chapter 11
+    {
+        passage: "In Chapter 11, the Fury and his companion Eva visited Bruno's home for an important dinner.",
+        question: "Who visits Bruno's home in Chapter 11?",
+        options: ["The Fury and Eva", "Bruno's grandparents", "Shmuel's family", "The neighbors"],
+        correct: 0
+    },
+    {
+        passage: "Eva was the Fury's companion who accompanied him to the dinner at Bruno's house.",
+        question: "What is Eva's relationship to the Fury?",
+        options: ["His wife", "His assistant", "His secretary", "His daughter"],
+        correct: 0
+    },
+    {
+        passage: "Bruno felt nervous and uncomfortable during the dinner with these important and intimidating guests.",
+        question: "How does Bruno feel about the dinner?",
+        options: ["Excited", "Nervous and uncomfortable", "Joyful", "Angry"],
+        correct: 1
+    },
+    {
+        passage: "Before the guests arrived, Bruno was given instructions to behave properly and wear clean clothes for the important visitors.",
+        question: "What instructions is Bruno given before the guests arrive?",
+        options: ["To behave and wear clean clothes", "To serve drinks", "To act happy", "To clean his room"],
+        correct: 0
+    },
+    {
+        passage: "Bruno described the Fury as small and mean-looking, not at all what he expected from such an important person.",
+        question: "How does Bruno describe the Fury?",
+        options: ["Kind and warm", "Small and mean-looking", "Tall and graceful", "Funny and generous"],
+        correct: 1
+    },
+    {
+        passage: "The Fury left Bruno feeling frightened, as there was something cold and menacing about his presence.",
+        question: "What impression does the Fury leave on Bruno?",
+        options: ["He likes him", "He is indifferent", "He's frightened by him", "He wants to be like him"],
+        correct: 2
+    },
+    {
+        passage: "This chapter was significant because it showed the family's direct connection to the Nazi regime through the Fury's visit.",
+        question: "What is significant about this chapter?",
+        options: ["Bruno gets punished", "The family's connection to the regime is shown", "Shmuel visits", "Bruno runs away"],
+        correct: 1
+    },
+    {
+        passage: "The Fury's visit highlighted themes of power and cruelty that Bruno was beginning to witness.",
+        question: "What theme is highlighted through the Fury's visit?",
+        options: ["Friendship", "Innocence", "Power and cruelty", "Family traditions"],
+        correct: 2
+    },
+    {
+        passage: "Mother seemed uncomfortable around the Fury, carefully watching her words and behavior during the visit.",
+        question: "How does Mother feel about the Fury?",
+        options: ["She admires him", "She fears him", "She seems uncomfortable", "She's proud"],
+        correct: 2
+    },
+    {
+        passage: "Father discussed his new promotion and responsibilities with the Fury during their private conversation.",
+        question: "What does Father discuss with the Fury?",
+        options: ["The garden", "The weather", "His new promotion", "His family"],
+        correct: 2
+    },
+    {
+        passage: "The Fury treated Eva rudely and dismissively, showing his cruel nature even toward his companion.",
+        question: "How does the Fury treat Eva?",
+        options: ["With respect", "He ignores her", "Rudely and dismissively", "Lovingly"],
+        correct: 2
+    },
+    {
+        passage: "Eva remained shy and silent during most of the dinner, speaking only when spoken to.",
+        question: "What is Eva's demeanor during the dinner?",
+        options: ["Talkative", "Shy and silent", "Excited", "Bossy"],
+        correct: 1
+    },
+    {
+        passage: "The chapter used dramatic irony as a literary device, with Bruno unable to understand the true significance of the Fury's visit.",
+        question: "What literary device is present in Bruno's description of the Fury?",
+        options: ["Metaphor", "Dramatic irony", "Simile", "Allegory"],
+        correct: 1
+    },
+    {
+        passage: "Bruno was told to stay quiet to avoid upsetting the important guest and causing problems for the family.",
+        question: "Why is Bruno told to stay quiet?",
+        options: ["He talks too much", "To avoid upsetting the Fury", "To learn manners", "To practice silence"],
+        correct: 1
+    },
+    {
+        passage: "The tone of this chapter was tense and uneasy as the family hosted this powerful and intimidating visitor.",
+        question: "What is the tone of this chapter?",
+        options: ["Romantic", "Tense and uneasy", "Carefree", "Joyful"],
+        correct: 1
+    }
+],
+11: [ // Chapter 12
+    {
+        passage: "Shmuel told Bruno about his life before being taken away, describing how he lived with his family in Poland.",
+        question: "What does Shmuel tell Bruno about his life?",
+        options: ["He travels a lot", "He goes to school", "He lived with his family before being taken away", "He is German"],
+        correct: 0
+    },
+    {
+        passage: "Shmuel explained that he was originally from Poland before being brought to the concentration camp.",
+        question: "Where is Shmuel from?",
+        options: ["Germany", "France", "Poland", "Austria"],
+        correct: 0
+    },
+    {
+        passage: "Shmuel shared stories about being taken away from his home and family by the soldiers.",
+        question: "What kind of stories does Shmuel share?",
+        options: ["About his job", "About games he plays", "About being taken away", "About his dreams"],
+        correct: 1
+    },
+    {
+        passage: "Bruno was surprised to learn that he and Shmuel shared the same birthday, creating a special bond between them.",
+        question: "What detail surprises Bruno?",
+        options: ["Shmuel can read", "They share a birthday", "Shmuel is older", "Shmuel was rich"],
+        correct: 0
+    },
+    {
+        passage: "Bruno found Shmuel's story hard to understand because it was so different from his own comfortable experiences.",
+        question: "Why does Bruno find Shmuel's story hard to understand?",
+        options: ["It's too sad", "It doesn't match his own experiences", "It's confusing", "It's too long"],
+        correct: 1
+    },
+    {
+        passage: "Bruno brought bread to share with Shmuel during their meetings at the fence.",
+        question: "What food does Bruno bring?",
+        options: ["Cake", "Chocolate", "Apple", "Bread"],
+        correct: 3
+    },
+    {
+        passage: "Shmuel described the camp as a scary and sad place where people were treated badly.",
+        question: "How does Shmuel describe the camp?",
+        options: ["Exciting", "Full of children", "Scary and sad", "Organized"],
+        correct: 2
+    },
+    {
+        passage: "Bruno felt pity and confusion after hearing Shmuel's story about his difficult life.",
+        question: "What emotion does Bruno feel after hearing Shmuel's story?",
+        options: ["Anger", "Jealousy", "Pity and confusion", "Pride"],
+        correct: 2
+    },
+    {
+        passage: "Shmuel missed his grandfather most of all from his previous life before being taken to the camp.",
+        question: "What does Shmuel miss most?",
+        options: ["Books", "His friends", "His grandfather", "His home"],
+        correct: 2
+    },
+    {
+        passage: "Chapter 12 was important because Bruno learned more about Shmuel's life and background.",
+        question: "Why is Chapter 12 important?",
+        options: ["Bruno moves again", "Bruno learns more about Shmuel's life", "Father gets a new job", "Mother runs away"],
+        correct: 1
+    },
+    {
+        passage: "The fence symbolized the separation that divided two boys from completely different worlds.",
+        question: "How does the fence symbolize separation?",
+        options: ["It protects them", "It is a prison", "It divides two boys from different worlds", "It is decorative"],
+        correct: 2
+    },
+    {
+        passage: "The central theme in Chapter 12 was friendship across boundaries despite the differences between the boys.",
+        question: "What theme is central in Chapter 12?",
+        options: ["Growth", "Rebellion", "Friendship across boundaries", "Adventure"],
+        correct: 2
+    },
+    {
+        passage: "Bruno was confused and sorry when he learned that Shmuel's grandfather was missing.",
+        question: "What is Bruno's reaction to learning Shmuel's grandfather is missing?",
+        options: ["He laughs", "He is confused and sorry", "He gets scared", "He tells his sister"],
+        correct: 1
+    },
+    {
+        passage: "Bruno's innocence was important because it emphasized the contrast with war's cruelty and hatred.",
+        question: "Why is Bruno's innocence important?",
+        options: ["It shows his intelligence", "It emphasizes contrast with war's cruelty", "It helps him lie", "It keeps him happy"],
+        correct: 1
+    },
+    {
+        passage: "The literary device of allegory was used in Shmuel and Bruno's friendship to represent broader themes about humanity.",
+        question: "What literary device is used in Shmuel and Bruno's friendship?",
+        options: ["Foreshadowing", "Personification", "Imagery", "Allegory"],
+        correct: 0
+    }
+],
+            12: [ // Chapter 13
+                {
+                    passage: "Bruno asked Shmuel why everyone on his side wore the striped pajamas, and Shmuel explained that the soldiers had taken their clothes.",
+                    question: "Why did everyone on Shmuel's side wear striped pajamas?",
+                    options: ["They chose to dress alike", "The soldiers had taken their clothes", "It was the uniform for their job", "They liked the style"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno felt jealous that the people on Shmuel's side got to wear pajamas all the time, not understanding the reality of the situation.",
+                    question: "How did Bruno misunderstand the striped pajamas?",
+                    options: ["He thought they were ugly", "He felt jealous that they got to wear pajamas all the time", "He understood they were a punishment", "He didn't notice them at all"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno asked if he could play on Shmuel's side of the fence, but Shmuel questioned why Bruno would want to leave his much nicer side.",
+                    question: "What did Shmuel question when Bruno asked to play on his side?",
+                    options: ["Whether Bruno was serious", "Why Bruno would want to leave his much nicer side", "If Bruno could climb the fence", "Whether it was safe"],
+                    correct: 1
+                },
+                {
+                    passage: "Shmuel explained that there were other boys his age on his side of the fence, which made Bruno feel less alone.",
+                    question: "What did Shmuel tell Bruno about other children on his side?",
+                    options: ["There were no other children", "There were other boys his age", "Only older children lived there", "He was the only child"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno accidentally mentioned Shmuel to Gretel but quickly covered by saying Shmuel was an imaginary friend.",
+                    question: "How did Bruno cover when he accidentally mentioned Shmuel to Gretel?",
+                    options: ["He said Shmuel was a servant", "He said Shmuel was an imaginary friend", "He said Shmuel was a neighbor", "He denied mentioning anyone"],
+                    correct: 1
+                }
+            ],
+            13: [ // Chapter 14
+                {
+                    passage: "Bruno told Gretel that Shmuel was someone he could talk to about life, describing him as his imaginary friend.",
+                    question: "How did Bruno describe Shmuel to Gretel?",
+                    options: ["As a real boy behind the fence", "As someone he could talk to about life - his imaginary friend", "As a character from a book", "As a boy from Berlin"],
+                    correct: 1
+                },
+                {
+                    passage: "Gretel seemed satisfied with the explanation of Shmuel being imaginary and didn't ask further questions.",
+                    question: "How did Gretel react to Bruno's explanation about Shmuel?",
+                    options: ["She was very suspicious", "She seemed satisfied and didn't ask further questions", "She wanted to meet him", "She laughed at Bruno"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno continued his daily conversations with Shmuel, learning more about life in Poland before the war.",
+                    question: "What did Bruno learn from his conversations with Shmuel?",
+                    options: ["Nothing new", "More about life in Poland before the war", "How to escape", "Secret codes"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno began to understand that Shmuel's family had been forced to leave their home and come to this place against their will.",
+                    question: "What did Bruno begin to understand about Shmuel's situation?",
+                    options: ["Shmuel chose to come here", "Shmuel's family was forced to leave home and come here against their will", "Shmuel was on vacation", "Shmuel lived here permanently"],
+                    correct: 1
+                }
+            ],
+            14: [ // Chapter 15
+                {
+                    passage: "Bruno was shocked to find Shmuel inside his house, brought there by Lieutenant Kotler to clean glasses because of his small hands.",
+                    question: "Why was Bruno shocked one day in his house?",
+                    options: ["Father came home early", "He found Shmuel inside, brought by Kotler to clean glasses", "Maria was leaving", "Gretel was missing"],
+                    correct: 1
+                },
+                {
+                    passage: "When Lieutenant Kotler asked if Bruno knew the boy, Bruno denied knowing Shmuel to avoid getting in trouble.",
+                    question: "What did Bruno do when Kotler asked if he knew Shmuel?",
+                    options: ["He proudly said they were friends", "He denied knowing Shmuel to avoid trouble", "He asked Kotler to leave", "He told the truth immediately"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno felt terrible guilt for betraying his friend when Shmuel needed his help the most.",
+                    question: "How did Bruno feel after denying he knew Shmuel?",
+                    options: ["Relieved and happy", "Terrible guilt for betraying his friend when he needed help", "Proud of his quick thinking", "Completely unbothered"],
+                    correct: 1
+                },
+                {
+                    passage: "Lieutenant Kotler became angry with Shmuel and accused him of stealing food, even though Bruno had given it to him.",
+                    question: "What happened when Kotler found Shmuel with food?",
+                    options: ["Kotler praised Shmuel", "Kotler became angry and accused him of stealing, though Bruno gave it", "Kotler ignored it", "Kotler shared his own food"],
+                    correct: 1
+                },
+                {
+                    passage: "This incident made Bruno realize the serious danger that Shmuel faced every day on his side of the fence.",
+                    question: "What did this incident help Bruno realize?",
+                    options: ["That Shmuel was lying", "The serious danger Shmuel faced every day on his side", "That Kotler was nice", "That he should stop visiting"],
+                    correct: 1
+                }
+            ],
+            15: [ // Chapter 16
+                {
+                    passage: "A year after leaving Berlin, Bruno's grandmother died, and the family made a trip back for the funeral.",
+                    question: "What sad event required a trip back to Berlin?",
+                    options: ["Father lost his job", "Bruno's grandmother died", "Their house was destroyed", "A friend was injured"],
+                    correct: 1
+                },
+                {
+                    passage: "During the trip to Berlin, Bruno found that he had lost his memories of the city and his old friends.",
+                    question: "What did Bruno discover during his return to Berlin?",
+                    options: ["Everything was exactly the same", "He had lost his memories of the city and old friends", "His friends had moved away", "The house was occupied by strangers"],
+                    correct: 1
+                },
+                {
+                    passage: "Lieutenant Kotler received a transfer away from the camp following arguments between Bruno's parents about him.",
+                    question: "What happened to Lieutenant Kotler?",
+                    options: ["He was promoted", "He received a transfer away after arguments between Bruno's parents", "He became more friendly", "He moved in with the family"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno's friendship with Shmuel continued to grow, though they were never able to play together, only sit and talk through the fence.",
+                    question: "How did Bruno and Shmuel's friendship develop?",
+                    options: ["They finally played together", "It continued growing though they could only talk through the fence", "It ended completely", "They met less frequently"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno began asking more questions about the fence and the camp, becoming more curious about Shmuel's world.",
+                    question: "What change occurred in Bruno's attitude?",
+                    options: ["He lost interest in Shmuel", "He began asking more questions and becoming more curious about Shmuel's world", "He stopped visiting the fence", "He became afraid"],
+                    correct: 1
+                }
+            ],
+            16: [ // Chapter 17
+                {
+                    passage: "After Bruno's mother insisted she wanted to leave, Father finally announced that Bruno and Gretel would return to Berlin with their mother.",
+                    question: "What major announcement did Father make?",
+                    options: ["They would stay permanently", "Bruno and Gretel would return to Berlin with Mother", "Only Mother would leave", "They would move somewhere else"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno learned they would be leaving in just two days, which made him panic about saying goodbye to Shmuel.",
+                    question: "How much time did Bruno have before leaving?",
+                    options: ["Two weeks", "Just two days, making him panic about Shmuel", "One month", "The next day"],
+                    correct: 1
+                },
+                {
+                    passage: "When Bruno told Shmuel about leaving, Shmuel was very sad and said he would miss their conversations.",
+                    question: "How did Shmuel react to news of Bruno's departure?",
+                    options: ["He was happy for Bruno", "He was very sad and said he would miss their conversations", "He didn't seem to care", "He was angry with Bruno"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno realized he had never seen Shmuel's side of the fence and lamented this missed opportunity.",
+                    question: "What did Bruno lament about his friendship with Shmuel?",
+                    options: ["They talked too much", "He had never seen Shmuel's side of the fence", "They met too often", "Shmuel never shared food"],
+                    correct: 1
+                },
+                {
+                    passage: "Shmuel mentioned that his father had disappeared and he couldn't find him anywhere in the camp.",
+                    question: "What worrying news did Shmuel share with Bruno?",
+                    options: ["He was getting sick", "His father had disappeared and he couldn't find him", "He was being moved", "He was in trouble"],
+                    correct: 1
+                }
+            ],
+            17: [ // Chapter 18
+                {
+                    passage: "Bruno offered to ask his father about Shmuel's missing father, but Shmuel advised against it, saying soldiers hated people on his side.",
+                    question: "What did Shmuel say when Bruno offered to ask Father about his missing father?",
+                    options: ["That would be wonderful", "He advised against it, saying soldiers hated people on his side", "His father would return soon", "It wasn't necessary"],
+                    correct: 1
+                },
+                {
+                    passage: "When Shmuel lifted the fence and said Bruno still had a chance to see his side, Bruno suggested he could walk there undetected.",
+                    question: "What suggestion did Bruno make when Shmuel lifted the fence?",
+                    options: ["They should run away together", "He could walk on Shmuel's side undetected", "Shmuel should come to his side", "They should tell Father"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno realized that with his recently shaved head (due to lice) and in striped pajamas, he might blend in on the other side.",
+                    question: "Why did Bruno think he could blend in on the other side?",
+                    options: ["He was very tall", "With his shaved head from lice and striped pajamas, he might blend in", "He spoke the same language", "He was very thin"],
+                    correct: 1
+                },
+                {
+                    passage: "Shmuel agreed to bring Bruno a pair of striped pajamas the next day so he could help search for Shmuel's father.",
+                    question: "What did Shmuel agree to do to help Bruno visit his side?",
+                    options: ["Distract the guards", "Bring Bruno striped pajamas so he could search for Shmuel's father", "Make a hole in the fence", "Create a diversion"],
+                    correct: 1
+                },
+                {
+                    passage: "This would be Bruno's final adventure before leaving Out-With, and he was both excited and nervous about it.",
+                    question: "How did Bruno feel about his planned adventure?",
+                    options: ["Only excited", "Both excited and nervous about his final adventure", "Completely terrified", "Totally confident"],
+                    correct: 1
+                }
+            ],
+            18: [ // Chapter 19
+                {
+                    passage: "The next day was rainy and muddy, but Bruno kept his promise and went to meet Shmuel at the fence.",
+                    question: "What was the weather like on the day of Bruno's planned adventure?",
+                    options: ["Sunny and perfect", "Rainy and muddy, but Bruno still went", "Snowy and cold", "Windy but clear"],
+                    correct: 1
+                },
+                {
+                    passage: "Shmuel brought Bruno a pair of dirty, striped pajamas and helped him change out of his own clothes.",
+                    question: "What did Shmuel bring for Bruno?",
+                    options: ["Clean regular clothes", "A pair of dirty, striped pajamas", "A military uniform", "A disguise kit"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno left his own clothes in a pile in the mud and carefully squeezed under the fence that Shmuel lifted for him.",
+                    question: "How did Bruno cross to the other side of the fence?",
+                    options: ["He climbed over the top", "He squeezed under the fence that Shmuel lifted, leaving his clothes in mud", "He found a gate", "He cut through the wire"],
+                    correct: 1
+                },
+                {
+                    passage: "Once on the other side, Bruno was shocked by the poor conditions - people looked horribly sad, thin, and had shaved heads.",
+                    question: "What shocked Bruno about the conditions on Shmuel's side?",
+                    options: ["Everything looked wonderful", "People looked horribly sad, thin, and had shaved heads", "It was exactly like his side", "Everyone was playing games"],
+                    correct: 1
+                },
+                {
+                    passage: "The reality of Shmuel's world was very different from what Bruno had imagined - much worse and more frightening.",
+                    question: "How did the reality of Shmuel's world compare to Bruno's imagination?",
+                    options: ["It was exactly as expected", "It was much worse and more frightening than imagined", "It was better than expected", "It was slightly different"],
+                    correct: 1
+                }
+            ],
+            19: [ // Chapter 20
+                {
+                    passage: "Bruno and Shmuel searched for Shmuel's father but couldn't find him anywhere in the camp.",
+                    question: "What were Bruno and Shmuel unable to find during their search?",
+                    options: ["A way out", "Shmuel's father anywhere in the camp", "Food", "Other children"],
+                    correct: 1
+                },
+                {
+                    passage: "Before Bruno could return to his side of the fence, soldiers began rounding up prisoners for a march.",
+                    question: "What prevented Bruno from returning to his side?",
+                    options: ["The fence was locked", "Soldiers began rounding up prisoners for a march", "It started raining harder", "Shmuel stopped him"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno and Shmuel were caught up in the group of prisoners and forced to march with them, unable to escape.",
+                    question: "What happened to Bruno and Shmuel during the roundup?",
+                    options: ["They hid successfully", "They were caught up and forced to march with prisoners, unable to escape", "They ran back to the fence", "Guards recognized Bruno"],
+                    correct: 1
+                },
+                {
+                    passage: "The two boys held hands as they were marched into a dark building with the other prisoners.",
+                    question: "What did Bruno and Shmuel do as they were marched to the dark building?",
+                    options: ["They tried to run", "They held hands as they marched with other prisoners", "They called for help", "They separated"],
+                    correct: 1
+                },
+                {
+                    passage: "Bruno was never seen again, and months later his father found his clothes by the fence and realized what had happened.",
+                    question: "How did Father eventually learn what happened to Bruno?",
+                    options: ["Guards told him immediately", "Months later he found Bruno's clothes by the fence and realized", "Shmuel's family explained", "Bruno left a note"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 인쇄 모달 표시
+        function showPrintModal() {
+            document.getElementById('print-modal').style.display = 'flex';
+            generateChapterSelection();
+        }
+
+        // 인쇄 모달 닫기
+        function closePrintModal() {
+            document.getElementById('print-modal').style.display = 'none';
+        }
+
+        // 챕터 선택 그리드 생성
+        function generateChapterSelection() {
+            const grid = document.getElementById('chapter-selection-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = 'chapter-select-card';
+                chapterCard.dataset.chapterIndex = index;
+
+                chapterCard.innerHTML = `
+                    <h4>${chapter.title}</h4>
+                    <p>${chapter.questionCount}문제</p>
+                `;
+
+                chapterCard.addEventListener('click', function() {
+                    toggleChapterSelection(index);
+                });
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 챕터 선택 토글
+        function toggleChapterSelection(chapterIndex) {
+            const card = document.querySelector(`[data-chapter-index="${chapterIndex}"]`);
+            
+            if (selectedChaptersForPrint.includes(chapterIndex)) {
+                selectedChaptersForPrint = selectedChaptersForPrint.filter(index => index !== chapterIndex);
+                card.classList.remove('selected');
+            } else {
+                selectedChaptersForPrint.push(chapterIndex);
+                card.classList.add('selected');
+            }
+        }
+
+        // 전체 선택
+        function selectAllChapters() {
+            selectedChaptersForPrint = [];
+            document.querySelectorAll('.chapter-select-card').forEach((card, index) => {
+                card.classList.add('selected');
+                selectedChaptersForPrint.push(index);
+            });
+        }
+
+        // 선택 해제
+        function clearSelection() {
+            selectedChaptersForPrint = [];
+            document.querySelectorAll('.chapter-select-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+
+       // 미리보기 생성 - A4 최적화
+function generatePreview() {
+    if (selectedChaptersForPrint.length === 0) {
+        alert('인쇄할 챕터를 선택해주세요.');
+        return;
+    }
+
+    const includePassages = document.getElementById('include-passages').checked;
+    const includeAnswers = document.getElementById('include-answers').checked;
+    const largeFont = document.getElementById('large-font').checked;
+
+    // A4 최적화 설정
+    const baseFontSize = largeFont ? 12 : 11;
+    const questionSpacing = largeFont ? 20 : 18;
+    
+    let printContent = `
+        <div class="print-header" style="text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #000;">
+            <h1 style="font-size: ${baseFontSize + 4}px; font-weight: bold; margin: 0 0 8px 0; color: #000;">The Boy in the Striped Pajamas</h1>
+            <p style="font-size: ${baseFontSize}px; margin: 0 0 5px 0; color: #333;">Level 4-2 - John Boyne</p>
+            <p style="font-size: ${baseFontSize - 1}px; margin: 0; color: #666;">수리딩어학원</p>
+            <div style="margin-top: 10px; font-size: ${baseFontSize - 1}px;">
+                <span style="margin-right: 30px;">이름: _______________</span>
+                <span style="margin-right: 30px;">날짜: _______________</span>
+                <span>점수: ______/100</span>
+            </div>
+        </div>
+    `;
+
+    let questionCounter = 1;
+    
+    selectedChaptersForPrint.forEach((chapterIndex, chapterIdx) => {
+        const chapter = bookData.chapterList[chapterIndex];
+        const chapterQuestions = questionsData[chapterIndex] || [];
+        
+        // 챕터 헤더
+        printContent += `
+            <div class="chapter-header" style="margin: 25px 0 20px 0; ${chapterIdx > 0 ? 'page-break-before: always;' : ''}">
+                <h2 style="font-size: ${baseFontSize + 2}px; font-weight: bold; color: #000; margin: 0 0 8px 0; text-align: center; padding: 8px; background: #f0f0f0; border: 1px solid #ccc;">
+                    ${chapter.title}
+                </h2>
+                <p style="font-size: ${baseFontSize - 1}px; color: #555; text-align: center; margin: 0 0 15px 0; font-style: italic;">
+                    ${chapter.description}
+                </p>
+            </div>
+        `;
+
+        if (chapterQuestions.length > 0) {
+            chapterQuestions.forEach((question, qIndex) => {
+                printContent += `
+                    <div class="question-block" style="margin-bottom: ${questionSpacing}px; padding: 12px; border: 1px solid #ddd; border-radius: 6px; page-break-inside: avoid;">
+                        <div class="question-header" style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <span style="font-weight: bold; font-size: ${baseFontSize + 1}px; background: #000; color: white; padding: 4px 8px; border-radius: 3px; margin-right: 10px;">
+                                ${questionCounter}
+                            </span>
+                            <span style="font-size: ${baseFontSize - 1}px; color: #666;">
+                                ${chapter.title} - 문제 ${qIndex + 1}
+                            </span>
+                        </div>
+                        
+                        ${includePassages ? `
+                            <div class="passage" style="background: #f8f8f8; padding: 12px; margin: 8px 0; border-left: 4px solid #666; border-radius: 4px;">
+                                <div style="font-size: ${baseFontSize - 2}px; color: #888; margin-bottom: 5px; font-weight: bold;">지문</div>
+                                <div style="font-size: ${baseFontSize}px; line-height: 1.5; color: #222; font-style: italic;">
+                                    ${question.passage}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="question-text" style="font-size: ${baseFontSize + 1}px; font-weight: 600; margin: 12px 0; color: #000; line-height: 1.4;">
+                            ${question.question}
+                        </div>
+                        
+                        <div class="options" style="margin: 10px 0;">
+                            ${question.options.map((option, oIndex) => `
+                                <div class="option" style="margin: 6px 0; padding: 6px 0; font-size: ${baseFontSize}px; line-height: 1.4; display: flex; align-items: flex-start;">
+                                    <span style="font-weight: bold; margin-right: 8px; min-width: 20px;">${String.fromCharCode(65 + oIndex)}.</span>
+                                    <span style="flex: 1;">${option}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="answer-area" style="margin-top: 12px; padding-top: 8px; border-top: 1px dashed #999; display: flex; align-items: center;">
+                            <span style="font-size: ${baseFontSize}px; font-weight: bold; margin-right: 15px;">정답:</span>
+                            <div style="display: flex; gap: 15px;">
+                                ${['A', 'B', 'C', 'D'].map(letter => `
+                                    <label style="display: flex; align-items: center; font-size: ${baseFontSize}px;">
+                                        <span style="display: inline-block; width: 16px; height: 16px; border: 2px solid #333; border-radius: 50%; margin-right: 5px;"></span>
+                                        ${letter}
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                questionCounter++;
+            });
+        } else {
+            printContent += `
+                <div style="text-align: center; padding: 30px; color: #999; font-size: ${baseFontSize}px; font-style: italic; border: 1px dashed #ccc; border-radius: 6px;">
+                    이 챕터의 문제가 준비되지 않았습니다.
+                </div>
+            `;
+        }
+    });
+
+    // 정답지 생성
+    if (includeAnswers) {
+        printContent += `
+            <div class="answer-sheet" style="page-break-before: always; margin-top: 30px;">
+                <div style="text-align: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #000;">
+                    <h2 style="font-size: ${baseFontSize + 3}px; font-weight: bold; margin: 0; color: #000;">📋 정답지</h2>
+                </div>
+        `;
+
+        let answerCounter = 1;
+        selectedChaptersForPrint.forEach(chapterIndex => {
+            const chapter = bookData.chapterList[chapterIndex];
+            const chapterQuestions = questionsData[chapterIndex] || [];
+
+            if (chapterQuestions.length > 0) {
+                printContent += `
+                    <div class="chapter-answers" style="margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 6px;">
+                        <h3 style="font-size: ${baseFontSize + 1}px; font-weight: bold; margin: 0 0 15px 0; color: #000; text-align: center; background: #f0f0f0; padding: 8px; border-radius: 4px;">
+                            ${chapter.title}
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;">
+                            ${chapterQuestions.map((question, qIndex) => `
+                                <div style="text-align: center; padding: 8px; background: #f8f8f8; border: 1px solid #ddd; border-radius: 4px; font-size: ${baseFontSize}px; font-weight: bold;">
+                                    ${answerCounter++}. ${String.fromCharCode(65 + question.correct)}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        printContent += '</div>';
+    }
+
+    document.getElementById('print-content').innerHTML = printContent;
+
+    // A4 최적화된 새 창에서 미리보기 표시
+    const previewWindow = window.open('', '_blank');
+    previewWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>The Boy in the Striped Pajamas - 문제지</title>
+            <style>
+                /* A4 최적화 스타일 */
+                * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+                
+                body {
+                    font-family: 'Malgun Gothic', '맑은 고딕', Arial, sans-serif;
+                    line-height: 1.4;
+                    color: #000;
+                    background: white;
+                }
+                
+                /* 화면 표시용 */
+                .screen-only {
+                    padding: 20px;
+                    max-width: 210mm;
+                    margin: 0 auto;
+                    background: white;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                }
+                
+                .no-print {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    padding: 15px;
+                    background: #f0f0f0;
+                    border-radius: 5px;
+                }
+                
+                .no-print button {
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin: 0 5px;
+                }
+                
+                .print-btn {
+                    background: #2C1810;
+                    color: white;
+                }
+                
+                .close-btn {
+                    background: #6c757d;
+                    color: white;
+                }
+                
+                /* 인쇄용 스타일 */
+                @media print {
+                    .no-print, .screen-only {
+                        display: none !important;
+                    }
+                    
+                    body {
+                        margin: 0;
+                        padding: 15mm;
+                        font-size: 11pt;
+                        line-height: 1.3;
+                    }
+                    
+                    @page {
+                        size: A4;
+                        margin: 15mm;
+                    }
+                    
+                    .question-block {
+                        page-break-inside: avoid;
+                        margin-bottom: 15pt !important;
+                    }
+                    
+                    .chapter-header {
+                        page-break-after: avoid;
+                    }
+                    
+                    .answer-sheet {
+                        page-break-before: always;
+                    }
+                    
+                    /* 인쇄 시 색상 조정 */
+                    .question-header span:first-child {
+                        background: #000 !important;
+                        color: white !important;
+                        -webkit-print-color-adjust: exact;
+                        print-color-adjust: exact;
+                    }
+                    
+                    .passage {
+                        background: #f5f5f5 !important;
+                        -webkit-print-color-adjust: exact;
+                        print-color-adjust: exact;
+                    }
+                }
+                
+                /* 공통 스타일 */
+                .question-block {
+                    page-break-inside: avoid;
+                }
+                
+                .passage {
+                    background: #f8f8f8;
+                }
+                
+                .option {
+                    display: flex;
+                    align-items: flex-start;
+                }
+                
+                .answer-area label {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                }
+                
+                .answer-area span {
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid #333;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="screen-only">
+                <div class="no-print">
+                    <h3 style="margin-bottom: 10px;">📄 A4 문제지 미리보기</h3>
+                    <p style="margin-bottom: 15px; color: #666;">인쇄 전 레이아웃을 확인하세요</p>
+                    <button class="print-btn" onclick="window.print()">🖨️ 인쇄하기</button>
+                    <button class="close-btn" onclick="window.close()">✕ 닫기</button>
+                </div>
+            </div>
+            ${printContent}
+        </body>
+        </html>
+    `);
+    previewWindow.document.close();
+}
+
+        // 인쇄하기 함수
+        function printSelected() {
+            generatePreview();
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            // 진도 바 업데이트
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            // 버튼 상태 업데이트
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            // 이전 답변이 있다면 표시
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            // 기존 선택 제거
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // 새 선택 추가
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            // 챕터 상태 업데이트
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                // 다음 챕터 잠금 해제
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #2C1810, #8B4513)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #2C1810, #8B4513)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #2C1810, #8B4513)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+
+            // 오디오 플레이어 이벤트 리스너
+            const audioPlayer = document.getElementById('audio-player');
+            if (audioPlayer) {
+                audioPlayer.addEventListener('play', function() {
+                    const playBtn = document.querySelector('.play-pause-btn');
+                    if (playBtn) playBtn.textContent = '⏸️ 일시정지';
+                });
+
+                audioPlayer.addEventListener('pause', function() {
+                    const playBtn = document.querySelector('.play-pause-btn');
+                    if (playBtn) playBtn.textContent = '▶️ 재생';
+                });
+
+                audioPlayer.addEventListener('ended', function() {
+                    const playBtn = document.querySelector('.play-pause-btn');
+                    if (playBtn) playBtn.textContent = '▶️ 재생';
+                });
+            }
+
+            // 500ms마다 챕터 정보 업데이트
+            setInterval(() => {
+                if (currentAudio && !currentAudio.paused) {
+                    updateChapterDisplay();
+                }
+            }, 500);
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            // 오디오 모달에서 키보드 단축키
+            const audioModal = document.getElementById('audio-modal');
+            if (audioModal && audioModal.style.display === 'flex') {
+                switch(e.code) {
+                    case 'Space':
+                        e.preventDefault();
+                        togglePlayPause();
+                        break;
+                    case 'Escape':
+                        e.preventDefault();
+                        closeAudioModal();
+                        break;
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+                closePrintModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2897 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savvy - Level 4-3 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .part-header {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #764ba2;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            padding: 10px;
+            background: rgba(118, 75, 162, 0.1);
+            border-radius: 10px;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea08, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #764ba2, #f093fb);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #667eea;
+        }
+
+        .option.selected {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #667eea;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #764ba2;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* Level 4 특별 스타일 */
+        .level-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">✨</div>
+                <div class="logo-text">
+                    <h1>Savvy</h1>
+                    <p>Level 4-3 - Ingrid Law의 마법적 성장 이야기</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="level-badge">Level 4-3</div>
+                <div class="breadcrumb">
+                    <span>Savvy</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">✨</div>
+                    <div class="book-info">
+                        <h2>Savvy</h2>
+                        <div class="author">Ingrid Law</div>
+                        <div class="book-summary">
+                            For generations, the Beaumont family has harbored a magical secret. They each possess a "savvy"—a special supernatural power that strikes when they turn thirteen. Grandpa Bomba moves mountains, her older brothers create hurricanes and spark electricity, and now it's the eve of Mibs's big day. As if waiting for her savvy to show up wasn't hard enough, the family gets scary news two days before Mibs's birthday: Poppa has been in a terrible accident. With hope that her new power will save Poppa, Mibs sneaks onto a salesman's bus bound for the hospital, only to find herself on an unforgettable odyssey that will force her to make sense of growing up—and of other people, who might also have a few secrets hidden just beneath the skin.
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">37</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">185</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 4-3</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>✨ 챕터별 학습</h3>
+                    <div id="chapters-container">
+                        <!-- 챕터들이 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Savvy</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">Savvy</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1</h3>
+            <p id="audio-chapter-subtitle">Savvy - Ingrid Law</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #667eea;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+// ✨ Savvy 개별 파일 매핑 (37개 챕터)
+const savvyChapterMapping = {
+    1: { title: "Chapter 1", file: "SAV001_chapter01.mp3" },
+    2: { title: "Chapter 2", file: "SAV001_chapter02.mp3" },
+    3: { title: "Chapter 3", file: "SAV001_chapter03.mp3" },
+    4: { title: "Chapter 4", file: "SAV001_chapter04.mp3" },
+    5: { title: "Chapter 5", file: "SAV001_chapter05.mp3" },
+    6: { title: "Chapter 6", file: "SAV001_chapter06.mp3" },
+    7: { title: "Chapter 7", file: "SAV001_chapter07.mp3" },
+    8: { title: "Chapter 8", file: "SAV001_chapter08.mp3" },
+    9: { title: "Chapter 9", file: "SAV001_chapter09.mp3" },
+    10: { title: "Chapter 10", file: "SAV001_chapter10.mp3" },
+    11: { title: "Chapter 11", file: "SAV001_chapter11.mp3" },
+    12: { title: "Chapter 12", file: "SAV001_chapter12.mp3" },
+    13: { title: "Chapter 13", file: "SAV001_chapter13.mp3" },
+    14: { title: "Chapter 14", file: "SAV001_chapter14.mp3" },
+    15: { title: "Chapter 15", file: "SAV001_chapter15.mp3" },
+    16: { title: "Chapter 16", file: "SAV001_chapter16.mp3" },
+    17: { title: "Chapter 17", file: "SAV001_chapter17.mp3" },
+    18: { title: "Chapter 18", file: "SAV001_chapter18.mp3" },
+    19: { title: "Chapter 19", file: "SAV001_chapter19.mp3" },
+    20: { title: "Chapter 20", file: "SAV001_chapter20.mp3" },
+    21: { title: "Chapter 21", file: "SAV001_chapter21.mp3" },
+    22: { title: "Chapter 22", file: "SAV001_chapter22.mp3" },
+    23: { title: "Chapter 23", file: "SAV001_chapter23.mp3" },
+    24: { title: "Chapter 24", file: "SAV001_chapter24.mp3" },
+    25: { title: "Chapter 25", file: "SAV001_chapter25.mp3" },
+    26: { title: "Chapter 26", file: "SAV001_chapter26.mp3" },
+    27: { title: "Chapter 27", file: "SAV001_chapter27.mp3" },
+    28: { title: "Chapter 28", file: "SAV001_chapter28.mp3" },
+    29: { title: "Chapter 29", file: "SAV001_chapter29.mp3" },
+    30: { title: "Chapter 30", file: "SAV001_chapter30.mp3" },
+    31: { title: "Chapter 31", file: "SAV001_chapter31.mp3" },
+    32: { title: "Chapter 32", file: "SAV001_chapter32.mp3" },
+    33: { title: "Chapter 33", file: "SAV001_chapter33.mp3" },
+    34: { title: "Chapter 34", file: "SAV001_chapter34.mp3" },
+    35: { title: "Chapter 35", file: "SAV001_chapter35.mp3" },
+    36: { title: "Chapter 36", file: "SAV001_chapter36.mp3" },
+    37: { title: "Chapter 37", file: "SAV001_chapter37.mp3" }
+};
+
+// 전역 변수
+let currentChapter = 0; // 인덱스 기반 (0-36)
+let currentChapterIndex = 0;
+let currentQuestionIndex = 0;
+let userAnswers = [];
+let questions = [];
+let currentAudio = null;
+let playbackSpeed = 1.0;
+let isChapterMode = true; // 개별 파일이므로 항상 챕터 모드
+
+// 🎧 시간을 시:분:초 형식으로 변환하는 함수
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (hours > 0) {
+        return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    } else {
+        return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
+// ✨ Savvy 오디오 URL 생성 함수 (개별 파일)
+function getAudioUrl(chapterIndex) {
+    const chapterNumber = chapterIndex + 1;
+    const chapterData = savvyChapterMapping[chapterNumber];
+
+    if (!chapterData) {
+        // 기존 방식과 호환성 유지
+        const fileName = `SAV001_chapter${String(chapterNumber).padStart(2, '0')}.mp3`;
+        return {
+            primary: `${AUDIO_BASE_URL}SAV001-Savvy/${fileName}`,
+            alternatives: [`${AUDIO_BASE_URL}SAV001-Savvy/${fileName}`],
+            chapterNumber: chapterNumber,
+            title: `Chapter ${chapterNumber}`,
+            file: fileName
+        };
+    }
+
+    return {
+        primary: `${AUDIO_BASE_URL}SAV001-Savvy/${chapterData.file}`,
+        chapterNumber: chapterNumber,
+        title: chapterData.title,
+        file: chapterData.file,
+        alternatives: [`${AUDIO_BASE_URL}SAV001-Savvy/${chapterData.file}`]
+    };
+}
+
+// 🎧 파일 끝 감지 및 다음 챕터 제안 함수
+function monitorFileEnd(audioPlayer, chapterNumber) {
+    const endedHandler = function() {
+        const audioStatus = document.getElementById('audio-status');
+        const totalProgress = calculateTotalProgress();
+
+        audioStatus.innerHTML = `✅ Chapter ${chapterNumber} 완료! (전체 진행률: ${totalProgress.percentage}%)`;
+
+        // 진행률 바 100%로 업데이트
+        updateProgressBar(100, totalProgress.percentage);
+
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+        console.log(`🏁 Chapter ${chapterNumber} 완료 - 전체 진행률: ${totalProgress.percentage}%`);
+
+        // 다음 챕터 자동 제안
+        if (chapterNumber < 37) {
+            setTimeout(() => {
+                if (confirm(`Chapter ${chapterNumber}이 완료되었습니다.\n전체 진행률: ${totalProgress.percentage}%\n\nChapter ${chapterNumber + 1}을 재생하시겠습니까?`)) {
+                    playChapterAudio(chapterNumber);
+                }
+            }, 1000);
+        } else {
+            setTimeout(() => {
+                alert('🎉 Savvy 완독을 축하합니다!\n최종 진행률: 100% 🏆');
+            }, 1000);
+        }
+    };
+
+    audioPlayer.addEventListener('ended', endedHandler, { once: true });
+}
+
+// ✨ Savvy 챕터 오디오 재생 함수
+function playChapterAudio(chapterIndex) {
+    // chapterIndex는 0-36, chapterNumber는 1-37
+    const chapterNumber = chapterIndex + 1;
+
+    if (chapterNumber < 1 || chapterNumber > 37) {
+        alert('유효하지 않은 챕터 번호입니다. (1-37)');
+        return;
+    }
+
+    const audioData = getAudioUrl(chapterIndex);
+    if (!audioData) {
+        alert(`Chapter ${chapterNumber}의 오디오 파일을 찾을 수 없습니다.`);
+        return;
+    }
+
+    document.getElementById('audio-modal').style.display = 'flex';
+    document.getElementById('audio-chapter-title').textContent = audioData.title;
+    document.getElementById('audio-chapter-subtitle').textContent = `Savvy - Christina Lauren`;
+
+    const audioInfoElement = document.getElementById('audio-info');
+    if (audioInfoElement) {
+        audioInfoElement.classList.remove('hidden');
+    }
+
+    const audioPlayer = document.getElementById('audio-player');
+    const audioSource = document.getElementById('audio-source');
+    const audioStatus = document.getElementById('audio-status');
+
+    // 현재 챕터 설정 (인덱스로 저장)
+    currentChapter = chapterIndex;
+    currentChapterIndex = chapterIndex;
+
+    audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+    // 개별 파일 로드
+    audioSource.src = audioData.primary;
+    audioPlayer.load();
+
+    const successHandler = function() {
+        audioPlayer.currentTime = 0; // 파일 처음부터 시작
+
+        audioStatus.innerHTML = `✅ ${audioData.title} 준비완료!<br>
+                                📁 파일: ${audioData.file}<br>
+                                🎵 ▶️ 재생 버튼을 눌러주세요`;
+
+        // 진행률 바 생성
+        createProgressBars();
+
+        // 초기 진행률 표시
+        updateChapterDisplay();
+
+        // 파일 끝 감지 시작
+        monitorFileEnd(audioPlayer, chapterNumber);
+    };
+
+    const errorHandler = function() {
+        audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.<br>파일: ${audioData.file}`;
+        console.error('오디오 로드 실패:', audioData.primary);
+    };
+
+    audioPlayer.addEventListener('canplaythrough', successHandler, { once: true });
+    audioPlayer.addEventListener('error', errorHandler, { once: true });
+
+    currentAudio = audioPlayer;
+    playbackSpeed = 1.0;
+}
+
+// 🎧 전체 오디오북 재생 함수 (1번 챕터부터 순차 재생)
+function playFullAudiobook() {
+    playChapterAudio(0); // chapterIndex 0 = Chapter 1
+
+    // 전체 재생 모드 표시
+    setTimeout(() => {
+        document.getElementById('audio-chapter-title').textContent = 'Savvy - 전체 재생';
+        document.getElementById('audio-chapter-subtitle').textContent = '연속 재생 모드 (Chapter 1부터)';
+    }, 500);
+}
+
+// 🎧 구간처음으로 함수 (현재 챕터 처음으로)
+function resetToChapterStart() {
+    if (!currentAudio) return;
+
+    currentAudio.currentTime = 0;
+    console.log(`🔄 Chapter ${currentChapter + 1} 처음으로 이동`);
+
+    const audioStatus = document.getElementById('audio-status');
+    audioStatus.innerHTML = `🔄 Chapter ${currentChapter + 1} 처음으로 이동`;
+}
+
+// 🎧 다음 챕터로 이동 함수
+function jumpToNextChapter() {
+    if (currentChapter >= 36) { // 인덱스 36 = Chapter 37
+        alert('마지막 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter + 1);
+}
+
+// 🎧 이전 챕터로 이동 함수
+function jumpToPreviousChapter() {
+    if (currentChapter <= 0) { // 인덱스 0 = Chapter 1
+        alert('첫 번째 챕터입니다!');
+        return;
+    }
+    playChapterAudio(currentChapter - 1);
+}
+
+// 🎧 특정 챕터로 점프
+function jumpToChapter(chapterNumber) {
+    if (chapterNumber >= 1 && chapterNumber <= 37) {
+        playChapterAudio(chapterNumber - 1); // chapterNumber를 인덱스로 변환
+    } else {
+        alert('유효하지 않은 챕터 번호입니다. (1-37)');
+    }
+}
+
+// 🎧 10초 앞/뒤로 이동
+function skipForward() {
+    if (!currentAudio) return;
+    currentAudio.currentTime = Math.min(currentAudio.currentTime + 10, currentAudio.duration);
+}
+
+function skipBackward() {
+    if (!currentAudio) return;
+    currentAudio.currentTime = Math.max(currentAudio.currentTime - 10, 0);
+}
+
+// 🎧 현재 재생 중인 챕터 정보 표시
+function getCurrentChapterInfo() {
+    if (!currentAudio) return null;
+
+    const currentTime = currentAudio.currentTime;
+    const duration = currentAudio.duration;
+    const progress = duration > 0 ? Math.round((currentTime / duration) * 100) : 0;
+
+    return {
+        chapterNumber: currentChapter + 1, // 사용자에게는 1-37로 표시
+        currentTime: formatTime(currentTime),
+        duration: formatTime(duration),
+        progress: progress
+    };
+}
+
+// 🎧 챕터 정보를 UI에 표시하는 함수
+function updateChapterDisplay() {
+    const info = getCurrentChapterInfo();
+    if (info) {
+        const audioStatus = document.getElementById('audio-status');
+        const totalProgress = calculateTotalProgress();
+
+        audioStatus.innerHTML = `🎵 Chapter ${info.chapterNumber}/37 재생 중 (${info.progress}% 완료)<br>
+                                📍 ${info.currentTime} / ${info.duration}<br>
+                                📚 전체 진행률: ${totalProgress.percentage}% (${totalProgress.completedChapters}/37 챕터)`;
+
+        // 진행률 바 업데이트
+        updateProgressBar(info.progress, totalProgress.percentage);
+    }
+}
+
+// 🎧 전체 진행률 계산 함수
+function calculateTotalProgress() {
+    if (!currentAudio) return { percentage: 0, completedChapters: 0 };
+
+    const currentTime = currentAudio.currentTime;
+    const duration = currentAudio.duration;
+    const currentChapterProgress = duration > 0 ? (currentTime / duration) : 0;
+
+    // 완료된 챕터 수 + 현재 챕터 진행률
+    const completedChapters = currentChapter; // 이전 챕터들은 완료로 간주
+    const totalProgress = (completedChapters + currentChapterProgress) / 37;
+
+    return {
+        percentage: Math.round(totalProgress * 100),
+        completedChapters: completedChapters,
+        currentChapterProgress: Math.round(currentChapterProgress * 100)
+    };
+}
+
+// 🎧 진행률 바 업데이트 함수
+function updateProgressBar(chapterProgress, totalProgress) {
+    // 챕터 진행률 바
+    let chapterProgressBar = document.getElementById('chapter-progress-bar');
+    if (!chapterProgressBar) {
+        createProgressBars();
+        chapterProgressBar = document.getElementById('chapter-progress-bar');
+    }
+
+    // 전체 진행률 바
+    const totalProgressBar = document.getElementById('total-progress-bar');
+
+    if (chapterProgressBar && totalProgressBar) {
+        chapterProgressBar.style.width = `${chapterProgress}%`;
+        totalProgressBar.style.width = `${totalProgress}%`;
+
+        // 색상 변경 (진행률에 따라)
+        if (chapterProgress < 30) {
+            chapterProgressBar.style.backgroundColor = '#ff6b6b';
+        } else if (chapterProgress < 70) {
+            chapterProgressBar.style.backgroundColor = '#ffa726';
+        } else {
+            chapterProgressBar.style.backgroundColor = '#66bb6a';
+        }
+
+        if (totalProgress < 30) {
+            totalProgressBar.style.backgroundColor = '#e74c3c';
+        } else if (totalProgress < 70) {
+            totalProgressBar.style.backgroundColor = '#f39c12';
+        } else {
+            totalProgressBar.style.backgroundColor = '#27ae60';
+        }
+    }
+}
+
+// 🎧 진행률 바 생성 함수
+function createProgressBars() {
+    const audioInfo = document.getElementById('audio-info');
+    if (!audioInfo || document.getElementById('progress-container')) return;
+
+    const progressContainer = document.createElement('div');
+    progressContainer.id = 'progress-container';
+    progressContainer.style.cssText = `
+        margin-top: 15px;
+        padding: 10px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 8px;
+    `;
+
+    // 챕터 진행률 바
+    const chapterProgressContainer = document.createElement('div');
+    chapterProgressContainer.innerHTML = `
+        <div style="font-size: 12px; margin-bottom: 5px; color: #666;">현재 챕터 진행률</div>
+        <div style="width: 100%; height: 8px; background: #ddd; border-radius: 4px; overflow: hidden;">
+            <div id="chapter-progress-bar" style="height: 100%; width: 0%; background: #66bb6a; transition: width 0.3s ease;"></div>
+        </div>
+    `;
+
+    // 전체 진행률 바
+    const totalProgressContainer = document.createElement('div');
+    totalProgressContainer.innerHTML = `
+        <div style="font-size: 12px; margin: 10px 0 5px 0; color: #666;">전체 도서 진행률</div>
+        <div style="width: 100%; height: 12px; background: #ddd; border-radius: 6px; overflow: hidden;">
+            <div id="total-progress-bar" style="height: 100%; width: 0%; background: #27ae60; transition: width 0.3s ease;"></div>
+        </div>
+    `;
+
+    progressContainer.appendChild(chapterProgressContainer);
+    progressContainer.appendChild(totalProgressContainer);
+    audioInfo.appendChild(progressContainer);
+}
+
+// 🎧 기본 오디오 컨트롤 함수들
+function closeAudioModal() {
+    document.getElementById('audio-modal').style.display = 'none';
+    if (currentAudio) {
+        currentAudio.pause();
+    }
+}
+
+function togglePlayPause() {
+    if (!currentAudio) return;
+
+    if (currentAudio.paused) {
+        currentAudio.play().then(() => {
+            document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = `🎵 Chapter ${currentChapter + 1} 재생 중!`;
+        }).catch(e => {
+            console.log('재생 실패:', e);
+            const audioStatus = document.getElementById('audio-status');
+            audioStatus.innerHTML = '❌ 재생에 실패했습니다. 다시 시도해주세요.';
+        });
+    } else {
+        currentAudio.pause();
+        document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+
+        const audioStatus = document.getElementById('audio-status');
+        audioStatus.innerHTML = `⏸️ Chapter ${currentChapter + 1} 일시정지됨`;
+    }
+}
+
+function changeSpeed() {
+    if (!currentAudio) return;
+
+    const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+    const currentIndex = speeds.indexOf(playbackSpeed);
+    playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+    currentAudio.playbackRate = playbackSpeed;
+
+    const speedBtn = document.querySelector('.speed-btn');
+    if (speedBtn) {
+        speedBtn.textContent = `${playbackSpeed}x`;
+    }
+
+    console.log(`🎵 재생 속도 변경: ${playbackSpeed}x`);
+}
+
+function downloadAudio() {
+    const audioSource = document.getElementById('audio-source');
+    if (audioSource.src) {
+        const link = document.createElement('a');
+        link.href = audioSource.src;
+
+        const chapterData = savvyChapterMapping[currentChapter + 1]; // 인덱스를 번호로 변환
+        const fileName = chapterData ? `${chapterData.title}.mp3` : 'Savvy_Chapter.mp3';
+
+        link.download = fileName;
+        link.click();
+
+        console.log(`📥 오디오 다운로드 시작: ${fileName}`);
+    } else {
+        alert('다운로드할 오디오 파일이 없습니다.');
+    }
+}
+
+// 🎧 키보드 단축키 지원
+document.addEventListener('keydown', function(event) {
+    const audioModal = document.getElementById('audio-modal');
+    if (!audioModal || audioModal.style.display === 'none') return;
+
+    switch(event.code) {
+        case 'Space':
+            event.preventDefault();
+            togglePlayPause();
+            break;
+        case 'ArrowLeft':
+            event.preventDefault();
+            skipBackward();
+            break;
+        case 'ArrowRight':
+            event.preventDefault();
+            skipForward();
+            break;
+        case 'ArrowUp':
+            event.preventDefault();
+            jumpToPreviousChapter();
+            break;
+        case 'ArrowDown':
+            event.preventDefault();
+            jumpToNextChapter();
+            break;
+        case 'KeyS':
+            event.preventDefault();
+            changeSpeed();
+            break;
+        case 'KeyR':
+            event.preventDefault();
+            resetToChapterStart();
+            break;
+        case 'Escape':
+            event.preventDefault();
+            closeAudioModal();
+            break;
+    }
+});
+
+// ✨ 초기화 함수
+function initializeSavvyAudio() {
+    console.log('✨ Savvy 오디오 시스템 초기화 완료');
+    console.log('📚 총 37개 챕터, 개별 파일 시스템');
+    console.log('🎯 1:1 완벽 매핑 (Chapter 1 = SAV001_chapter01.mp3)');
+    console.log('📊 실시간 진행률 표시 기능 포함');
+    console.log('⌨️ 키보드 단축키: Space(재생/정지), ←→(10초 스킵), ↑↓(챕터 이동), S(속도), R(처음으로), ESC(닫기)');
+
+    // 1초마다 챕터 정보 업데이트 (더 자주 업데이트)
+    setInterval(() => {
+        if (currentAudio && !currentAudio.paused) {
+            updateChapterDisplay();
+        }
+    }, 1000);
+}
+
+// 초기화 실행 (DOM 로드 후)
+document.addEventListener('DOMContentLoaded', initializeSavvyAudio);
+
+        // Savvy 도서 데이터 (37챕터, 4부 구성)
+        const bookData = {
+            id: 'SAV001',
+            title: "Savvy",
+            author: 'Ingrid Law',
+            cover: '✨',
+            progress: 0,
+            chapters: 37,
+            totalQuestions: 185,
+            coverColor: 'linear-gradient(45deg, #667eea, #764ba2)',
+            summary: "For generations, the Beaumont family has harbored a magical secret. They each possess a \"savvy\"—a special supernatural power that strikes when they turn thirteen. Grandpa Bomba moves mountains, her older brothers create hurricanes and spark electricity, and now it's the eve of Mibs's big day. As if waiting for her savvy to show up wasn't hard enough, the family gets scary news two days before Mibs's birthday: Poppa has been in a terrible accident. With hope that her new power will save Poppa, Mibs sneaks onto a salesman's bus bound for the hospital, only to find herself on an unforgettable odyssey that will force her to make sense of growing up—and of other people, who might also have a few secrets hidden just beneath the skin.",
+            parts: [
+                {
+                    title: "Part I: Discovering Savvy",
+                    description: "Mibs approaches her thirteenth birthday and learns about family savvies",
+                    chapters: [1, 2, 3, 4, 5, 6, 7]
+                },
+                {
+                    title: "Part II: The Journey Begins",
+                    description: "The adventure on the Bible bus to save Poppa",
+                    chapters: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+                },
+                {
+                    title: "Part III: Understanding Voices",
+                    description: "Mibs discovers her true savvy and faces challenges",
+                    chapters: [21, 22, 23, 24, 25, 26, 27, 28]
+                },
+                {
+                    title: "Part IV: Coming Home",
+                    description: "Resolution and understanding of what truly matters",
+                    chapters: [29, 30, 31, 32, 33, 34, 35, 36, 37]
+                }
+            ],
+            chapterList: [
+                // Part I: Discovering Savvy (Chapters 1-7)
+                { title: 'Chapter 1', description: 'Introduction to the Beaumont family and their special powers called "savvies."', status: 'current', questionCount: 5, part: 0 },
+                { title: 'Chapter 2', description: 'Mibs learns about Fish\'s hurricane-causing savvy and the family\'s move inland.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'Chapter 3', description: 'Two days before Mibs\'s birthday, the family receives news of Poppa\'s accident.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'Chapter 4', description: 'Fish and Rocket\'s emotional reactions cause havoc with their savvies.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'Chapter 5', description: 'Momma leaves for the hospital, and Miss Rosemary takes charge of the children.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'Chapter 6', description: 'Miss Rosemary plans a birthday party for Mibs at the church against her wishes.', status: 'current', questionCount: 5, part: 0 },
+                { title: 'Chapter 7', description: 'Mibs\'s thirteenth birthday arrives with hopes of discovering her savvy.', status: 'current', questionCount: 5, part: 0 },
+
+                // Part II: The Journey Begins (Chapters 8-20)
+                { title: 'Chapter 8', description: 'Mibs believes her savvy is waking things up when Gypsy and the turtle respond.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 9', description: 'At the birthday party, Mibs tries to avoid the celebration and social interactions.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 10', description: 'Mibs hears Bobbi\'s angel tattoo speak and faints from the shock.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 11', description: 'Mibs sneaks onto Lester\'s Bible delivery bus thinking it goes to the hospital.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 12', description: 'Will, Fish, Bobbi, and Samson end up on the bus with Mibs.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 13', description: 'The children discover the bus is heading away from Salina, not toward it.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 14', description: 'Lester\'s tattoos of Carlene and Rhonda start talking to Mibs.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 15', description: 'The group meets Lill Kiteley when her car breaks down on the highway.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 16', description: 'Lill joins the group and helps care for the children on their journey.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 17', description: 'The group stops at a truck stop where Mibs encounters more talking tattoos.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 18', description: 'Mibs realizes her true savvy is hearing thoughts through ink on people\'s skin.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 19', description: 'The homeless man\'s tattoo reveals painful memories, teaching Mibs about her power.', status: 'current', questionCount: 5, part: 1 },
+                { title: 'Chapter 20', description: 'Chaos at the truck stop leads to their hasty departure and hiding at a motel.', status: 'current', questionCount: 5, part: 1 },
+
+                // Part III: Understanding Voices (Chapters 21-28)
+                { title: 'Chapter 21', description: 'At the motel, relationships develop and Mibs learns to control her savvy better.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'Chapter 22', description: 'Will and Mibs share their first kiss by the motel swimming pool.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'Chapter 23', description: 'Bobbi\'s temporary tattoo washes off, and Mibs can no longer hear her thoughts.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'Chapter 24', description: 'The group continues their journey, growing closer as a makeshift family.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'Chapter 25', description: 'Lester and Lill\'s relationship develops while caring for the children.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'Chapter 26', description: 'The police catch up with the group, suspecting kidnapping.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'Chapter 27', description: 'Explanations are given to authorities about the children\'s voluntary journey.', status: 'current', questionCount: 5, part: 2 },
+                { title: 'Chapter 28', description: 'The group is finally allowed to continue to the hospital to see Poppa.', status: 'current', questionCount: 5, part: 2 },
+
+                // Part IV: Coming Home (Chapters 29-37)
+                { title: 'Chapter 29', description: 'Mibs and the others arrive at the hospital where Poppa lies in a coma.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 30', description: 'Mibs uses her savvy to connect with Poppa through his mermaid tattoo.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 31', description: 'Mibs tells Poppa not to give up, recognizing his savvy as perseverance.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 32', description: 'Poppa begins to show signs of recovery after Mibs\'s encouragement.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 33', description: 'The family reunites as Poppa slowly awakens from his coma.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 34', description: 'Poppa recovers but has some lasting effects from his injuries.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 35', description: 'The family returns home, changed by their experiences and stronger together.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 36', description: 'Mibs reflects on her savvy and decides to be homeschooled to control it better.', status: 'current', questionCount: 5, part: 3 },
+                { title: 'Chapter 37', description: 'One year later, Mibs has learned to manage her savvy and embraces her gift.', status: 'current', questionCount: 5, part: 3 }
+            ]
+        };
+
+        // 실제 스토리 기반 문제 데이터
+        const questionsData = {
+            // Part I: Discovering Savvy (Chapters 1-7)
+            0: [ // Chapter 1
+                {
+                    passage: "Mississippi \"Mibs\" Beaumont explains that when her brother Fish turned thirteen, he caused a hurricane at the beach.",
+                    question: "What happened when Fish turned thirteen?",
+                    options: ["He learned to swim", "He caused a hurricane at the beach", "He moved to Nebraska", "He got sick"],
+                    correct: 1
+                },
+                {
+                    passage: "Because of Fish's hurricane-causing savvy, the Beaumont family had to move far inland to Nebraska-Kansas border.",
+                    question: "Why did the Beaumont family move inland?",
+                    options: ["For a new job", "Because of Fish's hurricane-causing savvy", "To be near grandparents", "For better schools"],
+                    correct: 1
+                },
+                {
+                    passage: "In the Beaumont family, everyone gets their 'savvy' - a special supernatural power - when they turn thirteen.",
+                    question: "When do Beaumont family members get their savvy?",
+                    options: ["When they turn ten", "When they turn thirteen", "When they turn sixteen", "When they turn eighteen"],
+                    correct: 1
+                },
+                {
+                    passage: "Rocket, Mibs's older brother, has the savvy to control electricity and can zap people or keep lights on during power outages.",
+                    question: "What is Rocket's savvy?",
+                    options: ["Control weather", "Control electricity", "Read minds", "Move objects"],
+                    correct: 1
+                },
+                {
+                    passage: "Momma's savvy is doing everything perfectly, while Poppa has no savvy because he married into the family.",
+                    question: "Why doesn't Poppa have a savvy?",
+                    options: ["He's too old", "He married into the family", "He gave it up", "He lost it in an accident"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2
+                {
+                    passage: "Grandpa Bomba's savvy is moving land - he can create earthquakes and even create new pieces of land.",
+                    question: "What is Grandpa Bomba's savvy?",
+                    options: ["Control weather", "Moving land", "Time travel", "Healing people"],
+                    correct: 1
+                },
+                {
+                    passage: "The family lives in a place they call 'Kansaska-Nebransas' because it's on the border of Kansas and Nebraska.",
+                    question: "What do the Beaumonts call their home location?",
+                    options: ["Kansaska-Nebransas", "Mid-America", "Beaumont-land", "Central Plains"],
+                    correct: 0
+                },
+                {
+                    passage: "Grandma Dollop's savvy was capturing radio waves, and she could hear radio broadcasts from far away.",
+                    question: "What was Grandma Dollop's savvy?",
+                    options: ["Moving objects", "Capturing radio waves", "Predicting weather", "Growing plants"],
+                    correct: 1
+                },
+                {
+                    passage: "Samson, age seven, and Gypsy, age three, haven't developed their savvies yet because they're too young.",
+                    question: "Why don't Samson and Gypsy have savvies yet?",
+                    options: ["They're not Beaumonts", "They're too young", "They refuse to use them", "They haven't been trained"],
+                    correct: 1
+                },
+                {
+                    passage: "Fish has to be very careful with his emotions because when he gets upset, storms and rain appear.",
+                    question: "What happens when Fish gets upset?",
+                    options: ["He disappears", "Storms and rain appear", "He can't speak", "Time stops"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3
+                {
+                    passage: "Two days before Mibs's thirteenth birthday, the family receives terrible news that Poppa has been in a car accident.",
+                    question: "What news does the family receive before Mibs's birthday?",
+                    options: ["They're moving again", "Poppa has been in a car accident", "Grandpa is visiting", "School is cancelled"],
+                    correct: 1
+                },
+                {
+                    passage: "Poppa was involved in a ten-car pile-up on the highway and is now in a coma at the hospital.",
+                    question: "What is Poppa's condition after the accident?",
+                    options: ["He has a broken leg", "He is in a coma", "He has minor injuries", "He has lost his memory"],
+                    correct: 1
+                },
+                {
+                    passage: "The hospital where Poppa is located is in Salina, Kansas, which is far from their home.",
+                    question: "Where is Poppa being treated?",
+                    options: ["At home", "In Salina, Kansas", "In Nebraska", "At a local clinic"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs is devastated by the news and worried that her upcoming birthday won't be special anymore.",
+                    question: "How does Mibs feel about her upcoming birthday after the news?",
+                    options: ["More excited", "Worried it won't be special", "Completely forgotten about it", "Angry at everyone"],
+                    correct: 1
+                },
+                {
+                    passage: "The family is torn between celebrating Mibs's important thirteenth birthday and worrying about Poppa.",
+                    question: "What conflict does the family face?",
+                    options: ["Whether to move again", "Between celebrating Mibs's birthday and worrying about Poppa", "Whether to call relatives", "Whether to sell the house"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4
+                {
+                    passage: "When Fish learns about Poppa's accident, he becomes so upset that a rainstorm erupts outside.",
+                    question: "What happens when Fish learns about Poppa's accident?",
+                    options: ["He runs away", "A rainstorm erupts", "He becomes very quiet", "He calls the hospital"],
+                    correct: 1
+                },
+                {
+                    passage: "Rocket's electric savvy goes haywire with emotion, and he breaks every lightbulb in the house.",
+                    question: "How does Rocket's savvy react to his emotions?",
+                    options: ["It stops working", "He breaks every lightbulb in the house", "It becomes stronger", "It affects other people"],
+                    correct: 1
+                },
+                {
+                    passage: "The house becomes dark and stormy both inside and outside due to the brothers' uncontrolled savvies.",
+                    question: "What happens to the house due to the brothers' emotions?",
+                    options: ["It becomes peaceful", "It becomes dark and stormy inside and outside", "It fills with music", "Nothing changes"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs realizes how dangerous and destructive savvies can be when they're not properly controlled.",
+                    question: "What does Mibs learn about savvies?",
+                    options: ["They're always helpful", "They can be dangerous when not controlled", "They only work on birthdays", "They're easy to manage"],
+                    correct: 1
+                },
+                {
+                    passage: "Momma tries to comfort everyone while dealing with her own worry about Poppa's condition.",
+                    question: "How does Momma handle the family crisis?",
+                    options: ["She leaves immediately", "She tries to comfort everyone while worrying", "She becomes angry", "She ignores the situation"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5
+                {
+                    passage: "Momma decides she must go to the hospital to be with Poppa, leaving the children behind.",
+                    question: "What decision does Momma make?",
+                    options: ["To take everyone to the hospital", "To go to the hospital and leave the children", "To wait at home", "To call Poppa's family"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Rosemary Meeks, the pastor's wife, takes charge of the Beaumont children while Momma is away.",
+                    question: "Who takes care of the children while Momma is gone?",
+                    options: ["Grandpa Bomba", "Miss Rosemary Meeks", "A neighbor", "They take care of themselves"],
+                    correct: 1
+                },
+                {
+                    passage: "Rocket goes with Momma to help control his electric savvy and provide support.",
+                    question: "Why does Rocket go with Momma?",
+                    options: ["To drive the car", "To help control his savvy and provide support", "Because he's the oldest", "To visit friends"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Rosemary is very strict and rule-oriented, making the house feel different without Momma's warmth.",
+                    question: "How does Miss Rosemary's presence change the house?",
+                    options: ["It becomes more fun", "It feels different without Momma's warmth", "It becomes messier", "Nothing changes"],
+                    correct: 1
+                },
+                {
+                    passage: "The remaining children - Mibs, Fish, Samson, and Gypsy - must adjust to the new temporary arrangements.",
+                    question: "Which children remain at home?",
+                    options: ["Only Mibs and Fish", "Mibs, Fish, Samson, and Gypsy", "All the children", "Only the youngest ones"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6
+                {
+                    passage: "Miss Rosemary insists on throwing a birthday party for Mibs at the church, despite Mibs not wanting one.",
+                    question: "What does Miss Rosemary plan for Mibs?",
+                    options: ["A quiet dinner", "A birthday party at the church", "A trip to the hospital", "A family gathering"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs doesn't want a party because she's worried about Poppa and feels guilty about celebrating.",
+                    question: "Why doesn't Mibs want a birthday party?",
+                    options: ["She doesn't like parties", "She's worried about Poppa and feels guilty", "She wants to wait for Momma", "She's afraid of her savvy"],
+                    correct: 1
+                },
+                {
+                    passage: "Will Junior, the pastor's son, and Bobbi, his sister, are enlisted to help with the party preparations.",
+                    question: "Who helps with the party preparations?",
+                    options: ["The neighbors", "Will Junior and Bobbi", "Fish and Samson", "The church ladies"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Rosemary believes that normal activities like parties will help keep the children's minds off their troubles.",
+                    question: "Why does Miss Rosemary think a party is a good idea?",
+                    options: ["It's tradition", "It will keep minds off troubles", "The church requires it", "It's what Momma would want"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs feels increasingly anxious as her birthday approaches, wondering what her savvy will be.",
+                    question: "How does Mibs feel as her birthday approaches?",
+                    options: ["Excited and happy", "Increasingly anxious about her savvy", "Completely calm", "Angry at everyone"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7
+                {
+                    passage: "On the morning of her thirteenth birthday, Mibs wakes up very early, and her sister Gypsy wakes up too.",
+                    question: "What happens when Mibs wakes up on her birthday?",
+                    options: ["She oversleeps", "Gypsy wakes up too", "She feels sick", "Nothing unusual"],
+                    correct: 1
+                },
+                {
+                    passage: "Samson's pet turtle, which everyone thought was dead, suddenly starts moving in its cage.",
+                    question: "What happens to Samson's turtle on Mibs's birthday?",
+                    options: ["It disappears", "It starts moving after being thought dead", "It changes colors", "It grows bigger"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs believes her savvy must be the ability to wake things up, based on Gypsy and the turtle.",
+                    question: "What does Mibs think her savvy is?",
+                    options: ["Reading minds", "The ability to wake things up", "Controlling animals", "Making things grow"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs becomes convinced that her new power can wake up Poppa from his coma at the hospital.",
+                    question: "What does Mibs think she can do with her savvy?",
+                    options: ["Make friends", "Wake up Poppa from his coma", "Control the weather", "Become invisible"],
+                    correct: 1
+                },
+                {
+                    passage: "The birthday party at the church is scheduled for that afternoon, but Mibs has other plans forming.",
+                    question: "What is planned for that afternoon?",
+                    options: ["A hospital visit", "The birthday party at the church", "A family dinner", "A savvy test"],
+                    correct: 1
+                }
+            ],
+
+            // Part II: The Journey Begins (Chapters 8-20)
+            7: [ // Chapter 8
+                {
+                    passage: "At the birthday party, Mibs feels uncomfortable with all the attention and just wants to get to Poppa.",
+                    question: "How does Mibs feel at her birthday party?",
+                    options: ["Happy and excited", "Uncomfortable and wanting to get to Poppa", "Proud of her savvy", "Grateful for the celebration"],
+                    correct: 1
+                },
+                {
+                    passage: "Will Junior keeps watching Mibs with obvious affection, making her feel awkward about their friendship.",
+                    question: "How does Will Junior's attention make Mibs feel?",
+                    options: ["Confident", "Awkward about their friendship", "Annoyed", "Completely comfortable"],
+                    correct: 1
+                },
+                {
+                    passage: "In the church kitchen, Mibs encounters Bobbi, who treats her dismissively and acts tough.",
+                    question: "How does Bobbi treat Mibs in the church kitchen?",
+                    options: ["Very kindly", "Dismissively and tough", "Like a best friend", "With great respect"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs thinks about how she could use her \"waking up\" savvy to help her father recover from his coma.",
+                    question: "What does Mibs plan to do with her savvy?",
+                    options: ["Impress her friends", "Help her father recover from his coma", "Wake up early every day", "Help with chores"],
+                    correct: 1
+                },
+                {
+                    passage: "The party feels forced and artificial to Mibs when her heart is focused on saving Poppa.",
+                    question: "How does the party feel to Mibs?",
+                    options: ["Perfect and wonderful", "Forced and artificial", "Exactly what she wanted", "Like a dream come true"],
+                    correct: 1
+                }
+            ],
+            8: [ // Chapter 9
+                {
+                    passage: "While in the church kitchen, Mibs suddenly hears a singsong voice that doesn't belong to anyone present.",
+                    question: "What does Mibs hear in the church kitchen?",
+                    options: ["Music from outside", "A singsong voice that doesn't belong to anyone", "Someone crying", "A phone ringing"],
+                    correct: 1
+                },
+                {
+                    passage: "The voice is coming from Bobbi's angel tattoo on her back, which tells Mibs that Bobbi is very lonely.",
+                    question: "Where is the voice coming from?",
+                    options: ["The radio", "Bobbi's angel tattoo", "Outside the window", "Another room"],
+                    correct: 1
+                },
+                {
+                    passage: "Stunned by the sight and sound of a talking tattoo, Mibs faints right there in the kitchen.",
+                    question: "How does Mibs react to hearing the tattoo?",
+                    options: ["She laughs", "She faints", "She runs away", "She tells everyone"],
+                    correct: 1
+                },
+                {
+                    passage: "This is Mibs's first real experience with her true savvy - hearing people's thoughts through ink on their skin.",
+                    question: "What does this experience reveal about Mibs's savvy?",
+                    options: ["She can fly", "She can hear thoughts through ink on skin", "She can turn invisible", "She can control time"],
+                    correct: 1
+                },
+                {
+                    passage: "The fainting incident makes Mibs realize that her savvy is not what she initially thought it was.",
+                    question: "What does Mibs realize about her savvy?",
+                    options: ["It's exactly what she thought", "It's not what she initially thought", "It doesn't exist", "It's too powerful"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10
+                {
+                    passage: "Mibs awakens in the church office where Pastor Meeks is angrily yelling at a delivery man about bringing pink Bibles instead of regular ones.",
+                    question: "What is Pastor Meeks angry about?",
+                    options: ["Late delivery", "Pink Bibles instead of regular ones", "Wrong address", "Missing boxes"],
+                    correct: 1
+                },
+                {
+                    passage: "Fish struggles to take the telephone away from Miss Rosemary, who wants to call a doctor for Mibs.",
+                    question: "What is Fish trying to prevent?",
+                    options: ["Miss Rosemary calling a doctor", "Someone leaving", "The party from ending", "Bobbi from talking"],
+                    correct: 0
+                },
+                {
+                    passage: "Mibs hears more voices - two women arguing - and realizes they're coming from the delivery man's tattoos.",
+                    question: "What does Mibs hear from the delivery man?",
+                    options: ["His real voice", "Two women arguing from his tattoos", "Music", "Silent thoughts"],
+                    correct: 1
+                },
+                {
+                    passage: "The delivery man is Lester Swan, and his tattoos say 'Rhonda' and 'Carlene' - names of important women in his life.",
+                    question: "What do Lester's tattoos say?",
+                    options: ["Mom and Dad", "Rhonda and Carlene", "Love and Peace", "Faith and Hope"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs escapes from the church office with Will following her, both confused by what's happening.",
+                    question: "Who escapes from the church office with Mibs?",
+                    options: ["Fish", "Will", "Bobbi", "Samson"],
+                    correct: 1
+                }
+            ],
+            10: [ // Chapter 11
+                {
+                    passage: "Mibs discovers that Lester's Bible delivery bus has a destination sign that she thinks says 'Salina' where Poppa is.",
+                    question: "Why is Mibs interested in Lester's bus?",
+                    options: ["It's colorful", "She thinks it goes to Salina where Poppa is", "It looks comfortable", "Lester seems nice"],
+                    correct: 1
+                },
+                {
+                    passage: "Convinced that this is her chance to reach Poppa and use her savvy to wake him up, Mibs sneaks onto the bus.",
+                    question: "Why does Mibs sneak onto the bus?",
+                    options: ["To hide from the party", "To reach Poppa and use her savvy", "To explore", "To help Lester"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester's tattoos continue to 'speak' to Mibs, with Carlene and Rhonda giving him conflicting advice about everything.",
+                    question: "What do Lester's tattoos do?",
+                    options: ["Stay silent", "Give him conflicting advice", "Sing songs", "Tell jokes"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs hides in the back of the bus among boxes of pink Bibles, hoping Lester won't notice her until they're on their way.",
+                    question: "Where does Mibs hide on the bus?",
+                    options: ["In the driver's seat", "Among boxes of pink Bibles in the back", "Under a seat", "In the bathroom"],
+                    correct: 1
+                }
+            ],
+            11: [ // Chapter 12
+                {
+                    passage: "Will Junior discovers Mibs on the bus and decides to come with her rather than turn her in.",
+                    question: "What does Will do when he finds Mibs on the bus?",
+                    options: ["Tells Miss Rosemary immediately", "Decides to come with her", "Calls the police", "Gets angry at her"],
+                    correct: 1
+                },
+                {
+                    passage: "Fish finds them both and insists on joining the adventure to protect his sister.",
+                    question: "Why does Fish join them on the bus?",
+                    options: ["He's bored", "To protect his sister", "He wants to see the city", "Miss Rosemary told him to"],
+                    correct: 1
+                },
+                {
+                    passage: "Bobbi Meeks also ends up on the bus, partly by accident and partly out of curiosity about what's happening.",
+                    question: "How does Bobbi end up on the bus?",
+                    options: ["She was invited", "Partly by accident and partly out of curiosity", "She was forced", "She followed Will"],
+                    correct: 1
+                },
+                {
+                    passage: "Even young Samson somehow finds his way onto the bus, making it a group of five children.",
+                    question: "How many children end up on the bus total?",
+                    options: ["Three", "Four", "Five", "Six"],
+                    correct: 2
+                },
+                {
+                    passage: "Lester is shocked to discover all the children but is too nervous and kind-hearted to force them off.",
+                    question: "How does Lester react to finding the children?",
+                    options: ["He's angry and throws them off", "He's shocked but too kind to force them off", "He's happy to have company", "He doesn't notice them"],
+                    correct: 1
+                }
+            ],
+            12: [ // Chapter 13
+                {
+                    passage: "The children realize they have a serious problem when they discover the bus is heading away from Salina, not toward it.",
+                    question: "What problem do the children discover?",
+                    options: ["The bus is broken", "They're heading away from Salina", "Lester is mean", "They forgot their money"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester explains that he has to deliver Bibles to churches in several towns before he can go anywhere else.",
+                    question: "Why can't Lester go to Salina immediately?",
+                    options: ["He doesn't know the way", "He has to deliver Bibles to churches first", "His bus is broken", "He's afraid to drive there"],
+                    correct: 1
+                },
+                {
+                    passage: "The children are now stuck on a bus going the wrong direction with a nervous delivery man and no way to contact home.",
+                    question: "What situation are the children in?",
+                    options: ["Exactly where they want to be", "Stuck going the wrong direction with no way home", "Almost at the hospital", "Safe and sound"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs feels responsible for getting everyone into this mess and worries about what will happen to them.",
+                    question: "How does Mibs feel about the situation?",
+                    options: ["Proud and confident", "Responsible and worried", "Excited for adventure", "Completely carefree"],
+                    correct: 1
+                },
+                {
+                    passage: "Fish tries to remain calm to keep his storm-making savvy under control, but he's clearly stressed.",
+                    question: "Why does Fish try to stay calm?",
+                    options: ["He's naturally peaceful", "To keep his storm-making savvy controlled", "Mibs asked him to", "He's not worried"],
+                    correct: 1
+                }
+            ],
+            13: [ // Chapter 14
+                {
+                    passage: "Lester's tattoos become more active, with Carlene and Rhonda arguing loudly about what he should do with the children.",
+                    question: "What do Lester's tattoos do?",
+                    options: ["Stay completely quiet", "Argue about what to do with the children", "Sing lullabies", "Give directions"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs can hear both tattoo voices clearly - Carlene being his critical mother and Rhonda being his former girlfriend.",
+                    question: "Who do the tattoo voices represent?",
+                    options: ["Two strangers", "His critical mother and former girlfriend", "His sisters", "His teachers"],
+                    correct: 1
+                },
+                {
+                    passage: "The tattoos criticize Lester's decisions and make him even more nervous and stammering than usual.",
+                    question: "How do the tattoos affect Lester?",
+                    options: ["They make him confident", "They make him more nervous and stammering", "They help him focus", "They make him angry"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs begins to understand that her savvy forces her to hear people's private thoughts and inner voices.",
+                    question: "What does Mibs learn about her savvy?",
+                    options: ["It only works on birthdays", "It forces her to hear private thoughts", "It makes her stronger", "It helps her make friends"],
+                    correct: 1
+                },
+                {
+                    passage: "The realization that she's hearing people's deepest secrets makes Mibs feel both powerful and uncomfortable.",
+                    question: "How does hearing people's secrets make Mibs feel?",
+                    options: ["Only excited", "Both powerful and uncomfortable", "Completely happy", "Only frightened"],
+                    correct: 1
+                }
+            ],
+            14: [ // Chapter 15
+                {
+                    passage: "The bus breaks down on the highway, and Lester discovers a woman named Lill Kiteley whose car has also broken down.",
+                    question: "Who do they meet when the bus breaks down?",
+                    options: ["A police officer", "Lill Kiteley", "A mechanic", "A farmer"],
+                    correct: 1
+                },
+                {
+                    passage: "Lill is a waitress who works at truck stops and is often late for work, which gets her into trouble.",
+                    question: "What is Lill's job?",
+                    options: ["A teacher", "A waitress at truck stops", "A nurse", "A store clerk"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester offers Lill a ride, and she gladly accepts, not knowing about the five stowaway children on the bus.",
+                    question: "What doesn't Lill know when she accepts the ride?",
+                    options: ["Where they're going", "About the five stowaway children", "Lester's name", "How to drive"],
+                    correct: 1
+                },
+                {
+                    passage: "Lill is kind and motherly, immediately taking concern for the children's welfare when she discovers them.",
+                    question: "How does Lill react to the children?",
+                    options: ["She's angry", "She's kind and motherly", "She ignores them", "She's frightened"],
+                    correct: 1
+                },
+                {
+                    passage: "The children tell Lill a story about why they're traveling, not revealing the full truth about savvies or their real situation.",
+                    question: "What do the children tell Lill?",
+                    options: ["The complete truth", "A story hiding the full truth", "Nothing at all", "Only lies"],
+                    correct: 1
+                }
+            ],
+            15: [ // Chapter 16
+                {
+                    passage: "Lill becomes a protective guardian figure for the children, making sure they have food and are safe.",
+                    question: "What role does Lill take with the children?",
+                    options: ["She ignores them", "A protective guardian figure", "She disciplines them strictly", "She treats them like adults"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester and Lill begin to develop a romantic connection as they travel together and care for the children.",
+                    question: "What develops between Lester and Lill?",
+                    options: ["A business partnership", "A romantic connection", "A sibling relationship", "Nothing special"],
+                    correct: 1
+                },
+                {
+                    passage: "The group becomes like an unusual family, with Lill and Lester as protective parents and the children as siblings.",
+                    question: "What does the group become like?",
+                    options: ["Strangers", "An unusual family", "Business partners", "Enemies"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs continues to hear the tattoos of both Lester and anyone else they encounter with ink on their skin.",
+                    question: "Whose tattoos can Mibs hear?",
+                    options: ["Only Lester's", "Anyone with ink on their skin", "Only family members", "No one's"],
+                    correct: 1
+                },
+                {
+                    passage: "The journey continues with Bible deliveries, but everyone's focus is on getting the children to see their father.",
+                    question: "What is everyone's main focus?",
+                    options: ["Delivering Bibles", "Getting the children to see their father", "Making money", "Having fun"],
+                    correct: 1
+                }
+            ],
+            16: [ // Chapter 17
+                {
+                    passage: "The group stops at a truck stop diner where Lill works, hoping to get food and rest.",
+                    question: "Where do they stop for food and rest?",
+                    options: ["A fancy restaurant", "A truck stop diner where Lill works", "A gas station", "Someone's home"],
+                    correct: 1
+                },
+                {
+                    passage: "At the truck stop, Mibs encounters many people with tattoos, creating a cacophony of voices in her head.",
+                    question: "What happens to Mibs at the truck stop?",
+                    options: ["She feels peaceful", "She hears a cacophony of voices from tattoos", "She loses her savvy", "She falls asleep"],
+                    correct: 1
+                },
+                {
+                    passage: "Near the diner, there's a homeless man sleeping in an alley who has many tattoos with painful memories.",
+                    question: "Who do they encounter near the diner?",
+                    options: ["A police officer", "A homeless man with tattoos", "A wealthy businessman", "A famous singer"],
+                    correct: 1
+                },
+                {
+                    passage: "The truck stop is filled with bikers, truckers, and other travelers, many of whom have tattoos with stories.",
+                    question: "Who frequents the truck stop?",
+                    options: ["Only families", "Bikers, truckers, and travelers with tattoos", "Business people", "Students"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs realizes her savvy works on any ink marking on skin, not just professional tattoos.",
+                    question: "What does Mibs discover about her savvy?",
+                    options: ["It only works on professional tattoos", "It works on any ink marking on skin", "It's getting weaker", "It only works at night"],
+                    correct: 1
+                }
+            ],
+            17: [ // Chapter 18
+                {
+                    passage: "Mibs tries to use her original theory about 'waking people up' on the homeless man but fails completely.",
+                    question: "What happens when Mibs tries to wake the homeless man?",
+                    options: ["It works perfectly", "She fails completely", "He becomes angry", "He disappears"],
+                    correct: 1
+                },
+                {
+                    passage: "The homeless man's tattoo 'speaks' to Mibs, telling her to leave him alone because he's seen too much and wants to die.",
+                    question: "What does the homeless man's tattoo tell Mibs?",
+                    options: ["To help him", "To leave him alone because he wants to die", "To give him money", "To call the police"],
+                    correct: 1
+                },
+                {
+                    passage: "This experience makes Mibs realize that waking people up isn't her power - hearing voices through ink is her true savvy.",
+                    question: "What does Mibs realize about her true savvy?",
+                    options: ["Waking people up", "Hearing voices through ink", "Controlling weather", "Reading regular thoughts"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs explains her ability to Fish, and they both try to understand what this power means for her future.",
+                    question: "Who does Mibs tell about her real savvy?",
+                    options: ["Lester", "Fish", "Lill", "Will"],
+                    correct: 1
+                },
+                {
+                    passage: "The diner is overwhelming for Mibs because she hears dozens of tattoo voices all talking at once.",
+                    question: "Why is the diner overwhelming for Mibs?",
+                    options: ["It's too noisy", "She hears dozens of tattoo voices at once", "It's too crowded", "The food smells bad"],
+                    correct: 1
+                }
+            ],
+            18: [ // Chapter 19
+                {
+                    passage: "Bobbi overhears Mibs explaining her savvy to Fish and becomes both fascinated and skeptical.",
+                    question: "How does Bobbi react to learning about Mibs's savvy?",
+                    options: ["She's completely uninterested", "She's fascinated and skeptical", "She's frightened", "She's angry"],
+                    correct: 1
+                },
+                {
+                    passage: "Will also learns about Mibs's ability and accepts it more easily than expected, showing his caring nature.",
+                    question: "How does Will react to learning about the savvy?",
+                    options: ["He doesn't believe it", "He accepts it easily", "He's disgusted", "He runs away"],
+                    correct: 1
+                },
+                {
+                    passage: "The homeless man's tattoo reveals that he's a war veteran with traumatic memories that haunt him.",
+                    question: "What does the homeless man's tattoo reveal about him?",
+                    options: ["He's a criminal", "He's a war veteran with traumatic memories", "He's very wealthy", "He's from another country"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs learns that her savvy can be both a blessing and a curse, as she hears people's deepest pain.",
+                    question: "What does Mibs learn about her savvy?",
+                    options: ["It's always helpful", "It can be both blessing and curse", "It's completely useless", "It only works on happy people"],
+                    correct: 1
+                },
+                {
+                    passage: "The experience teaches Mibs about the weight of knowing other people's secrets and private thoughts.",
+                    question: "What does Mibs learn about knowing secrets?",
+                    options: ["It's always fun", "It carries weight and responsibility", "It's easy to handle", "It doesn't matter"],
+                    correct: 1
+                }
+            ],
+            19: [ // Chapter 20
+                {
+                    passage: "Lill tries to get food for the children at the diner, but her manager arrives and fires her for being late again.",
+                    question: "What happens to Lill at the diner?",
+                    options: ["She gets promoted", "She gets fired for being late", "She gets a raise", "She quits voluntarily"],
+                    correct: 1
+                },
+                {
+                    passage: "When the manager treats the children rudely, Samson bites him in the leg and the others help knock him down.",
+                    question: "How do the children respond to the rude manager?",
+                    options: ["They apologize", "Samson bites him and they knock him down", "They run away immediately", "They ignore him"],
+                    correct: 1
+                },
+                {
+                    passage: "The group has to escape quickly from the truck stop before the police are called about the incident.",
+                    question: "Why do they need to escape quickly?",
+                    options: ["It's closing time", "Before police are called about the incident", "They're bored", "Lester is tired"],
+                    correct: 1
+                },
+                {
+                    passage: "On the bus, Bobbi taunts Mibs about reading her mind, which makes Fish angry enough to create a small storm.",
+                    question: "What happens when Bobbi taunts Mibs?",
+                    options: ["Nothing", "Fish creates a small storm", "Mibs cries", "Will gets angry"],
+                    correct: 1
+                },
+                {
+                    passage: "Surprisingly, both Bobbi and Will are impressed by Fish's storm-making ability rather than frightened.",
+                    question: "How do Bobbi and Will react to Fish's storm?",
+                    options: ["They're terrified", "They're impressed", "They don't notice", "They get angry"],
+                    correct: 1
+                }
+            ],
+
+            // Part III: Understanding Voices (Chapters 21-28)
+            20: [ // Chapter 21
+                {
+                    passage: "The group finds a motel for the night where they can rest and plan their next moves.",
+                    question: "Where does the group stay for the night?",
+                    options: ["In the bus", "At a motel", "At a friend's house", "Under the stars"],
+                    correct: 1
+                },
+                {
+                    passage: "Lill buys swimsuits for all the children so they can use the motel swimming pool and have some fun.",
+                    question: "What does Lill buy for the children?",
+                    options: ["New clothes", "Swimsuits", "Food", "Books"],
+                    correct: 1
+                },
+                {
+                    passage: "At the motel, relationships begin to develop as the makeshift family becomes closer.",
+                    question: "What happens to relationships at the motel?",
+                    options: ["They become more distant", "They become closer", "They stay the same", "They become hostile"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester and Lill spend time together talking, and their romantic connection continues to grow.",
+                    question: "What develops between Lester and Lill?",
+                    options: ["An argument", "Their romantic connection grows", "Mistrust", "Nothing"],
+                    correct: 1
+                },
+                {
+                    passage: "The children finally have a chance to relax and act like normal kids for a while.",
+                    question: "What do the children get to do at the motel?",
+                    options: ["Work hard", "Relax and act like normal kids", "Study", "Clean"],
+                    correct: 1
+                }
+            ],
+            21: [ // Chapter 22
+                {
+                    passage: "While at the motel swimming pool, Will and Mibs share their first kiss, marking a special moment between them.",
+                    question: "What special moment happens at the swimming pool?",
+                    options: ["Fish controls a storm", "Will and Mibs share their first kiss", "Samson learns to swim", "Bobbi apologizes"],
+                    correct: 1
+                },
+                {
+                    passage: "Fish demonstrates good control over his savvy by creating just small water effects instead of dangerous storms.",
+                    question: "What does Fish demonstrate with his savvy?",
+                    options: ["Complete loss of control", "Good control with small water effects", "No ability at all", "Dangerous storms"],
+                    correct: 1
+                },
+                {
+                    passage: "Will and Fish get into a friendly water fight, showing that Fish can use his powers playfully without harm.",
+                    question: "What does the water fight show about Fish?",
+                    options: ["He's dangerous", "He can use powers playfully without harm", "He's lost his savvy", "He's angry"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs feels proud of her brother for learning to control his emotions and his storm-making ability.",
+                    question: "How does Mibs feel about Fish's progress?",
+                    options: ["Disappointed", "Proud of his control", "Worried", "Indifferent"],
+                    correct: 1
+                },
+                {
+                    passage: "The swimming pool scene shows the children experiencing normal teenage moments despite their extraordinary circumstances.",
+                    question: "What does the pool scene represent?",
+                    options: ["Dangerous behavior", "Normal teenage moments despite circumstances", "Waste of time", "Adult responsibilities"],
+                    correct: 1
+                }
+            ],
+            22: [ // Chapter 23
+                {
+                    passage: "While talking with Mibs, Bobbi reveals that Will likes her a lot, even though Mibs already suspected this.",
+                    question: "What does Bobbi tell Mibs about Will?",
+                    options: ["He doesn't like her", "He likes her a lot", "He's going home", "He's angry with her"],
+                    correct: 1
+                },
+                {
+                    passage: "Hearing Will's feelings stated out loud makes Mibs feel uneasy, both 'too young and too old at the same time.'",
+                    question: "How does hearing about Will's feelings make Mibs feel?",
+                    options: ["Completely confident", "Uneasy, too young and too old", "Very happy", "Completely uninterested"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs thinks about her father always calling her his 'little girl' and realizes she's growing up and changing.",
+                    question: "What does Mibs realize about herself?",
+                    options: ["She wants to stay young forever", "She's growing up and changing", "She misses being little", "She doesn't want responsibilities"],
+                    correct: 1
+                },
+                {
+                    passage: "When Mibs tries to read Bobbi's thoughts through her tattoo, she discovers she can't hear anything anymore.",
+                    question: "What happens when Mibs tries to read Bobbi's tattoo?",
+                    options: ["She hears everything clearly", "She can't hear anything", "She hears too much", "The tattoo talks back"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs realizes that Bobbi's angel/devil tattoo was only temporary and has washed off in the pool.",
+                    question: "Why can't Mibs hear Bobbi's tattoo anymore?",
+                    options: ["Her savvy is broken", "The tattoo was temporary and washed off", "Bobbi is blocking her", "She's not concentrating"],
+                    correct: 1
+                }
+            ],
+            23: [ // Chapter 24
+                {
+                    passage: "The group continues their journey, with everyone becoming more comfortable with each other as a traveling family.",
+                    question: "How does the group dynamic change as they travel?",
+                    options: ["They become more hostile", "They become more comfortable as a family", "They ignore each other", "They split up"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester becomes more confident in his decisions, partly because his tattoo voices are quieter when he's happy.",
+                    question: "How does Lester change during the journey?",
+                    options: ["He becomes more nervous", "He becomes more confident", "He becomes angry", "He becomes silent"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs learns to better control when she listens to tattoo voices and when she tries to block them out.",
+                    question: "What does Mibs learn about her savvy?",
+                    options: ["She can't control it at all", "She learns to control when she listens", "It's getting stronger", "It only works at certain times"],
+                    correct: 1
+                },
+                {
+                    passage: "The children grow closer as siblings, with their shared adventure bonding them in new ways.",
+                    question: "How does the adventure affect the children's relationships?",
+                    options: ["They grow apart", "They grow closer as siblings", "They become competitive", "Nothing changes"],
+                    correct: 1
+                },
+                {
+                    passage: "Everyone in the group begins to care deeply about reaching Poppa and helping Mibs's family.",
+                    question: "How does the group feel about their mission?",
+                    options: ["They lose interest", "They care deeply about reaching Poppa", "They want to go home", "They're only doing it for money"],
+                    correct: 1
+                }
+            ],
+            24: [ // Chapter 25
+                {
+                    passage: "Lester and Lill's relationship deepens as they work together to care for and protect the children.",
+                    question: "What happens to Lester and Lill's relationship?",
+                    options: ["It ends", "It deepens as they care for children", "It becomes complicated", "It stays the same"],
+                    correct: 1
+                },
+                {
+                    passage: "Lill shows her nurturing side by making sure all the children are fed, rested, and emotionally supported.",
+                    question: "How does Lill care for the children?",
+                    options: ["She ignores their needs", "She ensures they're fed, rested, and supported", "She disciplines them harshly", "She treats them like adults"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester finds courage he never knew he had, standing up to difficult situations to protect his new 'family.'",
+                    question: "How does Lester change during the journey?",
+                    options: ["He becomes more cowardly", "He finds courage to protect his new family", "He becomes selfish", "He gives up easily"],
+                    correct: 1
+                },
+                {
+                    passage: "The Bible delivery route takes longer than expected, but everyone agrees that the children's need is more important.",
+                    question: "What becomes more important than the delivery schedule?",
+                    options: ["Making money", "The children's need", "Staying on time", "Following rules"],
+                    correct: 1
+                },
+                {
+                    passage: "The group faces various challenges on the road but works together to overcome each obstacle.",
+                    question: "How does the group handle challenges?",
+                    options: ["They give up easily", "They work together to overcome obstacles", "They argue constantly", "They blame each other"],
+                    correct: 1
+                }
+            ],
+            25: [ // Chapter 26
+                {
+                    passage: "The police finally catch up with the group, having been alerted by worried adults about missing children.",
+                    question: "Who catches up with the group?",
+                    options: ["Social workers", "The police", "Parents", "Teachers"],
+                    correct: 1
+                },
+                {
+                    passage: "The authorities initially suspect that Lester and Lill have kidnapped the children and are holding them against their will.",
+                    question: "What do the authorities initially suspect?",
+                    options: ["Nothing wrong", "That Lester and Lill kidnapped the children", "The children are lying", "Everyone is lost"],
+                    correct: 1
+                },
+                {
+                    passage: "The children and adults must explain the complicated situation of why they're all traveling together voluntarily.",
+                    question: "What must the group explain?",
+                    options: ["Where they're going", "Why they're traveling together voluntarily", "How they met", "What they want"],
+                    correct: 1
+                },
+                {
+                    passage: "Miss Rosemary and other worried adults have been frantically searching for the missing children.",
+                    question: "What have the adults at home been doing?",
+                    options: ["Waiting calmly", "Frantically searching", "Going about normal business", "Celebrating"],
+                    correct: 1
+                },
+                {
+                    passage: "The situation becomes tense as everyone tries to prove that no crimes have been committed.",
+                    question: "Why does the situation become tense?",
+                    options: ["Everyone is tired", "They must prove no crimes were committed", "The weather is bad", "They're lost"],
+                    correct: 1
+                }
+            ],
+            26: [ // Chapter 27
+                {
+                    passage: "After hearing the full story, the authorities begin to understand the children's motivation to reach their hospitalized father.",
+                    question: "What do the authorities begin to understand?",
+                    options: ["The children are lying", "The motivation to reach their father", "Nothing makes sense", "Everyone is guilty"],
+                    correct: 1
+                },
+                {
+                    passage: "The police verify the story about Poppa's accident and condition at the hospital in Salina.",
+                    question: "What do the police verify?",
+                    options: ["Nothing", "Poppa's accident and condition", "The children's ages", "Lester's job"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester and Lill are questioned extensively but ultimately cleared of any wrongdoing in the situation.",
+                    question: "What happens to Lester and Lill after questioning?",
+                    options: ["They're arrested", "They're cleared of wrongdoing", "They're fined", "They're separated"],
+                    correct: 1
+                },
+                {
+                    passage: "The children's genuine concern for their father and their voluntary participation in the journey becomes clear.",
+                    question: "What becomes clear about the children?",
+                    options: ["They were forced", "Their genuine concern and voluntary participation", "They're lying", "They're running away"],
+                    correct: 1
+                },
+                {
+                    passage: "Arrangements are made to get the children safely to the hospital to see Poppa, which was their goal all along.",
+                    question: "What arrangements are made?",
+                    options: ["To send them home", "To get them safely to the hospital", "To separate them", "To punish them"],
+                    correct: 1
+                }
+            ],
+            27: [ // Chapter 28
+                {
+                    passage: "The police escort the children to the hospital, finally allowing them to reach their destination safely.",
+                    question: "How do the children finally reach the hospital?",
+                    options: ["They walk", "With police escort", "By themselves", "Lester drives them"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester and Lill are allowed to continue their relationship and even accompany the children to the hospital.",
+                    question: "What happens to Lester and Lill?",
+                    options: ["They're separated", "They continue their relationship and accompany the children", "They go to jail", "They go home"],
+                    correct: 1
+                },
+                {
+                    passage: "The group that started as strangers has become a real family through their shared journey and challenges.",
+                    question: "What has the group become?",
+                    options: ["Strangers again", "A real family", "Business partners", "Enemies"],
+                    correct: 1
+                },
+                {
+                    passage: "Everyone is nervous but hopeful as they approach the hospital where Poppa has been fighting for his life.",
+                    question: "How does everyone feel approaching the hospital?",
+                    options: ["Completely confident", "Nervous but hopeful", "Terrified", "Indifferent"],
+                    correct: 1
+                },
+                {
+                    passage: "The long journey that began with a desperate plan is finally reaching its intended destination.",
+                    question: "What is finally happening to their journey?",
+                    options: ["It's being abandoned", "It's reaching its intended destination", "It's getting longer", "It's going backwards"],
+                    correct: 1
+                }
+            ],
+
+            // Part IV: Coming Home (Chapters 29-37)
+            28: [ // Chapter 29
+                {
+                    passage: "At the hospital, Mibs and the others are finally able to see Poppa, who lies unconscious in the intensive care unit.",
+                    question: "What do they find when they reach Poppa?",
+                    options: ["He's awake and talking", "He lies unconscious in intensive care", "He's not there", "He's completely recovered"],
+                    correct: 1
+                },
+                {
+                    passage: "Momma and Rocket are there, exhausted from their long vigil but overjoyed to see the other children safe.",
+                    question: "How do Momma and Rocket react to seeing the children?",
+                    options: ["They're angry", "Exhausted but overjoyed", "They ignore them", "They're disappointed"],
+                    correct: 1
+                },
+                {
+                    passage: "The hospital room is filled with medical equipment monitoring Poppa's vital signs and keeping him alive.",
+                    question: "What fills Poppa's hospital room?",
+                    options: ["Flowers and gifts", "Medical equipment", "Family photos", "Nothing special"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs is shocked to see how pale and still her strong father looks lying in the hospital bed.",
+                    question: "How does Poppa look to Mibs?",
+                    options: ["Strong and healthy", "Pale and still", "Exactly the same", "Angry"],
+                    correct: 1
+                },
+                {
+                    passage: "The doctors explain that Poppa's condition is serious and his recovery is uncertain.",
+                    question: "What do the doctors say about Poppa's condition?",
+                    options: ["He'll recover quickly", "His condition is serious and recovery uncertain", "He's perfectly fine", "He needs surgery"],
+                    correct: 1
+                }
+            ],
+            29: [ // Chapter 30
+                {
+                    passage: "Mibs notices that Poppa has a mermaid tattoo from his Navy days, giving her hope that she can reach him with her savvy.",
+                    question: "What does Mibs notice about Poppa?",
+                    options: ["He has no tattoos", "He has a mermaid tattoo from the Navy", "He has many new tattoos", "He has temporary tattoos"],
+                    correct: 1
+                },
+                {
+                    passage: "When Mibs focuses on the mermaid tattoo, she begins to hear faint whispers of Poppa's inner thoughts.",
+                    question: "What happens when Mibs focuses on the tattoo?",
+                    options: ["Nothing", "She hears faint whispers of his thoughts", "The tattoo disappears", "She gets a headache"],
+                    correct: 1
+                },
+                {
+                    passage: "Through the tattoo, Mibs senses that Poppa is fighting to stay alive but is very weak and tired.",
+                    question: "What does Mibs sense about Poppa?",
+                    options: ["He's given up", "He's fighting to stay alive but weak", "He's completely unconscious", "He's angry"],
+                    correct: 1
+                },
+                {
+                    passage: "The mermaid tattoo 'speaks' to Mibs about memories of the ocean and Poppa's dreams of adventure.",
+                    question: "What does the mermaid tattoo tell Mibs about?",
+                    options: ["Hospital procedures", "Memories of ocean and dreams of adventure", "Medical conditions", "Family problems"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs realizes this is her chance to use her savvy to help Poppa, not by waking him, but by communicating with him.",
+                    question: "How can Mibs help Poppa with her savvy?",
+                    options: ["By waking him up", "By communicating with him", "By healing him", "By reading his mind"],
+                    correct: 1
+                }
+            ],
+            30: [ // Chapter 31
+                {
+                    passage: "Through the mermaid tattoo, Mibs tells Poppa not to give up and reminds him of all the people who love him.",
+                    question: "What does Mibs tell Poppa through the tattoo?",
+                    options: ["To sleep longer", "Not to give up and reminds him of love", "To get better quickly", "To come home"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs tells Poppa that his savvy is perseverance - never giving up on anything or anyone, especially family.",
+                    question: "What does Mibs say Poppa's savvy is?",
+                    options: ["Strength", "Perseverance - never giving up", "Wisdom", "Healing"],
+                    correct: 1
+                },
+                {
+                    passage: "She reminds him of how he never gave up on winning Momma's heart when they first met.",
+                    question: "What example does Mibs give of Poppa's perseverance?",
+                    options: ["His job success", "Never giving up on winning Momma's heart", "Learning to swim", "Building their house"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs tells Poppa about their incredible journey to reach him and how much they all need him.",
+                    question: "What does Mibs tell Poppa about their journey?",
+                    options: ["It was easy", "How incredible it was and how much they need him", "It was boring", "Nothing happened"],
+                    correct: 1
+                },
+                {
+                    passage: "Through the tattoo connection, Mibs feels Poppa's spirit responding to her words and encouragement.",
+                    question: "How does Poppa respond to Mibs's words?",
+                    options: ["No response", "His spirit responds to her encouragement", "He gets worse", "He wakes up immediately"],
+                    correct: 1
+                }
+            ],
+            31: [ // Chapter 32
+                {
+                    passage: "After Mibs's communication through the tattoo, Poppa begins to show small signs of improvement.",
+                    question: "What happens after Mibs communicates with Poppa?",
+                    options: ["Nothing changes", "He shows small signs of improvement", "He gets worse", "He has surgery"],
+                    correct: 1
+                },
+                {
+                    passage: "The medical monitors begin to show stronger and more regular vital signs, encouraging the family.",
+                    question: "What do the medical monitors show?",
+                    options: ["No change", "Stronger and more regular vital signs", "Declining health", "Equipment failure"],
+                    correct: 1
+                },
+                {
+                    passage: "Doctors are surprised by the positive changes but can't explain what might have caused the improvement.",
+                    question: "How do doctors react to the changes?",
+                    options: ["They're not surprised", "They're surprised and can't explain it", "They expected it", "They're worried"],
+                    correct: 1
+                },
+                {
+                    passage: "The family maintains a hopeful vigil, taking turns staying with Poppa and encouraging his recovery.",
+                    question: "What does the family do?",
+                    options: ["They go home", "They maintain hopeful vigil", "They give up", "They argue"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs continues to use her savvy to communicate love and encouragement to Poppa through his tattoo.",
+                    question: "What does Mibs continue to do?",
+                    options: ["Nothing", "Communicate love through his tattoo", "Try to heal him", "Read his memories"],
+                    correct: 1
+                }
+            ],
+            32: [ // Chapter 33
+                {
+                    passage: "After several days of gradual improvement, Poppa finally opens his eyes and begins to regain consciousness.",
+                    question: "What finally happens to Poppa?",
+                    options: ["He gets worse", "He opens his eyes and regains consciousness", "He has more surgery", "He moves to another hospital"],
+                    correct: 1
+                },
+                {
+                    passage: "The family reunion is emotional and joyful, with everyone crying happy tears of relief and gratitude.",
+                    question: "How is the family reunion?",
+                    options: ["Quiet and sad", "Emotional and joyful with happy tears", "Angry and loud", "Awkward and uncomfortable"],
+                    correct: 1
+                },
+                {
+                    passage: "Poppa is weak but aware, recognizing each family member and expressing his love for them.",
+                    question: "How is Poppa when he wakes up?",
+                    options: ["Strong and energetic", "Weak but aware and loving", "Confused and angry", "Unable to speak"],
+                    correct: 1
+                },
+                {
+                    passage: "The children take turns telling Poppa about their adventure and how they worked together to reach him.",
+                    question: "What do the children tell Poppa?",
+                    options: ["Nothing happened", "About their adventure to reach him", "Only good news", "Made-up stories"],
+                    correct: 1
+                },
+                {
+                    passage: "Poppa listens with wonder and pride to the story of his children's courage and determination.",
+                    question: "How does Poppa react to their story?",
+                    options: ["With anger", "With wonder and pride", "With disbelief", "With disappointment"],
+                    correct: 1
+                }
+            ],
+            33: [ // Chapter 34
+                {
+                    passage: "While Poppa recovers, he has some lasting effects from his injuries, including memory problems and slower speech.",
+                    question: "What lasting effects does Poppa have?",
+                    options: ["None", "Memory problems and slower speech", "Complete paralysis", "Loss of sight"],
+                    correct: 1
+                },
+                {
+                    passage: "Despite his challenges, Poppa is still the same loving, kind person he always was at heart.",
+                    question: "How is Poppa's personality after recovery?",
+                    options: ["Completely different", "Still loving and kind at heart", "Angry and bitter", "Cold and distant"],
+                    correct: 1
+                },
+                {
+                    passage: "The family learns to adjust to Poppa's new limitations while celebrating his survival and presence.",
+                    question: "How does the family handle Poppa's limitations?",
+                    options: ["They ignore them", "They adjust while celebrating his survival", "They're constantly frustrated", "They pretend nothing changed"],
+                    correct: 1
+                },
+                {
+                    passage: "Lester and Lill have become so close that they decide to get married and stay together permanently.",
+                    question: "What happens to Lester and Lill?",
+                    options: ["They break up", "They decide to get married", "They become business partners", "They move away"],
+                    correct: 1
+                },
+                {
+                    passage: "The adventure has changed everyone involved, creating bonds and understanding that will last forever.",
+                    question: "How has the adventure affected everyone?",
+                    options: ["No one changed", "Created lasting bonds and understanding", "Made everyone bitter", "Caused only problems"],
+                    correct: 1
+                }
+            ],
+            34: [ // Chapter 35
+                {
+                    passage: "The extended family, including Lester and Lill, returns home to Kansas-Nebraska border to begin healing together.",
+                    question: "Where does the family go to heal?",
+                    options: ["To a new city", "Home to Kansas-Nebraska border", "To the hospital", "To different states"],
+                    correct: 1
+                },
+                {
+                    passage: "Poppa undergoes physical therapy and rehabilitation to regain as much function as possible.",
+                    question: "What does Poppa do to recover?",
+                    options: ["Nothing special", "Physical therapy and rehabilitation", "Only rest", "Alternative medicine"],
+                    correct: 1
+                },
+                {
+                    passage: "The family home feels different now - both because of what they've been through and who they've become.",
+                    question: "How does the family home feel?",
+                    options: ["Exactly the same", "Different because of what they've experienced", "Uncomfortable", "Too small"],
+                    correct: 1
+                },
+                {
+                    passage: "Will and Bobbi have become regular visitors to the Beaumont household, accepted as extended family.",
+                    question: "What happens to Will and Bobbi?",
+                    options: ["They disappear", "They become regular visitors and extended family", "They move away", "They only visit holidays"],
+                    correct: 1
+                },
+                {
+                    passage: "The Beaumont children have grown closer through their shared adventure and supporting each other.",
+                    question: "How has the adventure affected the Beaumont children?",
+                    options: ["They've grown apart", "They've grown closer", "Nothing changed", "They argue more"],
+                    correct: 1
+                }
+            ],
+            35: [ // Chapter 36
+                {
+                    passage: "Mibs decides to be homeschooled for a year or two while she learns to better control her savvy.",
+                    question: "What does Mibs decide about school?",
+                    options: ["To go back immediately", "To be homeschooled while learning control", "To quit school forever", "To change schools"],
+                    correct: 1
+                },
+                {
+                    passage: "Her savvy of hearing thoughts through ink cannot hurt anyone, but it can be overwhelming without proper control.",
+                    question: "What challenge does Mibs face with her savvy?",
+                    options: ["It hurts people", "It can be overwhelming without control", "It doesn't work", "It's too weak"],
+                    correct: 1
+                },
+                {
+                    passage: "Fish, who has learned good control of his storm-making, will start high school in the fall like a normal teenager.",
+                    question: "What will Fish do in the fall?",
+                    options: ["Be homeschooled", "Start high school normally", "Move away", "Skip school"],
+                    correct: 1
+                },
+                {
+                    passage: "Rocket has moved to Wyoming to spend time with his uncle on a ranch where he can practice controlling his electrical savvy.",
+                    question: "Where has Rocket gone?",
+                    options: ["To college", "To Wyoming with his uncle", "To the city", "To stay with grandparents"],
+                    correct: 1
+                },
+                {
+                    passage: "Each family member is finding their own way to manage their savvies and live normal lives.",
+                    question: "What is each family member doing?",
+                    options: ["Hiding their savvies", "Finding ways to manage savvies and live normally", "Ignoring their abilities", "Using savvies for profit"],
+                    correct: 1
+                }
+            ],
+            36: [ // Chapter 37
+                {
+                    passage: "The story concludes on Mibs's fourteenth birthday, exactly one year after the adventure began.",
+                    question: "When does the story conclude?",
+                    options: ["Christmas day", "Mibs's fourteenth birthday", "New Year's Day", "Summer vacation"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs has learned to control her savvy much better and can choose when to listen to tattoo voices and when to block them out.",
+                    question: "How has Mibs's control improved?",
+                    options: ["She lost her savvy", "She can choose when to listen", "It's still uncontrollable", "She only hears happy thoughts"],
+                    correct: 1
+                },
+                {
+                    passage: "When Momma writes a recipe on her hand with ink, Mibs reads her thoughts and discovers another Beaumont baby may be on the way.",
+                    question: "What does Mibs discover from Momma's thoughts?",
+                    options: ["They're moving", "Another baby may be coming", "Poppa is sick again", "They're getting a pet"],
+                    correct: 1
+                },
+                {
+                    passage: "Will and Bobbi remain close friends with the Beaumonts and are regular visitors to their home.",
+                    question: "What is Will and Bobbi's relationship with the family?",
+                    options: ["They never visit", "They remain close friends and regular visitors", "They moved away", "They only call sometimes"],
+                    correct: 1
+                },
+                {
+                    passage: "Mibs reflects that her savvy has taught her to understand people better and take on the voices and stories of others with compassion.",
+                    question: "What has Mibs's savvy taught her?",
+                    options: ["To avoid people", "To understand people with compassion", "To judge others", "To ignore problems"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 오디오 플레이어 함수들
+        function playChapterAudio(chapterIndex) {
+            const chapterNumber = chapterIndex + 1;
+            if (chapterNumber < 1 || chapterNumber > 37) {
+                alert('유효하지 않은 챕터 번호입니다. (1-37)');
+                return;
+            }
+
+            const audioData = getAudioUrl(chapterIndex);
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = audioData.title;
+            document.getElementById('audio-chapter-subtitle').textContent = 'Savvy - Ingrid Law';
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            audioSource.src = audioData.primary;
+            audioPlayer.load();
+
+            currentAudio = audioPlayer;
+            currentChapter = chapterIndex;
+            playbackSpeed = 1.0;
+        }
+
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `Savvy_Chapter${currentChapter + 1}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const container = document.getElementById('chapters-container');
+            container.innerHTML = '';
+
+            bookData.parts.forEach((part, partIndex) => {
+                const partHeader = document.createElement('div');
+                partHeader.className = 'part-header';
+                partHeader.textContent = `${part.title} - ${part.description}`;
+                container.appendChild(partHeader);
+
+                const grid = document.createElement('div');
+                grid.className = 'chapters-grid';
+
+                part.chapters.forEach(chapterNum => {
+                    const chapterIndex = chapterNum - 1;
+                    const chapter = bookData.chapterList[chapterIndex];
+
+                    const chapterCard = document.createElement('div');
+                    chapterCard.className = `chapter-card ${chapter.status}`;
+
+                    chapterCard.innerHTML = `
+                        <div class="chapter-header">
+                            <div class="chapter-info">
+                                <h4>${chapter.title}</h4>
+                                <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                            </div>
+                            <div class="chapter-status ${chapter.status}">
+                                ${chapter.status === 'completed' ? '✅ 완료' :
+                                  chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                            </div>
+                        </div>
+                        <div class="chapter-actions">
+                            <button class="chapter-btn audio-btn" onclick="playChapterAudio(${chapterIndex})"
+                                    ${chapter.status === 'locked' ? 'disabled' : ''}>
+                                🎧 오디오
+                            </button>
+                            <button class="chapter-btn quiz-btn" onclick="startLearning(${chapterIndex})"
+                                    ${chapter.status === 'locked' ? 'disabled' : ''}>
+                                📝 문제풀기
+                            </button>
+                        </div>
+                    `;
+
+                    grid.appendChild(chapterCard);
+                });
+
+                container.appendChild(grid);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progressPercent = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = `${progressPercent}%`;
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            if (bookData.chapterList[chapterIndex].status === 'locked') return;
+
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex] || [];
+
+            if (questions.length === 0) {
+                alert('이 챕터의 문제가 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = chapter.title;
+            document.getElementById('learning-chapter-breadcrumb').textContent = chapter.title;
+
+            showQuestion();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                submitAnswers();
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            document.getElementById('submit-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                }
+            }
+        }
+
+        // 옵션 선택
+        function selectOption(index) {
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            document.querySelector(`[data-index="${index}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = index;
+        }
+
+        // 다음 문제
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            }
+        }
+
+        // 이전 문제
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            for (let i = 0; i < questions.length; i++) {
+                if (userAnswers[i] === questions[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+
+                if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                    if (bookData.chapterList[currentChapterIndex + 1].status === 'locked') {
+                        bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                    }
+                }
+            }
+
+            showResult(correctCount, score);
+        }
+
+        // 결과 표시
+        function showResult(correctCount, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = `${score}%`;
+            document.getElementById('total-questions').textContent = `${questions.length}문제`;
+            document.getElementById('correct-answers').textContent = `${correctCount}문제`;
+            document.getElementById('wrong-answers').textContent = `${questions.length - correctCount}문제`;
+            document.getElementById('final-score').textContent = `${score}점`;
+
+            let message = '';
+            let circleColor = '';
+
+            if (score >= 90) {
+                message = '🌟 완벽합니다!';
+                circleColor = 'linear-gradient(45deg, #667eea, #764ba2)';
+            } else if (score >= 80) {
+                message = '🎉 훌륭해요!';
+                circleColor = 'linear-gradient(45deg, #667eea, #764ba2)';
+            } else if (score >= 70) {
+                message = '👍 잘했어요!';
+                circleColor = 'linear-gradient(45deg, #667eea, #764ba2)';
+            } else {
+                message = '💪 다시 도전해보세요!';
+                circleColor = 'linear-gradient(45deg, #ff9800, #f57c00)';
+            }
+
+            document.getElementById('result-message').textContent = message;
+            document.getElementById('score-circle').style.background = circleColor;
+        }
+
+        // 챕터 다시 풀기
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        // 다음 챕터
+        function nextChapter() {
+            if (currentChapterIndex + 1 < bookData.chapterList.length) {
+                if (bookData.chapterList[currentChapterIndex + 1].status !== 'locked') {
+                    startLearning(currentChapterIndex + 1);
+                } else {
+                    showBookDetail();
+                }
+            } else {
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('DOMContentLoaded', function() {
+            showBookDetail();
+
+            // 오디오 이벤트 리스너
+            const audioPlayer = document.getElementById('audio-player');
+            audioPlayer.addEventListener('play', function() {
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            });
+            audioPlayer.addEventListener('pause', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+            audioPlayer.addEventListener('ended', function() {
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            });
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('learning-screen').style.display === 'block') {
+                if (e.key === 'ArrowLeft') {
+                    previousQuestion();
+                } else if (e.key === 'ArrowRight') {
+                    nextQuestion();
+                } else if (e.key >= '1' && e.key <= '4') {
+                    const index = parseInt(e.key) - 1;
+                    if (index < questions[currentQuestionIndex]?.options.length) {
+                        selectOption(index);
+                    }
+                }
+            }
+
+            if (e.key === 'Escape') {
+                closeAudioModal();
+            }
+        });
+    </script>
+</body>
+</html>

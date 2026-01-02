@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Knight at Dawn - Level 2 - 수리딩어학원</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2E8B57 0%, #4682B4 50%, #DAA520 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* 헤더 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #2E8B57, #DAA520);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: #2E8B57;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 600px;
+        }
+
+        /* 책 상세 화면 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .breadcrumb a {
+            color: #2E8B57;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .book-detail-header {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
+
+        .detail-book-cover {
+            width: 150px;
+            height: 220px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            background: linear-gradient(45deg, #2E8B57, #DAA520);
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-info h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .book-info .author {
+            font-size: 1.2rem;
+            color: #2E8B57;
+            margin-bottom: 20px;
+        }
+
+        .book-summary {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .book-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2E8B57;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* 챕터 그리드 */
+        .chapters-section {
+            margin-top: 40px;
+        }
+
+        .chapters-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #28a74508, #ffffff);
+        }
+
+        .chapter-card.current {
+            border-color: #2E8B57;
+            background: linear-gradient(135deg, #2E8B5708, #ffffff);
+        }
+
+        .chapter-card.locked {
+            opacity: 0.6;
+            background: #f8f9fa;
+        }
+
+        .chapter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .chapter-info h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chapter-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .chapter-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .chapter-status.completed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .chapter-status.current {
+            background: rgba(46, 139, 87, 0.1);
+            color: #2E8B57;
+        }
+
+        .chapter-status.locked {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d;
+        }
+
+        .chapter-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chapter-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(45deg, #2E8B57, #4682B4);
+            color: white;
+        }
+
+        .quiz-btn {
+            background: linear-gradient(45deg, #DAA520, #B8860B);
+            color: white;
+        }
+
+        .chapter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .chapter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 학습 화면 */
+        .learning-screen {
+            display: none;
+        }
+
+        .learning-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .learning-progress {
+            background: #f8f9fa;
+            border-radius: 10px;
+            height: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .learning-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2E8B57, #DAA520);
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .passage {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2E8B57;
+        }
+
+        .option.selected {
+            background: rgba(46, 139, 87, 0.1);
+            border-color: #2E8B57;
+        }
+
+        .learning-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .control-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #2E8B57, #DAA520);
+            color: white;
+        }
+
+        .prev-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #2E8B57, #DAA520);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 결과 화면 */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #2E8B57, #DAA520);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .result-stat {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* 오디오 플레이어 모달 */
+        .audio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .audio-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-audio {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .audio-control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn {
+            background: linear-gradient(45deg, #2E8B57, #4682B4);
+            color: white;
+        }
+
+        .speed-btn {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .download-btn {
+            background: #DAA520;
+            color: white;
+        }
+
+        .audio-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .audio-info.hidden {
+            display: none;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .book-detail-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .book-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .learning-controls {
+                flex-direction: column;
+            }
+
+            .chapter-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .audio-controls {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .audio-content {
+                padding: 30px 20px;
+            }
+        }
+
+        .new-book-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(45deg, #FF6B9D, #C44569);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">⚔️</div>
+                <div class="logo-text">
+                    <h1>The Knight at Dawn</h1>
+                    <p>Level 2 - Mary Pope Osborne의 매직 트리 하우스 2권</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="http://www.suelibrary.store/" class="nav-btn">메인으로</a>
+            </div>
+        </div>
+
+        <!-- 메인 콘텐츠 -->
+        <div class="main-content">
+            <!-- 책 상세 화면 -->
+            <div class="book-detail-screen" id="book-detail-screen">
+                <div class="breadcrumb">
+                    <span>The Knight at Dawn</span>
+                </div>
+
+                <div class="book-detail-header">
+                    <div class="detail-book-cover">⚔️</div>
+                    <div class="book-info">
+                        <h2>The Knight at Dawn</h2>
+                        <div class="author">Mary Pope Osborne</div>
+                        <div class="book-summary">
+                            A castle with a secret passage! That's what Jack and Annie find when the Magic Tree House whisks them back to the Middle Ages for another wild adventure. In the Great Hall of the castle, a feast is under way. But Jack and Annie aren't exactly welcome guests!
+                        </div>
+                        <div class="book-stats">
+                            <div class="stat-box">
+                                <div class="value">10</div>
+                                <div class="label">챕터</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">50</div>
+                                <div class="label">총 문제</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value">Level 2</div>
+                                <div class="label">레벨</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="value" id="progress-value">0%</div>
+                                <div class="label">진도</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chapters-section">
+                    <h3>📖 챕터별 학습</h3>
+                    <div class="chapters-grid" id="chapters-grid">
+                        <!-- 챕터 카드들 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 학습 화면 -->
+            <div class="learning-screen" id="learning-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Knight at Dawn</a>
+                    <span>></span>
+                    <span id="learning-chapter-breadcrumb">Chapter 1</span>
+                </div>
+
+                <div class="learning-header">
+                    <h2 id="learning-title">Chapter 1: The Dark Woods</h2>
+                    <div class="learning-progress">
+                        <div class="learning-progress-bar" id="learning-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <p id="learning-progress-text">문제 1 / 5</p>
+                </div>
+
+                <div class="question-container" id="question-container">
+                    <!-- 문제가 동적으로 생성됩니다 -->
+                </div>
+
+                <div class="learning-controls">
+                    <button class="control-btn prev-btn" id="prev-btn" onclick="previousQuestion()" disabled>이전</button>
+                    <button class="control-btn next-btn" id="next-btn" onclick="nextQuestion()">다음</button>
+                    <button class="control-btn submit-btn" id="submit-btn" onclick="submitAnswers()" style="display: none;">제출</button>
+                </div>
+            </div>
+
+            <!-- 결과 화면 -->
+            <div class="result-screen" id="result-screen">
+                <div class="breadcrumb">
+                    <a onclick="showBookDetail()">The Knight at Dawn</a>
+                    <span>></span>
+                    <span>결과</span>
+                </div>
+
+                <div class="result-header">
+                    <h2>🎉 학습 완료!</h2>
+                    <div class="score-circle" id="score-circle">100%</div>
+                    <h3 id="result-message">훌륭합니다!</h3>
+                </div>
+
+                <div class="result-details">
+                    <div class="result-stat">
+                        <h4>총 문제</h4>
+                        <p id="total-questions">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>정답</h4>
+                        <p id="correct-answers">5문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>오답</h4>
+                        <p id="wrong-answers">0문제</p>
+                    </div>
+                    <div class="result-stat">
+                        <h4>점수</h4>
+                        <p id="final-score">100점</p>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="control-btn prev-btn" onclick="retryChapter()">다시 풀기</button>
+                    <button class="control-btn next-btn" onclick="nextChapter()">다음 챕터</button>
+                    <button class="control-btn submit-btn" onclick="showBookDetail()">챕터 목록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오디오 플레이어 모달 -->
+    <div class="audio-modal" id="audio-modal">
+        <div class="audio-content">
+            <button class="close-audio" onclick="closeAudioModal()">×</button>
+            <h3 id="audio-chapter-title">Chapter 1: The Dark Woods</h3>
+            <p id="audio-chapter-subtitle">The Knight at Dawn - Mary Pope Osborne</p>
+
+            <audio class="audio-player" id="audio-player" controls preload="metadata">
+                <source id="audio-source" src="" type="audio/mpeg">
+                브라우저가 오디오를 지원하지 않습니다.
+            </audio>
+
+            <div class="audio-controls">
+                <button class="audio-control-btn play-pause-btn" onclick="togglePlayPause()">▶️ 재생</button>
+                <button class="audio-control-btn speed-btn" onclick="changeSpeed()">1.0x</button>
+                <button class="audio-control-btn" onclick="resetToChapterStart()" style="background: #28a745; color: white;">🔄 구간처음</button>
+                <button class="audio-control-btn download-btn" onclick="downloadAudio()">📥 다운로드</button>
+            </div>
+
+            <div class="audio-info" id="audio-info">
+                <div id="audio-status" style="margin-top: 10px; font-weight: bold; color: #2E8B57;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 🎯 구글 클라우드 스토리지 오디오 URL 설정
+        const AUDIO_BASE_URL = 'https://storage.googleapis.com/kim-mom-reading-audio/audio/';
+
+        // Magic Tree House 2권 도서 데이터 (정확한 10챕터)
+        const bookData = {
+            id: 'MTH002',
+            title: "The Knight at Dawn",
+            author: 'Mary Pope Osborne',
+            cover: '⚔️',
+            progress: 0,
+            chapters: 10,
+            totalQuestions: 50, // 10챕터 × 5문제
+            coverColor: 'linear-gradient(45deg, #2E8B57, #DAA520)',
+            summary: "A castle with a secret passage! That's what Jack and Annie find when the Magic Tree House whisks them back to the Middle Ages for another wild adventure. In the Great Hall of the castle, a feast is under way. But Jack and Annie aren't exactly welcome guests!",
+            chapterList: [
+                { title: 'The Dark Woods', description: 'Jack cannot sleep after their dinosaur adventure. He and Annie return to the magic tree house in the early dawn.', status: 'current', questionCount: 5, audioFile: '01 - The Dark Woods.mp3' },
+                { title: 'Leaving Again', description: 'Annie finds the book about knights and castles. They are whisked away to medieval times by the magic tree house.', status: 'current', questionCount: 5, audioFile: '02 - Leaving Again.mp3' },
+                { title: 'Across the Bridge', description: 'Jack and Annie find themselves near a castle and must cross the drawbridge to enter.', status: 'current', questionCount: 5, audioFile: '03 - Across The Bridge.mp3' },
+                { title: 'Into the Castle', description: 'They enter the castle and explore the Great Hall where a feast is taking place.', status: 'current', questionCount: 5, audioFile: '04 - Into The Castle.mp3' },
+                { title: 'Trapped', description: 'Jack and Annie are discovered by guards and taken to the dungeon.', status: 'current', questionCount: 5, audioFile: '05 - Trapped.mp3' },
+                { title: 'Ta-da!', description: 'Annie uses her flashlight to convince the guards it is a magic wand and they escape.', status: 'current', questionCount: 5, audioFile: '06 - Tada.mp3' },
+                { title: 'A Secret Passage', description: 'The children discover a secret passage that leads them through the castle.', status: 'current', questionCount: 5, audioFile: '07 - The Secret Passage.mp3' },
+                { title: 'The Knight', description: 'Jack and Annie meet a mysterious knight who helps them escape from the castle.', status: 'current', questionCount: 5, audioFile: '08 - The Night.mp3' },
+                { title: 'Under the Moon', description: 'The knight takes them safely across the moat under the moonlight back to the tree house.', status: 'current', questionCount: 5, audioFile: '09 - Under The Moon.mp3' },
+                { title: 'One Mystery Solved', description: 'Back home, Jack and Annie discover a bookmark with the letter M - their first clue to solving the tree house mystery.', status: 'current', questionCount: 5, audioFile: '10 - One Mystery Solved.mp3' }
+            ]
+        };
+
+        // 문제 데이터 (정확한 챕터 제목으로 업데이트)
+        const questionsData = {
+            0: [ // Chapter 1: The Dark Woods
+                {
+                    passage: "Jack couldn't sleep. He put his glasses on. He looked at the clock. 5:30. Too early to get up. Yesterday so many strange things had happened.",
+                    question: "What time did Jack look at the clock?",
+                    options: ["5:00", "5:30", "6:00", "6:30"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack was trying to figure out all the strange things that had happened yesterday when they went to dinosaur times.",
+                    question: "What was Jack trying to figure out?",
+                    options: ["His homework", "The strange things from yesterday", "What to eat for breakfast", "How to fix his glasses"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack picked up his notebook and looked at the list he'd made before going to bed about their adventure.",
+                    question: "What did Jack look at in his notebook?",
+                    options: ["His homework", "A shopping list", "A list about their adventure", "Math problems"],
+                    correct: 2
+                },
+                {
+                    passage: "Jack thought about who was going to believe any of this - not his mom, dad, or teacher Ms. Watkins. Only his seven-year-old sister, Annie.",
+                    question: "Who would believe Jack's story about their adventure?",
+                    options: ["His mom", "His dad", "Ms. Watkins", "Only Annie"],
+                    correct: 3
+                },
+                {
+                    passage: "Annie burst into Jack's room and told him they needed to go back to the tree house to catch the person who owned it.",
+                    question: "What did Annie want to do at the tree house?",
+                    options: ["Read more books", "Catch the owner", "Have breakfast", "Do homework"],
+                    correct: 1
+                }
+            ],
+            1: [ // Chapter 2: Leaving Again
+                {
+                    passage: "When they climbed up to the tree house, they found the same books scattered about from their previous visit.",
+                    question: "What did they find in the tree house?",
+                    options: ["New books", "The same scattered books", "Nothing", "A person sleeping"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie shined her flashlight on the books and stopped the light on a book about knights and castles.",
+                    question: "What book did Annie's flashlight stop on?",
+                    options: ["Dinosaurs", "Knights and castles", "Pennsylvania", "Pirates"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie turned to a page with a bookmark showing a picture of a knight on a black horse riding toward a castle.",
+                    question: "What was in the picture that Annie found?",
+                    options: ["A dragon", "A knight on a black horse", "A princess", "A wizard"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie pointed at the knight in the picture and said 'We wish we could see this guy for real.'",
+                    question: "What did Annie wish for?",
+                    options: ["To go home", "To see the knight for real", "To find treasure", "To meet a princess"],
+                    correct: 1
+                },
+                {
+                    passage: "The wind began to moan, the leaves began to tremble, and the tree house started to spin as they were transported again.",
+                    question: "What happened when Annie made her wish?",
+                    options: ["Nothing", "The tree house started to spin", "It got dark", "They fell asleep"],
+                    correct: 1
+                }
+            ],
+            2: [ // Chapter 3: Across the Bridge
+                {
+                    passage: "When the spinning stopped, Jack and Annie found themselves on a hill overlooking a magnificent stone castle.",
+                    question: "Where did Jack and Annie find themselves?",
+                    options: ["In a forest", "On a hill overlooking a castle", "Inside a dungeon", "By a lake"],
+                    correct: 1
+                },
+                {
+                    passage: "The castle was surrounded by a high wall and had tall towers reaching up to the cloudy sky.",
+                    question: "What surrounded the castle?",
+                    options: ["A moat", "A high wall", "Trees", "A garden"],
+                    correct: 1
+                },
+                {
+                    passage: "Between them and the castle was a wide moat filled with dark water, and the only way across was the drawbridge.",
+                    question: "What was between them and the castle?",
+                    options: ["A forest", "A wide moat", "A field", "A mountain"],
+                    correct: 1
+                },
+                {
+                    passage: "The drawbridge was up, but then they heard a horn blow and watched as it slowly lowered down.",
+                    question: "What happened when they heard the horn blow?",
+                    options: ["Guards appeared", "The drawbridge lowered", "The gates opened", "Knights came out"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie quickly ran across the wooden drawbridge before anyone could see them and ask questions.",
+                    question: "What did Jack and Annie do when the drawbridge lowered?",
+                    options: ["Waited and watched", "Quickly ran across", "Went back to the tree house", "Hid behind trees"],
+                    correct: 1
+                }
+            ],
+            3: [ // Chapter 4: Into the Castle
+                {
+                    passage: "Once inside the castle courtyard, Jack and Annie saw people in medieval clothing going about their daily activities.",
+                    question: "What did Jack and Annie see in the courtyard?",
+                    options: ["Modern people", "People in medieval clothing", "Only knights", "No one"],
+                    correct: 1
+                },
+                {
+                    passage: "They could hear the sounds of a feast coming from the Great Hall, with people talking and laughing.",
+                    question: "What could they hear from the Great Hall?",
+                    options: ["Silence", "Sounds of a feast", "Music only", "Crying"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack wanted to be careful and not change history, but Annie was eager to explore and see everything.",
+                    question: "How did Jack feel about exploring?",
+                    options: ["Very excited", "Wanted to be careful not to change history", "Scared to move", "Ready to go home"],
+                    correct: 1
+                },
+                {
+                    passage: "They decided to look around quietly and try to find one of the four special things Morgan le Fay had mentioned.",
+                    question: "What were they looking for?",
+                    options: ["Food", "One of four special things", "The way home", "Knights"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie led Jack toward the Great Hall where they could see the feast taking place through the doorway.",
+                    question: "Where did Annie lead Jack?",
+                    options: ["To the towers", "Toward the Great Hall", "To the dungeon", "Outside the castle"],
+                    correct: 1
+                }
+            ],
+            4: [ // Chapter 5: Trapped
+                {
+                    passage: "As Jack and Annie tried to sneak into the Great Hall, they accidentally bumped into a servant carrying food.",
+                    question: "What happened when they tried to enter the Great Hall?",
+                    options: ["They found treasure", "They bumped into a servant", "They met the king", "They got lost"],
+                    correct: 1
+                },
+                {
+                    passage: "The servant shouted and people turned to look at them. Jack and Annie ran away as fast as they could.",
+                    question: "What did Jack and Annie do when the servant shouted?",
+                    options: ["Apologized", "Ran away", "Hid under a table", "Kept walking"],
+                    correct: 1
+                },
+                {
+                    passage: "They ran into a room full of armor and weapons, but three guards followed them and surrounded them.",
+                    question: "Where did Jack and Annie run to?",
+                    options: ["The kitchen", "A room full of armor", "The tower", "Outside"],
+                    correct: 1
+                },
+                {
+                    passage: "The guards demanded to know who they were and why they were in the castle without permission.",
+                    question: "What did the guards want to know?",
+                    options: ["What they wanted to eat", "Who they were and why they were there", "If they could fight", "Where they came from"],
+                    correct: 1
+                },
+                {
+                    passage: "When Jack and Annie couldn't give a good explanation, the guards arrested them and took them to the dungeon.",
+                    question: "What happened when they couldn't explain themselves?",
+                    options: ["The guards let them go", "They were taken to the dungeon", "They were given food", "They were sent home"],
+                    correct: 1
+                }
+            ],
+            5: [ // Chapter 6: Ta-da!
+                {
+                    passage: "In the dark dungeon, the guards threatened to hang Jack and Annie the next day for trespassing.",
+                    question: "What did the guards threaten to do?",
+                    options: ["Make them work", "Hang them the next day", "Lock them up forever", "Send them away"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie remembered her flashlight in her backpack and had an idea to escape from the guards.",
+                    question: "What did Annie remember she had?",
+                    options: ["Food", "A flashlight", "A book", "A key"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie pulled out her flashlight and shined the bright light directly into the guards' faces.",
+                    question: "What did Annie do with her flashlight?",
+                    options: ["Dropped it", "Shined it at the guards", "Hid it", "Turned it off"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie told the guards that the flashlight was a magic wand and that she was a powerful sorceress.",
+                    question: "What did Annie tell the guards the flashlight was?",
+                    options: ["A toy", "A magic wand", "A weapon", "A torch"],
+                    correct: 1
+                },
+                {
+                    passage: "The guards were so frightened by the bright light they had never seen before that they ran away immediately.",
+                    question: "How did the guards react to the flashlight?",
+                    options: ["They laughed", "They were frightened and ran away", "They took it away", "They didn't care"],
+                    correct: 1
+                }
+            ],
+            6: [ // Chapter 7: A Secret Passage
+                {
+                    passage: "After the guards ran away, Jack and Annie found themselves alone in the dungeon looking for a way out.",
+                    question: "What were Jack and Annie looking for in the dungeon?",
+                    options: ["Treasure", "A way out", "Food", "Weapons"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie discovered a loose stone in the wall that seemed different from the others around it.",
+                    question: "What did Annie discover in the wall?",
+                    options: ["A window", "A loose stone", "A painting", "A crack"],
+                    correct: 1
+                },
+                {
+                    passage: "When they pushed the loose stone, it moved aside to reveal a secret passage leading upward.",
+                    question: "What happened when they pushed the loose stone?",
+                    options: ["Nothing", "It revealed a secret passage", "The wall collapsed", "Guards came"],
+                    correct: 1
+                },
+                {
+                    passage: "The secret passage was narrow and dark, but they could see light coming from somewhere ahead.",
+                    question: "What could they see in the secret passage?",
+                    options: ["Complete darkness", "Light coming from ahead", "More guards", "Dead ends"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie carefully made their way through the passage, following the light toward their escape.",
+                    question: "What did Jack and Annie follow in the passage?",
+                    options: ["Sounds", "The light", "Footprints", "A map"],
+                    correct: 1
+                }
+            ],
+            7: [ // Chapter 8: The Knight
+                {
+                    passage: "The secret passage led them to the castle wall, where they could see the moat below in the moonlight.",
+                    question: "Where did the secret passage lead them?",
+                    options: ["To the Great Hall", "To the castle wall", "To another dungeon", "To the kitchen"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie climbed down the wall, but they were worried about how to cross the dark moat safely.",
+                    question: "What were Jack and Annie worried about?",
+                    options: ["Getting caught", "Crossing the moat safely", "Finding food", "Getting lost"],
+                    correct: 1
+                },
+                {
+                    passage: "Suddenly, they heard the sound of horse hooves and saw a knight in shining armor approaching on a black horse.",
+                    question: "What did they hear and see approaching?",
+                    options: ["Guards running", "A knight on a black horse", "Other prisoners", "Castle servants"],
+                    correct: 1
+                },
+                {
+                    passage: "The mysterious knight did not speak, but gestured for Jack and Annie to climb onto his horse.",
+                    question: "What did the knight do?",
+                    options: ["Spoke to them", "Gestured for them to climb on", "Rode away", "Called for guards"],
+                    correct: 1
+                },
+                {
+                    passage: "Without saying a word, the knight helped them onto his horse and began to ride toward the tree house.",
+                    question: "Where did the knight take them?",
+                    options: ["Back to the castle", "To another castle", "Toward the tree house", "To a village"],
+                    correct: 2
+                }
+            ],
+            8: [ // Chapter 9: Under the Moon
+                {
+                    passage: "The knight rode with Jack and Annie across the moonlit landscape toward the hill where the tree house waited.",
+                    question: "Where was the knight taking Jack and Annie?",
+                    options: ["To another castle", "To the hill with the tree house", "To a village", "To the forest"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack noticed that the knight never spoke during the entire ride, remaining completely silent and mysterious.",
+                    question: "What did Jack notice about the knight?",
+                    options: ["He talked a lot", "He never spoke", "He sang songs", "He asked many questions"],
+                    correct: 1
+                },
+                {
+                    passage: "The moonlight made everything look magical and peaceful as they rode through the medieval countryside.",
+                    question: "What made everything look magical?",
+                    options: ["The stars", "The moonlight", "Torches", "The sunrise"],
+                    correct: 1
+                },
+                {
+                    passage: "When they reached the tree house, the knight helped them down from his horse with gentle care.",
+                    question: "How did the knight help them at the tree house?",
+                    options: ["Roughly pushed them off", "Helped them down with gentle care", "Left them on the horse", "Rode away immediately"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack and Annie climbed up to the tree house and looked back, but the mysterious knight had already disappeared into the night.",
+                    question: "What happened to the knight after they climbed up?",
+                    options: ["He waited below", "He had disappeared", "He called to them", "He climbed up too"],
+                    correct: 1
+                }
+            ],
+            9: [ // Chapter 10: One Mystery Solved
+                {
+                    passage: "Back in the tree house, Annie found their book about Pennsylvania that would take them home to Frog Creek.",
+                    question: "What book did Annie find to take them home?",
+                    options: ["The knight book", "The Pennsylvania book", "The dinosaur book", "A new book"],
+                    correct: 1
+                },
+                {
+                    passage: "Annie pointed to the picture of Frog Creek in the book, and the tree house began to spin and take them home.",
+                    question: "What happened when Annie pointed to Frog Creek?",
+                    options: ["Nothing", "The tree house began to spin", "The book closed", "New books appeared"],
+                    correct: 1
+                },
+                {
+                    passage: "When they arrived back in their own time, Jack and Annie climbed down from the tree house as dawn was breaking.",
+                    question: "What time was it when they returned home?",
+                    options: ["Midnight", "Dawn was breaking", "Noon", "Evening"],
+                    correct: 1
+                },
+                {
+                    passage: "Back in his room, Jack discovered a leather bookmark in his backpack that had the letter M written on it.",
+                    question: "What did Jack find in his backpack?",
+                    options: ["A coin", "A leather bookmark with M", "A small book", "A piece of armor"],
+                    correct: 1
+                },
+                {
+                    passage: "Jack realized this bookmark with the letter M was their first clue to solving the mystery of the magic tree house and Morgan le Fay.",
+                    question: "What was significant about the bookmark?",
+                    options: ["It was old", "It was their first clue to the mystery", "It was valuable", "It was from the knight"],
+                    correct: 1
+                }
+            ]
+        };
+
+        // 전역 변수
+        let currentChapterIndex = 0;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let questions = [];
+        let currentAudio = null;
+        let playbackSpeed = 1.0;
+
+        // 🎧 오디오 URL 생성 함수 (이미지 2의 파일명 기반)
+        function getAudioUrl(chapterIndex) {
+            const bookFolder = 'MTH002_Knight_at_Dawn'; // Magic Tree House 002 폴더명
+            const chapter = bookData.chapterList[chapterIndex];
+            
+            // 이미지 2에서 보인 실제 파일명들 사용
+            const audioFileName = chapter.audioFile;
+            
+            const primaryUrl = `${AUDIO_BASE_URL}${bookFolder}/${audioFileName}`;
+            
+            // 대체 URL 패턴들
+            const alternatives = [
+                `${AUDIO_BASE_URL}${bookFolder}/${audioFileName}`,
+                `${AUDIO_BASE_URL}MTH002/${audioFileName}`,
+                `${AUDIO_BASE_URL}level2/MTH002/${audioFileName}`,
+                `${AUDIO_BASE_URL}level2/${bookFolder}/${audioFileName}`,
+                `${AUDIO_BASE_URL}magic_tree_house_2/${audioFileName}`,
+                `${AUDIO_BASE_URL}knight_at_dawn/${audioFileName}`,
+                `${AUDIO_BASE_URL}${audioFileName}`, // 직접 경로
+                `${AUDIO_BASE_URL}level2/${audioFileName}` // level2 직접 하위
+            ];
+            
+            return {
+                primary: primaryUrl,
+                alternatives: alternatives
+            };
+        }
+
+        // 🎧 오디오 재생 함수
+        function playChapterAudio(chapterIndex) {
+            const chapter = bookData.chapterList[chapterIndex];
+            const audioUrls = getAudioUrl(chapterIndex);
+
+            document.getElementById('audio-modal').style.display = 'flex';
+            document.getElementById('audio-chapter-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('audio-chapter-subtitle').textContent = `${bookData.title} - ${bookData.author}`;
+
+            // 오디오 정보 영역 다시 보이기
+            document.getElementById('audio-info').classList.remove('hidden');
+
+            const audioPlayer = document.getElementById('audio-player');
+            const audioSource = document.getElementById('audio-source');
+            const audioStatus = document.getElementById('audio-status');
+
+            audioStatus.textContent = '🔄 오디오 파일을 로딩 중...';
+
+            function tryLoadAudio(urlIndex = 0) {
+                if (urlIndex >= audioUrls.alternatives.length) {
+                    audioStatus.innerHTML = `❌ 오디오 파일을 찾을 수 없습니다.<br>파일명: ${chapter.audioFile}`;
+                    return;
+                }
+
+                const currentUrl = audioUrls.alternatives[urlIndex];
+                audioSource.src = currentUrl;
+                audioPlayer.load();
+
+                const successHandler = function() {
+                    audioStatus.innerHTML = `✅ 오디오 준비 완료!<br>파일: ${chapter.audioFile}`;
+                    audioPlayer.removeEventListener('canplaythrough', successHandler);
+                    audioPlayer.removeEventListener('error', errorHandler);
+                };
+
+                const errorHandler = function() {
+                    console.log(`오디오 로드 실패: ${currentUrl}`);
+                    audioPlayer.removeEventListener('canplaythrough', successHandler);
+                    audioPlayer.removeEventListener('error', errorHandler);
+                    setTimeout(() => tryLoadAudio(urlIndex + 1), 100);
+                };
+
+                audioPlayer.addEventListener('canplaythrough', successHandler);
+                audioPlayer.addEventListener('error', errorHandler);
+            }
+
+            tryLoadAudio(0);
+            currentAudio = audioPlayer;
+            playbackSpeed = 1.0;
+        }
+
+        // 기본 함수들
+        function closeAudioModal() {
+            document.getElementById('audio-modal').style.display = 'none';
+            if (currentAudio) currentAudio.pause();
+        }
+
+        function togglePlayPause() {
+            if (!currentAudio) return;
+            if (currentAudio.paused) {
+                currentAudio.play();
+                document.querySelector('.play-pause-btn').textContent = '⏸️ 일시정지';
+            } else {
+                currentAudio.pause();
+                document.querySelector('.play-pause-btn').textContent = '▶️ 재생';
+            }
+        }
+
+        function changeSpeed() {
+            if (!currentAudio) return;
+            const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+            const currentIndex = speeds.indexOf(playbackSpeed);
+            playbackSpeed = speeds[(currentIndex + 1) % speeds.length];
+            currentAudio.playbackRate = playbackSpeed;
+            document.querySelector('.speed-btn').textContent = `${playbackSpeed}x`;
+        }
+
+        function resetToChapterStart() {
+            if (!currentAudio) return;
+            currentAudio.currentTime = 0;
+        }
+
+        function downloadAudio() {
+            const audioSource = document.getElementById('audio-source');
+            if (audioSource.src) {
+                const link = document.createElement('a');
+                link.href = audioSource.src;
+                link.download = `${document.getElementById('audio-chapter-title').textContent}.mp3`;
+                link.click();
+            }
+        }
+
+        // 책 상세 정보 표시
+        function showBookDetail() {
+            document.getElementById('book-detail-screen').style.display = 'block';
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'none';
+            generateChapterGrid();
+            updateProgress();
+        }
+
+        // 챕터 그리드 생성
+        function generateChapterGrid() {
+            const grid = document.getElementById('chapters-grid');
+            grid.innerHTML = '';
+
+            bookData.chapterList.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = `chapter-card ${chapter.status}`;
+
+                chapterCard.innerHTML = `
+                    <div class="chapter-header">
+                        <div class="chapter-info">
+                            <h4>Chapter ${index + 1}: ${chapter.title}</h4>
+                            <p>${chapter.description} (${chapter.questionCount}문제)</p>
+                        </div>
+                        <div class="chapter-status ${chapter.status}">
+                            ${chapter.status === 'completed' ? '✅ 완료' :
+                              chapter.status === 'current' ? '📖 진행중' : '🔒 잠김'}
+                        </div>
+                    </div>
+                    <div class="chapter-actions">
+                        <button class="chapter-btn audio-btn" onclick="playChapterAudio(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            🎧 오디오
+                        </button>
+                        <button class="chapter-btn quiz-btn" onclick="startLearning(${index})"
+                                ${chapter.status === 'locked' ? 'disabled' : ''}>
+                            📝 문제풀기
+                        </button>
+                    </div>
+                `;
+
+                grid.appendChild(chapterCard);
+            });
+        }
+
+        // 진도 업데이트
+        function updateProgress() {
+            const completedChapters = bookData.chapterList.filter(chapter => chapter.status === 'completed').length;
+            const progress = Math.round((completedChapters / bookData.chapters) * 100);
+            document.getElementById('progress-value').textContent = progress + '%';
+        }
+
+        // 학습 시작
+        function startLearning(chapterIndex) {
+            currentChapterIndex = chapterIndex;
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            questions = questionsData[chapterIndex];
+
+            if (!questions || questions.length === 0) {
+                alert('이 챕터의 문제가 아직 준비되지 않았습니다.');
+                return;
+            }
+
+            document.getElementById('book-detail-screen').style.display = 'none';
+            document.getElementById('learning-screen').style.display = 'block';
+            document.getElementById('result-screen').style.display = 'none';
+
+            const chapter = bookData.chapterList[chapterIndex];
+            document.getElementById('learning-title').textContent = `Chapter ${chapterIndex + 1}: ${chapter.title}`;
+            document.getElementById('learning-chapter-breadcrumb').textContent = `Chapter ${chapterIndex + 1}`;
+
+            showQuestion();
+            updateLearningProgress();
+        }
+
+        // 문제 표시
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const container = document.getElementById('question-container');
+
+            container.innerHTML = `
+                <div class="question-text">문제 ${currentQuestionIndex + 1}</div>
+                <div class="passage">${question.passage}</div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">
+                    ${question.options.map((option, index) =>
+                        `<div class="option" onclick="selectOption(${index})" data-index="${index}">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>`
+                    ).join('')}
+                </div>
+            `;
+
+            if (userAnswers[currentQuestionIndex] !== undefined) {
+                const selectedOption = container.querySelector(`[data-index="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) selectedOption.classList.add('selected');
+            }
+
+            updateNavigationButtons();
+        }
+
+        // 선택지 선택
+        function selectOption(optionIndex) {
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`[data-index="${optionIndex}"]`).classList.add('selected');
+            userAnswers[currentQuestionIndex] = optionIndex;
+            updateNavigationButtons();
+        }
+
+        // 네비게이션
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateLearningProgress();
+            }
+        }
+
+        function updateLearningProgress() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            document.getElementById('learning-progress-bar').style.width = progress + '%';
+            document.getElementById('learning-progress-text').textContent = `문제 ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = userAnswers[currentQuestionIndex] === undefined;
+            }
+        }
+
+        // 답안 제출
+        function submitAnswers() {
+            let correctCount = 0;
+            questions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) correctCount++;
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+
+            if (score >= 70) {
+                bookData.chapterList[currentChapterIndex].status = 'completed';
+                if (currentChapterIndex < bookData.chapterList.length - 1) {
+                    bookData.chapterList[currentChapterIndex + 1].status = 'current';
+                }
+            }
+
+            showResults(correctCount, questions.length, score);
+        }
+
+        // 결과 표시
+        function showResults(correct, total, score) {
+            document.getElementById('learning-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+
+            document.getElementById('score-circle').textContent = score + '%';
+            document.getElementById('total-questions').textContent = total + '문제';
+            document.getElementById('correct-answers').textContent = correct + '문제';
+            document.getElementById('wrong-answers').textContent = (total - correct) + '문제';
+            document.getElementById('final-score').textContent = score + '점';
+
+            let message = '';
+            if (score >= 90) message = '훌륭합니다! 🌟';
+            else if (score >= 80) message = '잘했어요! 👏';
+            else if (score >= 70) message = '좋아요! 👍';
+            else message = '다시 한번 도전해보세요! 💪';
+
+            document.getElementById('result-message').textContent = message;
+        }
+
+        function retryChapter() {
+            startLearning(currentChapterIndex);
+        }
+
+        function nextChapter() {
+            if (currentChapterIndex < bookData.chapterList.length - 1) {
+                startLearning(currentChapterIndex + 1);
+            } else {
+                alert('모든 챕터를 완료했습니다! 🎉');
+                showBookDetail();
+            }
+        }
+
+        // 페이지 로드
+        window.addEventListener('load', function() {
+            showBookDetail();
+            console.log('⚔️ Magic Tree House: The Knight at Dawn (정확한 챕터 제목) 학습 시스템이 준비되었습니다!');
+        });
+
+        // 모달 외부 클릭시 닫기
+        document.getElementById('audio-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeAudioModal();
+        });
+    </script>
+</body>
+</html>
