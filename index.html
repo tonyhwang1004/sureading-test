@@ -588,13 +588,70 @@
                 </p>
                 
                 <div style="margin-bottom: 20px;">
-                    <select id="qrBookSelect" onchange="updateQRCode()" style="width: 100%; padding: 12px; border-radius: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem;">
-                        <option value="">책을 선택하세요</option>
-                        <option value="dinosaurs-before-dark-level2.html">Dinosaurs Before Dark (Level 2)</option>
-                        <option value="Charlotte's%20Web%20-%20Level%203.html">Charlotte's Web (Level 3)</option>
-                        <option value="Matilda%20-%20Level%203.html">Matilda (Level 3)</option>
-                        <option value="The%20Alchemist%20-%20Level%204.html">The Alchemist (Level 4)</option>
-                        <option value="Hatchet%20-%20Level%205.html">Hatchet (Level 5)</option>
+                    <select id="qrBookSelect" onchange="updateQRCode()" style="width: 100%; padding: 12px; border-radius: 10px; background: #222; border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem;">
+                        <option value="" style="background: #222;">-- 책을 선택하세요 --</option>
+                        <optgroup label="📗 Level 2 - Elementary" style="background: #222;">
+                            <option value="dinosaurs-before-dark-level2.html">🦖 Dinosaurs Before Dark</option>
+                            <option value="The%20Knight%20at%20Dawn%20-%20Level%202.html">🏰 The Knight at Dawn</option>
+                            <option value="Mummies%20in%20the%20Morning%20-%20Level%202.html">🏛️ Mummies in the Morning</option>
+                            <option value="Pirates%20Past%20Noon%20-%20Level%202.html">🏴‍☠️ Pirates Past Noon</option>
+                            <option value="Night%20of%20the%20Ninjas%20-%20Level%202.html">🥷 Night of the Ninjas</option>
+                            <option value="Afternoon%20on%20the%20Amazon%20-%20Level%202.html">🌴 Afternoon on the Amazon</option>
+                            <option value="Dolphins%20at%20Daybreak%20-%20Level%202.html">🐬 Dolphins at Daybreak</option>
+                            <option value="Ghost%20Town%20at%20Sundown%20-%20Level%202.html">👻 Ghost Town at Sundown</option>
+                            <option value="Lions%20at%20Lunchtime%20-%20Level%202.html">🦁 Lions at Lunchtime</option>
+                            <option value="Polar%20Bears%20Past%20Bedtime%20-%20Level%202.html">🐻‍❄️ Polar Bears Past Bedtime</option>
+                            <option value="Sunset%20of%20the%20Sabertooth%20-%20Level%202.html">🐯 Sunset of the Sabertooth</option>
+                            <option value="midnight-on-the-moon.html">🌙 Midnight on the Moon</option>
+                            <option value="high-tide-in-hawaii.html">🏄 High Tide in Hawaii</option>
+                        </optgroup>
+                        <optgroup label="📘 Level 3 - Intermediate" style="background: #222;">
+                            <option value="Charlotte's%20Web%20-%20Level%203.html">🕷️ Charlotte's Web</option>
+                            <option value="Sarah,%20Plain%20and%20Tall%20-%20Level%203.html">👩 Sarah, Plain and Tall</option>
+                            <option value="The%20Lion,%20the%20Witch%20and%20the%20Wardrobe%20-%20Level%203.html">🦁 The Lion, the Witch and the Wardrobe</option>
+                            <option value="Prince%20Caspian%20-%20Level%203.html">👑 Prince Caspian</option>
+                            <option value="The%20Voyage%20of%20Dawn%20Treader%20-%20Level%203.html">⛵ The Voyage of Dawn Treader</option>
+                            <option value="Matilda%20-%20Level%203.html">📚 Matilda</option>
+                            <option value="bridge-to-terabithia-level3.html">🌉 Bridge to Terabithia</option>
+                            <option value="where-red-fern-grows-level3.html">🌿 Where the Red Fern Grows</option>
+                            <option value="The%20Wild%20Robot%20-%20Level%203.html">🤖 The Wild Robot</option>
+                            <option value="Buffalo%20Before%20Breakfast%20-%20Level%203.html">🦬 Buffalo Before Breakfast</option>
+                            <option value="Tigers%20at%20Twilight%20-%20Level%203.html">🐅 Tigers at Twilight</option>
+                            <option value="Dingoes%20at%20Dinnertime%20-%20Level%203.html">🐕 Dingoes at Dinnertime</option>
+                            <option value="Viking%20Ships%20at%20Sunrise%20-%20Level%203.html">⛵ Viking Ships at Sunrise</option>
+                            <option value="Tonight%20on%20the%20Titanic%20-%20Level%203.html">🚢 Tonight on the Titanic</option>
+                            <option value="Day%20of%20the%20Dragon%20King%20-%20Level%203.html">🐉 Day of the Dragon King</option>
+                            <option value="Civil%20War%20on%20Sunday%20-%20Level%203.html">⚔️ Civil War on Sunday</option>
+                            <option value="Hour%20of%20the%20Olympics%20-%20Level%203.html">🏅 Hour of the Olympics</option>
+                            <option value="Vacation%20Under%20the%20Volcano%20-%20Level%203.html">🌋 Vacation Under the Volcano</option>
+                            <option value="James%20and%20the%20Giant%20Peach%20-%20Level%203-2.html">🍑 James and the Giant Peach</option>
+                            <option value="The%20Landry%20News%20-%20Level%203-2.html">📰 The Landry News</option>
+                            <option value="frindle.html">✏️ Frindle</option>
+                            <option value="no-talking.html">🤫 No Talking</option>
+                        </optgroup>
+                        <optgroup label="📙 Level 4 - Upper-Intermediate" style="background: #222;">
+                            <option value="The%20Alchemist%20-%20Level%204.html">⚗️ The Alchemist</option>
+                            <option value="Shiloh%20-%20Level%204.html">🐕 Shiloh</option>
+                            <option value="Gangsta%20Granny%20-%20Level%204.html">👵 Gangsta Granny</option>
+                            <option value="Billionaire%20Boy%20-%20Level%204-1.html">💰 Billionaire Boy</option>
+                            <option value="The%20cricket%20in%20times%20square-Level4.html">🦗 The Cricket in Times Square</option>
+                            <option value="To%20Kill%20a%20Mockingbird%20-%20Level%204-2.html">🐦 To Kill a Mockingbird</option>
+                            <option value="Revolutionary%20War%20on%20Wednesday%20-%20Level%204.html">🎖️ Revolutionary War on Wednesday</option>
+                            <option value="Savvy%20-%20Level%204-3.html">✨ Savvy</option>
+                        </optgroup>
+                        <optgroup label="📕 Level 5 - Advanced" style="background: #222;">
+                            <option value="Hatchet%20-%20Level%205.html">🪓 Hatchet</option>
+                            <option value="The%20Giver%20-%20Level%205.html">🎁 The Giver</option>
+                            <option value="The%20Hunger%20Games%20-%20Level%205.html">🏹 The Hunger Games</option>
+                            <option value="The%20Maze%20Runner%20-%20Level%205.html">🏃 The Maze Runner</option>
+                            <option value="The%20Boy%20in%20the%20Striped%20Pajamas%20-%20Level%205.html">👦 The Boy in the Striped Pajamas</option>
+                            <option value="Flora%20and%20Ulysses%20-%20Level%205.html">🐿️ Flora and Ulysses</option>
+                            <option value="A%20Single%20Shard%20-%20Level%205.html">🏺 A Single Shard</option>
+                            <option value="Fish%20in%20a%20Tree%20-%20Level%205-3.html">🐟 Fish in a Tree</option>
+                            <option value="The%20War%20That%20Saved%20My%20Life%20-%20Level%205.html">🎗️ The War That Saved My Life</option>
+                            <option value="One%20Crazy%20Summer%20-%20Level%205.html">☀️ One Crazy Summer</option>
+                            <option value="The%20Lemonade%20War%20-%20Level%205-1.html">🍋 The Lemonade War</option>
+                        </optgroup>
                     </select>
                 </div>
                 
