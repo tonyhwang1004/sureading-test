@@ -475,7 +475,7 @@
 
     <!-- 네비게이션 -->
     <nav class="navbar">
-        <div class="logo">📚 수리딩어학원</div>
+        <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">📚 수리딩어학원</a>
         <div class="nav-links">
             <a href="#levels">레벨별 학습</a>
             <a href="#books">도서 목록</a>
@@ -904,6 +904,15 @@
                 const result = await response.json();
 
                 if (result.success) {
+                    // 승인 상태 확인
+                    if (result.user.status === 'pending') {
+                        showToast('⏳ 관리자 승인 대기중입니다. 승인 후 로그인 가능합니다.', 'error');
+                        return;
+                    }
+                    if (result.user.status === 'rejected') {
+                        showToast('❌ 승인이 거절되었습니다. 관리자에게 문의하세요.', 'error');
+                        return;
+                    }
                     currentUser = result.user;
                     localStorage.setItem('sureading_user', JSON.stringify(currentUser));
                     updateAuthUI();
@@ -934,21 +943,51 @@
             const email = document.getElementById('signupEmail').value;
 
             try {
-                // Google Sheets에 사용자 추가
+                // Google Sheets에 사용자 추가 (승인 대기 상태로)
                 const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=signup&name=${encodeURIComponent(name)}&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&email=${encodeURIComponent(email)}`);
                 const result = await response.json();
 
                 if (result.success) {
-                    showToast('회원가입 완료! 로그인해주세요.', 'success');
-                    switchModal('signup', 'login');
+                    closeModal('signup');
+                    showPendingModal();
                 } else {
                     showToast(result.message || '회원가입 실패', 'error');
                 }
             } catch (error) {
                 // 테스트용
-                showToast('회원가입 완료! (테스트 모드)', 'success');
-                switchModal('signup', 'login');
+                closeModal('signup');
+                showPendingModal();
             }
+        }
+
+        function showPendingModal() {
+            // 승인 대기 안내 모달 표시
+            const modal = document.createElement('div');
+            modal.className = 'modal-overlay active';
+            modal.id = 'pendingModal';
+            modal.innerHTML = `
+                <div class="modal" style="text-align: center;">
+                    <div class="modal-header">
+                        <h2>📝 회원가입 신청 완료!</h2>
+                    </div>
+                    <div class="modal-body" style="padding: 30px;">
+                        <div style="font-size: 60px; margin-bottom: 20px;">⏳</div>
+                        <h3 style="color: #00ff88; margin-bottom: 15px;">관리자 승인 대기중</h3>
+                        <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+                            회원가입 신청이 완료되었습니다.<br>
+                            관리자가 승인하면 로그인할 수 있습니다.<br><br>
+                            <strong style="color: #ff9800;">승인까지 1~2일 정도 소요될 수 있습니다.</strong>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="document.getElementById('pendingModal').remove()" 
+                                style="background: #00ff88; color: #000; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px;">
+                            확인
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
         }
 
         function logout() {
@@ -1200,6 +1239,25 @@
                 console.log('결과 저장 실패');
             }
         }
+
+        // 관리자 접근
+        function adminAccess() {
+            const password = prompt('관리자 비밀번호를 입력하세요:');
+            if (password === 'davich06') {
+                window.location.href = 'admin.html';
+            } else if (password !== null) {
+                alert('비밀번호가 틀렸습니다.');
+            }
+        }
     </script>
+
+    <!-- 푸터 -->
+    <footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); font-size: 12px;">
+        <p>© 2024 수리딩어학원 (Sureading Academy) | 
+            <a href="#" onclick="adminAccess(); return false;" style="color: rgba(255,255,255,0.3); text-decoration: none;" 
+               onmouseover="this.style.color='#00ff88'" 
+               onmouseout="this.style.color='rgba(255,255,255,0.3)'">관리자</a>
+        </p>
+    </footer>
 </body>
 </html>
