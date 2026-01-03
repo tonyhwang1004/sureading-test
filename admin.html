@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수리딩어학원 - 관리자 페이지</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Malgun Gothic', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+        .header h1 {
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: rgba(255,255,255,0.7);
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            padding: 15px 30px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .nav-tab:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .nav-tab.active {
+            background: linear-gradient(135deg, #00ff88, #00cc6a);
+            color: #000;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00ff88;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        th {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+        tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        .btn-approve {
+            background: #00ff88;
+            color: #000;
+        }
+        .btn-reject {
+            background: #ff4444;
+            color: #fff;
+        }
+        .btn-approve:hover {
+            background: #00cc6a;
+        }
+        .btn-reject:hover {
+            background: #cc0000;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-pending {
+            background: #ff9800;
+            color: #000;
+        }
+        .status-approved {
+            background: #00ff88;
+            color: #000;
+        }
+        .status-rejected {
+            background: #ff4444;
+            color: #fff;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.5);
+        }
+        .empty-message {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255,255,255,0.5);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #00ff88;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .refresh-btn {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 10px 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+        .refresh-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .qr-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .qr-link:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 관리자 페이지</h1>
+            <p>수리딩어학원 관리 시스템</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('pending')">⏳ 승인 대기</button>
+            <button class="nav-tab" onclick="showTab('members')">👥 전체 회원</button>
+            <button class="nav-tab" onclick="showTab('qr')">📱 QR 라벨 인쇄</button>
+        </div>
+
+        <!-- 승인 대기 탭 -->
+        <div class="tab-content active" id="tab-pending">
+            <h2 class="section-title">⏳ 승인 대기 회원</h2>
+            <button class="refresh-btn" onclick="loadPendingMembers()">🔄 새로고침</button>
+            <div id="pendingStats" class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingCount">0</div>
+                    <div class="stat-label">대기중</div>
+                </div>
+            </div>
+            <div id="pendingList">
+                <div class="loading">데이터를 불러오는 중...</div>
+            </div>
+        </div>
+
+        <!-- 전체 회원 탭 -->
+        <div class="tab-content" id="tab-members">
+            <h2 class="section-title">👥 전체 회원 목록</h2>
+            <button class="refresh-btn" onclick="loadAllMembers()">🔄 새로고침</button>
+            <div id="memberStats" class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCount">0</div>
+                    <div class="stat-label">전체 회원</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="approvedCount">0</div>
+                    <div class="stat-label">승인됨</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingCount2">0</div>
+                    <div class="stat-label">대기중</div>
+                </div>
+            </div>
+            <div id="memberList">
+                <div class="loading">데이터를 불러오는 중...</div>
+            </div>
+        </div>
+
+        <!-- QR 라벨 인쇄 탭 -->
+        <div class="tab-content" id="tab-qr">
+            <h2 class="section-title">📱 QR 라벨 인쇄</h2>
+            <p style="margin-bottom: 20px; color: rgba(255,255,255,0.7);">
+                책에 붙일 QR코드 라벨을 인쇄할 수 있습니다.<br>
+                학생들이 QR코드를 스캔하면 해당 책 학습 페이지로 이동합니다.
+            </p>
+            <a href="qr-label-printer.html" class="qr-link">🖨️ QR 라벨 인쇄 페이지로 이동</a>
+        </div>
+
+        <a href="index.html" class="back-link">← 메인 페이지로 돌아가기</a>
+    </div>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6Tbz0LI9OvrHi9uZN3-DXW7FclJMZE2CtH8O3cVRzXPTc2Htg5LK1nOpvYned8qco/exec';
+
+        function showTab(tabName) {
+            // 모든 탭 숨기기
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 선택된 탭 표시
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
+
+            // 데이터 로드
+            if (tabName === 'pending') {
+                loadPendingMembers();
+            } else if (tabName === 'members') {
+                loadAllMembers();
+            }
+        }
+
+        async function loadPendingMembers() {
+            const container = document.getElementById('pendingList');
+            container.innerHTML = '<div class="loading">데이터를 불러오는 중...</div>';
+
+            try {
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getPendingMembers`);
+                const result = await response.json();
+
+                if (result.success && result.members.length > 0) {
+                    document.getElementById('pendingCount').textContent = result.members.length;
+                    
+                    let html = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>아이디</th>
+                                    <th>이름</th>
+                                    <th>이메일</th>
+                                    <th>가입일</th>
+                                    <th>작업</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    
+                    result.members.forEach(member => {
+                        html += `
+                            <tr>
+                                <td>${member.username}</td>
+                                <td>${member.name || '-'}</td>
+                                <td>${member.email || '-'}</td>
+                                <td>${member.created_at || '-'}</td>
+                                <td>
+                                    <button class="btn btn-approve" onclick="approveMember('${member.username}')">✅ 승인</button>
+                                    <button class="btn btn-reject" onclick="rejectMember('${member.username}')">❌ 거절</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                } else {
+                    document.getElementById('pendingCount').textContent = '0';
+                    container.innerHTML = '<div class="empty-message">✅ 승인 대기중인 회원이 없습니다.</div>';
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="empty-message">데이터를 불러오는데 실패했습니다.</div>';
+            }
+        }
+
+        async function loadAllMembers() {
+            const container = document.getElementById('memberList');
+            container.innerHTML = '<div class="loading">데이터를 불러오는 중...</div>';
+
+            try {
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getAllMembers`);
+                const result = await response.json();
+
+                if (result.success && result.members.length > 0) {
+                    const total = result.members.length;
+                    const approved = result.members.filter(m => m.status === 'approved').length;
+                    const pending = result.members.filter(m => m.status === 'pending').length;
+
+                    document.getElementById('totalCount').textContent = total;
+                    document.getElementById('approvedCount').textContent = approved;
+                    document.getElementById('pendingCount2').textContent = pending;
+                    
+                    let html = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>아이디</th>
+                                    <th>이름</th>
+                                    <th>레벨</th>
+                                    <th>상태</th>
+                                    <th>가입일</th>
+                                    <th>작업</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    
+                    result.members.forEach(member => {
+                        const statusClass = member.status === 'approved' ? 'status-approved' : 
+                                          member.status === 'pending' ? 'status-pending' : 'status-rejected';
+                        const statusText = member.status === 'approved' ? '승인됨' : 
+                                          member.status === 'pending' ? '대기중' : '거절됨';
+                        
+                        html += `
+                            <tr>
+                                <td>${member.username}</td>
+                                <td>${member.name || '-'}</td>
+                                <td>Level ${member.level || 1}</td>
+                                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                                <td>${member.created_at || '-'}</td>
+                                <td>
+                                    ${member.status !== 'approved' ? 
+                                        `<button class="btn btn-approve" onclick="approveMember('${member.username}')">✅ 승인</button>` : 
+                                        `<button class="btn btn-reject" onclick="rejectMember('${member.username}')">🚫 정지</button>`
+                                    }
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<div class="empty-message">등록된 회원이 없습니다.</div>';
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="empty-message">데이터를 불러오는데 실패했습니다.</div>';
+            }
+        }
+
+        async function approveMember(username) {
+            if (!confirm(`${username} 회원을 승인하시겠습니까?`)) return;
+
+            try {
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=approveMember&username=${encodeURIComponent(username)}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('✅ 승인되었습니다.');
+                    loadPendingMembers();
+                    loadAllMembers();
+                } else {
+                    alert('승인에 실패했습니다.');
+                }
+            } catch (error) {
+                alert('오류가 발생했습니다.');
+            }
+        }
+
+        async function rejectMember(username) {
+            if (!confirm(`${username} 회원을 거절/정지하시겠습니까?`)) return;
+
+            try {
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=rejectMember&username=${encodeURIComponent(username)}`);
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('❌ 거절/정지되었습니다.');
+                    loadPendingMembers();
+                    loadAllMembers();
+                } else {
+                    alert('처리에 실패했습니다.');
+                }
+            } catch (error) {
+                alert('오류가 발생했습니다.');
+            }
+        }
+
+        // 초기 로드
+        loadPendingMembers();
+    </script>
+</body>
+</html>
