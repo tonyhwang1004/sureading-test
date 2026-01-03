@@ -497,13 +497,12 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>신청일</th>
+                                    <th>신청일시</th>
                                     <th>학생이름</th>
                                     <th>학년</th>
                                     <th>학교</th>
                                     <th>부모님 연락처</th>
-                                    <th>희망요일</th>
-                                    <th>희망시간</th>
+                                    <th>희망상담일시</th>
                                     <th>영어수준</th>
                                     <th>상태</th>
                                     <th>작업</th>
@@ -518,13 +517,12 @@
                         
                         html += `
                             <tr>
-                                <td>${app.timestamp || '-'}</td>
+                                <td>${formatDate(app.timestamp)}</td>
                                 <td><strong>${app.studentName || '-'}</strong></td>
                                 <td>${app.grade || '-'}</td>
                                 <td>${app.school || '-'}</td>
-                                <td>${app.parentPhone || '-'}</td>
-                                <td>${app.preferredDay || '-'}</td>
-                                <td>${app.preferredTime || '-'}</td>
+                                <td>${formatPhone(app.parentPhone)}</td>
+                                <td>${app.preferredDateTime || '-'}</td>
                                 <td>${app.englishLevel || '-'}</td>
                                 <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                                 <td>
@@ -568,28 +566,23 @@
 • 성별: ${app.gender || '-'}
 • 학교: ${app.school || '-'}
 • 학년: ${app.grade || '-'}
-• 학생 연락처: ${app.studentPhone || '-'}
-• 부모님 연락처: ${app.parentPhone || '-'}
+• 학생 연락처: ${formatPhone(app.studentPhone)}
+• 부모님 연락처: ${formatPhone(app.parentPhone)}
 
-📅 희망 일정
+📅 희망 상담
 ━━━━━━━━━━━━━━━━━━━━
-• 희망 요일: ${app.preferredDay || '-'}
-• 희망 시간: ${app.preferredTime || '-'}
+• 희망 상담일시: ${app.preferredDateTime || '-'}
 
 📚 학습 정보
 ━━━━━━━━━━━━━━━━━━━━
 • 현재 영어 수준: ${app.englishLevel || '-'}
 • 관심 프로그램: ${app.programs || '-'}
 
-💳 결제 정보
-━━━━━━━━━━━━━━━━━━━━
-• 결제 방법: ${app.paymentMethod || '-'}
-
 📝 문의사항
 ━━━━━━━━━━━━━━━━━━━━
 ${app.inquiry || '없음'}
 
-📆 신청일: ${app.timestamp || '-'}
+📆 신청일시: ${formatDate(app.timestamp)}
             `;
             
             alert(detail);
