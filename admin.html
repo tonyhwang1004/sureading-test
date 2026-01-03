@@ -574,6 +574,15 @@
                     document.getElementById('levelTestNewCount').textContent = unchecked;
                     document.getElementById('levelTestBadge').textContent = unchecked;
                     
+                    // 미확인 항목만 필터링
+                    const uncheckedApps = result.applications.filter(a => a.status !== 'checked');
+                    
+                    if (uncheckedApps.length === 0) {
+                        container.innerHTML = '<div class="empty-message">미확인 신청이 없습니다.</div>';
+                        window.levelTestData = result.applications;
+                        return;
+                    }
+                    
                     let html = `
                         <table>
                             <thead>
@@ -592,10 +601,7 @@
                             <tbody>
                     `;
                     
-                    result.applications.forEach((app, index) => {
-                        const statusClass = app.status === 'checked' ? 'status-approved' : 'status-pending';
-                        const statusText = app.status === 'checked' ? '확인완료' : '미확인';
-                        
+                    uncheckedApps.forEach((app, index) => {
                         html += `
                             <tr>
                                 <td>${formatDate(app.timestamp)}</td>
@@ -605,13 +611,10 @@
                                 <td>${formatPhone(app.parentPhone)}</td>
                                 <td>${app.preferredDateTime || '-'}</td>
                                 <td>${app.englishLevel || '-'}</td>
-                                <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                                <td><span class="status-badge status-pending">미확인</span></td>
                                 <td>
                                     <button class="btn btn-approve" onclick="viewApplication(${index})">📋 상세</button>
-                                    ${app.status !== 'checked' ? 
-                                        `<button class="btn btn-secondary" onclick="markAsChecked(${app.row})">✅ 확인</button>` : 
-                                        ''
-                                    }
+                                    <button class="btn btn-secondary" onclick="markAsChecked(${app.row})">✅ 확인</button>
                                 </td>
                             </tr>
                         `;
@@ -620,8 +623,8 @@
                     html += '</tbody></table>';
                     container.innerHTML = html;
                     
-                    // 전역 변수에 저장 (상세보기용)
-                    window.levelTestData = result.applications;
+                    // 전역 변수에 저장 (상세보기용 - 미확인만)
+                    window.levelTestData = uncheckedApps;
                 } else {
                     document.getElementById('levelTestCount').textContent = '0';
                     document.getElementById('levelTestNewCount').textContent = '0';
