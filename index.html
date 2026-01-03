@@ -727,23 +727,52 @@
             <h2>📝 회원가입</h2>
             <form id="signupForm" onsubmit="handleSignup(event)">
                 <div class="form-group">
-                    <label>이름</label>
-                    <input type="text" id="signupName" required>
+                    <label>학생 이름 *</label>
+                    <input type="text" id="signupName" placeholder="홍길동" required>
                 </div>
                 <div class="form-group">
-                    <label>사용자명</label>
-                    <input type="text" id="signupUsername" required>
+                    <label>아이디 *</label>
+                    <input type="text" id="signupUsername" placeholder="영문, 숫자 조합" required>
                 </div>
                 <div class="form-group">
-                    <label>비밀번호</label>
-                    <input type="password" id="signupPassword" required>
+                    <label>비밀번호 *</label>
+                    <input type="password" id="signupPassword" placeholder="6자 이상" required>
                 </div>
                 <div class="form-group">
-                    <label>이메일 (선택)</label>
-                    <input type="email" id="signupEmail">
+                    <label>학년 *</label>
+                    <select id="signupGrade" required style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.1); color:#fff; font-size:16px;">
+                        <option value="">선택해주세요</option>
+                        <option value="초1">초등학교 1학년</option>
+                        <option value="초2">초등학교 2학년</option>
+                        <option value="초3">초등학교 3학년</option>
+                        <option value="초4">초등학교 4학년</option>
+                        <option value="초5">초등학교 5학년</option>
+                        <option value="초6">초등학교 6학년</option>
+                        <option value="중1">중학교 1학년</option>
+                        <option value="중2">중학교 2학년</option>
+                        <option value="중3">중학교 3학년</option>
+                        <option value="고1">고등학교 1학년</option>
+                        <option value="고2">고등학교 2학년</option>
+                        <option value="고3">고등학교 3학년</option>
+                    </select>
                 </div>
-                <button type="submit" class="submit-btn">회원가입</button>
+                <div class="form-group">
+                    <label>학교 *</label>
+                    <input type="text" id="signupSchool" placeholder="OO초등학교" required>
+                </div>
+                <div class="form-group">
+                    <label>부모님 연락처 *</label>
+                    <input type="tel" id="signupParentPhone" placeholder="010-0000-0000" required>
+                </div>
+                <div class="form-group">
+                    <label>학생 연락처 (선택)</label>
+                    <input type="tel" id="signupStudentPhone" placeholder="010-0000-0000">
+                </div>
+                <button type="submit" class="submit-btn">회원가입 신청</button>
             </form>
+            <p style="text-align:center; font-size:12px; color:rgba(255,255,255,0.5); margin-top:10px;">
+                * 관리자 승인 후 로그인 가능합니다
+            </p>
             <div class="modal-footer">
                 이미 계정이 있으신가요? <a href="#" onclick="switchModal('signup', 'login')">로그인</a>
             </div>
@@ -940,11 +969,14 @@
             const name = document.getElementById('signupName').value;
             const username = document.getElementById('signupUsername').value;
             const password = document.getElementById('signupPassword').value;
-            const email = document.getElementById('signupEmail').value;
+            const grade = document.getElementById('signupGrade').value;
+            const school = document.getElementById('signupSchool').value;
+            const parentPhone = document.getElementById('signupParentPhone').value;
+            const studentPhone = document.getElementById('signupStudentPhone').value;
 
             try {
                 // Google Sheets에 사용자 추가 (승인 대기 상태로)
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=signup&name=${encodeURIComponent(name)}&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&email=${encodeURIComponent(email)}`);
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=signup&name=${encodeURIComponent(name)}&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grade=${encodeURIComponent(grade)}&school=${encodeURIComponent(school)}&parentPhone=${encodeURIComponent(parentPhone)}&studentPhone=${encodeURIComponent(studentPhone)}`);
                 const result = await response.json();
 
                 if (result.success) {
