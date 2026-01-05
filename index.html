@@ -2,1293 +2,1373 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수리딩어학원 - 미래의 영어학습</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>단어 테스트 홍보</title>
     <style>
-        /* ================ 기본 스타일 ================ */
+
+    /* 역동적인 애니메이션 - <style> 태그 안에 추가 */
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0);
+        opacity: 0.7;
+    }
+    20% {
+        transform: translateY(-20px) translateX(20px) rotate(72deg);
+        opacity: 0.6;
+    }
+    40% {
+        transform: translateY(-80px) translateX(80px) rotate(144deg);
+        opacity: 0.5;
+    }
+    60% {
+        transform: translateY(-160px) translateX(40px) rotate(216deg);
+        opacity: 0.4;
+    }
+    80% {
+        transform: translateY(-180px) translateX(10px) rotate(288deg);
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(-200px) translateX(0) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 역동적인 반짝이는 별 효과 */
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    25% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.8);
+        box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.9);
+    }
+    75% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+/* 역동적인 애니메이션 시간 설정 */
+.particle {
+    animation: float 8s cubic-bezier(0.3, 0, 0.7, 1) infinite;
+}
+
+.star {
+    animation: twinkle 3s cubic-bezier(0.3, 0, 0.7, 1) infinite;
+}
+
+
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+            --success: #00b894;
+            --info: #0984e3;
+            --warning: #fdcb6e;
+        }
+
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(-45deg, #6e8efb, #a777e3, #ee7752, #e73c7e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #fff;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* ================ 동적 배경 효과 ================ */
-        .dynamic-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at center, #1a1a2e, #0f0f0f);
-        }
-
-        /* 떠다니는 텍스트 효과 */
-        .floating-text {
-            position: fixed;
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #fff, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            pointer-events: none;
-            z-index: 10;
-            opacity: 0.3;
-            animation: floatAround 20s ease-in-out infinite;
-        }
-
-        @keyframes floatAround {
-            0% { transform: translate(5vw, 15vh) rotate(0deg) scale(0.8); opacity: 0.2; }
-            20% { transform: translate(75vw, 25vh) rotate(45deg) scale(1); opacity: 0.4; }
-            40% { transform: translate(70vw, 65vh) rotate(90deg) scale(0.9); opacity: 0.3; }
-            60% { transform: translate(20vw, 70vh) rotate(180deg) scale(1.1); opacity: 0.5; }
-            80% { transform: translate(15vw, 35vh) rotate(270deg) scale(0.7); opacity: 0.3; }
-            100% { transform: translate(5vw, 15vh) rotate(360deg) scale(0.8); opacity: 0.2; }
-        }
-
-        /* ================ 네비게이션 ================ */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #00ff88;
-        }
-
-        .login-btn {
-            padding: 10px 25px;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            border: none;
-            border-radius: 25px;
-            color: #000;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .login-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-        }
-
-        /* ================ 히어로 섹션 ================ */
-        .hero {
+            margin: 0;
+            padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 120px 20px 60px;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #fff, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .cta-btn {
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .cta-btn.primary {
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            border: none;
-            color: #000;
-            font-weight: 600;
-        }
-
-        .cta-btn.secondary {
-            background: transparent;
-            border: 2px solid #00ff88;
-            color: #00ff88;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
-        }
-
-        /* ================ 레벨 섹션 ================ */
-        .levels-section {
-            padding: 80px 40px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            background: linear-gradient(45deg, #fff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .levels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .level-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .level-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #00ff88;
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
-        }
-
-        .level-number {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .level-title {
-            font-size: 1.3rem;
-            margin: 15px 0 10px;
-            color: #fff;
-        }
-
-        .level-desc {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
-        .book-count {
-            margin-top: 15px;
-            padding: 8px 15px;
-            background: rgba(0, 255, 136, 0.2);
-            border-radius: 20px;
-            display: inline-block;
-            font-size: 0.85rem;
-            color: #00ff88;
-        }
-
-        /* ================ 책 목록 섹션 ================ */
-        .books-section {
-            padding: 80px 40px;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .book-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .book-card:hover {
-            transform: scale(1.03);
-            border-color: #0088ff;
-            box-shadow: 0 10px 30px rgba(0, 136, 255, 0.2);
-        }
-
-        .book-level {
-            font-size: 0.8rem;
-            color: #00ff88;
-            margin-bottom: 10px;
-        }
-
-        .book-title {
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .book-chapters {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* ================ 로그인 모달 ================ */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: linear-gradient(135deg, #1a1a2e, #0f0f0f);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
+            overflow-x: hidden;
             position: relative;
         }
 
-        .modal-close {
+        /* 이미지 프리로드 */
+        body::after {
+            content: '';
             position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.5rem;
-            color: #fff;
-            cursor: pointer;
-            background: none;
-            border: none;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            z-index: -1;
+            background-image:
+                url('./images/31.png'),
+                url('./images/32.png'),
+                url('./images/33.png'),
+                url('./images/34.png');
         }
 
-        .modal h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .form-group input {
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 15s infinite;
+            z-index: 0;
+            filter: blur(1px);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-100px) translateX(100px) rotate(180deg);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-200px) translateX(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 추가 반짝이는 별 효과 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+                box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+        }
+
+        .site-link {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #00ff88;
+        .site-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .submit-btn {
+        .title-section {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: floatAnimationLight 6s ease-in-out infinite;
+            position: relative;
+            z-index: 5;
+        }
+
+        @keyframes floatAnimationLight {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .rocket-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: rocketFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes rocketFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        .main-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #fff, #FFD166, #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+        .main-desc {
+            font-size: 22px;
+            color: white;
+            max-width: 80%;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-weight: 500;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .image-carousel {
+            width: 100%;
+            height: 400px;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3), 0 0 30px rgba(108, 92, 231, 0.4);
+            background: rgba(108, 92, 231, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: floatAnimation 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+                box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3), 0 0 30px rgba(108, 92, 231, 0.4);
+            }
+            50% {
+                transform: translateY(-15px) rotate(1deg);
+                box-shadow: 0 40px 90px rgba(0, 0, 0, 0.4), 0 0 50px rgba(108, 92, 231, 0.6);
+            }
+        }
+
+        .carousel-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 2.5s cubic-bezier(0.4, 0, 0.2, 1), transform 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.92) translateY(10px);
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.25));
+        }
+
+        .carousel-img.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 30%, rgba(108, 92, 231, 0.05) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .carousel-glow {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background: radial-gradient(circle at center, rgba(108, 92, 231, 0.2) 0%, transparent 70%);
+            z-index: 0;
+            opacity: 0.7;
+            animation: glowPulse 8s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0.8;
+                transform: scale(1.1);
+            }
+        }
+
+        .carousel-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            z-index: 2;
+        }
+
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            border: 2px solid transparent;
+        }
+
+        .indicator-dot.active {
+            background: #ffffff;
+            transform: scale(1.2);
+            border-color: rgba(108, 92, 231, 0.6);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .floating-word-types {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .word-type {
+            position: absolute;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: floatAround 20s linear infinite;
+            white-space: nowrap;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .word-type.top-float {
+            animation: floatAroundTop 15s linear infinite;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            transform-origin: center;
+        }
+
+        .word-type:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes floatAround {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 50px) rotate(5deg);
+            }
+            50% {
+                transform: translate(100px, 0) rotate(0deg);
+            }
+            75% {
+                transform: translate(50px, -50px) rotate(-5deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+
+        @keyframes floatAroundTop {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(-30px, 20px) rotate(-3deg) scale(1.05);
+            }
+            50% {
+                transform: translate(-60px, 0) rotate(-6deg) scale(1.1);
+            }
+            75% {
+                transform: translate(-30px, -20px) rotate(-3deg) scale(1.05);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .interface-mockup {
+            background: rgba(108, 92, 231, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            overflow: hidden;
+        }
+
+        .interface-mockup:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .interface-mockup::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%);
+            transform: rotate(45deg);
+            animation: shimmer 5s infinite;
+            z-index: 0;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+
+        .select-section {
+            margin-bottom: 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        .select-section:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .select-section:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .select-section:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .select-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        .select-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: white;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .select-section:hover .select-title::after {
+            width: 80%;
+        }
+
+        .select-dropdown {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
+            border-radius: 12px;
             border: none;
-            border-radius: 10px;
-            color: #000;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 16px;
+            color: var(--dark);
+            background-color: rgba(255, 255, 255, 0.9);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: transform 0.3s;
         }
 
-        .submit-btn:hover {
-            transform: scale(1.02);
+        .select-dropdown:hover, .select-dropdown:focus {
+            background-color: white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px) scale(1.01);
         }
 
-        .modal-footer {
-            text-align: center;
+        .title-container {
+            position: relative;
+            margin-bottom: 40px;
             margin-top: 20px;
-            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
         }
 
-        .modal-footer a {
-            color: #00ff88;
-            text-decoration: none;
+        .main-title {
+            font-size: 36px;
+            font-weight: 800;
+            text-align: center;
+            color: white;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            position: relative;
+            display: inline-block;
+            z-index: 2;
         }
 
-        /* ================ 사용자 메뉴 (로그인 후) ================ */
-        .user-menu {
-            display: none;
-            align-items: center;
-            gap: 15px;
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.8);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(-5px) scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
-        .user-menu.active {
+        .rocket {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 40px;
+            animation: rocketMove 3s infinite;
+            transform-origin: center;
+        }
+
+        @keyframes rocketMove {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-10px) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg);
+            }
+            75% {
+                transform: translateY(10px) rotate(5deg);
+            }
+        }
+
+        .main-desc {
+            font-size: 18px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            word-break: keep-all;
+            max-width: 90%;
+            margin: 0 auto 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 0.5s;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight {
+            color: #FFD166;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 209, 102, 0.3);
+            z-index: -1;
+            border-radius: 3px;
+        }
+
+        .feature-container {
             display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+            width: 100%;
         }
 
-        .user-name {
-            color: #00ff88;
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            padding: 8px 20px;
+        .feature {
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            color: #fff;
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideIn 0.6s forwards;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature:nth-child(1) {
+            animation-delay: 0.6s;
+        }
+
+        .feature:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .feature:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .feature:nth-child(4) {
+            animation-delay: 1.2s;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .feature:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            flex-grow: 1;
+        }
+
+        .feature-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            margin-top: 30px;
             cursor: pointer;
-            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(255, 75, 43, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 1.4s;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .logout-btn:hover {
-            background: rgba(255, 0, 0, 0.3);
-            border-color: #ff4444;
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #FF4B2B, #FF416C);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
         }
 
-        /* ================ 알림 메시지 ================ */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 15px 25px;
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 75, 43, 0.6);
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.6);
+        }
+
+        .countdown-container {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards 1.4s;
+        }
+
+        .countdown-text {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown-text span {
+            font-size: 28px;
+            font-weight: 800;
+            color: #FFD166;
+            display: inline-block;
+            min-width: 30px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            max-width: 300px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
-            color: #fff;
-            font-weight: 500;
-            z-index: 3000;
-            transform: translateX(150%);
-            transition: transform 0.3s;
+            margin: 0 auto 20px;
+            overflow: hidden;
         }
 
-        .toast.show {
-            transform: translateX(0);
+        .progress-bar {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #FFD166, #FF416C);
+            border-radius: 10px;
+            transition: width 0.1s linear;
         }
 
-        .toast.success {
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
+        .floating-badges {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .toast.error {
-            background: linear-gradient(45deg, #ff4444, #cc0000);
+        .badge {
+            position: absolute;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: floatBadge 15s infinite;
         }
 
-        /* ================ 반응형 ================ */
+        .badge:nth-child(1) {
+            background: var(--success);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .badge:nth-child(2) {
+            background: var(--info);
+            top: 70%;
+            left: 20%;
+            animation-delay: 5s;
+        }
+
+        .badge:nth-child(3) {
+            background: var(--warning);
+            top: 30%;
+            right: 15%;
+            animation-delay: 2.5s;
+        }
+
+        .badge:nth-child(4) {
+            background: var(--accent);
+            top: 80%;
+            right: 10%;
+            animation-delay: 7.5s;
+        }
+
+        @keyframes floatBadge {
+            0% {
+                transform: translateY(20px) rotate(-5deg);
+                opacity: 0;
+            }
+            10% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            90% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-20px) rotate(5deg);
+                opacity: 0;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .main-title {
+                font-size: 36px;
             }
 
-            .navbar {
-                padding: 15px 20px;
+            .main-desc {
+                font-size: 18px;
             }
 
-            .nav-links {
-                display: none;
+            .rocket-icon {
+                font-size: 50px;
             }
 
-            .levels-section, .books-section {
-                padding: 60px 20px;
+            .image-carousel {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 28px;
             }
 
-            .section-title {
-                font-size: 1.8rem;
+            .main-desc {
+                font-size: 16px;
+                max-width: 90%;
+            }
+
+            .rocket-icon {
+                font-size: 40px;
+            }
+
+            .image-carousel {
+                height: 300px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .interface-mockup {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 동적 배경 -->
-    <div class="dynamic-background"></div>
-    
-    <!-- 떠다니는 텍스트 -->
-    <div class="floating-text" style="animation-delay: 0s;">Reading</div>
-    <div class="floating-text" style="animation-delay: -8s;">English</div>
-    <div class="floating-text" style="animation-delay: -15s;">Learning</div>
+    <!-- 상단 바로가기 링크 -->
+    <div class="header">
+        <a href="http://www.kimsmom.site/" class="site-link" target="_blank">사이트 바로가기</a>
+    </div>
 
-    <!-- 네비게이션 -->
-    <nav class="navbar">
-        <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">📚 수리딩어학원</a>
-        <div class="nav-links">
-            <a href="#levels">레벨별 학습</a>
-            <a href="#books">도서 목록</a>
-            <a href="#" onclick="openModal('leveltest')">레벨 테스트</a>
-            <a href="#" onclick="openModal('progress')">내 진도</a>
-            <a href="#" onclick="openModal('qr')">QR 체험</a>
-        </div>
-        <div id="authArea">
-            <button class="login-btn" onclick="openModal('login')">로그인</button>
-        </div>
-        <div class="user-menu" id="userMenu">
-            <span class="user-name" id="userName"></span>
-            <button class="logout-btn" onclick="logout()">로그아웃</button>
-        </div>
-    </nav>
+    <!-- 제목 및 설명 섹션 -->
+    <div class="title-section">
+        <div class="rocket-icon">🚀</div>
+        <h1 class="main-title">최고의 단어 테스트!</h1>
+        <p class="main-desc">10000개 이상의 단어를 학습하며 영어 실력을 키워보세요!</p>
+    </div>
 
-    <!-- 히어로 섹션 -->
-    <section class="hero">
-        <h1>수리딩어학원</h1>
-        <p>레벨별 맞춤 영어 원서 읽기 프로그램으로 영어 실력을 키워보세요</p>
-        <div class="cta-buttons">
-            <a href="#" class="cta-btn primary" onclick="openModal('leveltest')">레벨 테스트 시작</a>
-            <a href="#books" class="cta-btn secondary">도서 둘러보기</a>
-        </div>
-    </section>
+    <!-- 이미지 캐러셀 -->
+    <div class="carousel-container">
+        <div class="image-carousel">
+            <div class="carousel-overlay"></div>
+            <div class="carousel-glow"></div>
 
-    <!-- 레벨 섹션 -->
-    <section class="levels-section" id="levels">
-        <h2 class="section-title">📖 레벨별 학습</h2>
-        <div class="levels-grid" id="levelsGrid">
-            <!-- JavaScript로 동적 생성 -->
-        </div>
-    </section>
+            <!-- 통합된 인터페이스 이미지 -->
+            <img class="carousel-img active" src="./images/31.png" alt="단어 테스트 소개">
+            <img class="carousel-img" src="./images/32.png" alt="한영 문제">
+            <img class="carousel-img" src="./images/33.png" alt="영한 문제">
+            <img class="carousel-img" src="./images/34.png" alt="결과 페이지">
 
-    <!-- 도서 목록 섹션 -->
-    <section class="books-section" id="books">
-        <h2 class="section-title">📚 도서 목록</h2>
-        <div class="books-grid" id="booksGrid">
-            <!-- JavaScript로 동적 생성 -->
-        </div>
-    </section>
-
-    <!-- 내 진도 모달 -->
-    <div class="modal-overlay" id="progressModal">
-        <div class="modal" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
-            <button class="modal-close" onclick="closeModal('progress')">&times;</button>
-            <h2>📊 내 학습 진도</h2>
-            
-            <div id="progressContent">
-                <div id="progressLogin" style="text-align: center; padding: 30px;">
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">로그인 후 진도를 확인할 수 있습니다.</p>
-                    <button class="submit-btn" onclick="closeModal('progress'); openModal('login');">로그인하기</button>
-                </div>
-                
-                <div id="progressData" style="display: none;">
-                    <div style="background: rgba(0,255,136,0.1); border-radius: 15px; padding: 20px; margin-bottom: 20px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: rgba(255,255,255,0.7);">현재 레벨</span>
-                            <span id="userLevel" style="font-size: 1.5rem; color: #00ff88; font-weight: bold;">Level 1</span>
-                        </div>
-                    </div>
-                    
-                    <h3 style="margin-bottom: 15px; color: #fff;">📚 학습 기록</h3>
-                    <div id="progressList" style="max-height: 300px; overflow-y: auto;">
-                        <p style="color: rgba(255,255,255,0.5); text-align: center;">아직 학습 기록이 없습니다.</p>
-                    </div>
-                </div>
+            <div class="carousel-indicator">
+                <div class="indicator-dot active" data-index="0"></div>
+                <div class="indicator-dot" data-index="1"></div>
+                <div class="indicator-dot" data-index="2"></div>
+                <div class="indicator-dot" data-index="3"></div>
             </div>
         </div>
     </div>
 
-    <!-- QR 체험 모달 -->
-    <div class="modal-overlay" id="qrModal">
-        <div class="modal" style="max-width: 500px;">
-            <button class="modal-close" onclick="closeModal('qr')">&times;</button>
-            <h2>📱 QR 코드 체험</h2>
-            
-            <div style="text-align: center; padding: 20px;">
-                <div style="background: #fff; padding: 20px; border-radius: 15px; display: inline-block; margin-bottom: 20px;">
-                    <div id="qrCode" style="width: 200px; height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-                        <svg viewBox="0 0 100 100" width="180" height="180">
-                            <!-- QR 코드 패턴 시뮬레이션 -->
-                            <rect x="10" y="10" width="25" height="25" fill="#000"/>
-                            <rect x="65" y="10" width="25" height="25" fill="#000"/>
-                            <rect x="10" y="65" width="25" height="25" fill="#000"/>
-                            <rect x="15" y="15" width="15" height="15" fill="#fff"/>
-                            <rect x="70" y="15" width="15" height="15" fill="#fff"/>
-                            <rect x="15" y="70" width="15" height="15" fill="#fff"/>
-                            <rect x="20" y="20" width="5" height="5" fill="#000"/>
-                            <rect x="75" y="20" width="5" height="5" fill="#000"/>
-                            <rect x="20" y="75" width="5" height="5" fill="#000"/>
-                            <rect x="40" y="10" width="5" height="5" fill="#000"/>
-                            <rect x="50" y="15" width="5" height="5" fill="#000"/>
-                            <rect x="40" y="25" width="5" height="5" fill="#000"/>
-                            <rect x="45" y="40" width="10" height="10" fill="#000"/>
-                            <rect x="10" y="45" width="5" height="5" fill="#000"/>
-                            <rect x="25" y="50" width="5" height="5" fill="#000"/>
-                            <rect x="65" y="45" width="5" height="5" fill="#000"/>
-                            <rect x="80" y="55" width="5" height="5" fill="#000"/>
-                            <rect x="45" y="65" width="5" height="5" fill="#000"/>
-                            <rect x="55" y="75" width="5" height="5" fill="#000"/>
-                            <rect x="70" y="70" width="5" height="5" fill="#000"/>
-                            <rect x="80" y="80" width="5" height="5" fill="#000"/>
-                        </svg>
-                    </div>
+    <!-- 빛나는 별 효과 추가 -->
+    <div class="stars" id="stars"></div>
+
+    <!-- 떠다니는 단어 종류 (상단 추가) -->
+    <div class="floating-word-types">
+        <div class="word-type top-float" style="top: 10%; left: 15%; animation-delay: 0s;">능률기본</div>
+        <div class="word-type top-float" style="top: 8%; right: 25%; animation-delay: 2s;">능률실력</div>
+        <div class="word-type top-float" style="top: 15%; right: 10%; animation-delay: 4s;">능률어원</div>
+        <div class="word-type top-float" style="top: 20%; left: 8%; animation-delay: 6s;">능률입문</div>
+
+        <div class="word-type" style="top: 45%; left: 5%; animation-delay: 1s;">수능2000</div>
+        <div class="word-type" style="top: 60%; right: 7%; animation-delay: 3s;">하이퍼</div>
+        <div class="word-type" style="top: 75%; left: 12%; animation-delay: 5s;">하이스트</div>
+        <div class="word-type" style="top: 80%; right: 15%; animation-delay: 7s;">입문영단어</div>
+    </div>
+
+    <!-- 빛나는 파티클 추가 (상단) -->
+    <div class="particles" id="particles"></div>
+
+    <!-- 플로팅 배지 -->
+    <div class="floating-badges">
+        <div class="badge">NEW!</div>
+        <div class="badge">10000+ 단어</div>
+        <div class="badge">AI 학습 분석</div>
+        <div class="badge">무료 체험</div>
+    </div>
+
+    <div class="container">
+        <!-- 인터페이스 목업 -->
+        <div class="interface-mockup">
+            <div class="select-section">
+                <div class="select-title">Select Book:</div>
+                <select class="select-dropdown" id="book-select">
+                    <option>Select a book</option>
+                    <option>능률기본</option>
+                    <option>능률실력</option>
+                    <option>능률어원</option>
+                    <option>능률입문</option>
+                    <option>수능2000</option>
+                    <option>하이퍼</option>
+                    <option>하이스트</option>
+                </select>
+            </div>
+
+            <div class="select-section">
+                <div class="select-title">Select Lesson:</div>
+                <select class="select-dropdown" id="lesson-select">
+                    <option>First select a book</option>
+                </select>
+            </div>
+
+            <div class="select-section">
+                <div class="select-title">Choose Test Mode:</div>
+                <select class="select-dropdown" id="mode-select">
+                    <option>All words</option>
+                    <option>Incorrect only</option>
+                    <option>Random 20</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="title-container">
+            <h1 class="main-title"><span class="rocket">🚀</span>최고의 단어 테스트!</h1>
+            <p class="main-desc"><span class="highlight">10000개 이상</span>의 단어를 학습하며 영어 실력을 키워보세요!</p>
+        </div>
+
+        <div class="feature-container">
+            <div class="feature">
+                <div class="feature-icon">🇰🇷</div>
+                <div class="feature-text">
+                    <div class="feature-title">한 → 영 테스트</div>
+                    <div class="feature-desc">한글 뜻을 보고 영어 단어를 작성하는 모드</div>
                 </div>
-                
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">
-                    QR 코드를 스캔하면 해당 책의 학습 페이지로 이동합니다!
-                </p>
-                
-                <div style="margin-bottom: 20px;">
-                    <select id="qrBookSelect" onchange="updateQRCode()" style="width: 100%; padding: 12px; border-radius: 10px; background: #222; border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem;">
-                        <option value="" style="background: #222;">-- 책을 선택하세요 --</option>
-                        <optgroup label="📗 Level 2 - Elementary" style="background: #222;">
-                            <option value="dinosaurs-before-dark-level2.html">🦖 Dinosaurs Before Dark</option>
-                            <option value="The%20Knight%20at%20Dawn%20-%20Level%202.html">🏰 The Knight at Dawn</option>
-                            <option value="Mummies%20in%20the%20Morning%20-%20Level%202.html">🏛️ Mummies in the Morning</option>
-                            <option value="Pirates%20Past%20Noon%20-%20Level%202.html">🏴‍☠️ Pirates Past Noon</option>
-                            <option value="Night%20of%20the%20Ninjas%20-%20Level%202.html">🥷 Night of the Ninjas</option>
-                            <option value="Afternoon%20on%20the%20Amazon%20-%20Level%202.html">🌴 Afternoon on the Amazon</option>
-                            <option value="Dolphins%20at%20Daybreak%20-%20Level%202.html">🐬 Dolphins at Daybreak</option>
-                            <option value="Ghost%20Town%20at%20Sundown%20-%20Level%202.html">👻 Ghost Town at Sundown</option>
-                            <option value="Lions%20at%20Lunchtime%20-%20Level%202.html">🦁 Lions at Lunchtime</option>
-                            <option value="Polar%20Bears%20Past%20Bedtime%20-%20Level%202.html">🐻‍❄️ Polar Bears Past Bedtime</option>
-                            <option value="Sunset%20of%20the%20Sabertooth%20-%20Level%202.html">🐯 Sunset of the Sabertooth</option>
-                            <option value="midnight-on-the-moon.html">🌙 Midnight on the Moon</option>
-                            <option value="high-tide-in-hawaii.html">🏄 High Tide in Hawaii</option>
-                        </optgroup>
-                        <optgroup label="📘 Level 3 - Intermediate" style="background: #222;">
-                            <option value="Charlotte's%20Web%20-%20Level%203.html">🕷️ Charlotte's Web</option>
-                            <option value="Sarah,%20Plain%20and%20Tall%20-%20Level%203.html">👩 Sarah, Plain and Tall</option>
-                            <option value="The%20Lion,%20the%20Witch%20and%20the%20Wardrobe%20-%20Level%203.html">🦁 The Lion, the Witch and the Wardrobe</option>
-                            <option value="Prince%20Caspian%20-%20Level%203.html">👑 Prince Caspian</option>
-                            <option value="The%20Voyage%20of%20Dawn%20Treader%20-%20Level%203.html">⛵ The Voyage of Dawn Treader</option>
-                            <option value="Matilda%20-%20Level%203.html">📚 Matilda</option>
-                            <option value="bridge-to-terabithia-level3.html">🌉 Bridge to Terabithia</option>
-                            <option value="where-red-fern-grows-level3.html">🌿 Where the Red Fern Grows</option>
-                            <option value="The%20Wild%20Robot%20-%20Level%203.html">🤖 The Wild Robot</option>
-                            <option value="Buffalo%20Before%20Breakfast%20-%20Level%203.html">🦬 Buffalo Before Breakfast</option>
-                            <option value="Tigers%20at%20Twilight%20-%20Level%203.html">🐅 Tigers at Twilight</option>
-                            <option value="Dingoes%20at%20Dinnertime%20-%20Level%203.html">🐕 Dingoes at Dinnertime</option>
-                            <option value="Viking%20Ships%20at%20Sunrise%20-%20Level%203.html">⛵ Viking Ships at Sunrise</option>
-                            <option value="Tonight%20on%20the%20Titanic%20-%20Level%203.html">🚢 Tonight on the Titanic</option>
-                            <option value="Day%20of%20the%20Dragon%20King%20-%20Level%203.html">🐉 Day of the Dragon King</option>
-                            <option value="Civil%20War%20on%20Sunday%20-%20Level%203.html">⚔️ Civil War on Sunday</option>
-                            <option value="Hour%20of%20the%20Olympics%20-%20Level%203.html">🏅 Hour of the Olympics</option>
-                            <option value="Vacation%20Under%20the%20Volcano%20-%20Level%203.html">🌋 Vacation Under the Volcano</option>
-                            <option value="James%20and%20the%20Giant%20Peach%20-%20Level%203-2.html">🍑 James and the Giant Peach</option>
-                            <option value="The%20Landry%20News%20-%20Level%203-2.html">📰 The Landry News</option>
-                            <option value="frindle.html">✏️ Frindle</option>
-                            <option value="no-talking.html">🤫 No Talking</option>
-                        </optgroup>
-                        <optgroup label="📙 Level 4 - Upper-Intermediate" style="background: #222;">
-                            <option value="The%20Alchemist%20-%20Level%204.html">⚗️ The Alchemist</option>
-                            <option value="Shiloh%20-%20Level%204.html">🐕 Shiloh</option>
-                            <option value="Gangsta%20Granny%20-%20Level%204.html">👵 Gangsta Granny</option>
-                            <option value="Billionaire%20Boy%20-%20Level%204-1.html">💰 Billionaire Boy</option>
-                            <option value="The%20cricket%20in%20times%20square-Level4.html">🦗 The Cricket in Times Square</option>
-                            <option value="To%20Kill%20a%20Mockingbird%20-%20Level%204-2.html">🐦 To Kill a Mockingbird</option>
-                            <option value="Revolutionary%20War%20on%20Wednesday%20-%20Level%204.html">🎖️ Revolutionary War on Wednesday</option>
-                            <option value="Savvy%20-%20Level%204-3.html">✨ Savvy</option>
-                        </optgroup>
-                        <optgroup label="📕 Level 5 - Advanced" style="background: #222;">
-                            <option value="Hatchet%20-%20Level%205.html">🪓 Hatchet</option>
-                            <option value="The%20Giver%20-%20Level%205.html">🎁 The Giver</option>
-                            <option value="The%20Hunger%20Games%20-%20Level%205.html">🏹 The Hunger Games</option>
-                            <option value="The%20Maze%20Runner%20-%20Level%205.html">🏃 The Maze Runner</option>
-                            <option value="The%20Boy%20in%20the%20Striped%20Pajamas%20-%20Level%205.html">👦 The Boy in the Striped Pajamas</option>
-                            <option value="Flora%20and%20Ulysses%20-%20Level%205.html">🐿️ Flora and Ulysses</option>
-                            <option value="A%20Single%20Shard%20-%20Level%205.html">🏺 A Single Shard</option>
-                            <option value="Fish%20in%20a%20Tree%20-%20Level%205-3.html">🐟 Fish in a Tree</option>
-                            <option value="The%20War%20That%20Saved%20My%20Life%20-%20Level%205.html">🎗️ The War That Saved My Life</option>
-                            <option value="One%20Crazy%20Summer%20-%20Level%205.html">☀️ One Crazy Summer</option>
-                            <option value="The%20Lemonade%20War%20-%20Level%205-1.html">🍋 The Lemonade War</option>
-                        </optgroup>
-                    </select>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🇬🇧</div>
+                <div class="feature-text">
+                    <div class="feature-title">영 → 한 테스트</div>
+                    <div class="feature-desc">영어 단어를 보고 한글 뜻을 작성하는 모드</div>
                 </div>
-                
-                <button class="submit-btn" onclick="goToSelectedBook()">선택한 책으로 이동</button>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div class="feature-text">
+                    <div class="feature-title">성과 분석 & 통계</div>
+                    <div class="feature-desc">학습 결과를 분석하고 취약점을 파악해 드립니다</div>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-text">
+                    <div class="feature-title">오답 복습 시스템</div>
+                    <div class="feature-desc">틀린 단어를 집중적으로 복습하여 완벽 학습</div>
+                </div>
+            </div>
+        </div>
+
+        <a href="http://www.kimsmom.site/" class="cta-button" id="start-btn" target="_blank">지금 바로 시작하기</a>
+
+        <!-- 카운트다운 섹션 (새로 추가) -->
+        <div class="countdown-container">
+            <div class="countdown-text"><span id="countdown">5</span>초 후 자동으로 이동합니다</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
             </div>
         </div>
     </div>
-
-    <!-- 로그인 모달 -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('login')">&times;</button>
-            <h2>📚 로그인</h2>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>사용자명</label>
-                    <input type="text" id="loginUsername" required>
-                </div>
-                <div class="form-group">
-                    <label>비밀번호</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <button type="submit" class="submit-btn">로그인</button>
-            </form>
-            <div class="modal-footer">
-                계정이 없으신가요? <a href="#" onclick="switchModal('login', 'signup')">회원가입</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 레벨 테스트 모달 -->
-    <div class="modal-overlay" id="leveltestModal">
-        <div class="modal" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
-            <button class="modal-close" onclick="closeModal('leveltest')">&times;</button>
-            <h2>📝 레벨 테스트</h2>
-            
-            <!-- 테스트 시작 화면 -->
-            <div id="testStart">
-                <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 30px;">
-                    10문제를 풀고 당신의 영어 읽기 레벨을 확인하세요!
-                </p>
-                <button class="submit-btn" onclick="startLevelTest()">테스트 시작</button>
-            </div>
-            
-            <!-- 문제 화면 -->
-            <div id="testQuestions" style="display: none;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                    <span id="questionNum" style="color: #00ff88;">문제 1/10</span>
-                    <span id="questionLevel" style="color: rgba(255,255,255,0.5);">Level 1</span>
-                </div>
-                <div id="questionText" style="font-size: 1.1rem; margin-bottom: 25px; line-height: 1.6;"></div>
-                <div id="answerOptions"></div>
-                <div style="margin-top: 20px; text-align: center;">
-                    <button class="submit-btn" onclick="nextQuestion()" id="nextBtn" style="display: none;">다음 문제</button>
-                </div>
-            </div>
-            
-            <!-- 결과 화면 -->
-            <div id="testResult" style="display: none; text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
-                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">테스트 완료!</h3>
-                <div id="resultScore" style="font-size: 2rem; color: #00ff88; margin-bottom: 10px;"></div>
-                <div id="resultLevel" style="font-size: 1.3rem; margin-bottom: 30px;"></div>
-                <button class="submit-btn" onclick="closeModal('leveltest'); location.reload();">확인</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 회원가입 모달 -->
-    <div class="modal-overlay" id="signupModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('signup')">&times;</button>
-            <h2>📝 회원가입</h2>
-            <form id="signupForm" onsubmit="handleSignup(event)">
-                <div class="form-group">
-                    <label>학생 이름 *</label>
-                    <input type="text" id="signupName" placeholder="홍길동" required>
-                </div>
-                <div class="form-group">
-                    <label>아이디 *</label>
-                    <input type="text" id="signupUsername" placeholder="영문, 숫자 조합" required>
-                </div>
-                <div class="form-group">
-                    <label>비밀번호 *</label>
-                    <input type="password" id="signupPassword" placeholder="6자 이상" required>
-                </div>
-                <div class="form-group">
-                    <label>학년 *</label>
-                    <select id="signupGrade" required style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:#1a1a2e; color:#fff; font-size:16px;">
-                        <option value="" style="background:#1a1a2e; color:#fff;">선택해주세요</option>
-                        <option value="초1" style="background:#1a1a2e; color:#fff;">초등학교 1학년</option>
-                        <option value="초2" style="background:#1a1a2e; color:#fff;">초등학교 2학년</option>
-                        <option value="초3" style="background:#1a1a2e; color:#fff;">초등학교 3학년</option>
-                        <option value="초4" style="background:#1a1a2e; color:#fff;">초등학교 4학년</option>
-                        <option value="초5" style="background:#1a1a2e; color:#fff;">초등학교 5학년</option>
-                        <option value="초6" style="background:#1a1a2e; color:#fff;">초등학교 6학년</option>
-                        <option value="중1" style="background:#1a1a2e; color:#fff;">중학교 1학년</option>
-                        <option value="중2" style="background:#1a1a2e; color:#fff;">중학교 2학년</option>
-                        <option value="중3" style="background:#1a1a2e; color:#fff;">중학교 3학년</option>
-                        <option value="고1" style="background:#1a1a2e; color:#fff;">고등학교 1학년</option>
-                        <option value="고2" style="background:#1a1a2e; color:#fff;">고등학교 2학년</option>
-                        <option value="고3" style="background:#1a1a2e; color:#fff;">고등학교 3학년</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>학교 *</label>
-                    <input type="text" id="signupSchool" placeholder="OO초등학교" required>
-                </div>
-                <div class="form-group">
-                    <label>부모님 연락처 *</label>
-                    <input type="tel" id="signupParentPhone" placeholder="010-0000-0000" required>
-                </div>
-                <div class="form-group">
-                    <label>학생 연락처 (선택)</label>
-                    <input type="tel" id="signupStudentPhone" placeholder="010-0000-0000">
-                </div>
-                <button type="submit" class="submit-btn">회원가입 신청</button>
-            </form>
-            <p style="text-align:center; font-size:12px; color:rgba(255,255,255,0.5); margin-top:10px;">
-                * 관리자 승인 후 로그인 가능합니다
-            </p>
-            <div class="modal-footer">
-                이미 계정이 있으신가요? <a href="#" onclick="switchModal('signup', 'login')">로그인</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- 토스트 메시지 -->
-    <div class="toast" id="toast"></div>
 
     <script>
-        // ================ Google Sheets 설정 ================
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSiYGeKs57MmkqlROFYz6KF_jdiGn0kGd2sE6x1yrPN056cOCn_8cZbsI/exec';
+    // 이미지 캐러셀 기능
+    function setupCarousel() {
+        const images = document.querySelectorAll('.carousel-img');
+        const dots = document.querySelectorAll('.indicator-dot');
+        let currentIndex = 0;
+        let timer;
 
-        // ================ 데이터 ================
-        const levels = [
-            { level: 1, title: 'Beginner', desc: '영어 원서 입문 단계', books: 5 },
-            { level: 2, title: 'Elementary', desc: 'Magic Tree House 시리즈', books: 15 },
-            { level: 3, title: 'Intermediate', desc: 'Narnia, Charlotte\'s Web 등', books: 12 },
-            { level: 4, title: 'Upper-Intermediate', desc: 'The Alchemist, Shiloh 등', books: 8 },
-            { level: 5, title: 'Advanced', desc: 'Hatchet, The Giver 등', books: 10 },
-            { level: 6, title: 'Upper-Advanced', desc: '고급 원서', books: 5 },
-            { level: 7, title: 'Master', desc: '마스터 레벨', books: 3 }
-        ];
-
-        const books = [
-            // Level 2
-            { title: 'Dinosaurs Before Dark', level: 2, chapters: 10, url: 'dinosaurs-before-dark-level2.html' },
-            { title: 'The Knight at Dawn', level: 2, chapters: 10, url: 'The%20Knight%20at%20Dawn%20-%20Level%202.html' },
-            { title: 'Mummies in the Morning', level: 2, chapters: 10, url: 'Mummies%20in%20the%20Morning%20-%20Level%202.html' },
-            { title: 'Pirates Past Noon', level: 2, chapters: 10, url: 'Pirates%20Past%20Noon%20-%20Level%202.html' },
-            { title: 'Night of the Ninjas', level: 2, chapters: 10, url: 'Night%20of%20the%20Ninjas%20-%20Level%202.html' },
-            { title: 'Afternoon on the Amazon', level: 2, chapters: 10, url: 'Afternoon%20on%20the%20Amazon%20-%20Level%202.html' },
-            { title: 'Dolphins at Daybreak', level: 2, chapters: 10, url: 'Dolphins%20at%20Daybreak%20-%20Level%202.html' },
-            { title: 'Ghost Town at Sundown', level: 2, chapters: 10, url: 'Ghost%20Town%20at%20Sundown%20-%20Level%202.html' },
-            { title: 'Lions at Lunchtime', level: 2, chapters: 10, url: 'Lions%20at%20Lunchtime%20-%20Level%202.html' },
-            { title: 'Polar Bears Past Bedtime', level: 2, chapters: 10, url: 'Polar%20Bears%20Past%20Bedtime%20-%20Level%202.html' },
-            { title: 'Sunset of the Sabertooth', level: 2, chapters: 10, url: 'Sunset%20of%20the%20Sabertooth%20-%20Level%202.html' },
-            { title: 'Midnight on the Moon', level: 2, chapters: 10, url: 'midnight-on-the-moon.html' },
-            { title: 'High Tide in Hawaii', level: 2, chapters: 10, url: 'high-tide-in-hawaii.html' },
-            // Level 3
-            { title: "Charlotte's Web", level: 3, chapters: 22, url: "Charlotte's%20Web%20-%20Level%203.html" },
-            { title: 'Sarah, Plain and Tall', level: 3, chapters: 9, url: 'Sarah,%20Plain%20and%20Tall%20-%20Level%203.html' },
-            { title: 'The Lion, the Witch and the Wardrobe', level: 3, chapters: 17, url: 'The%20Lion,%20the%20Witch%20and%20the%20Wardrobe%20-%20Level%203.html' },
-            { title: 'Prince Caspian', level: 3, chapters: 15, url: 'Prince%20Caspian%20-%20Level%203.html' },
-            { title: 'The Voyage of Dawn Treader', level: 3, chapters: 16, url: 'The%20Voyage%20of%20Dawn%20Treader%20-%20Level%203.html' },
-            { title: 'Matilda', level: 3, chapters: 21, url: 'Matilda%20-%20Level%203.html' },
-            { title: 'Bridge to Terabithia', level: 3, chapters: 13, url: 'bridge-to-terabithia-level3.html' },
-            { title: 'Where the Red Fern Grows', level: 3, chapters: 20, url: 'where-red-fern-grows-level3.html' },
-            { title: 'The Wild Robot', level: 3, chapters: 20, url: 'The%20Wild%20Robot%20-%20Level%203.html' },
-            { title: 'Buffalo Before Breakfast', level: 3, chapters: 10, url: 'Buffalo%20Before%20Breakfast%20-%20Level%203.html' },
-            { title: 'Tigers at Twilight', level: 3, chapters: 10, url: 'Tigers%20at%20Twilight%20-%20Level%203.html' },
-            { title: 'Dingoes at Dinnertime', level: 3, chapters: 10, url: 'Dingoes%20at%20Dinnertime%20-%20Level%203.html' },
-            { title: 'Vikings Ships at Sunrise', level: 3, chapters: 10, url: 'Viking%20Ships%20at%20Sunrise%20-%20Level%203.html' },
-            { title: 'Tonight on the Titanic', level: 3, chapters: 10, url: 'Tonight%20on%20the%20Titanic%20-%20Level%203.html' },
-            { title: 'Day of the Dragon King', level: 3, chapters: 10, url: 'Day%20of%20the%20Dragon%20King%20-%20Level%203.html' },
-            { title: 'Civil War on Sunday', level: 3, chapters: 10, url: 'Civil%20War%20on%20Sunday%20-%20Level%203.html' },
-            { title: 'Hour of the Olympics', level: 3, chapters: 10, url: 'Hour%20of%20the%20Olympics%20-%20Level%203.html' },
-            { title: 'Vacation Under the Volcano', level: 3, chapters: 10, url: 'Vacation%20Under%20the%20Volcano%20-%20Level%203.html' },
-            { title: 'James and the Giant Peach', level: 3, chapters: 15, url: 'James%20and%20the%20Giant%20Peach%20-%20Level%203-2.html' },
-            { title: 'The Landry News', level: 3, chapters: 15, url: 'The%20Landry%20News%20-%20Level%203-2.html' },
-            { title: 'Frindle', level: 3, chapters: 15, url: 'frindle.html' },
-            { title: 'No Talking', level: 3, chapters: 15, url: 'no-talking.html' },
-            // Level 4
-            { title: 'The Alchemist', level: 4, chapters: 15, url: 'The%20Alchemist%20-%20Level%204.html' },
-            { title: 'Shiloh', level: 4, chapters: 15, url: 'Shiloh%20-%20Level%204.html' },
-            { title: 'Gangsta Granny', level: 4, chapters: 20, url: 'Gangsta%20Granny%20-%20Level%204.html' },
-            { title: 'Billionaire Boy', level: 4, chapters: 20, url: 'Billionaire%20Boy%20-%20Level%204-1.html' },
-            { title: 'The Cricket in Times Square', level: 4, chapters: 15, url: 'The%20cricket%20in%20times%20square-Level4.html' },
-            { title: 'To Kill a Mockingbird', level: 4, chapters: 31, url: 'To%20Kill%20a%20Mockingbird%20-%20Level%204-2.html' },
-            { title: 'Revolutionary War on Wednesday', level: 4, chapters: 10, url: 'Revolutionary%20War%20on%20Wednesday%20-%20Level%204.html' },
-            { title: 'Savvy', level: 4, chapters: 20, url: 'Savvy%20-%20Level%204-3.html' },
-            // Level 5
-            { title: 'Hatchet', level: 5, chapters: 19, url: 'Hatchet%20-%20Level%205.html' },
-            { title: 'The Giver', level: 5, chapters: 23, url: 'The%20Giver%20-%20Level%205.html' },
-            { title: 'The Hunger Games', level: 5, chapters: 27, url: 'The%20Hunger%20Games%20-%20Level%205.html' },
-            { title: 'The Maze Runner', level: 5, chapters: 25, url: 'The%20Maze%20Runner%20-%20Level%205.html' },
-            { title: 'The Boy in the Striped Pajamas', level: 5, chapters: 20, url: 'The%20Boy%20in%20the%20Striped%20Pajamas%20-%20Level%205.html' },
-            { title: 'Flora and Ulysses', level: 5, chapters: 20, url: 'Flora%20and%20Ulysses%20-%20Level%205.html' },
-            { title: 'A Single Shard', level: 5, chapters: 13, url: 'A%20Single%20Shard%20-%20Level%205.html' },
-            { title: 'Fish in a Tree', level: 5, chapters: 20, url: 'Fish%20in%20a%20Tree%20-%20Level%205-3.html' },
-            { title: 'The War That Saved My Life', level: 5, chapters: 25, url: 'The%20War%20That%20Saved%20My%20Life%20-%20Level%205.html' },
-            { title: 'One Crazy Summer', level: 5, chapters: 20, url: 'One%20Crazy%20Summer%20-%20Level%205.html' },
-            { title: 'The Lemonade War', level: 5, chapters: 15, url: 'The%20Lemonade%20War%20-%20Level%205-1.html' },
-        ];
-
-        // ================ 현재 사용자 ================
-        let currentUser = null;
-
-        // ================ 초기화 ================
-        document.addEventListener('DOMContentLoaded', () => {
-            renderLevels();
-            renderBooks();
-            checkLoginStatus();
-        });
-
-        // ================ 레벨 카드 렌더링 ================
-        function renderLevels() {
-            const grid = document.getElementById('levelsGrid');
-            grid.innerHTML = levels.map(l => `
-                <div class="level-card" onclick="filterBooks(${l.level})">
-                    <div class="level-number">L${l.level}</div>
-                    <div class="level-title">${l.title}</div>
-                    <div class="level-desc">${l.desc}</div>
-                    <div class="book-count">📚 ${l.books}권</div>
-                </div>
-            `).join('');
-        }
-
-        // ================ 책 카드 렌더링 ================
-        function renderBooks(filterLevel = null) {
-            const grid = document.getElementById('booksGrid');
-            const filtered = filterLevel ? books.filter(b => b.level === filterLevel) : books;
-            
-            grid.innerHTML = filtered.map(b => `
-                <div class="book-card" onclick="openBook('${b.url}')">
-                    <div class="book-level">Level ${b.level}</div>
-                    <div class="book-title">${b.title}</div>
-                    <div class="book-chapters">${b.chapters} chapters</div>
-                </div>
-            `).join('');
-        }
-
-        function filterBooks(level) {
-            renderBooks(level);
-            document.getElementById('books').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function openBook(url) {
-            // 로그인 확인
-            if (!currentUser) {
-                showToast('로그인이 필요합니다', 'error');
-                openModal('login');
-                return;
-            }
-            window.location.href = url;
-        }
-
-        // ================ 모달 제어 ================
-        function closeModal(type) {
-            document.getElementById(`${type}Modal`).classList.remove('active');
-        }
-
-        function switchModal(from, to) {
-            closeModal(from);
-            openModal(to);
-        }
-
-        // ================ 인증 (Google Sheets 연동) ================
-        async function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                // Google Sheets에서 사용자 확인
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
-                const result = await response.json();
-
-                if (result.success) {
-                    // 승인 상태 확인
-                    if (result.user.status === 'pending') {
-                        showToast('⏳ 관리자 승인 대기중입니다. 승인 후 로그인 가능합니다.', 'error');
-                        return;
-                    }
-                    if (result.user.status === 'rejected') {
-                        showToast('❌ 승인이 거절되었습니다. 관리자에게 문의하세요.', 'error');
-                        return;
-                    }
-                    currentUser = result.user;
-                    localStorage.setItem('sureading_user', JSON.stringify(currentUser));
-                    updateAuthUI();
-                    closeModal('login');
-                    showToast(`환영합니다, ${currentUser.name}님!`, 'success');
-                } else {
-                    showToast(result.message || '로그인 실패', 'error');
-                }
-            } catch (error) {
-                // Google Sheets 연동 전 테스트용 로컬 로그인
-                if (username && password) {
-                    currentUser = { name: username, username: username, level: 1 };
-                    localStorage.setItem('sureading_user', JSON.stringify(currentUser));
-                    updateAuthUI();
-                    closeModal('login');
-                    showToast(`환영합니다, ${username}님! (테스트 모드)`, 'success');
-                } else {
-                    showToast('로그인 정보를 입력해주세요', 'error');
-                }
-            }
-        }
-
-        async function handleSignup(event) {
-            event.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const username = document.getElementById('signupUsername').value;
-            const password = document.getElementById('signupPassword').value;
-            const grade = document.getElementById('signupGrade').value;
-            const school = document.getElementById('signupSchool').value;
-            const parentPhone = document.getElementById('signupParentPhone').value;
-            const studentPhone = document.getElementById('signupStudentPhone').value;
-
-            try {
-                // Google Sheets에 사용자 추가 (승인 대기 상태로)
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=signup&name=${encodeURIComponent(name)}&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grade=${encodeURIComponent(grade)}&school=${encodeURIComponent(school)}&parentPhone=${encodeURIComponent(parentPhone)}&studentPhone=${encodeURIComponent(studentPhone)}`);
-                const result = await response.json();
-
-                if (result.success) {
-                    closeModal('signup');
-                    showPendingModal();
-                } else {
-                    showToast(result.message || '회원가입 실패', 'error');
-                }
-            } catch (error) {
-                // 테스트용
-                closeModal('signup');
-                showPendingModal();
-            }
-        }
-
-        function showPendingModal() {
-            // 승인 대기 안내 모달 표시
-            const modal = document.createElement('div');
-            modal.className = 'modal-overlay active';
-            modal.id = 'pendingModal';
-            modal.innerHTML = `
-                <div class="modal" style="text-align: center;">
-                    <div class="modal-header">
-                        <h2>📝 회원가입 신청 완료!</h2>
-                    </div>
-                    <div class="modal-body" style="padding: 30px;">
-                        <div style="font-size: 60px; margin-bottom: 20px;">⏳</div>
-                        <h3 style="color: #00ff88; margin-bottom: 15px;">관리자 승인 대기중</h3>
-                        <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
-                            회원가입 신청이 완료되었습니다.<br>
-                            관리자가 승인하면 로그인할 수 있습니다.<br><br>
-                            <strong style="color: #ff9800;">승인까지 1~2일 정도 소요될 수 있습니다.</strong>
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button onclick="document.getElementById('pendingModal').remove()" 
-                                style="background: #00ff88; color: #000; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px;">
-                            확인
-                        </button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modal);
-        }
-
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('sureading_user');
-            updateAuthUI();
-            showToast('로그아웃 되었습니다', 'success');
-        }
-
-        function checkLoginStatus() {
-            const saved = localStorage.getItem('sureading_user');
-            if (saved) {
-                currentUser = JSON.parse(saved);
-                updateAuthUI();
-            }
-        }
-
-        function updateAuthUI() {
-            const authArea = document.getElementById('authArea');
-            const userMenu = document.getElementById('userMenu');
-            const userName = document.getElementById('userName');
-
-            if (currentUser) {
-                authArea.style.display = 'none';
-                userMenu.classList.add('active');
-                userName.textContent = `👤 ${currentUser.name}`;
-            } else {
-                authArea.style.display = 'block';
-                userMenu.classList.remove('active');
-            }
-        }
-
-        // ================ 토스트 메시지 ================
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // ================ 모달 외부 클릭으로 닫기 ================
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                }
+        // 인디케이터 점 클릭 이벤트
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showSlide(index);
+                resetTimer();
             });
         });
 
-        // ================ 내 진도 기능 ================
-        function openModal(type) {
-            document.getElementById(`${type}Modal`).classList.add('active');
-            
-            // 내 진도 모달 열릴 때 데이터 로드
-            if (type === 'progress') {
-                loadProgress();
-            }
+        function showSlide(index) {
+            // 현재 활성화된 이미지와 점 비활성화 (부드러운 페이드 아웃)
+            images[currentIndex].classList.remove('active');
+            dots[currentIndex].classList.remove('active');
+
+            // 새 인덱스의 이미지와 점 활성화
+            currentIndex = index;
+            images[currentIndex].classList.add('active');
+            dots[currentIndex].classList.add('active');
+
+            // 배경 그라데이션 색상 변경
+            updateGradient(currentIndex);
         }
 
-        function loadProgress() {
-            if (currentUser) {
-                document.getElementById('progressLogin').style.display = 'none';
-                document.getElementById('progressData').style.display = 'block';
-                document.getElementById('userLevel').textContent = `Level ${currentUser.level || 1}`;
-                
-                // Google Sheets에서 진도 가져오기
-                fetchProgress(currentUser.username);
+        function nextSlide() {
+            const nextIndex = (currentIndex + 1) % images.length;
+            showSlide(nextIndex);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timer = setInterval(nextSlide, 5000); // 5초마다 전환
+        }
+
+        // 배경 그라데이션 색상 업데이트
+        function updateGradient(index) {
+            const body = document.body;
+            const gradients = [
+                'linear-gradient(-45deg, #6e8efb, #a777e3, #ee7752, #e73c7e)',
+                'linear-gradient(-45deg, #7448e1, #c452ff, #f986c8, #fb6b87)',
+                'linear-gradient(-45deg, #4d7cff, #7d5fff, #a05aff, #b64aff)',
+                'linear-gradient(-45deg, #42a5f5, #4776e6, #8e54e9, #4776e6)'
+            ];
+            body.style.backgroundImage = gradients[index % gradients.length];
+        }
+
+        // 초기 타이머 설정
+        resetTimer();
+
+        // 마우스 오버 시 타이머 일시 중지
+        const carousel = document.querySelector('.image-carousel');
+        carousel.addEventListener('mouseenter', () => {
+            clearInterval(timer);
+        });
+
+        // 마우스 아웃 시 타이머 재시작
+        carousel.addEventListener('mouseleave', resetTimer);
+
+        // 이미지에 3D 호버 효과 추가
+        carousel.addEventListener('mousemove', function(e) {
+            const { offsetX, offsetY } = e;
+            const width = carousel.offsetWidth;
+            const height = carousel.offsetHeight;
+
+            const moveX = (offsetX - width/2) / 25;
+            const moveY = (offsetY - height/2) / 25;
+
+            carousel.style.transform = `translateY(-15px) rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
+        });
+
+        carousel.addEventListener('mouseleave', function() {
+            carousel.style.transform = '';
+        });
+
+        // 시작 시 깜박거림 방지를 위한 이미지 프리로드
+        window.addEventListener('load', function() {
+            carousel.classList.add('loaded');
+        });
+    }
+
+    // 새로운 역동적인 파티클 생성 함수
+    function createDynamicParticles() {
+        const container = document.getElementById('particles');
+        const colors = ['#fd79a8', '#6c5ce7', '#00b894', '#0984e3', '#fdcb6e', '#e84393', '#00cec9'];
+
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+
+            // 랜덤 스타일
+            const size = Math.random() * 15 + 3;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.background = color;
+            particle.style.left = `${Math.random() * 100}%`;
+
+            // 고르게 분포
+            let top;
+            if (i < 20) {
+                // 상단 파티클
+                top = Math.random() * 40; // 0-40%
             } else {
-                document.getElementById('progressLogin').style.display = 'block';
-                document.getElementById('progressData').style.display = 'none';
+                // 하단 파티클
+                top = 60 + Math.random() * 40; // 60-100%
             }
-        }
+            particle.style.top = `${top}%`;
 
-        async function fetchProgress(username) {
-            try {
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getProgress&username=${encodeURIComponent(username)}`);
-                const result = await response.json();
-                
-                if (result.success && result.progress.length > 0) {
-                    const listHtml = result.progress.map(p => `
-                        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <div style="font-weight: 600; color: #fff;">${p.book_title}</div>
-                                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">Chapter ${p.chapter}</div>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="color: ${p.completed ? '#00ff88' : '#ff4444'};">${p.completed ? '✅ 완료' : '📖 진행중'}</div>
-                                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">${p.score}점</div>
-                            </div>
-                        </div>
-                    `).join('');
-                    document.getElementById('progressList').innerHTML = listHtml;
-                } else {
-                    document.getElementById('progressList').innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center;">아직 학습 기록이 없습니다.</p>';
+            // 애니메이션 속도 및 딜레이 다양화
+            const duration = Math.random() * 12 + 6; // 더 빠른 속도로 설정
+            const delay = Math.random() * 10;
+
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationTimingFunction = 'cubic-bezier(0.3, 0, 0.7, 1)'; // 이징 함수 추가
+
+            container.appendChild(particle);
+        }
+    }
+
+    // 별 생성 함수 추가
+    function createStars() {
+        const container = document.getElementById('stars');
+
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+
+            // 랜덤 위치
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+
+            // 애니메이션 타이밍 다양화
+            const delay = Math.random() * 4;
+            const duration = Math.random() * 3 + 2;
+
+            star.style.animationDelay = `${delay}s`;
+            star.style.animationDuration = `${duration}s`;
+            star.style.animationTimingFunction = 'cubic-bezier(0.3, 0, 0.7, 1)';
+
+            container.appendChild(star);
+        }
+    }
+
+    // 단어 타입 애니메이션 역동적으로 업데이트
+    function animateDynamicWordTypes() {
+        const wordTypes = document.querySelectorAll('.word-type');
+
+        wordTypes.forEach(word => {
+            // 초기 위치에서 약간의 랜덤성 추가
+            const randomPath = Math.floor(Math.random() * 4);
+            const animationName = `floatPath${randomPath}`;
+
+            // 새로운 keyframes 애니메이션 정의
+            const keyframes = `
+                @keyframes ${animationName} {
+                    0% { transform: translate(0, 0) scale(1); }
+                    20% { transform: translate(${Math.random() * 50 - 25}px, ${Math.random() * 30 - 15}px) scale(1.05); }
+                    40% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 60 - 30}px) scale(1.1); }
+                    60% { transform: translate(${Math.random() * 150 - 75}px, ${Math.random() * 90 - 45}px) scale(1.15); }
+                    80% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 60 - 30}px) scale(1.1); }
+                    100% { transform: translate(0, 0) scale(1); }
                 }
-            } catch (error) {
-                document.getElementById('progressList').innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center;">아직 학습 기록이 없습니다.</p>';
+            `;
+
+            // 스타일시트에 애니메이션 추가
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = keyframes;
+            document.head.appendChild(styleSheet);
+
+            // 단어에 애니메이션 적용
+            const duration = 12 + Math.random() * 8;
+            word.style.animation = `${animationName} ${duration}s cubic-bezier(0.3, 0, 0.7, 1) infinite`;
+        });
+    }
+
+    // 페이지 로드 시 모든 동적 요소 초기화
+    window.addEventListener('DOMContentLoaded', function() {
+        // 기존 함수들을 새로운 역동적 함수로 대체
+        createDynamicParticles();
+        createStars();
+        animateDynamicWordTypes();
+        setupCarousel();
+
+        // 모든 애니메이션 요소에 cubic-bezier 타이밍 함수 적용
+        document.querySelectorAll('.floating-word-types .word-type').forEach(el => {
+            const currentAnimation = window.getComputedStyle(el).animation;
+            if (currentAnimation) {
+                el.style.animationTimingFunction = 'cubic-bezier(0.3, 0, 0.7, 1)';
             }
-        }
+        });
 
-        // ================ QR 체험 기능 ================
-        function updateQRCode() {
-            const select = document.getElementById('qrBookSelect');
-            const selectedBook = select.value;
-            // QR 코드 업데이트 (실제로는 QR 라이브러리 사용)
-            console.log('Selected book:', selectedBook);
-        }
+        // 카운트다운 및 자동 리다이렉트 기능
+        const countdownEl = document.getElementById('countdown');
+        const progressBar = document.getElementById('progress-bar');
+        const targetUrl = 'http://www.kimsmom.site/';
+        let timeLeft = 5;
+        let progress = 100;
 
-        function goToSelectedBook() {
-            const select = document.getElementById('qrBookSelect');
-            const selectedBook = select.value;
+        const countdownInterval = setInterval(function() {
+            timeLeft--;
+            progress = (timeLeft / 5) * 100;
             
-            if (!selectedBook) {
-                showToast('책을 선택해주세요', 'error');
-                return;
+            countdownEl.textContent = timeLeft;
+            progressBar.style.width = progress + '%';
+
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                window.location.href = targetUrl;
             }
-            
-            if (!currentUser) {
-                showToast('로그인이 필요합니다', 'error');
-                closeModal('qr');
-                openModal('login');
-                return;
-            }
-            
-            window.location.href = selectedBook;
-        }
+        }, 1000);
 
-        // ================ 레벨 테스트 시스템 ================
-        const levelTestQuestions = [
-            // Level 1 - 기초
-            { level: 1, question: "What color is the sky?", options: ["Blue", "Green", "Red", "Yellow"], answer: 0 },
-            { level: 1, question: "How many legs does a dog have?", options: ["Two", "Three", "Four", "Five"], answer: 2 },
-            // Level 2 - 초급
-            { level: 2, question: "Jack and Annie found a tree house in the woods. What was special about it?", options: ["It was very old", "It was full of books", "It was painted red", "It had no door"], answer: 1 },
-            { level: 2, question: "In 'Dinosaurs Before Dark', where did the tree house take Jack and Annie?", options: ["To the future", "To dinosaur times", "To a castle", "To the moon"], answer: 1 },
-            // Level 3 - 중급
-            { level: 3, question: "In 'Charlotte's Web', what kind of animal is Charlotte?", options: ["A pig", "A rat", "A spider", "A goose"], answer: 2 },
-            { level: 3, question: "What does Charlotte write in her web to save Wilbur?", options: ["'Help me'", "'Some Pig'", "'Run away'", "'Be free'"], answer: 1 },
-            // Level 4 - 중상급
-            { level: 4, question: "In 'The Alchemist', what is Santiago's original profession?", options: ["A merchant", "A shepherd", "A soldier", "A teacher"], answer: 1 },
-            { level: 4, question: "What is the main theme of 'To Kill a Mockingbird'?", options: ["Adventure", "Romance", "Racial injustice", "War"], answer: 2 },
-            // Level 5 - 고급
-            { level: 5, question: "In 'The Giver', what is Jonas's assignment?", options: ["The Receiver of Memory", "The Chief Elder", "The Nurturer", "The Speaker"], answer: 0 },
-            { level: 5, question: "What is the significance of the 'Hunger Games' in the story?", options: ["Entertainment", "Population control and oppression", "Sports competition", "Education"], answer: 1 },
-        ];
-
-        let currentQuestion = 0;
-        let correctAnswers = 0;
-        let selectedAnswer = null;
-        let testQuestions = [];
-
-        function startLevelTest() {
-            // 문제 섞기
-            testQuestions = [...levelTestQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
-            currentQuestion = 0;
-            correctAnswers = 0;
-            
-            document.getElementById('testStart').style.display = 'none';
-            document.getElementById('testQuestions').style.display = 'block';
-            document.getElementById('testResult').style.display = 'none';
-            
-            showQuestion();
-        }
-
-        function showQuestion() {
-            const q = testQuestions[currentQuestion];
-            document.getElementById('questionNum').textContent = `문제 ${currentQuestion + 1}/10`;
-            document.getElementById('questionLevel').textContent = `Level ${q.level}`;
-            document.getElementById('questionText').textContent = q.question;
-            
-            const optionsHtml = q.options.map((opt, i) => `
-                <div class="answer-option" onclick="selectAnswer(${i})" id="opt${i}" 
-                     style="padding: 15px; margin: 10px 0; background: rgba(255,255,255,0.1); 
-                            border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; 
-                            cursor: pointer; transition: all 0.3s;">
-                    ${String.fromCharCode(65 + i)}. ${opt}
-                </div>
-            `).join('');
-            
-            document.getElementById('answerOptions').innerHTML = optionsHtml;
-            document.getElementById('nextBtn').style.display = 'none';
-            selectedAnswer = null;
-        }
-
-        function selectAnswer(index) {
-            if (selectedAnswer !== null) return; // 이미 선택함
-            
-            selectedAnswer = index;
-            const q = testQuestions[currentQuestion];
-            
-            // 모든 옵션 스타일 초기화
-            for (let i = 0; i < 4; i++) {
-                const opt = document.getElementById(`opt${i}`);
-                if (i === q.answer) {
-                    opt.style.background = 'rgba(0, 255, 136, 0.3)';
-                    opt.style.borderColor = '#00ff88';
-                } else if (i === index && index !== q.answer) {
-                    opt.style.background = 'rgba(255, 68, 68, 0.3)';
-                    opt.style.borderColor = '#ff4444';
-                }
-            }
-            
-            if (index === q.answer) {
-                correctAnswers++;
-            }
-            
-            document.getElementById('nextBtn').style.display = 'inline-block';
-            document.getElementById('nextBtn').textContent = currentQuestion < 9 ? '다음 문제' : '결과 보기';
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion >= 10) {
-                showResult();
-            } else {
-                showQuestion();
-            }
-        }
-
-        function showResult() {
-            document.getElementById('testQuestions').style.display = 'none';
-            document.getElementById('testResult').style.display = 'block';
-            
-            const score = correctAnswers * 10;
-            let level, levelText;
-            
-            if (score >= 90) { level = 5; levelText = 'Level 5 - Advanced'; }
-            else if (score >= 70) { level = 4; levelText = 'Level 4 - Upper-Intermediate'; }
-            else if (score >= 50) { level = 3; levelText = 'Level 3 - Intermediate'; }
-            else if (score >= 30) { level = 2; levelText = 'Level 2 - Elementary'; }
-            else { level = 1; levelText = 'Level 1 - Beginner'; }
-            
-            document.getElementById('resultScore').textContent = `${score}점 (${correctAnswers}/10)`;
-            document.getElementById('resultLevel').innerHTML = `추천 레벨: <span style="color: #00ff88;">${levelText}</span>`;
-            
-            // Google Sheets에 결과 저장
-            if (currentUser) {
-                saveLevelTestResult(currentUser.username, level, score);
-            }
-        }
-
-        async function saveLevelTestResult(username, level, score) {
-            try {
-                await fetch(`${GOOGLE_SCRIPT_URL}?action=saveProgress&username=${encodeURIComponent(username)}&book_title=LevelTest&chapter=${level}&score=${score}`);
-            } catch (error) {
-                console.log('결과 저장 실패');
-            }
-        }
-
-        // 관리자 접근
-        function adminAccess() {
-            const password = prompt('관리자 비밀번호를 입력하세요:');
-            if (password === 'davich06') {
-                window.location.href = 'admin.html';
-            } else if (password !== null) {
-                alert('비밀번호가 틀렸습니다.');
-            }
-        }
-    </script>
-
-    <!-- 푸터 -->
-    <footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); font-size: 12px;">
-        <p>© 2024 수리딩어학원 (Sureading Academy) | 
-            <a href="#" onclick="adminAccess(); return false;" style="color: rgba(255,255,255,0.3); text-decoration: none;" 
-               onmouseover="this.style.color='#00ff88'" 
-               onmouseout="this.style.color='rgba(255,255,255,0.3)'">관리자</a>
-        </p>
-    </footer>
+        // 바로 이동 버튼 클릭 시
+        document.getElementById('start-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            clearInterval(countdownInterval);
+            window.location.href = targetUrl;
+        });
+    });
+</script>
 </body>
 </html>
