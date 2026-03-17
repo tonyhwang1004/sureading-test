@@ -391,23 +391,21 @@ let startTime;
 function buildAllQuestions() {
   allQuestions = [];
   sections.forEach(sec => {
-    if (sec.questions) {
-      sec.questions.forEach((q, i) => {
-        allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'mcq', ...q, globalIdx: allQuestions.length });
+    if (sec.id === 'arrange') {
+      sec.questions.forEach((q) => {
+        allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'arrange', level: 3, ...q, globalIdx: allQuestions.length });
       });
-    }
-    if (sec.passages) {
-      sec.passages.forEach((p, pi) => {
-        p.questions.forEach((q, qi) => {
-          allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'passage', passage: p, ...q, globalIdx: allQuestions.length });
+    } else if (sec.questions) {
+      sec.questions.forEach((q) => {
+        allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'mcq', level: q.level || 3, ...q, globalIdx: allQuestions.length });
+      });
+    } else if (sec.passages) {
+      sec.passages.forEach((p) => {
+        p.questions.forEach((q) => {
+          allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'passage', passage: p, level: q.level || 3, ...q, globalIdx: allQuestions.length });
         });
       });
     }
-  });
-  // 문장 배열 추가
-  const arr = sections.find(s => s.id === 'arrange');
-  arr.questions.forEach((q, i) => {
-    allQuestions.push({ secId: 'arrange', secName: '문장 배열', secLabel: arr.label, secBadge: arr.badge, type: 'arrange', ...q, globalIdx: allQuestions.length });
   });
 }
 
