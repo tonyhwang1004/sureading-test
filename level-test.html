@@ -6,22 +6,16 @@
 <title>수리딩 레벨 테스트</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#f5f4f0; --surface:#fff; --surface2:#f0eeea; --border:rgba(0,0,0,0.08);
-  --text:#1a1a2e; --muted:#7a7a8a; --accent:#5b4fcf; --accent2:#1a9e78;
-  --gold:#d4900a; --danger:#d94040; --shadow:0 4px 24px rgba(0,0,0,0.07);
-}
+:root{--bg:#f5f4f0;--surface:#fff;--surface2:#f0eeea;--border:rgba(0,0,0,0.08);--text:#1a1a2e;--muted:#7a7a8a;--accent:#5b4fcf;--accent2:#1a9e78;--gold:#d4900a;--danger:#d94040;--shadow:0 4px 24px rgba(0,0,0,0.07);}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 .header{position:fixed;top:0;left:0;right:0;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(245,244,240,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);z-index:100;}
-.logo{font-size:1.1rem;font-weight:700;color:var(--accent);text-decoration:none;}
+.logo{font-size:1.1rem;font-weight:700;color:var(--accent);}
 .timer-box{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:6px 16px;font-size:0.9rem;font-weight:600;}
 .timer-box.warning{border-color:var(--danger);color:var(--danger);}
 .back-btn{padding:7px 18px;border:1.5px solid var(--border);border-radius:20px;background:transparent;color:var(--muted);cursor:pointer;font-size:0.82rem;text-decoration:none;font-family:'DM Sans',sans-serif;}
 .back-btn:hover{border-color:var(--accent);color:var(--accent);}
 .container{max-width:860px;margin:0 auto;padding:90px 20px 60px;}
-
-/* 시작 화면 */
 #startScreen{text-align:center;padding:40px 0;}
 .start-badge{display:inline-block;padding:5px 16px;background:rgba(91,79,207,0.1);border:1.5px solid rgba(91,79,207,0.2);border-radius:20px;font-size:0.75rem;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;font-weight:500;}
 .start-title{font-size:2.8rem;font-weight:800;line-height:1.2;margin-bottom:14px;color:var(--text);}
@@ -32,10 +26,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sec-card .sec-icon{font-size:1.4rem;margin-bottom:6px;}
 .sec-card .sec-num{font-size:1.6rem;font-weight:800;color:var(--accent);margin-bottom:2px;}
 .sec-card .sec-name{font-size:0.72rem;color:var(--muted);font-weight:500;}
+.pool-info{font-size:0.75rem;color:var(--accent2);margin-top:3px;}
 .start-btn{padding:16px 50px;background:var(--accent);border:none;border-radius:50px;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:'DM Sans',sans-serif;box-shadow:0 8px 24px rgba(91,79,207,0.3);}
-.start-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(91,79,207,0.4);}
-
-/* 섹션 헤더 */
+.start-btn:hover{transform:translateY(-2px);}
 .section-header{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:20px 28px;margin-bottom:24px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;}
 .sec-badge{padding:6px 16px;border-radius:20px;font-size:0.78rem;font-weight:600;letter-spacing:0.5px;}
 .sb-vocab{background:rgba(91,79,207,0.1);color:var(--accent);border:1.5px solid rgba(91,79,207,0.2);}
@@ -44,63 +37,39 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sb-arrange{background:rgba(217,64,64,0.1);color:var(--danger);border:1.5px solid rgba(217,64,64,0.2);}
 .sec-header-info h2{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:2px;}
 .sec-header-info p{font-size:0.82rem;color:var(--muted);}
-
-/* 진행 바 */
 .progress-bar-wrap{margin-bottom:24px;}
 .progress-top{display:flex;justify-content:space-between;font-size:0.82rem;color:var(--muted);margin-bottom:8px;}
 .prog-bg{height:6px;background:rgba(0,0,0,0.08);border-radius:6px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#8b7fef);border-radius:6px;transition:width 0.4s;}
-
-/* 문제 카드 */
 .q-card{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:28px 32px;margin-bottom:16px;box-shadow:var(--shadow);}
 .q-num{font-size:0.78rem;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
 .q-text{font-size:1rem;line-height:1.7;color:var(--text);margin-bottom:20px;}
-.q-text strong{color:var(--accent);}
-
-/* 보기 */
 .options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .opt-btn{padding:12px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.18s;text-align:left;display:flex;align-items:center;gap:10px;line-height:1.4;}
 .opt-label{width:26px;height:26px;border-radius:50%;background:#fff;border:1.5px solid rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;color:var(--muted);transition:all 0.18s;}
-.opt-btn:hover:not(.selected):not(.disabled){border-color:var(--accent);background:rgba(91,79,207,0.05);}
-.opt-btn:hover:not(.selected):not(.disabled) .opt-label{background:var(--accent);border-color:var(--accent);color:#fff;}
+.opt-btn:hover:not(.selected){border-color:var(--accent);background:rgba(91,79,207,0.05);}
+.opt-btn:hover:not(.selected) .opt-label{background:var(--accent);border-color:var(--accent);color:#fff;}
 .opt-btn.selected{border-color:var(--accent);background:rgba(91,79,207,0.08);}
 .opt-btn.selected .opt-label{background:var(--accent);border-color:var(--accent);color:#fff;}
-.opt-btn.correct{border-color:var(--accent2);background:rgba(26,158,120,0.08);}
-.opt-btn.correct .opt-label{background:var(--accent2);border-color:var(--accent2);color:#fff;}
-.opt-btn.wrong{border-color:var(--danger);background:rgba(217,64,64,0.08);}
-.opt-btn.wrong .opt-label{background:var(--danger);border-color:var(--danger);color:#fff;}
-.opt-btn.disabled{cursor:default;}
-
-/* 독해 지문 */
 .passage-box{background:#f7f6ff;border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:20px;font-size:0.92rem;line-height:1.9;color:#3a3a5a;}
 .passage-label{font-size:0.72rem;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
 .passage-long{background:#f7f6ff;border:1.5px solid rgba(91,79,207,0.15);border-radius:12px;padding:24px;margin-bottom:24px;font-size:0.92rem;line-height:1.9;color:#3a3a5a;}
 .passage-long-label{font-size:0.72rem;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
-
-/* 단어 배열 */
 .korean-sentence{background:rgba(217,64,64,0.06);border:1.5px solid rgba(217,64,64,0.15);border-radius:10px;padding:12px 18px;margin-bottom:16px;font-size:1rem;font-weight:600;color:#5a1a1a;text-align:center;}
 .word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;min-height:44px;padding:10px;background:var(--surface2);border:1.5px dashed var(--border);border-radius:10px;}
-.answer-area{display:flex;flex-wrap:wrap;gap:8px;min-height:50px;padding:10px;background:#fff;border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;transition:border-color 0.2s;}
-.answer-area.active{border-color:var(--accent);}
+.answer-area{display:flex;flex-wrap:wrap;gap:8px;min-height:50px;padding:10px;background:#fff;border:1.5px solid var(--accent);border-radius:10px;margin-bottom:8px;}
 .word-chip{padding:7px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:20px;font-size:0.88rem;font-weight:500;cursor:pointer;transition:all 0.18s;user-select:none;color:var(--text);}
-.word-chip:hover{border-color:var(--accent);background:rgba(91,79,207,0.05);color:var(--accent);}
+.word-chip:hover{border-color:var(--accent);color:var(--accent);}
 .word-chip.in-answer{background:rgba(91,79,207,0.1);border-color:var(--accent);color:var(--accent);}
-.word-chip.correct-chip{background:rgba(26,158,120,0.1);border-color:var(--accent2);color:var(--accent2);}
-.word-chip.wrong-chip{background:rgba(217,64,64,0.1);border-color:var(--danger);color:var(--danger);}
-.arrange-hint{font-size:0.8rem;color:var(--muted);margin-bottom:4px;}
-.correct-answer{font-size:0.82rem;color:var(--accent2);margin-top:6px;display:none;}
-
-/* 네비게이션 버튼 */
+.arrange-hint{font-size:0.8rem;color:var(--muted);margin-bottom:6px;}
 .nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
 .btn-prev{padding:12px 28px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--muted);font-size:0.92rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all 0.2s;}
 .btn-prev:hover{border-color:var(--accent);color:var(--accent);}
 .btn-next{padding:12px 32px;background:var(--accent);border:none;border-radius:12px;color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 14px rgba(91,79,207,0.25);}
-.btn-next:hover{background:#4a3ec0;transform:translateY(-1px);}
-.btn-submit{padding:12px 32px;background:var(--accent2);border:none;border-radius:12px;color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 14px rgba(26,158,120,0.25);}
+.btn-next:hover{background:#4a3ec0;}
+.btn-submit{padding:12px 32px;background:var(--accent2);border:none;border-radius:12px;color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
 .btn-submit:hover{background:#158060;}
 .q-counter{font-size:0.85rem;color:var(--muted);font-weight:500;}
-
-/* 결과 화면 */
 #resultScreen{display:none;}
 .result-hero{background:var(--surface);border:1.5px solid var(--border);border-radius:24px;padding:40px;text-align:center;box-shadow:var(--shadow);margin-bottom:20px;}
 .result-emoji{font-size:3rem;margin-bottom:14px;}
@@ -126,11 +95,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .btn-retry{flex:1;padding:13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;}
 .btn-retry:hover{border-color:var(--accent);color:var(--accent);}
 .btn-home{flex:1;padding:13px;background:var(--accent);border:none;border-radius:12px;color:#fff;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
-.btn-home:hover{background:#4a3ec0;}
-
-@media(max-width:600px){
-  .start-title{font-size:2rem;} .section-overview{grid-template-columns:repeat(3,1fr);} .options{grid-template-columns:1fr;} .q-card{padding:20px;} .section-scores{grid-template-columns:1fr;} .header{padding:12px 16px;} .container{padding:80px 14px 40px;}
-}
+@media(max-width:600px){.start-title{font-size:2rem;}.section-overview{grid-template-columns:repeat(3,1fr);}.options{grid-template-columns:1fr;}.q-card{padding:20px;}.section-scores{grid-template-columns:1fr;}.header{padding:12px 16px;}.container{padding:80px 14px 40px;}}
 </style>
 </head>
 <body>
@@ -139,41 +104,32 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="logo">📚 수리딩어학원 레벨 테스트</div>
   <div class="timer-box" id="timerBox">⏱ <span id="timerDisplay">60:00</span></div>
 </header>
-
 <div class="container">
-  <!-- 시작 화면 -->
   <div id="startScreen">
     <div class="start-badge">SUREADING Level Assessment</div>
     <h1 class="start-title">영어 <span>레벨</span> 테스트</h1>
-    <p class="start-desc">토플 · 토익 스타일의 종합 영어 평가 테스트입니다.<br>어휘 · 문법 · 독해 · 문장 배열 4개 섹션, 총 51문제 · 제한 시간 60분</p>
+    <p class="start-desc">토플 · 토익 스타일의 종합 영어 평가 테스트<br>매번 문제은행에서 랜덤 출제 · 총 51문제 · 60분</p>
     <div class="section-overview">
-      <div class="sec-card"><div class="sec-icon">📗</div><div class="sec-num">20</div><div class="sec-name">어휘</div></div>
-      <div class="sec-card"><div class="sec-icon">✏️</div><div class="sec-num">20</div><div class="sec-name">문법</div></div>
-      <div class="sec-card"><div class="sec-icon">📖</div><div class="sec-num">8</div><div class="sec-name">짧은 독해</div></div>
-      <div class="sec-card"><div class="sec-icon">📄</div><div class="sec-num">6</div><div class="sec-name">긴 독해</div></div>
-      <div class="sec-card"><div class="sec-icon">🔤</div><div class="sec-num">5</div><div class="sec-name">문장 배열</div></div>
+      <div class="sec-card"><div class="sec-icon">📗</div><div class="sec-num">20</div><div class="sec-name">어휘</div><div class="pool-info">풀 40개</div></div>
+      <div class="sec-card"><div class="sec-icon">✏️</div><div class="sec-num">20</div><div class="sec-name">문법</div><div class="pool-info">풀 40개</div></div>
+      <div class="sec-card"><div class="sec-icon">📖</div><div class="sec-num">8</div><div class="sec-name">짧은 독해</div><div class="pool-info">풀 16개</div></div>
+      <div class="sec-card"><div class="sec-icon">📄</div><div class="sec-num">6</div><div class="sec-name">긴 독해</div><div class="pool-info">풀 4개</div></div>
+      <div class="sec-card"><div class="sec-icon">🔤</div><div class="sec-num">5</div><div class="sec-name">문장 배열</div><div class="pool-info">풀 10개</div></div>
     </div>
     <button class="start-btn" onclick="startTest()">테스트 시작 →</button>
   </div>
-
-  <!-- 테스트 화면 -->
   <div id="testScreen" style="display:none;">
     <div class="progress-bar-wrap">
-      <div class="progress-top">
-        <span id="sectionLabel">Section 1 — Vocabulary</span>
-        <span id="qProgress">1 / 51</span>
-      </div>
+      <div class="progress-top"><span id="sectionLabel">Section 1</span><span id="qProgress">1 / 51</span></div>
       <div class="prog-bg"><div class="prog-fill" id="progFill" style="width:2%"></div></div>
     </div>
     <div id="questionArea"></div>
     <div class="nav-btns">
-      <button class="btn-prev" id="btnPrev" onclick="goQuestion(-1)">← 이전</button>
+      <button class="btn-prev" id="btnPrev" onclick="goQ(-1)">← 이전</button>
       <span class="q-counter" id="qCounter">1 / 51</span>
-      <button class="btn-next" id="btnNext" onclick="goQuestion(1)">다음 →</button>
+      <button class="btn-next" id="btnNext" onclick="goQ(1)">다음 →</button>
     </div>
   </div>
-
-  <!-- 결과 화면 -->
   <div id="resultScreen">
     <div class="result-hero">
       <div class="result-emoji" id="rEmoji">🎉</div>
@@ -195,470 +151,296 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
 </div>
-
 <script>
 // =====================================================
-// 문제 데이터
+// 문제은행 (POOL)
 // =====================================================
-const sections = [
-  {
-    id:'vocab', name:'Vocabulary', label:'Section 1 — Vocabulary',
-    badge:'sb-vocab', icon:'📗', desc:'20문제 · 밑줄 친 단어의 의미를 고르세요',
-    questions:[
-      {q:'The scientist made an <strong>astounding</strong> discovery.',opts:['ordinary','remarkable','minor','expected'],ans:1,exp:'<strong>Astounding</strong> = 놀라운, 경이로운'},
-      {q:'The new policy will <strong>alleviate</strong> poverty in the region.',opts:['worsen','ignore','reduce','measure'],ans:2,exp:'<strong>Alleviate</strong> = 완화하다, 경감하다'},
-      {q:'Her speech was so <strong>eloquent</strong> that everyone was moved.',opts:['confusing','boring','well-spoken','aggressive'],ans:2,exp:'<strong>Eloquent</strong> = 유창한, 설득력 있는'},
-      {q:'The company\'s reputation is <strong>impeccable</strong>.',opts:['questionable','flawless','improving','unknown'],ans:1,exp:'<strong>Impeccable</strong> = 흠잡을 데 없는, 완벽한'},
-      {q:'He was <strong>reluctant</strong> to share his personal information.',opts:['eager','willing','unwilling','happy'],ans:2,exp:'<strong>Reluctant</strong> = 꺼리는, 마지못해 하는'},
-      {q:'The treaty was <strong>ratified</strong> by all member nations.',opts:['rejected','formally approved','ignored','debated'],ans:1,exp:'<strong>Ratify</strong> = 비준하다, 공식 승인하다'},
-      {q:'Her <strong>tenacious</strong> personality helped her overcome all obstacles.',opts:['weak','persistent','gentle','careless'],ans:1,exp:'<strong>Tenacious</strong> = 끈질긴, 집요한'},
-      {q:'The politician\'s remarks were <strong>ambiguous</strong> and left many confused.',opts:['clear','inspiring','unclear','strong'],ans:2,exp:'<strong>Ambiguous</strong> = 모호한, 두 가지 이상으로 해석될 수 있는'},
-      {q:'The manager made a <strong>pragmatic</strong> decision rather than an idealistic one.',opts:['emotional','theoretical','practical','irrational'],ans:2,exp:'<strong>Pragmatic</strong> = 실용적인, 현실적인'},
-      {q:'Critics were <strong>cynical</strong> about the government\'s promises.',opts:['optimistic','hopeful','doubtful','supportive'],ans:2,exp:'<strong>Cynical</strong> = 냉소적인, 의심하는'},
-      {q:'The new evidence will <strong>corroborate</strong> the witness\'s testimony.',opts:['contradict','confirm','ignore','replace'],ans:1,exp:'<strong>Corroborate</strong> = 확증하다, 뒷받침하다'},
-      {q:'The island\'s ecosystem is extremely <strong>fragile</strong>.',opts:['strong','robust','easily damaged','stable'],ans:2,exp:'<strong>Fragile</strong> = 깨지기 쉬운, 취약한'},
-      {q:'His <strong>profound</strong> knowledge of history impressed everyone.',opts:['shallow','deep','basic','partial'],ans:1,exp:'<strong>Profound</strong> = 깊은, 심오한'},
-      {q:'The company decided to <strong>diversify</strong> its product range.',opts:['reduce','limit','expand variety','simplify'],ans:2,exp:'<strong>Diversify</strong> = 다양화하다'},
-      {q:'The rescue team showed great <strong>valor</strong> during the operation.',opts:['fear','laziness','bravery','confusion'],ans:2,exp:'<strong>Valor</strong> = 용맹, 용기'},
-      {q:'The <strong>ubiquitous</strong> smartphone has changed modern life.',opts:['rare','everywhere','expensive','new'],ans:1,exp:'<strong>Ubiquitous</strong> = 어디에나 있는, 편재하는'},
-      {q:'Scientists need to <strong>mitigate</strong> the effects of climate change.',opts:['ignore','worsen','lessen','study'],ans:2,exp:'<strong>Mitigate</strong> = 완화하다, 경감하다'},
-      {q:'The results of the study were <strong>inconclusive</strong>.',opts:['clear','definite','not decisive','accurate'],ans:2,exp:'<strong>Inconclusive</strong> = 결정적이지 않은, 불확실한'},
-      {q:'She showed great <strong>resilience</strong> after losing her job.',opts:['weakness','depression','ability to recover','anger'],ans:2,exp:'<strong>Resilience</strong> = 회복력, 탄력성'},
-      {q:'The government needs to <strong>scrutinize</strong> the new proposals carefully.',opts:['ignore','approve','examine closely','dismiss'],ans:2,exp:'<strong>Scrutinize</strong> = 면밀히 조사하다, 정밀 검토하다'},
-    ]
-  },
-  {
-    id:'grammar', name:'Grammar', label:'Section 2 — Grammar',
-    badge:'sb-grammar', icon:'✏️', desc:'20문제 · 문법적으로 올바른 것을 고르세요',
-    questions:[
-      {q:'Choose the correct sentence:',opts:["She don't like vegetables.","She doesn't like vegetables.","She not like vegetables.","She doesn't likes vegetables."],ans:1,exp:'3인칭 단수 부정: <strong>doesn\'t + 동사원형</strong>'},
-      {q:'_______ you finished your homework yet?',opts:['Did','Do','Have','Are'],ans:2,exp:'현재완료 의문문: <strong>Have + 주어 + p.p.</strong>'},
-      {q:'If I _______ you, I would apologize immediately.',opts:['am','was','were','be'],ans:2,exp:'가정법 과거: be동사는 항상 <strong>were</strong>'},
-      {q:'The report _______ that sales increased by 20% last year.',opts:['indicate','indicates','indicating','indicated'],ans:1,exp:'주어(The report)는 단수 → <strong>indicates</strong>'},
-      {q:'Not only _______ she win the competition, but she also broke the record.',opts:['did','does','was','has'],ans:0,exp:'"Not only" 도치구문: <strong>did + 주어 + 동사원형</strong>'},
-      {q:'The book _______ by millions of readers worldwide.',opts:['reads','is read','reading','has read'],ans:1,exp:'수동태: <strong>be동사 + p.p.</strong>'},
-      {q:'By the time we arrived, the meeting _______ already started.',opts:['has','had','was','did'],ans:1,exp:'과거완료: <strong>had + p.p.</strong>'},
-      {q:'_______ the rain, the game continued as scheduled.',opts:['Despite of','Although','Despite','Even'],ans:2,exp:'<strong>Despite + 명사구</strong> (despite of는 틀림)'},
-      {q:'She asked me _______ I had seen her keys.',opts:['that','if','what','which'],ans:1,exp:'간접의문문에서 yes/no 질문은 <strong>if/whether</strong>'},
-      {q:'The findings, _______ were published last month, surprised scientists.',opts:['that','who','which','what'],ans:2,exp:'사물 선행사의 계속적 용법 관계대명사: <strong>which</strong>'},
-      {q:'She is used to _______ early in the morning.',opts:['wake','woke','waking','woken'],ans:2,exp:'"be used to" 뒤에는 <strong>동명사(-ing)</strong>'},
-      {q:'_______ he studied hard, he failed the exam.',opts:['Despite','Although','However','Because'],ans:1,exp:'절(주어+동사) 앞에는 <strong>Although</strong>'},
-      {q:'The committee _______ divided on the issue.',opts:['is','are','were','have'],ans:0,exp:'집합명사 "committee"는 단수 취급 → <strong>is</strong>'},
-      {q:'I wish I _______ more time to finish the project.',opts:['have','had','has','will have'],ans:1,exp:'"I wish" 가정법: <strong>과거형(had)</strong>'},
-      {q:'The manager told the employees _______ overtime.',opts:['work','worked','to work','working'],ans:2,exp:'"tell + 목적어 + <strong>to 부정사</strong>"'},
-      {q:'_______ in 1879, Einstein became one of history\'s greatest scientists.',opts:['Born','Being born','He was born','Having born'],ans:0,exp:'분사구문: <strong>Born</strong> = Having been born의 축약'},
-      {q:'Neither the students nor the teacher _______ ready.',opts:['are','is','were','have'],ans:1,exp:'"Neither A nor B" → B에 동사를 일치: teacher(단수) → <strong>is</strong>'},
-      {q:'The earlier you start, _______ you will finish.',opts:['the sooner','sooner','more sooner','the more sooner'],ans:0,exp:'"the + 비교급, the + 비교급" 구문 → <strong>the sooner</strong>'},
-      {q:'It is essential that every student _______ the rules.',opts:['follows','follow','followed','following'],ans:1,exp:'주장·요구·명령 동사 후 that절: <strong>동사원형(가정법 현재)</strong>'},
-      {q:'The project _______ by the end of next month.',opts:['will complete','will be completed','completes','is completing'],ans:1,exp:'미래 수동태: <strong>will be + p.p.</strong>'},
-    ]
-  },
-  {
-    id:'reading_short', name:'짧은 독해', label:'Section 3 — Short Reading',
-    badge:'sb-reading', icon:'📖', desc:'8개 지문 · 각 지문 후 질문에 답하세요',
-    passages:[
-      {
-        title:'Passage 1 — Environment',
-        text:'Coral reefs are often called "the rainforests of the sea" because of their incredible biodiversity. They cover less than 1% of the ocean floor but support about 25% of all marine species. However, coral reefs are under serious threat from rising ocean temperatures, which cause coral bleaching. When water becomes too warm, corals expel the algae living in their tissues, turning white and eventually dying.',
-        questions:[
-          {q:'What is the main threat to coral reefs mentioned in the passage?',opts:['Overfishing','Rising ocean temperatures','Plastic pollution','Deep-sea mining'],ans:1,exp:'지문에서 "<strong>rising ocean temperatures</strong>"가 산호초의 주요 위협이라고 했어요.'},
-        ]
-      },
-      {
-        title:'Passage 2 — Technology',
-        text:'The Internet has dramatically changed how people communicate and access information. Before the Internet, people relied on books, newspapers, and television for news. Today, anyone with a smartphone can access billions of pieces of information instantly. While this has many benefits, it has also created challenges such as misinformation and privacy concerns.',
-        questions:[
-          {q:'What is one NEGATIVE effect of the Internet mentioned in the passage?',opts:['Faster communication','Increased misinformation','Better access to news','Cheaper smartphones'],ans:1,exp:'지문에서 부정적 효과로 <strong>misinformation(허위 정보)</strong>을 언급했어요.'},
-        ]
-      },
-      {
-        title:'Passage 3 — History',
-        text:'The Great Wall of China was built over many centuries to protect Chinese states from invasions. Construction began as early as the 7th century BC. The most well-known sections were built during the Ming Dynasty (1368–1644). The wall stretches over 13,000 miles and was built using millions of workers, including soldiers, peasants, and prisoners.',
-        questions:[
-          {q:'What was the PRIMARY purpose of the Great Wall of China?',opts:['Tourism','Trade routes','Protection from invasions','Religious ceremonies'],ans:2,exp:'지문 첫 문장: "to <strong>protect Chinese states from invasions</strong>"'},
-        ]
-      },
-      {
-        title:'Passage 4 — Science',
-        text:'Neuroplasticity refers to the brain\'s ability to reorganize itself by forming new neural connections throughout life. The brain can adapt to new situations, recover from injury, and change its structure in response to learning. Activities such as learning a musical instrument or studying a foreign language can significantly enhance neuroplasticity.',
-        questions:[
-          {q:'According to the passage, what activity can enhance neuroplasticity?',opts:['Sleeping more','Watching television','Learning a musical instrument','Eating healthy food'],ans:2,exp:'지문에서 "<strong>learning a musical instrument</strong>"를 예로 들었어요.'},
-        ]
-      },
-      {
-        title:'Passage 5 — Social Studies',
-        text:'Propaganda is information spread to promote a particular viewpoint. Unlike balanced reporting, propaganda uses emotional language and selective facts to manipulate audiences. During wartime, governments use propaganda to boost morale. Social media has made it easier to spread propaganda to wide audiences rapidly.',
-        questions:[
-          {q:'How does propaganda differ from balanced reporting?',opts:['It uses more statistics','It uses emotional language to manipulate','It is only used online','It always contains false information'],ans:1,exp:'프로파간다는 <strong>감정적 언어와 선택적 사실</strong>로 청중을 조종해요.'},
-        ]
-      },
-      {
-        title:'Passage 6 — Economics',
-        text:'Opportunity cost is a fundamental concept in economics. Every decision involves giving up something else. If a student studies instead of watching a movie, the opportunity cost is the enjoyment of that movie. Understanding opportunity cost helps individuals and businesses allocate limited resources more efficiently.',
-        questions:[
-          {q:'What does "opportunity cost" refer to?',opts:['The financial cost of a choice','The value of the best alternative given up','The time spent making a decision','The total cost of all options'],ans:1,exp:'기회비용 = <strong>포기한 차선의 대안의 가치</strong>'},
-        ]
-      },
-      {
-        title:'Passage 7 — Health',
-        text:'Sleep is essential for physical and mental health. During sleep, the brain consolidates memories and removes harmful toxins. Lack of sleep is linked to increased risk of obesity, diabetes, and cardiovascular disease. Adults are recommended to get 7 to 9 hours of sleep per night for optimal health.',
-        questions:[
-          {q:'What happens in the brain during sleep?',opts:['It stops all activity','It consolidates memories and removes toxins','It increases stress hormones','It processes food'],ans:1,exp:'지문에서 수면 중 뇌는 <strong>기억을 통합하고 유해 독소를 제거</strong>한다고 했어요.'},
-        ]
-      },
-      {
-        title:'Passage 8 — Psychology',
-        text:'The concept of cognitive dissonance describes the discomfort felt when holding contradictory beliefs. To reduce this discomfort, people change their attitudes, seek supporting information, or rationalize their behavior. This concept helps explain many seemingly irrational human decisions.',
-        questions:[
-          {q:'Which is NOT mentioned as a way to reduce cognitive dissonance?',opts:['Changing attitudes','Seeking supporting information','Accepting contradictions willingly','Rationalizing behavior'],ans:2,exp:'지문에서 ①태도 변화 ②지지 정보 탐색 ③행동 합리화만 언급. <strong>모순 수용</strong>은 없어요.'},
-        ]
-      },
-    ]
-  },
-  {
-    id:'reading_long', name:'긴 독해', label:'Section 4 — Long Reading',
-    badge:'sb-reading', icon:'📄', desc:'2개 지문 · 각 지문당 3문제',
-    passages:[
-      {
-        title:'Passage A — The Silk Road',
-        text:'The Silk Road was not a single road but a vast network of trade routes connecting China to the Mediterranean Sea. For over a thousand years, merchants traveled these routes carrying silk, spices, gold, and other precious goods. The journey was extremely difficult and dangerous, passing through deserts, mountains, and hostile territories.\n\nHowever, the Silk Road was far more than just a commercial highway. It served as a critical pathway for the exchange of ideas, religions, technologies, and cultures between East and West. Buddhism spread from India to China along these routes, transforming Chinese society. In return, Chinese inventions such as paper, printing, and gunpowder eventually reached Europe, where they had profound impacts on civilization.\n\nThe decline of the Silk Road began in the 15th century as European powers developed sea routes to Asia. These sea routes were faster, safer, and could carry larger quantities of goods. By the 16th century, maritime trade had largely replaced overland routes, and the great trading cities along the Silk Road began to lose their wealth and influence.',
-        questions:[
-          {q:'What was the PRIMARY function of the Silk Road?',opts:['A military highway','A network for trade and cultural exchange','A route for religious pilgrimages only','A road built for diplomatic travel'],ans:1,exp:'실크로드는 <strong>교역과 문화 교류</strong>를 위한 네트워크였어요.'},
-          {q:'Why did the author mention Buddhism and Chinese inventions?',opts:['To show China was more advanced','To illustrate cultural exchange along the Silk Road','To explain why the Silk Road declined','To describe the dangers of the journey'],ans:1,exp:'불교 전파와 중국 발명품은 <strong>실크로드를 통한 문화 교류</strong>의 예시예요.'},
-          {q:'What caused the decline of the Silk Road?',opts:['Wars along the route','Development of faster sea routes','Decreased demand for silk','Natural disasters'],ans:1,exp:'15세기 유럽이 <strong>더 빠른 해상 항로</strong>를 개발하면서 실크로드가 쇠퇴했어요.'},
-        ]
-      },
-      {
-        title:'Passage B — Genetic Engineering',
-        text:'Genetic engineering is a technology that allows scientists to directly modify an organism\'s DNA to achieve specific traits. This powerful tool has applications across medicine, agriculture, and environmental science. In medicine, genetic engineering has enabled the production of insulin for diabetics and is being explored as a treatment for genetic disorders such as cystic fibrosis and sickle cell disease.\n\nIn agriculture, genetically modified organisms (GMOs) have been developed to resist pests, tolerate drought, and produce higher yields. Proponents argue that GMOs are essential to feeding a growing global population, particularly in regions affected by climate change. However, critics raise concerns about potential long-term environmental effects, such as the development of "super pests" resistant to the modifications.\n\nPerhaps the most controversial application is the genetic modification of human embryos. Scientists at the Broad Institute have pioneered CRISPR-Cas9 technology, which allows precise editing of the human genome. While this holds enormous promise for eliminating hereditary diseases, it also raises profound ethical questions about "designer babies" and the potential for creating genetic inequality in society.',
-        questions:[
-          {q:'According to the passage, what is one BENEFIT of GMOs in agriculture?',opts:['They eliminate all diseases','They can resist pests and produce higher yields','They are cheaper to produce','They taste better than natural crops'],ans:1,exp:'GMO의 농업적 이점: <strong>해충 저항성과 높은 수확량</strong>'},
-          {q:'What ethical concern does the author raise about human genome editing?',opts:['It is too expensive','It might create genetic inequality','It cannot cure diseases','It is not yet possible'],ans:1,exp:'인간 배아 유전자 편집은 <strong>유전적 불평등(designer babies)</strong>을 만들 수 있다는 우려가 있어요.'},
-          {q:'What is the author\'s overall tone toward genetic engineering?',opts:['Completely opposed','Fully supportive','Balanced, presenting both benefits and concerns','Indifferent'],ans:2,exp:'저자는 유전공학의 이점과 우려를 모두 제시하는 <strong>균형 잡힌 시각</strong>을 보여요.'},
-        ]
-      },
-    ]
-  },
-  {
-    id:'arrange', name:'문장 배열', label:'Section 5 — Sentence Arrangement',
-    badge:'sb-arrange', icon:'🔤', desc:'5문제 · 한국어 문장을 보고 영어 단어를 올바른 순서로 배열하세요',
-    questions:[
-      {
-        korean:'그 과학자는 지난달에 놀라운 발견을 했다.',
-        words:['made','scientist','The','last month','discovery','a','remarkable'],
-        answer:'The scientist made a remarkable discovery last month',
-        exp:'<strong>The scientist made a remarkable discovery last month.</strong>'
-      },
-      {
-        korean:'만약 내가 더 열심히 공부했더라면, 시험에 합격했을 것이다.',
-        words:['studied','I','harder','had','the exam','I','passed','would have'],
-        answer:'If I had studied harder I would have passed the exam',
-        exp:'<strong>If I had studied harder, I would have passed the exam.</strong> (가정법 과거완료)'
-      },
-      {
-        korean:'그 회의는 모든 팀 구성원들이 참석한 가운데 진행되었다.',
-        words:['all','was','the meeting','held','team members','with','present'],
-        answer:'The meeting was held with all team members present',
-        exp:'<strong>The meeting was held with all team members present.</strong>'
-      },
-      {
-        korean:'비에도 불구하고, 행사는 예정대로 진행되었다.',
-        words:['proceeded','the event','as scheduled','the rain','despite'],
-        answer:'Despite the rain the event proceeded as scheduled',
-        exp:'<strong>Despite the rain, the event proceeded as scheduled.</strong>'
-      },
-      {
-        korean:'그녀가 그 상을 받은 것은 그녀의 팀에게 대단한 영광이었다.',
-        words:['was','her','for','receiving','the award','a great honor','her team','It'],
-        answer:'It was a great honor for her team receiving the award',
-        exp:'<strong>It was a great honor for her team, receiving the award.</strong>'
-      },
-    ]
-  }
+const vocabPool = [
+  {q:'The scientist made an <strong>astounding</strong> discovery.',opts:['ordinary','remarkable','minor','expected'],ans:1,exp:'<strong>Astounding</strong> = 놀라운, 경이로운'},
+  {q:'The new policy will <strong>alleviate</strong> poverty.',opts:['worsen','ignore','reduce','measure'],ans:2,exp:'<strong>Alleviate</strong> = 완화하다, 경감하다'},
+  {q:'Her speech was so <strong>eloquent</strong> that everyone was moved.',opts:['confusing','boring','well-spoken','aggressive'],ans:2,exp:'<strong>Eloquent</strong> = 유창한, 설득력 있는'},
+  {q:'The company\'s reputation is <strong>impeccable</strong>.',opts:['questionable','flawless','improving','unknown'],ans:1,exp:'<strong>Impeccable</strong> = 흠잡을 데 없는'},
+  {q:'He was <strong>reluctant</strong> to share his personal information.',opts:['eager','willing','unwilling','happy'],ans:2,exp:'<strong>Reluctant</strong> = 꺼리는, 마지못해'},
+  {q:'The treaty was <strong>ratified</strong> by all member nations.',opts:['rejected','approved','ignored','debated'],ans:1,exp:'<strong>Ratify</strong> = 비준하다, 공식 승인하다'},
+  {q:'Her <strong>tenacious</strong> personality helped her overcome obstacles.',opts:['weak','persistent','gentle','careless'],ans:1,exp:'<strong>Tenacious</strong> = 끈질긴, 집요한'},
+  {q:'The politician\'s remarks were <strong>ambiguous</strong>.',opts:['clear','inspiring','unclear','strong'],ans:2,exp:'<strong>Ambiguous</strong> = 모호한'},
+  {q:'The manager made a <strong>pragmatic</strong> decision.',opts:['emotional','theoretical','practical','irrational'],ans:2,exp:'<strong>Pragmatic</strong> = 실용적인'},
+  {q:'Critics were <strong>cynical</strong> about the government\'s promises.',opts:['optimistic','hopeful','doubtful','supportive'],ans:2,exp:'<strong>Cynical</strong> = 냉소적인'},
+  {q:'The evidence will <strong>corroborate</strong> the witness\'s testimony.',opts:['contradict','confirm','ignore','replace'],ans:1,exp:'<strong>Corroborate</strong> = 확증하다'},
+  {q:'The island\'s ecosystem is extremely <strong>fragile</strong>.',opts:['strong','robust','easily damaged','stable'],ans:2,exp:'<strong>Fragile</strong> = 깨지기 쉬운'},
+  {q:'His <strong>profound</strong> knowledge of history impressed everyone.',opts:['shallow','deep','basic','partial'],ans:1,exp:'<strong>Profound</strong> = 깊은, 심오한'},
+  {q:'The company decided to <strong>diversify</strong> its products.',opts:['reduce','limit','expand variety','simplify'],ans:2,exp:'<strong>Diversify</strong> = 다양화하다'},
+  {q:'The rescue team showed great <strong>valor</strong>.',opts:['fear','laziness','bravery','confusion'],ans:2,exp:'<strong>Valor</strong> = 용맹, 용기'},
+  {q:'The <strong>ubiquitous</strong> smartphone has changed modern life.',opts:['rare','everywhere','expensive','new'],ans:1,exp:'<strong>Ubiquitous</strong> = 어디에나 있는'},
+  {q:'Scientists need to <strong>mitigate</strong> climate change effects.',opts:['ignore','worsen','lessen','study'],ans:2,exp:'<strong>Mitigate</strong> = 완화하다'},
+  {q:'The study results were <strong>inconclusive</strong>.',opts:['clear','definite','not decisive','accurate'],ans:2,exp:'<strong>Inconclusive</strong> = 결정적이지 않은'},
+  {q:'She showed great <strong>resilience</strong> after losing her job.',opts:['weakness','depression','ability to recover','anger'],ans:2,exp:'<strong>Resilience</strong> = 회복력'},
+  {q:'The government needs to <strong>scrutinize</strong> the proposals.',opts:['ignore','approve','examine closely','dismiss'],ans:2,exp:'<strong>Scrutinize</strong> = 면밀히 조사하다'},
+  {q:'The new law will <strong>prohibit</strong> smoking in public areas.',opts:['allow','ban','encourage','regulate'],ans:1,exp:'<strong>Prohibit</strong> = 금지하다'},
+  {q:'She was <strong>bewildered</strong> by the complicated instructions.',opts:['excited','confused','pleased','bored'],ans:1,exp:'<strong>Bewildered</strong> = 당혹스러운, 어리둥절한'},
+  {q:'The old building was finally <strong>demolished</strong>.',opts:['renovated','destroyed','sold','abandoned'],ans:1,exp:'<strong>Demolish</strong> = 철거하다, 부수다'},
+  {q:'Her attitude was <strong>condescending</strong> toward her colleagues.',opts:['respectful','patronizing','friendly','distant'],ans:1,exp:'<strong>Condescending</strong> = 깔보는, 거만한'},
+  {q:'The charity aims to <strong>eradicate</strong> hunger in the region.',opts:['study','reduce slightly','completely eliminate','ignore'],ans:2,exp:'<strong>Eradicate</strong> = 근절하다, 완전히 없애다'},
+  {q:'The new medicine showed <strong>adverse</strong> side effects.',opts:['beneficial','harmful','minor','expected'],ans:1,exp:'<strong>Adverse</strong> = 불리한, 부정적인'},
+  {q:'She was known for her <strong>meticulous</strong> attention to detail.',opts:['careless','extremely careful','quick','creative'],ans:1,exp:'<strong>Meticulous</strong> = 꼼꼼한, 세심한'},
+  {q:'The economy is in a state of <strong>stagnation</strong>.',opts:['rapid growth','no growth or decline','sharp decline','recovery'],ans:1,exp:'<strong>Stagnation</strong> = 침체, 정체'},
+  {q:'The two sides reached a <strong>consensus</strong> after long negotiations.',opts:['disagreement','general agreement','compromise','conflict'],ans:1,exp:'<strong>Consensus</strong> = 합의, 의견 일치'},
+  {q:'His <strong>innate</strong> talent for music was evident from childhood.',opts:['learned','natural and inborn','acquired','hidden'],ans:1,exp:'<strong>Innate</strong> = 타고난, 선천적인'},
+  {q:'The speaker\'s argument was very <strong>coherent</strong>.',opts:['logical and clear','confusing','emotional','brief'],ans:0,exp:'<strong>Coherent</strong> = 논리적으로 일관된'},
+  {q:'The new regulation will <strong>mandate</strong> safety inspections.',opts:['suggest','require by law','encourage','prevent'],ans:1,exp:'<strong>Mandate</strong> = 명령하다, 의무화하다'},
+  {q:'She felt <strong>apprehensive</strong> before the big presentation.',opts:['confident','anxious','excited','bored'],ans:1,exp:'<strong>Apprehensive</strong> = 불안한, 걱정되는'},
+  {q:'The document contained <strong>ambivalent</strong> statements.',opts:['clear','having mixed feelings','positive','negative'],ans:1,exp:'<strong>Ambivalent</strong> = 양면적인, 상반된 감정의'},
+  {q:'The company\'s growth has been <strong>exponential</strong>.',opts:['slow','moderate','extremely rapid','declining'],ans:2,exp:'<strong>Exponential</strong> = 기하급수적인'},
+  {q:'She made a <strong>plausible</strong> argument.',opts:['impossible','reasonable and likely','confusing','emotional'],ans:1,exp:'<strong>Plausible</strong> = 그럴듯한, 타당해 보이는'},
+  {q:'The company decided to <strong>outsource</strong> its customer service.',opts:['expand internally','hire externally','reduce','eliminate'],ans:1,exp:'<strong>Outsource</strong> = 외주를 주다'},
+  {q:'His <strong>candid</strong> response surprised everyone.',opts:['dishonest','frank and honest','vague','aggressive'],ans:1,exp:'<strong>Candid</strong> = 솔직한'},
+  {q:'The artist\'s work was considered <strong>avant-garde</strong>.',opts:['traditional','experimental and innovative','popular','simple'],ans:1,exp:'<strong>Avant-garde</strong> = 전위적인, 혁신적인'},
+  {q:'The virus spread through <strong>proximity</strong> to infected people.',opts:['distance','nearness','contact with water','air travel'],ans:1,exp:'<strong>Proximity</strong> = 근접, 가까움'},
+];
+
+const grammarPool = [
+  {q:'Choose the correct sentence:',opts:["She don't like vegetables.","She doesn't like vegetables.","She not like vegetables.","She doesn't likes vegetables."],ans:1,exp:'3인칭 단수 부정: <strong>doesn\'t + 동사원형</strong>'},
+  {q:'_______ you finished your homework yet?',opts:['Did','Do','Have','Are'],ans:2,exp:'현재완료 의문문: <strong>Have + 주어 + p.p.</strong>'},
+  {q:'If I _______ you, I would apologize immediately.',opts:['am','was','were','be'],ans:2,exp:'가정법 과거: be동사는 항상 <strong>were</strong>'},
+  {q:'The report _______ that sales increased by 20% last year.',opts:['indicate','indicates','indicating','indicated'],ans:1,exp:'단수 주어 → <strong>indicates</strong>'},
+  {q:'Not only _______ she win the competition, but she also broke the record.',opts:['did','does','was','has'],ans:0,exp:'"Not only" 도치구문: <strong>did + 주어 + 동사원형</strong>'},
+  {q:'The book _______ by millions of readers worldwide.',opts:['reads','is read','reading','has read'],ans:1,exp:'수동태: <strong>be동사 + p.p.</strong>'},
+  {q:'By the time we arrived, the meeting _______ already started.',opts:['has','had','was','did'],ans:1,exp:'과거완료: <strong>had + p.p.</strong>'},
+  {q:'_______ the rain, the game continued as scheduled.',opts:['Despite of','Although','Despite','Even'],ans:2,exp:'<strong>Despite + 명사구</strong>'},
+  {q:'She asked me _______ I had seen her keys.',opts:['that','if','what','which'],ans:1,exp:'yes/no 간접의문문: <strong>if/whether</strong>'},
+  {q:'The findings, _______ were published last month, surprised scientists.',opts:['that','who','which','what'],ans:2,exp:'사물 선행사의 계속적 용법: <strong>which</strong>'},
+  {q:'She is used to _______ early in the morning.',opts:['wake','woke','waking','woken'],ans:2,exp:'"be used to" 뒤에는 <strong>동명사(-ing)</strong>'},
+  {q:'_______ he studied hard, he failed the exam.',opts:['Despite','Although','However','Because'],ans:1,exp:'절 앞에는 <strong>Although</strong>'},
+  {q:'The committee _______ divided on the issue.',opts:['is','are','were','have'],ans:0,exp:'집합명사 단수 취급 → <strong>is</strong>'},
+  {q:'I wish I _______ more time to finish the project.',opts:['have','had','has','will have'],ans:1,exp:'"I wish" 가정법: <strong>과거형(had)</strong>'},
+  {q:'The manager told the employees _______ overtime.',opts:['work','worked','to work','working'],ans:2,exp:'"tell + 목적어 + <strong>to 부정사</strong>"'},
+  {q:'_______ in 1879, Einstein became one of history\'s greatest scientists.',opts:['Born','Being born','He was born','Having born'],ans:0,exp:'분사구문: <strong>Born</strong>'},
+  {q:'Neither the students nor the teacher _______ ready.',opts:['are','is','were','have'],ans:1,exp:'"Neither A nor B" → B에 동사 일치 → <strong>is</strong>'},
+  {q:'The earlier you start, _______ you will finish.',opts:['the sooner','sooner','more sooner','the more sooner'],ans:0,exp:'"the + 비교급, the + 비교급" → <strong>the sooner</strong>'},
+  {q:'It is essential that every student _______ the rules.',opts:['follows','follow','followed','following'],ans:1,exp:'주장·요구 that절: <strong>동사원형</strong>'},
+  {q:'The project _______ by the end of next month.',opts:['will complete','will be completed','completes','is completing'],ans:1,exp:'미래 수동태: <strong>will be + p.p.</strong>'},
+  {q:'She _______ for three hours when he finally arrived.',opts:['was waiting','had been waiting','has waited','waited'],ans:1,exp:'과거완료 진행: <strong>had been + -ing</strong>'},
+  {q:'The new bridge _______ last year.',opts:['was built','built','has built','is built'],ans:0,exp:'과거 수동태: <strong>was built</strong>'},
+  {q:'He speaks English as _______ as a native speaker.',opts:['good','well','better','best'],ans:1,exp:'동사 수식은 부사 <strong>well</strong>'},
+  {q:'_______ is believed that exercise improves mental health.',opts:['This','That','It','There'],ans:2,exp:'비인칭 주어 <strong>It</strong> is believed that...'},
+  {q:'She would rather _______ at home than go out.',opts:['staying','stayed','stay','to stay'],ans:2,exp:'"would rather" 뒤에는 <strong>동사원형</strong>'},
+  {q:'The more he practiced, _______ he became.',opts:['the skillful','the more skillful','more skillful','most skillful'],ans:1,exp:'"the + 비교급, the + 비교급" → <strong>the more skillful</strong>'},
+  {q:'He suggested _______ the meeting until next week.',opts:['postpone','to postpone','postponing','postponed'],ans:2,exp:'"suggest" 뒤에는 <strong>동명사(-ing)</strong>'},
+  {q:'The experiment _______ under strict laboratory conditions.',opts:['conducting','conducted','was conducted','has conducting'],ans:2,exp:'수동태: <strong>was conducted</strong>'},
+  {q:'No sooner _______ he arrived than the phone rang.',opts:['has','had','did','was'],ans:1,exp:'"No sooner" 도치구문: <strong>had + 주어 + p.p.</strong>'},
+  {q:'She is one of the most talented students _______ have ever taught.',opts:['who I','whom I','that I','which I'],ans:2,exp:'최상급 선행사 뒤 관계대명사: <strong>that</strong>'},
+  {q:'_______ the deadline approaching, they worked overtime.',opts:['With','Because','Although','Despite'],ans:0,exp:'독립분사구문: <strong>With + 명사 + 분사</strong>'},
+  {q:'He denied _______ the money from the safe.',opts:['to take','take','taking','took'],ans:2,exp:'"deny" 뒤에는 <strong>동명사(-ing)</strong>'},
+  {q:'The salary _______ negotiated before signing the contract.',opts:['should','should be','should have','should been'],ans:1,exp:'조동사 수동태: <strong>should be + p.p.</strong>'},
+  {q:'_______ of the students passed the final exam.',opts:['All','Every','Each','Either'],ans:0,exp:'"All of the students" — All은 복수 명사와 함께 사용'),
+  {q:'She asked him where _______ going.',opts:['was he','he was','is he','he is'],ans:1,exp:'간접의문문에서 어순: <strong>주어 + 동사</strong>'},
+  {q:'The evidence suggests that he _______ at the scene of the crime.',opts:['was','is','were','be'],ans:0,exp:'that절에서 과거 사실: <strong>was</strong>'},
+  {q:'She had her car _______ by a mechanic.',opts:['fix','fixed','fixing','to fix'],ans:1,exp:'"have + 목적어 + <strong>p.p.</strong>" 사역 수동'},
+  {q:'_______ you need help, don\'t hesitate to call me.',opts:['Although','Should','Despite','While'],ans:1,exp:'조건 도치: <strong>Should you need</strong> = If you should need'},
+  {q:'The number of people _______ increased significantly.',opts:['have','has','are','were'],ans:1,exp:'"The number of" → 단수 취급 → <strong>has</strong>'},
+  {q:'She explained to us _______ the experiment worked.',opts:['how','what','that','which'],ans:0,exp:'간접의문문: "explained how" — 방법을 설명 → <strong>how</strong>'},
+];
+
+const shortPassagePool = [
+  {title:'Coral Reefs',text:'Coral reefs are often called "the rainforests of the sea" because of their incredible biodiversity. They cover less than 1% of the ocean floor but support about 25% of all marine species. However, coral reefs are under serious threat from rising ocean temperatures, which cause coral bleaching. When water becomes too warm, corals expel the algae living in their tissues, turning white and eventually dying.',questions:[{q:'What causes coral bleaching?',opts:['Overfishing','Rising ocean temperatures','Plastic pollution','Deep-sea mining'],ans:1,exp:'<strong>Rising ocean temperatures</strong>가 산호 백화 현상의 원인이에요.'}]},
+  {title:'The Internet',text:'The Internet has dramatically changed how people communicate and access information. Before the Internet, people relied on books, newspapers, and television for news. Today, anyone with a smartphone can access billions of pieces of information instantly. While this has many benefits, it has also created challenges such as misinformation and privacy concerns.',questions:[{q:'What is one NEGATIVE effect of the Internet?',opts:['Faster communication','Increased misinformation','Better news access','Cheaper smartphones'],ans:1,exp:'<strong>Misinformation(허위 정보)</strong>이 부정적 효과로 언급됐어요.'}]},
+  {title:'The Great Wall',text:'The Great Wall of China was built over many centuries to protect Chinese states from invasions. Construction began as early as the 7th century BC. The most well-known sections were built during the Ming Dynasty (1368–1644). The wall stretches over 13,000 miles and was built using millions of workers, including soldiers, peasants, and prisoners.',questions:[{q:'What was the PRIMARY purpose of the Great Wall?',opts:['Tourism','Trade routes','Protection from invasions','Religious ceremonies'],ans:2,exp:'지문 첫 문장: "to <strong>protect Chinese states from invasions</strong>"'}]},
+  {title:'Neuroplasticity',text:'Neuroplasticity refers to the brain\'s ability to reorganize itself by forming new neural connections throughout life. The brain can adapt to new situations, recover from injury, and change its structure in response to learning. Activities such as learning a musical instrument or studying a foreign language can significantly enhance neuroplasticity.',questions:[{q:'What activity can enhance neuroplasticity?',opts:['Sleeping more','Watching television','Learning a musical instrument','Eating healthy food'],ans:2,exp:'지문에서 <strong>learning a musical instrument</strong>를 예로 들었어요.'}]},
+  {title:'Propaganda',text:'Propaganda is information spread to promote a particular viewpoint. Unlike balanced reporting, propaganda uses emotional language and selective facts to manipulate audiences. During wartime, governments use propaganda to boost morale. Social media has made it easier to spread propaganda to wide audiences rapidly.',questions:[{q:'How does propaganda differ from balanced reporting?',opts:['Uses more statistics','Uses emotional language to manipulate','Only used online','Always contains false info'],ans:1,exp:'<strong>감정적 언어와 선택적 사실</strong>로 청중을 조종해요.'}]},
+  {title:'Opportunity Cost',text:'Opportunity cost is a fundamental concept in economics. Every decision involves giving up something else. If a student studies instead of watching a movie, the opportunity cost is the enjoyment of that movie. Understanding opportunity cost helps individuals and businesses allocate limited resources more efficiently.',questions:[{q:'What does "opportunity cost" refer to?',opts:['The financial cost of a choice','The value of the best alternative given up','The time spent deciding','The total cost of all options'],ans:1,exp:'기회비용 = <strong>포기한 차선의 대안의 가치</strong>'}]},
+  {title:'Sleep',text:'Sleep is essential for physical and mental health. During sleep, the brain consolidates memories and removes harmful toxins. Lack of sleep is linked to increased risk of obesity, diabetes, and cardiovascular disease. Adults are recommended to get 7 to 9 hours of sleep per night for optimal health.',questions:[{q:'What happens in the brain during sleep?',opts:['It stops all activity','It consolidates memories and removes toxins','It increases stress hormones','It processes food'],ans:1,exp:'수면 중 뇌는 <strong>기억 통합 + 유해 독소 제거</strong>를 해요.'}]},
+  {title:'Cognitive Dissonance',text:'The concept of cognitive dissonance describes the discomfort felt when holding contradictory beliefs. To reduce this discomfort, people change their attitudes, seek supporting information, or rationalize their behavior. This concept helps explain many seemingly irrational human decisions.',questions:[{q:'Which is NOT mentioned as a way to reduce cognitive dissonance?',opts:['Changing attitudes','Seeking supporting information','Accepting contradictions willingly','Rationalizing behavior'],ans:2,exp:'지문에서 <strong>모순 수용</strong>은 언급되지 않았어요.'}]},
+  {title:'Bees',text:'Bees are vital insects in our ecosystem. They fly from flower to flower, collecting nectar to make honey. During this process, they also carry pollen from one plant to another — a process called pollination. Without bees, many plants could not reproduce, and food supplies worldwide would be severely affected.',questions:[{q:'What is the significance of bees for plants?',opts:['They produce honey for plants','They help plants reproduce through pollination','They protect plants from insects','They clean the soil for plants'],ans:1,exp:'벌은 <strong>수분(pollination)</strong>을 통해 식물 번식을 도와요.'}]},
+  {title:'Climate Change',text:'Climate change refers to long-term shifts in global temperatures and weather patterns. While some climate change is natural, human activities since the Industrial Revolution have been the primary driver. Burning fossil fuels, deforestation, and industrial processes release greenhouse gases that trap heat in the atmosphere, causing global temperatures to rise.',questions:[{q:'What is the PRIMARY cause of current climate change?',opts:['Natural geological events','Volcanic eruptions','Human industrial activities','Ocean currents'],ans:2,exp:'현재 기후 변화의 주요 원인은 <strong>인간의 산업 활동</strong>이에요.'}]},
+  {title:'Antibiotics',text:'Antibiotics are medicines that kill or inhibit the growth of bacteria. Since their discovery in the 1920s, they have saved millions of lives. However, the overuse and misuse of antibiotics has led to antibiotic resistance, where bacteria evolve to survive antibiotic treatment. This is considered one of the greatest threats to global health.',questions:[{q:'What is a major problem with the overuse of antibiotics?',opts:['They become more expensive','Bacteria develop resistance','They lose their smell','Patients become dependent'],ans:1,exp:'항생제 남용으로 <strong>항생제 내성(antibiotic resistance)</strong>이 생겨요.'}]},
+  {title:'The Moon',text:'The Moon is Earth\'s only natural satellite. It takes about 27 days for the Moon to orbit Earth. The Moon has no atmosphere, so it experiences extreme temperatures. The Moon\'s gravity is about one-sixth of Earth\'s gravity, which is why astronauts can jump much higher on the Moon than on Earth.',questions:[{q:'Why can astronauts jump higher on the Moon?',opts:['No air resistance','Much weaker gravity','Special boots','Bouncy surface'],ans:1,exp:'달의 중력이 지구의 <strong>약 1/6</strong>이기 때문이에요.'}]},
+  {title:'Dolphins',text:'Dolphins are highly intelligent marine mammals. They live in groups called pods and communicate using clicks and whistles. Dolphins are known for their playful behavior and have been observed helping injured members of their pod. They breathe air through a blowhole on top of their heads.',questions:[{q:'How do dolphins communicate?',opts:['Body language only','Using clicks and whistles','Splashing water','Eye contact'],ans:1,exp:'돌고래는 <strong>clicks and whistles</strong>로 소통해요.'}]},
+  {title:'Volcanoes',text:'Volcanoes are openings in Earth\'s crust that allow molten rock, ash, and gases to escape from deep underground. When a volcano erupts, it can cause widespread destruction, but volcanic activity also has benefits — it creates fertile soil and new land. Many of the world\'s most fertile farming regions are located near volcanoes.',questions:[{q:'What is one BENEFIT of volcanic activity?',opts:['It causes earthquakes','It creates fertile soil','It produces clean energy','It purifies ocean water'],ans:1,exp:'화산 활동은 <strong>비옥한 토양</strong>을 만들어요.'}]},
+  {title:'Renewable Energy',text:'Renewable energy comes from natural sources that are constantly replenished, such as sunlight, wind, and water. Unlike fossil fuels, renewable energy does not produce greenhouse gases during operation. As the cost of solar and wind technology has decreased dramatically, renewable energy is becoming the dominant source of new electricity generation worldwide.',questions:[{q:'What advantage does renewable energy have over fossil fuels?',opts:['It is cheaper to build','It does not produce greenhouse gases','It is more powerful','It is easier to transport'],ans:1,exp:'재생에너지는 <strong>온실가스를 배출하지 않아요</strong>.'}]},
+  {title:'Memory',text:'Human memory is not a perfect recording of events. Research shows that memories are reconstructed each time they are recalled, meaning they can be altered or distorted over time. Factors such as emotion, suggestion, and the passage of time can all influence how accurately we remember events. This has important implications for eyewitness testimony in legal cases.',questions:[{q:'What does research suggest about human memory?',opts:['It records events perfectly','It can be altered when recalled','It improves with age','It is more accurate under stress'],ans:1,exp:'기억은 회상될 때마다 <strong>재구성되어 변형될 수 있어요</strong>.'}]},
+];
+
+const longPassagePool = [
+  {title:'The Silk Road',text:'The Silk Road was not a single road but a vast network of trade routes connecting China to the Mediterranean Sea. For over a thousand years, merchants traveled these routes carrying silk, spices, gold, and other precious goods. The journey was extremely difficult and dangerous, passing through deserts, mountains, and hostile territories.\n\nHowever, the Silk Road was far more than just a commercial highway. It served as a critical pathway for the exchange of ideas, religions, technologies, and cultures between East and West. Buddhism spread from India to China along these routes, transforming Chinese society. Chinese inventions such as paper, printing, and gunpowder eventually reached Europe.\n\nThe decline of the Silk Road began in the 15th century as European powers developed sea routes to Asia. These sea routes were faster, safer, and could carry larger quantities of goods. By the 16th century, maritime trade had largely replaced overland routes.',questions:[{q:'What was the PRIMARY function of the Silk Road?',opts:['A military highway','Trade and cultural exchange','Religious pilgrimages only','Diplomatic travel'],ans:1,exp:'실크로드는 <strong>교역과 문화 교류</strong>를 위한 네트워크였어요.'},{q:'Why does the author mention Buddhism and Chinese inventions?',opts:['To show China was more advanced','To illustrate cultural exchange','To explain the decline','To describe journey dangers'],ans:1,exp:'<strong>문화 교류의 예시</strong>로 들었어요.'},{q:'What caused the decline of the Silk Road?',opts:['Wars along the route','Development of sea routes','Decreased demand for silk','Natural disasters'],ans:1,exp:'유럽이 <strong>더 빠른 해상 항로</strong>를 개발했기 때문이에요.'}]},
+  {title:'Genetic Engineering',text:'Genetic engineering is a technology that allows scientists to directly modify an organism\'s DNA to achieve specific traits. This powerful tool has applications across medicine, agriculture, and environmental science. In medicine, it has enabled the production of insulin for diabetics and is being explored for treating genetic disorders.\n\nIn agriculture, GMOs have been developed to resist pests, tolerate drought, and produce higher yields. Proponents argue that GMOs are essential to feeding a growing global population. However, critics raise concerns about potential environmental risks, such as the development of "super pests."\n\nPerhaps the most controversial application is genetic modification of human embryos. Scientists have pioneered CRISPR-Cas9 technology, which allows precise editing of the human genome. While this holds promise for eliminating hereditary diseases, it raises ethical questions about "designer babies" and genetic inequality.',questions:[{q:'What is one BENEFIT of GMOs in agriculture?',opts:['They eliminate all diseases','They resist pests and produce higher yields','They are cheaper','They taste better'],ans:1,exp:'GMO의 이점: <strong>해충 저항성 + 높은 수확량</strong>'},{q:'What ethical concern is raised about human genome editing?',opts:['Too expensive','Might create genetic inequality','Cannot cure diseases','Not yet possible'],ans:1,exp:'<strong>유전적 불평등(designer babies)</strong> 문제'},{q:'What is the author\'s overall tone toward genetic engineering?',opts:['Completely opposed','Fully supportive','Balanced — both benefits and concerns','Indifferent'],ans:2,exp:'저자는 <strong>균형 잡힌 시각</strong>으로 이점과 우려를 모두 제시해요.'}]},
+  {title:'Artificial Intelligence',text:'Artificial Intelligence (AI) refers to the simulation of human intelligence processes by computer systems. These processes include learning, reasoning, and self-correction. AI technologies now power everything from search engines and virtual assistants to self-driving cars and medical diagnostic tools.\n\nThe economic implications of AI are profound. Studies suggest AI could automate up to 40% of current jobs within the next two decades, particularly those involving routine tasks. However, history shows that technological revolutions, while displacing some jobs, ultimately create more employment than they eliminate.\n\nThe most pressing ethical concerns surrounding AI involve bias, privacy, and accountability. AI systems trained on biased data can perpetuate or amplify discrimination. As AI makes increasingly important decisions — in hiring, lending, and criminal justice — questions arise about who is responsible when these systems make mistakes.',questions:[{q:'What economic concern does the passage raise about AI?',opts:['AI will raise prices','AI could automate up to 40% of jobs','AI is too expensive to develop','AI will reduce productivity'],ans:1,exp:'AI가 <strong>40%의 일자리를 자동화</strong>할 수 있다고 했어요.'},{q:'What does history suggest about technological revolutions?',opts:['They always cause economic collapse','They create more jobs than they eliminate','They only benefit large companies','They slow economic growth'],ans:1,exp:'기술 혁명은 결국 <strong>제거하는 것보다 더 많은 일자리를 창출</strong>해요.'},{q:'What is one ethical concern about AI mentioned in the passage?',opts:['AI is too slow','AI systems trained on biased data can cause discrimination','AI costs too much','AI is difficult to understand'],ans:1,exp:'<strong>편향된 데이터로 학습된 AI는 차별을 영속시킬 수 있어요</strong>.'}]},
+  {title:'Ocean Acidification',text:'Ocean acidification is the ongoing decrease in the pH of Earth\'s oceans, caused primarily by the absorption of carbon dioxide from the atmosphere. As CO₂ dissolves in seawater, it forms carbonic acid, which lowers the ocean\'s pH. Since the Industrial Revolution, ocean pH has dropped from 8.2 to 8.1 — a 26% increase in acidity.\n\nThis increased acidity threatens marine organisms that rely on calcium carbonate to build their shells and skeletons, including oysters, clams, and coral reefs. Laboratory studies have shown that even small changes in pH can impair the ability of these organisms to form their protective structures.\n\nThe consequences extend throughout the marine food web. As shell-forming organisms decline, fish populations that depend on them for food are also affected. Ultimately, billions of people who rely on seafood as a primary protein source could face food security challenges.',questions:[{q:'What is the main cause of ocean acidification?',opts:['Increased fishing','Absorption of CO₂ from atmosphere','Underwater volcanoes','Rising sea levels'],ans:1,exp:'해양 산성화의 주요 원인은 <strong>대기 중 CO₂ 흡수</strong>예요.'},{q:'Which organisms are most threatened by ocean acidification?',opts:['Large fish like tuna','Shell-forming organisms like oysters','Deep-sea fish','Marine plants'],ans:1,exp:'탄산칼슘으로 껍질을 만드는 <strong>굴, 조개, 산호초</strong>가 위협받아요.'},{q:'What broader consequence does the passage mention?',opts:['Increased tsunami risk','Food security challenges for billions of people','More intense hurricanes','Decreased sea levels'],ans:1,exp:'해양 먹이 사슬 붕괴로 <strong>수십억 명의 식량 안보</strong>가 위협받을 수 있어요.'}]},
+];
+
+const arrangePool = [
+  {korean:'그 과학자는 지난달에 놀라운 발견을 했다.',words:['made','scientist','The','last month','discovery','a','remarkable'],answer:'The scientist made a remarkable discovery last month'},
+  {korean:'만약 내가 더 열심히 공부했더라면, 시험에 합격했을 것이다.',words:['studied','I','harder','had','the exam','I','passed','would have','If'],answer:'If I had studied harder I would have passed the exam'},
+  {korean:'그 회의는 모든 팀 구성원들이 참석한 가운데 진행되었다.',words:['all','was','the meeting','held','team members','with','present'],answer:'The meeting was held with all team members present'},
+  {korean:'비에도 불구하고, 행사는 예정대로 진행되었다.',words:['proceeded','the event','as scheduled','the rain','despite'],answer:'Despite the rain the event proceeded as scheduled'},
+  {korean:'그녀가 그 상을 받은 것은 그녀의 팀에게 대단한 영광이었다.',words:['was','her','for','receiving','the award','a great honor','her team','It'],answer:'It was a great honor for her team receiving the award'},
+  {korean:'그는 문제를 해결하기 위해 새로운 접근 방식을 제안했다.',words:['approach','He','the problem','a','solve','suggested','new','to'],answer:'He suggested a new approach to solve the problem'},
+  {korean:'환경 보호는 미래 세대를 위해 필수적이다.',words:['future','Environmental','generations','is','for','essential','protection'],answer:'Environmental protection is essential for future generations'},
+  {korean:'그 보고서가 출판되었을 때 많은 사람들이 놀랐다.',words:['published','When','was','the report','were','many people','surprised'],answer:'When the report was published many people were surprised'},
+  {korean:'정부는 대기 오염을 줄이기 위한 새로운 법을 통과시켰다.',words:['air pollution','The government','to reduce','new laws','passed'],answer:'The government passed new laws to reduce air pollution'},
+  {korean:'그 연구는 운동이 정신 건강을 향상시킨다는 것을 보여준다.',words:['shows','exercise','The study','mental health','that','improves'],answer:'The study shows that exercise improves mental health'},
 ];
 
 // =====================================================
-// 상태 관리
+// 랜덤 선택 유틸
 // =====================================================
-let allQuestions = [];
-let currentIdx = 0;
-let userAnswers = {};
-let arrangeAnswers = {};
-let timerInterval;
-let timeLeft = 3600;
-let startTime;
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5);}
+function pick(arr,n){return shuffle(arr).slice(0,n);}
 
-function buildAllQuestions() {
-  allQuestions = [];
-  sections.forEach(sec => {
-    if (sec.id === 'arrange') {
-      sec.questions.forEach((q) => {
-        allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'arrange', level: 3, ...q, globalIdx: allQuestions.length });
-      });
-    } else if (sec.questions) {
-      sec.questions.forEach((q) => {
-        allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'mcq', level: q.level || 3, ...q, globalIdx: allQuestions.length });
-      });
-    } else if (sec.passages) {
-      sec.passages.forEach((p) => {
-        p.questions.forEach((q) => {
-          allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'passage', passage: p, level: q.level || 3, ...q, globalIdx: allQuestions.length });
-        });
-      });
-    }
-  });
+// =====================================================
+// 상태
+// =====================================================
+let allQ=[], currentIdx=0, userAnswers={}, arrangeAnswers={};
+let timerInterval, timeLeft=3600, startTime;
+
+function buildTest(){
+  allQ=[];
+  // 어휘 20
+  pick(vocabPool,20).forEach(q=>allQ.push({secId:'vocab',secName:'어휘',secLabel:'Section 1 — Vocabulary',secBadge:'sb-vocab',secIcon:'📗',secDesc:'20문제 · 밑줄 친 단어의 의미를 고르세요',type:'mcq',level:3,...q}));
+  // 문법 20
+  pick(grammarPool,20).forEach(q=>allQ.push({secId:'grammar',secName:'문법',secLabel:'Section 2 — Grammar',secBadge:'sb-grammar',secIcon:'✏️',secDesc:'20문제 · 문법적으로 올바른 것을 고르세요',type:'mcq',level:3,...q}));
+  // 짧은 독해 8
+  pick(shortPassagePool,8).forEach(p=>p.questions.forEach(q=>allQ.push({secId:'reading_short',secName:'짧은 독해',secLabel:'Section 3 — Short Reading',secBadge:'sb-reading',secIcon:'📖',secDesc:'8개 지문',type:'passage',passage:p,level:3,...q})));
+  // 긴 독해 2개 × 3문제
+  pick(longPassagePool,2).forEach(p=>p.questions.forEach(q=>allQ.push({secId:'reading_long',secName:'긴 독해',secLabel:'Section 4 — Long Reading',secBadge:'sb-reading',secIcon:'📄',secDesc:'2개 지문 × 3문제',type:'passage_long',passage:p,level:4,...q})));
+  // 문장 배열 5
+  pick(arrangePool,5).forEach(q=>allQ.push({secId:'arrange',secName:'문장 배열',secLabel:'Section 5 — Sentence Arrangement',secBadge:'sb-arrange',secIcon:'🔤',secDesc:'5문제 · 단어를 올바른 순서로 배열하세요',type:'arrange',level:3,...q}));
 }
 
-function startTest() {
-  buildAllQuestions();
-  document.getElementById('startScreen').style.display = 'none';
-  document.getElementById('testScreen').style.display = 'block';
-  startTime = Date.now();
+function startTest(){
+  buildTest();
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testScreen').style.display='block';
+  startTime=Date.now();
   startTimer();
-  renderQuestion(0);
+  renderQ(0);
 }
 
-// =====================================================
-// 타이머
-// =====================================================
-function startTimer() {
-  timerInterval = setInterval(() => {
+function startTimer(){
+  timerInterval=setInterval(()=>{
     timeLeft--;
-    const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-    const s = (timeLeft % 60).toString().padStart(2, '0');
-    document.getElementById('timerDisplay').textContent = `${m}:${s}`;
-    if (timeLeft <= 300) document.getElementById('timerBox').classList.add('warning');
-    if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
-  }, 1000);
+    const m=String(Math.floor(timeLeft/60)).padStart(2,'0');
+    const s=String(timeLeft%60).padStart(2,'0');
+    document.getElementById('timerDisplay').textContent=`${m}:${s}`;
+    if(timeLeft<=300)document.getElementById('timerBox').classList.add('warning');
+    if(timeLeft<=0){clearInterval(timerInterval);submitTest();}
+  },1000);
 }
 
-// =====================================================
-// 문제 렌더링
-// =====================================================
-function renderQuestion(idx) {
-  currentIdx = idx;
-  const total = allQuestions.length;
-  const q = allQuestions[idx];
-
-  document.getElementById('sectionLabel').textContent = q.secLabel;
-  document.getElementById('qProgress').textContent = `${idx + 1} / ${total}`;
-  document.getElementById('qCounter').textContent = `${idx + 1} / ${total}`;
-  document.getElementById('progFill').style.width = ((idx / total) * 100 + 1) + '%';
-
-  document.getElementById('btnPrev').style.opacity = idx === 0 ? '0.3' : '1';
-  document.getElementById('btnPrev').style.pointerEvents = idx === 0 ? 'none' : 'auto';
-
-  const isLast = idx === total - 1;
-  const btnNext = document.getElementById('btnNext');
-  if (isLast) {
-    btnNext.outerHTML = '<button class="btn-submit" id="btnNext" onclick="submitTest()">제출하기 ✓</button>';
-  } else {
-    const btn = document.getElementById('btnNext');
-    if (btn.classList.contains('btn-submit')) {
-      btn.outerHTML = '<button class="btn-next" id="btnNext" onclick="goQuestion(1)">다음 →</button>';
-    }
-  }
-
-  const area = document.getElementById('questionArea');
-
-  // 섹션 헤더 (섹션이 바뀔 때만)
-  const prevQ = idx > 0 ? allQuestions[idx - 1] : null;
-  const showHeader = !prevQ || prevQ.secId !== q.secId;
-
-  let html = '';
-  if (showHeader) {
-    const sec = sections.find(s => s.id === q.secId) || { icon: '🔤', name: q.secName, desc: '' };
-    html += `<div class="section-header">
-      <span class="sec-badge ${q.secBadge}">${sec.icon} ${q.secName}</span>
-      <div class="sec-header-info"><h2>${q.secLabel}</h2><p>${sec.desc || ''}</p></div>
-    </div>`;
-  }
-
-  if (q.type === 'arrange') {
-    html += renderArrange(q, idx);
-  } else if (q.type === 'passage') {
-    html += renderPassage(q, idx);
-  } else {
-    html += renderMCQ(q, idx);
-  }
-
-  area.innerHTML = html;
-
-  // 배열 문제 이벤트
-  if (q.type === 'arrange') initArrange(idx, q);
+function renderQ(idx){
+  currentIdx=idx;
+  const total=allQ.length;
+  const q=allQ[idx];
+  document.getElementById('sectionLabel').textContent=q.secLabel;
+  document.getElementById('qProgress').textContent=`${idx+1} / ${total}`;
+  document.getElementById('qCounter').textContent=`${idx+1} / ${total}`;
+  document.getElementById('progFill').style.width=((idx/total)*100+1)+'%';
+  document.getElementById('btnPrev').style.opacity=idx===0?'0.3':'1';
+  document.getElementById('btnPrev').style.pointerEvents=idx===0?'none':'auto';
+  const isLast=idx===total-1;
+  let btnHtml=isLast?'<button class="btn-submit" id="btnNext" onclick="submitTest()">제출하기 ✓</button>':'<button class="btn-next" id="btnNext" onclick="goQ(1)">다음 →</button>';
+  document.getElementById('btnNext').outerHTML=btnHtml;
+  const area=document.getElementById('questionArea');
+  const prevQ=idx>0?allQ[idx-1]:null;
+  const showHeader=!prevQ||prevQ.secId!==q.secId;
+  let html='';
+  if(showHeader) html+=`<div class="section-header"><span class="sec-badge ${q.secBadge}">${q.secIcon} ${q.secName}</span><div class="sec-header-info"><h2>${q.secLabel}</h2><p>${q.secDesc}</p></div></div>`;
+  if(q.type==='arrange') html+=renderArrange(q,idx);
+  else if(q.type==='passage_long') html+=renderPassageLong(q,idx);
+  else if(q.type==='passage') html+=renderPassageShort(q,idx);
+  else html+=renderMCQ(q,idx);
+  area.innerHTML=html;
 }
 
-function renderMCQ(q, idx) {
-  const saved = userAnswers[idx];
-  const labels = ['A', 'B', 'C', 'D'];
-  const opts = q.opts.map((o, i) => {
-    let cls = 'opt-btn';
-    if (saved === i) cls += ' selected';
-    return `<button class="${cls}" onclick="selectMCQ(${idx},${i})" id="opt_${idx}_${i}">
-      <span class="opt-label">${labels[i]}</span><span>${o}</span>
-    </button>`;
-  }).join('');
-  return `<div class="q-card">
-    <div class="q-num">Q${idx + 1}</div>
-    <div class="q-text">${q.q}</div>
-    <div class="options">${opts}</div>
-  </div>`;
+function renderMCQ(q,idx){
+  const saved=userAnswers[idx];
+  const labels=['A','B','C','D'];
+  const opts=q.opts.map((o,i)=>`<button class="opt-btn${saved===i?' selected':''}" onclick="selMCQ(${idx},${i})"><span class="opt-label">${labels[i]}</span><span>${o}</span></button>`).join('');
+  return`<div class="q-card"><div class="q-num">Q${idx+1}</div><div class="q-text">${q.q}</div><div class="options">${opts}</div></div>`;
 }
 
-function renderPassage(q, idx) {
-  const saved = userAnswers[idx];
-  const labels = ['A', 'B', 'C', 'D'];
-  const isLong = q.secId === 'reading_long';
-  const passageHtml = isLong
-    ? `<div class="passage-long"><div class="passage-long-label">📄 ${q.passage.title}</div>${q.passage.text.replace(/\n/g, '<br><br>')}</div>`
-    : `<div class="passage-box"><div class="passage-label">📖 ${q.passage.title}</div>${q.passage.text}</div>`;
-  const opts = q.opts.map((o, i) => {
-    let cls = 'opt-btn';
-    if (saved === i) cls += ' selected';
-    return `<button class="${cls}" onclick="selectMCQ(${idx},${i})" id="opt_${idx}_${i}">
-      <span class="opt-label">${labels[i]}</span><span>${o}</span>
-    </button>`;
-  }).join('');
-  return `<div class="q-card">
-    ${passageHtml}
-    <div class="q-num">Q${idx + 1}</div>
-    <div class="q-text">${q.q}</div>
-    <div class="options">${opts}</div>
-  </div>`;
+function renderPassageShort(q,idx){
+  const saved=userAnswers[idx];
+  const labels=['A','B','C','D'];
+  const opts=q.opts.map((o,i)=>`<button class="opt-btn${saved===i?' selected':''}" onclick="selMCQ(${idx},${i})"><span class="opt-label">${labels[i]}</span><span>${o}</span></button>`).join('');
+  return`<div class="q-card"><div class="passage-box"><div class="passage-label">📖 ${q.passage.title}</div>${q.passage.text}</div><div class="q-num">Q${idx+1}</div><div class="q-text">${q.q}</div><div class="options">${opts}</div></div>`;
 }
 
-function renderArrange(q, idx) {
-  const saved = arrangeAnswers[idx] || [];
-  const remaining = q.words.filter(w => !saved.includes(w));
-  const savedChips = saved.map(w => `<span class="word-chip in-answer" onclick="removeWord(${idx},'${w}')">${w}</span>`).join('');
-  const bankChips = remaining.map(w => `<span class="word-chip" onclick="addWord(${idx},'${w}')">${w}</span>`).join('');
-  return `<div class="q-card">
-    <div class="q-num">Q${idx + 1} — 문장 배열</div>
-    <div class="korean-sentence">🇰🇷 ${q.korean}</div>
-    <div class="arrange-hint">단어를 클릭해서 올바른 순서로 배열하세요:</div>
-    <div class="answer-area active" id="answerArea_${idx}">${savedChips}</div>
-    <div class="arrange-hint">단어 목록:</div>
-    <div class="word-bank" id="wordBank_${idx}">${bankChips}</div>
-    <div class="correct-answer" id="correctAnswer_${idx}"></div>
-  </div>`;
+function renderPassageLong(q,idx){
+  const saved=userAnswers[idx];
+  const labels=['A','B','C','D'];
+  const opts=q.opts.map((o,i)=>`<button class="opt-btn${saved===i?' selected':''}" onclick="selMCQ(${idx},${i})"><span class="opt-label">${labels[i]}</span><span>${o}</span></button>`).join('');
+  return`<div class="q-card"><div class="passage-long"><div class="passage-long-label">📄 ${q.passage.title}</div>${q.passage.text.replace(/\n/g,'<br><br>')}</div><div class="q-num">Q${idx+1}</div><div class="q-text">${q.q}</div><div class="options">${opts}</div></div>`;
 }
 
-function initArrange(idx, q) {}
-
-function addWord(idx, word) {
-  if (!arrangeAnswers[idx]) arrangeAnswers[idx] = [];
-  arrangeAnswers[idx].push(word);
-  renderQuestion(currentIdx);
+function renderArrange(q,idx){
+  const saved=arrangeAnswers[idx]||[];
+  const remaining=q.words.filter(w=>!saved.includes(w));
+  const savedChips=saved.map(w=>`<span class="word-chip in-answer" onclick="rmWord(${idx},'${w}')">${w}</span>`).join('');
+  const bankChips=remaining.map(w=>`<span class="word-chip" onclick="addWord(${idx},'${w}')">${w}</span>`).join('');
+  return`<div class="q-card"><div class="q-num">Q${idx+1} — 문장 배열</div><div class="korean-sentence">🇰🇷 ${q.korean}</div><div class="arrange-hint">단어를 클릭해서 올바른 순서로 배열하세요:</div><div class="answer-area">${savedChips}</div><div class="arrange-hint">단어 목록:</div><div class="word-bank">${bankChips}</div></div>`;
 }
 
-function removeWord(idx, word) {
-  if (!arrangeAnswers[idx]) return;
-  const i = arrangeAnswers[idx].indexOf(word);
-  if (i > -1) arrangeAnswers[idx].splice(i, 1);
-  renderQuestion(currentIdx);
+function selMCQ(idx,i){
+  userAnswers[idx]=i;
+  document.querySelectorAll('.opt-btn').forEach((b,bi)=>{
+    b.className='opt-btn'+(bi===i?' selected':'');
+  });
 }
 
-function selectMCQ(idx, optIdx) {
-  userAnswers[idx] = optIdx;
-  const labels = ['A', 'B', 'C', 'D'];
-  for (let i = 0; i < 4; i++) {
-    const b = document.getElementById(`opt_${idx}_${i}`);
-    if (!b) continue;
-    b.className = 'opt-btn' + (i === optIdx ? ' selected' : '');
-  }
-}
+function addWord(idx,w){if(!arrangeAnswers[idx])arrangeAnswers[idx]=[];arrangeAnswers[idx].push(w);renderQ(currentIdx);}
+function rmWord(idx,w){if(!arrangeAnswers[idx])return;const i=arrangeAnswers[idx].indexOf(w);if(i>-1)arrangeAnswers[idx].splice(i,1);renderQ(currentIdx);}
+function goQ(dir){const n=currentIdx+dir;if(n>=0&&n<allQ.length)renderQ(n);}
 
-function goQuestion(dir) {
-  const next = currentIdx + dir;
-  if (next >= 0 && next < allQuestions.length) renderQuestion(next);
-}
-
-// =====================================================
-// 채점
-// =====================================================
-function submitTest() {
+function submitTest(){
   clearInterval(timerInterval);
-  const elapsed = Math.round((Date.now() - startTime) / 1000);
-  const em = Math.floor(elapsed / 60), es = elapsed % 60;
-
-  let correct = 0;
-  const secScores = {};
-
-  allQuestions.forEach((q, idx) => {
-    if (!secScores[q.secId]) secScores[q.secId] = { c: 0, t: 0, name: q.secName };
-    secScores[q.secId].t++;
-
-    if (q.type === 'arrange') {
-      const ans = (arrangeAnswers[idx] || []).join(' ').toLowerCase().replace(/[.,!?]/g, '');
-      const correct_ans = q.answer.toLowerCase().replace(/[.,!?]/g, '');
-      if (ans === correct_ans) { correct++; secScores[q.secId].c++; }
+  const elapsed=Math.round((Date.now()-startTime)/1000);
+  const em=Math.floor(elapsed/60),es=elapsed%60;
+  let correct=0;
+  const secS={};
+  allQ.forEach((q,idx)=>{
+    if(!secS[q.secId])secS[q.secId]={c:0,t:0,name:q.secName};
+    secS[q.secId].t++;
+    let ok=false;
+    if(q.type==='arrange'){
+      const a=(arrangeAnswers[idx]||[]).join(' ').toLowerCase().replace(/[.,!?]/g,'');
+      const ca=q.answer.toLowerCase().replace(/[.,!?]/g,'');
+      ok=a===ca;
     } else {
-      if (userAnswers[idx] === q.ans) { correct++; secScores[q.secId].c++; }
+      ok=userAnswers[idx]===q.ans;
     }
+    if(ok){correct++;secS[q.secId].c++;}
   });
-
-  const total = allQuestions.length;
-  const score = Math.round(correct / total * 100);
-
-  // 레벨 계산
-  let ws = 0, mw = 0;
-  allQuestions.forEach((q, idx) => {
-    const lv = q.level || 3;
-    mw += lv;
-    const isCorrect = q.type === 'arrange'
-      ? (arrangeAnswers[idx] || []).join(' ').toLowerCase().replace(/[.,!?]/g, '') === q.answer.toLowerCase().replace(/[.,!?]/g, '')
-      : userAnswers[idx] === q.ans;
-    if (isCorrect) ws += lv;
+  const total=allQ.length;
+  const score=Math.round(correct/total*100);
+  let ws=0,mw=0;
+  allQ.forEach((q,idx)=>{
+    mw+=q.level||3;
+    let ok=q.type==='arrange'?(arrangeAnswers[idx]||[]).join(' ').toLowerCase().replace(/[.,!?]/g,'')===(q.answer||'').toLowerCase().replace(/[.,!?]/g,''):userAnswers[idx]===q.ans;
+    if(ok)ws+=q.level||3;
   });
-  const r = ws / (mw || 1);
-  const level = r >= 0.85 ? 5 : r >= 0.68 ? 4 : r >= 0.50 ? 3 : r >= 0.32 ? 2 : 1;
-
-  const lvInfo = {
-    1: { name: 'Beginner', emoji: '🌱', color: '#1a9e78' },
-    2: { name: 'Elementary', emoji: '📗', color: '#5b4fcf' },
-    3: { name: 'Intermediate', emoji: '📘', color: '#2979d4' },
-    4: { name: 'Upper-Intermediate', emoji: '📙', color: '#d4900a' },
-    5: { name: 'Advanced', emoji: '📕', color: '#d94040' }
-  };
-  const recBooks = {
-    1: ["Dinosaurs Before Dark", "The Knight at Dawn", "Pirates Past Noon", "Mummies in the Morning"],
-    2: ["Charlotte's Web", "Matilda", "The Wild Robot", "Sarah, Plain and Tall"],
-    3: ["Bridge to Terabithia", "Frindle", "The Landry News", "Where the Red Fern Grows"],
-    4: ["The Alchemist", "Shiloh", "To Kill a Mockingbird", "Gangsta Granny"],
-    5: ["The Giver", "The Hunger Games", "Hatchet", "The Maze Runner"]
-  };
-
-  const lv = lvInfo[level];
-  document.getElementById('testScreen').style.display = 'none';
-  document.getElementById('resultScreen').style.display = 'block';
-  document.getElementById('rEmoji').textContent = lv.emoji;
-  document.getElementById('rLevel').textContent = 'Level ' + level;
-  document.getElementById('rLevel').style.color = lv.color;
-  document.getElementById('rName').textContent = lv.name;
-  document.getElementById('rTotal').textContent = score + '점';
-  document.getElementById('rCorrect').textContent = correct + '/' + total;
-  document.getElementById('rAccuracy').textContent = score + '%';
-  document.getElementById('rTime').textContent = `${em}분 ${es}초`;
-
-  const secColors = { vocab: '#5b4fcf', grammar: '#d4900a', reading_short: '#1a9e78', reading_long: '#2979d4', arrange: '#d94040' };
-  const secNames = { vocab: '어휘', grammar: '문법', reading_short: '짧은 독해', reading_long: '긴 독해', arrange: '문장 배열' };
-  document.getElementById('sectionScores').innerHTML = Object.keys(secScores).map(k => {
-    const p = Math.round(secScores[k].c / secScores[k].t * 100);
-    const col = secColors[k] || '#5b4fcf';
-    return `<div class="sec-score-card">
-      <div class="sec-score-name">${secNames[k] || k}</div>
-      <div class="sec-score-bar-bg"><div class="sec-score-bar" style="width:0%;background:${col}" data-pct="${p}"></div></div>
-      <div class="sec-score-val" style="color:${col}">${secScores[k].c}/${secScores[k].t} (${p}%)</div>
-    </div>`;
+  const r=ws/(mw||1);
+  const lv=r>=0.85?5:r>=0.68?4:r>=0.50?3:r>=0.32?2:1;
+  const lvInfo={1:{n:'Beginner',e:'🌱',c:'#1a9e78'},2:{n:'Elementary',e:'📗',c:'#5b4fcf'},3:{n:'Intermediate',e:'📘',c:'#2979d4'},4:{n:'Upper-Intermediate',e:'📙',c:'#d4900a'},5:{n:'Advanced',e:'📕',c:'#d94040'}};
+  const recB={1:['Dinosaurs Before Dark','The Knight at Dawn','Pirates Past Noon','Mummies in the Morning'],2:["Charlotte's Web",'Matilda','The Wild Robot','Sarah, Plain and Tall'],3:['Bridge to Terabithia','Frindle','The Landry News','Where the Red Fern Grows'],4:['The Alchemist','Shiloh','To Kill a Mockingbird','Gangsta Granny'],5:['The Giver','The Hunger Games','Hatchet','The Maze Runner']};
+  const li=lvInfo[lv];
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  document.getElementById('rEmoji').textContent=li.e;
+  document.getElementById('rLevel').textContent='Level '+lv;
+  document.getElementById('rLevel').style.color=li.c;
+  document.getElementById('rName').textContent=li.n;
+  document.getElementById('rTotal').textContent=score+'점';
+  document.getElementById('rCorrect').textContent=correct+'/'+total;
+  document.getElementById('rAccuracy').textContent=score+'%';
+  document.getElementById('rTime').textContent=`${em}분 ${es}초`;
+  const sc={vocab:'#5b4fcf',grammar:'#d4900a',reading_short:'#1a9e78',reading_long:'#2979d4',arrange:'#d94040'};
+  const sn={vocab:'어휘',grammar:'문법',reading_short:'짧은 독해',reading_long:'긴 독해',arrange:'문장 배열'};
+  document.getElementById('sectionScores').innerHTML=Object.keys(secS).map(k=>{
+    const p=Math.round(secS[k].c/secS[k].t*100);
+    return`<div class="sec-score-card"><div class="sec-score-name">${sn[k]||k}</div><div class="sec-score-bar-bg"><div class="sec-score-bar" style="width:0%;background:${sc[k]||'#5b4fcf'}" data-pct="${p}"></div></div><div class="sec-score-val" style="color:${sc[k]||'#5b4fcf'}">${secS[k].c}/${secS[k].t} (${p}%)</div></div>`;
   }).join('');
-
-  document.getElementById('recBooks').innerHTML = `
-    <div class="rec-title">📚 추천 도서 — Level ${level}</div>
-    <div class="book-chips">${recBooks[level].map(b => `<span class="book-chip">${b}</span>`).join('')}</div>`;
-
-  setTimeout(() => {
-    document.querySelectorAll('.sec-score-bar').forEach(el => { el.style.width = el.dataset.pct + '%'; });
-  }, 300);
+  document.getElementById('recBooks').innerHTML=`<div class="rec-title">📚 추천 도서 — Level ${lv}</div><div class="book-chips">${recB[lv].map(b=>`<span class="book-chip">${b}</span>`).join('')}</div>`;
+  setTimeout(()=>document.querySelectorAll('.sec-score-bar').forEach(el=>{el.style.width=el.dataset.pct+'%';}),300);
 }
 </script>
 </body>
