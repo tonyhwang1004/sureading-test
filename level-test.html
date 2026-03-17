@@ -212,6 +212,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </div>
 <script>
+
+// 로그인 체크
+(function() {
+  const user = localStorage.getItem('sureading_user');
+  if (!user) {
+    alert('로그인이 필요합니다!');
+    location.href = '/';
+  }
+})();
 // =====================================================
 // 문제은행 (POOL)
 // =====================================================
