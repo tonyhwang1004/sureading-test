@@ -134,14 +134,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="startScreen">
     <div class="start-badge">SUREADING Level Assessment</div>
     <h1 class="start-title">영어 <span>레벨</span> 테스트</h1>
-    <p class="start-desc">토플 · 토익 스타일의 종합 영어 평가 테스트<br>매번 문제은행에서 랜덤 출제 · 51문제 + 에세이 2개 · 80분</p>
+    <p class="start-desc">토플 · 토익 스타일의 종합 영어 평가 테스트<br>매번 문제은행에서 랜덤 출제 · 51문제 + 에세이 1개 · 70분</p>
     <div class="section-overview">
       <div class="sec-card"><div class="sec-icon">📗</div><div class="sec-num">20</div><div class="sec-name">어휘</div><div class="pool-info">풀 40개</div></div>
       <div class="sec-card"><div class="sec-icon">✏️</div><div class="sec-num">20</div><div class="sec-name">문법</div><div class="pool-info">풀 40개</div></div>
       <div class="sec-card"><div class="sec-icon">📖</div><div class="sec-num">8</div><div class="sec-name">짧은 독해</div><div class="pool-info">풀 16개</div></div>
       <div class="sec-card"><div class="sec-icon">📄</div><div class="sec-num">6</div><div class="sec-name">긴 독해</div><div class="pool-info">풀 4개</div></div>
       <div class="sec-card"><div class="sec-icon">🔤</div><div class="sec-num">5</div><div class="sec-name">문장 배열</div><div class="pool-info">풀 10개</div></div>
-      <div class="sec-card"><div class="sec-icon">✍️</div><div class="sec-num">2</div><div class="sec-name">에세이</div><div class="pool-info">AI 채점</div></div>
+      <div class="sec-card"><div class="sec-icon">✍️</div><div class="sec-num">1</div><div class="sec-name">에세이</div><div class="pool-info">AI 채점</div></div>
     </div>
     <button class="start-btn" onclick="startTest()">테스트 시작 →</button>
   </div>
@@ -162,7 +162,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="essayScreen" style="display:none;">
     <div class="section-header">
       <span class="sec-badge sb-essay">✍️ Essay Writing</span>
-      <div class="sec-header-info"><h2>Section 6 — Essay Writing</h2><p>2개 주제 · 각 10분 · 100단어 이상 · AI 자동 채점</p></div>
+      <div class="sec-header-info"><h2>Section 6 — Essay Writing</h2><p>1개 주제 · 10분 · 100단어 이상 · AI 자동 채점</p></div>
     </div>
     <div class="q-card" id="essayCard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
@@ -350,7 +350,7 @@ function pick(arr,n){return shuffle(arr).slice(0,n);}
 // 상태
 // =====================================================
 let allQ=[], currentIdx=0, userAnswers={}, arrangeAnswers={};
-let timerInterval, timeLeft=4800, startTime;
+let timerInterval, timeLeft=4200, startTime;
 
 function buildTest(){
   allQ=[];
@@ -534,7 +534,7 @@ let essayScores = [];
 
 function startEssaySection() {
   // 10개 풀에서 2개 랜덤 선택
-  selectedTopics = shuffle(essayTopics).slice(0, 2);
+  selectedTopics = shuffle(essayTopics).slice(0, 1);
   essayIdx = 0;
   essayAnswers = [];
   essayScores = [];
@@ -545,7 +545,7 @@ function startEssaySection() {
 
 function showEssay(idx) {
   essayIdx = idx;
-  document.getElementById('essayQNum').textContent = `Essay ${idx + 1} / 2`;
+  document.getElementById('essayQNum').textContent = `Essay ${idx + 1} / 1`;
   document.getElementById('essayTopicText').textContent = selectedTopics[idx];
   document.getElementById('essayTextarea').value = essayAnswers[idx] || '';
   document.getElementById('wordCountDisplay').textContent = '0 words';
@@ -660,8 +660,8 @@ function showEssayScore(score) {
   const btn = document.getElementById('essayNextBtn');
   btn.disabled = false;
   if (essayIdx === 0) {
-    btn.textContent = '다음 에세이 →';
-    btn.onclick = () => { showEssay(1); };
+    btn.textContent = '채점 완료 →';
+    btn.onclick = () => { finalSubmit(); };
   } else {
     btn.textContent = '최종 결과 보기 →';
     btn.onclick = () => { finalSubmit(); };
