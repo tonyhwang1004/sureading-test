@@ -134,7 +134,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="startScreen">
     <div class="start-badge">SUREADING Level Assessment</div>
     <h1 class="start-title">영어 <span>레벨</span> 테스트</h1>
-    <p class="start-desc">토플 · 토익 스타일의 종합 영어 평가 테스트<br>매번 문제은행에서 랜덤 출제 · 51문제 + 에세이 1개 · 70분</p>
+    <p class="start-desc">토플 · 토익 스타일의 종합 영어 평가 테스트<br>매번 문제은행에서 랜덤 출제 · 51문제 + 에세이 1개 · 80분</p>
     <div class="section-overview">
       <div class="sec-card"><div class="sec-icon">📗</div><div class="sec-num">20</div><div class="sec-name">어휘</div><div class="pool-info">풀 40개</div></div>
       <div class="sec-card"><div class="sec-icon">✏️</div><div class="sec-num">20</div><div class="sec-name">문법</div><div class="pool-info">풀 40개</div></div>
@@ -162,7 +162,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="essayScreen" style="display:none;">
     <div class="section-header">
       <span class="sec-badge sb-essay">✍️ Essay Writing</span>
-      <div class="sec-header-info"><h2>Section 6 — Essay Writing</h2><p>1개 주제 · 10분 · 100단어 이상 · AI 자동 채점</p></div>
+      <div class="sec-header-info"><h2>Section 6 — Essay Writing</h2><p>1개 주제 · 20분 · 100단어 이상 · AI 자동 채점</p></div>
     </div>
     <div class="q-card" id="essayCard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
@@ -350,7 +350,7 @@ function pick(arr,n){return shuffle(arr).slice(0,n);}
 // 상태
 // =====================================================
 let allQ=[], currentIdx=0, userAnswers={}, arrangeAnswers={};
-let timerInterval, timeLeft=4200, startTime;
+let timerInterval, timeLeft=4800, startTime;
 
 function buildTest(){
   allQ=[];
@@ -529,7 +529,7 @@ let essayIdx = 0;
 let selectedTopics = [];
 let essayAnswers = [];
 let essayTimerInterval;
-let essayTimeLeft = 600;
+let essayTimeLeft = 1200;
 let essayScores = [];
 
 function startEssaySection() {
@@ -558,7 +558,7 @@ function showEssay(idx) {
 
   // 에세이 타이머 리셋
   clearInterval(essayTimerInterval);
-  essayTimeLeft = 600;
+  essayTimeLeft = 1200;
   updateEssayTimer();
   essayTimerInterval = setInterval(() => {
     essayTimeLeft--;
