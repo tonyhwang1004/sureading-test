@@ -4,179 +4,192 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>수리딩 레벨 테스트</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --surface2: #f0eeea;
-    --border: rgba(0,0,0,0.08);
-    --text: #1a1a2e;
-    --muted: #7a7a8a;
-    --accent: #5b4fcf;
-    --accent2: #1a9e78;
-    --gold: #d4900a;
-    --danger: #d94040;
-    --shadow: 0 4px 24px rgba(0,0,0,0.07);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
-  .header { position:fixed; top:0; left:0; right:0; padding:18px 40px; display:flex; justify-content:space-between; align-items:center; background:rgba(245,244,240,0.95); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); z-index:100; }
-  .logo { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--accent); font-weight:700; }
-  .back-btn { padding:8px 20px; border:1.5px solid var(--border); border-radius:20px; background:transparent; color:var(--muted); cursor:pointer; font-size:0.85rem; transition:all 0.2s; text-decoration:none; font-family:'DM Sans',sans-serif; }
-  .back-btn:hover { border-color:var(--accent); color:var(--accent); }
-  .container { min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:100px 20px 60px; }
+:root {
+  --bg:#f5f4f0; --surface:#fff; --surface2:#f0eeea; --border:rgba(0,0,0,0.08);
+  --text:#1a1a2e; --muted:#7a7a8a; --accent:#5b4fcf; --accent2:#1a9e78;
+  --gold:#d4900a; --danger:#d94040; --shadow:0 4px 24px rgba(0,0,0,0.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.header{position:fixed;top:0;left:0;right:0;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(245,244,240,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);z-index:100;}
+.logo{font-size:1.1rem;font-weight:700;color:var(--accent);text-decoration:none;}
+.timer-box{display:flex;align-items:center;gap:8px;background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:6px 16px;font-size:0.9rem;font-weight:600;}
+.timer-box.warning{border-color:var(--danger);color:var(--danger);}
+.back-btn{padding:7px 18px;border:1.5px solid var(--border);border-radius:20px;background:transparent;color:var(--muted);cursor:pointer;font-size:0.82rem;text-decoration:none;font-family:'DM Sans',sans-serif;}
+.back-btn:hover{border-color:var(--accent);color:var(--accent);}
+.container{max-width:860px;margin:0 auto;padding:90px 20px 60px;}
 
-  /* 시작 */
-  #startScreen { max-width:640px; width:100%; text-align:center; }
-  .start-badge { display:inline-block; padding:6px 18px; background:rgba(91,79,207,0.1); border:1.5px solid rgba(91,79,207,0.2); border-radius:20px; font-size:0.78rem; color:var(--accent); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:24px; font-weight:500; }
-  .start-title { font-family:'Playfair Display',serif; font-size:3.2rem; line-height:1.2; margin-bottom:18px; color:var(--text); }
-  .start-title span { color:var(--accent); }
-  .start-desc { font-size:1rem; color:var(--muted); line-height:1.8; margin-bottom:44px; }
-  .test-info-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:32px; }
-  .info-card { background:var(--surface); border:1.5px solid var(--border); border-radius:16px; padding:24px 14px; box-shadow:var(--shadow); }
-  .info-card .icon { font-size:1.6rem; margin-bottom:8px; }
-  .info-card .num { font-family:'Playfair Display',serif; font-size:2rem; color:var(--accent); margin-bottom:4px; }
-  .info-card .lbl { font-size:0.78rem; color:var(--muted); }
-  .type-list { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:40px; }
-  .type-chip { padding:6px 16px; border-radius:20px; font-size:0.82rem; font-weight:500; border:1.5px solid; }
-  .tc-vocab { background:rgba(91,79,207,0.08); color:var(--accent); border-color:rgba(91,79,207,0.2); }
-  .tc-reading { background:rgba(26,158,120,0.08); color:var(--accent2); border-color:rgba(26,158,120,0.2); }
-  .tc-grammar { background:rgba(212,144,10,0.08); color:var(--gold); border-color:rgba(212,144,10,0.2); }
-  .tc-fill { background:rgba(217,64,64,0.08); color:var(--danger); border-color:rgba(217,64,64,0.2); }
-  .start-btn { padding:17px 52px; background:var(--accent); border:none; border-radius:50px; color:#fff; font-size:1.05rem; font-weight:600; cursor:pointer; transition:all 0.3s; font-family:'DM Sans',sans-serif; box-shadow:0 8px 24px rgba(91,79,207,0.3); }
-  .start-btn:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(91,79,207,0.4); }
+/* 시작 화면 */
+#startScreen{text-align:center;padding:40px 0;}
+.start-badge{display:inline-block;padding:5px 16px;background:rgba(91,79,207,0.1);border:1.5px solid rgba(91,79,207,0.2);border-radius:20px;font-size:0.75rem;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;font-weight:500;}
+.start-title{font-size:2.8rem;font-weight:800;line-height:1.2;margin-bottom:14px;color:var(--text);}
+.start-title span{color:var(--accent);}
+.start-desc{font-size:0.95rem;color:var(--muted);line-height:1.8;margin-bottom:36px;}
+.section-overview{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:36px;}
+.sec-card{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:18px 10px;text-align:center;box-shadow:var(--shadow);}
+.sec-card .sec-icon{font-size:1.4rem;margin-bottom:6px;}
+.sec-card .sec-num{font-size:1.6rem;font-weight:800;color:var(--accent);margin-bottom:2px;}
+.sec-card .sec-name{font-size:0.72rem;color:var(--muted);font-weight:500;}
+.start-btn{padding:16px 50px;background:var(--accent);border:none;border-radius:50px;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s;font-family:'DM Sans',sans-serif;box-shadow:0 8px 24px rgba(91,79,207,0.3);}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(91,79,207,0.4);}
 
-  /* 테스트 */
-  #testScreen { display:none; max-width:720px; width:100%; }
-  .progress-wrap { margin-bottom:32px; }
-  .progress-info { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-  .progress-label { font-size:0.85rem; color:var(--muted); font-weight:500; }
-  .progress-count { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--text); }
-  .progress-bar-bg { height:6px; background:rgba(0,0,0,0.08); border-radius:6px; overflow:hidden; }
-  .progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--accent),#8b7fef); border-radius:6px; transition:width 0.4s ease; }
-  .question-card { background:var(--surface); border:1.5px solid var(--border); border-radius:24px; padding:36px; margin-bottom:16px; box-shadow:var(--shadow); animation:fadeUp 0.35s ease; }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
-  .question-meta { display:flex; gap:8px; margin-bottom:22px; }
-  .q-badge { padding:4px 12px; border-radius:20px; font-size:0.73rem; font-weight:600; letter-spacing:0.5px; border:1.5px solid; }
-  .qb-vocab { background:rgba(91,79,207,0.08); color:var(--accent); border-color:rgba(91,79,207,0.25); }
-  .qb-reading { background:rgba(26,158,120,0.08); color:var(--accent2); border-color:rgba(26,158,120,0.25); }
-  .qb-grammar { background:rgba(212,144,10,0.08); color:var(--gold); border-color:rgba(212,144,10,0.25); }
-  .qb-fill { background:rgba(217,64,64,0.08); color:var(--danger); border-color:rgba(217,64,64,0.25); }
-  .qb-level { background:var(--surface2); color:var(--muted); border-color:var(--border); }
-  .passage { background:#f7f6ff; border-left:4px solid var(--accent); border-radius:0 12px 12px 0; padding:18px 22px; margin-bottom:22px; font-size:0.93rem; line-height:1.85; color:#3a3a5a; }
-  .passage-title { font-size:0.75rem; font-weight:600; color:var(--accent); letter-spacing:1px; text-transform:uppercase; margin-bottom:10px; }
-  .question-text { font-size:1.05rem; line-height:1.7; color:var(--text); margin-bottom:24px; }
-  .options-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .option-btn { padding:14px 18px; background:var(--surface2); border:1.5px solid var(--border); border-radius:14px; color:var(--text); font-size:0.92rem; font-family:'DM Sans',sans-serif; cursor:pointer; transition:all 0.18s; text-align:left; display:flex; align-items:center; gap:12px; line-height:1.5; }
-  .option-label { width:28px; height:28px; border-radius:50%; background:#fff; border:1.5px solid rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; font-size:0.78rem; font-weight:700; flex-shrink:0; transition:all 0.18s; color:var(--muted); }
-  .option-btn:hover:not(:disabled) { border-color:var(--accent); background:rgba(91,79,207,0.05); }
-  .option-btn:hover:not(:disabled) .option-label { background:var(--accent); border-color:var(--accent); color:#fff; }
-  .option-btn.correct { border-color:var(--accent2); background:rgba(26,158,120,0.06); }
-  .option-btn.correct .option-label { background:var(--accent2); border-color:var(--accent2); color:#fff; }
-  .option-btn.wrong { border-color:var(--danger); background:rgba(217,64,64,0.06); }
-  .option-btn.wrong .option-label { background:var(--danger); border-color:var(--danger); color:#fff; }
-  .option-btn:disabled { cursor:default; }
-  .explanation { display:none; margin-top:18px; padding:14px 18px; background:#f0faf6; border:1.5px solid rgba(26,158,120,0.2); border-radius:12px; font-size:0.88rem; color:#2a5a48; line-height:1.65; }
-  .explanation.show { display:block; animation:fadeUp 0.25s ease; }
-  .explanation.wrong-exp { background:#fff5f5; border-color:rgba(217,64,64,0.2); color:#7a2a2a; }
-  .next-btn { display:none; width:100%; padding:15px; background:var(--accent); border:none; border-radius:14px; color:#fff; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.25s; font-family:'DM Sans',sans-serif; box-shadow:0 4px 16px rgba(91,79,207,0.25); margin-top:4px; }
-  .next-btn.show { display:block; animation:fadeUp 0.25s ease; }
-  .next-btn:hover { background:#4a3ec0; transform:translateY(-1px); }
+/* 섹션 헤더 */
+.section-header{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:20px 28px;margin-bottom:24px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;}
+.sec-badge{padding:6px 16px;border-radius:20px;font-size:0.78rem;font-weight:600;letter-spacing:0.5px;}
+.sb-vocab{background:rgba(91,79,207,0.1);color:var(--accent);border:1.5px solid rgba(91,79,207,0.2);}
+.sb-grammar{background:rgba(212,144,10,0.1);color:var(--gold);border:1.5px solid rgba(212,144,10,0.2);}
+.sb-reading{background:rgba(26,158,120,0.1);color:var(--accent2);border:1.5px solid rgba(26,158,120,0.2);}
+.sb-arrange{background:rgba(217,64,64,0.1);color:var(--danger);border:1.5px solid rgba(217,64,64,0.2);}
+.sec-header-info h2{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:2px;}
+.sec-header-info p{font-size:0.82rem;color:var(--muted);}
 
-  /* 결과 */
-  #resultScreen { display:none; max-width:640px; width:100%; }
-  .result-card { background:var(--surface); border:1.5px solid var(--border); border-radius:28px; padding:44px 36px; box-shadow:var(--shadow); text-align:center; }
-  .result-emoji { font-size:3.5rem; margin-bottom:18px; }
-  .result-level-num { font-family:'Playfair Display',serif; font-size:0.9rem; color:var(--muted); text-transform:uppercase; letter-spacing:2px; margin-bottom:6px; }
-  .result-level { font-family:'Playfair Display',serif; font-size:2.8rem; margin-bottom:6px; }
-  .result-name { font-size:1.1rem; color:var(--muted); margin-bottom:36px; }
-  .score-display { display:flex; margin-bottom:36px; background:var(--surface2); border-radius:16px; overflow:hidden; }
-  .score-item { flex:1; padding:20px 10px; border-right:1px solid var(--border); }
-  .score-item:last-child { border-right:none; }
-  .score-num { font-family:'Playfair Display',serif; font-size:2rem; color:var(--text); margin-bottom:4px; }
-  .score-label { font-size:0.75rem; color:var(--muted); }
-  .category-scores { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:28px; text-align:left; }
-  .cat-score { background:var(--surface2); border-radius:12px; padding:14px 16px; }
-  .cat-name { font-size:0.78rem; color:var(--muted); margin-bottom:8px; font-weight:500; }
-  .cat-bar-bg { height:5px; background:rgba(0,0,0,0.08); border-radius:4px; margin-bottom:6px; }
-  .cat-bar-fill { height:100%; border-radius:4px; transition:width 0.8s ease; }
-  .cat-val { font-size:0.82rem; font-weight:600; }
-  .recommend-books { background:#f7f6ff; border:1.5px solid rgba(91,79,207,0.15); border-radius:16px; padding:20px 22px; margin-bottom:28px; text-align:left; }
-  .recommend-title { font-size:0.78rem; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; font-weight:600; }
-  .book-chips { display:flex; flex-wrap:wrap; gap:8px; }
-  .book-chip { padding:5px 13px; background:rgba(91,79,207,0.1); border:1px solid rgba(91,79,207,0.2); border-radius:20px; font-size:0.8rem; color:var(--accent); font-weight:500; }
-  .result-actions { display:flex; gap:12px; }
-  .btn-retry { flex:1; padding:14px; background:var(--surface2); border:1.5px solid var(--border); border-radius:14px; color:var(--text); font-size:0.92rem; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; font-weight:500; }
-  .btn-retry:hover { border-color:var(--accent); color:var(--accent); }
-  .btn-home { flex:1; padding:14px; background:var(--accent); border:none; border-radius:14px; color:#fff; font-size:0.92rem; font-weight:600; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; }
-  .btn-home:hover { background:#4a3ec0; }
-  @media(max-width:600px){
-    .start-title{font-size:2.3rem} .test-info-grid{grid-template-columns:1fr} .options-grid{grid-template-columns:1fr} .question-card{padding:22px} .category-scores{grid-template-columns:1fr} .header{padding:14px 20px} .result-card{padding:28px 20px}
-  }
+/* 진행 바 */
+.progress-bar-wrap{margin-bottom:24px;}
+.progress-top{display:flex;justify-content:space-between;font-size:0.82rem;color:var(--muted);margin-bottom:8px;}
+.prog-bg{height:6px;background:rgba(0,0,0,0.08);border-radius:6px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#8b7fef);border-radius:6px;transition:width 0.4s;}
+
+/* 문제 카드 */
+.q-card{background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:28px 32px;margin-bottom:16px;box-shadow:var(--shadow);}
+.q-num{font-size:0.78rem;font-weight:600;color:var(--muted);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
+.q-text{font-size:1rem;line-height:1.7;color:var(--text);margin-bottom:20px;}
+.q-text strong{color:var(--accent);}
+
+/* 보기 */
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.opt-btn{padding:12px 16px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.18s;text-align:left;display:flex;align-items:center;gap:10px;line-height:1.4;}
+.opt-label{width:26px;height:26px;border-radius:50%;background:#fff;border:1.5px solid rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;color:var(--muted);transition:all 0.18s;}
+.opt-btn:hover:not(.selected):not(.disabled){border-color:var(--accent);background:rgba(91,79,207,0.05);}
+.opt-btn:hover:not(.selected):not(.disabled) .opt-label{background:var(--accent);border-color:var(--accent);color:#fff;}
+.opt-btn.selected{border-color:var(--accent);background:rgba(91,79,207,0.08);}
+.opt-btn.selected .opt-label{background:var(--accent);border-color:var(--accent);color:#fff;}
+.opt-btn.correct{border-color:var(--accent2);background:rgba(26,158,120,0.08);}
+.opt-btn.correct .opt-label{background:var(--accent2);border-color:var(--accent2);color:#fff;}
+.opt-btn.wrong{border-color:var(--danger);background:rgba(217,64,64,0.08);}
+.opt-btn.wrong .opt-label{background:var(--danger);border-color:var(--danger);color:#fff;}
+.opt-btn.disabled{cursor:default;}
+
+/* 독해 지문 */
+.passage-box{background:#f7f6ff;border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:20px;font-size:0.92rem;line-height:1.9;color:#3a3a5a;}
+.passage-label{font-size:0.72rem;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;}
+.passage-long{background:#f7f6ff;border:1.5px solid rgba(91,79,207,0.15);border-radius:12px;padding:24px;margin-bottom:24px;font-size:0.92rem;line-height:1.9;color:#3a3a5a;}
+.passage-long-label{font-size:0.72rem;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+
+/* 단어 배열 */
+.korean-sentence{background:rgba(217,64,64,0.06);border:1.5px solid rgba(217,64,64,0.15);border-radius:10px;padding:12px 18px;margin-bottom:16px;font-size:1rem;font-weight:600;color:#5a1a1a;text-align:center;}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;min-height:44px;padding:10px;background:var(--surface2);border:1.5px dashed var(--border);border-radius:10px;}
+.answer-area{display:flex;flex-wrap:wrap;gap:8px;min-height:50px;padding:10px;background:#fff;border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;transition:border-color 0.2s;}
+.answer-area.active{border-color:var(--accent);}
+.word-chip{padding:7px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:20px;font-size:0.88rem;font-weight:500;cursor:pointer;transition:all 0.18s;user-select:none;color:var(--text);}
+.word-chip:hover{border-color:var(--accent);background:rgba(91,79,207,0.05);color:var(--accent);}
+.word-chip.in-answer{background:rgba(91,79,207,0.1);border-color:var(--accent);color:var(--accent);}
+.word-chip.correct-chip{background:rgba(26,158,120,0.1);border-color:var(--accent2);color:var(--accent2);}
+.word-chip.wrong-chip{background:rgba(217,64,64,0.1);border-color:var(--danger);color:var(--danger);}
+.arrange-hint{font-size:0.8rem;color:var(--muted);margin-bottom:4px;}
+.correct-answer{font-size:0.82rem;color:var(--accent2);margin-top:6px;display:none;}
+
+/* 네비게이션 버튼 */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
+.btn-prev{padding:12px 28px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--muted);font-size:0.92rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all 0.2s;}
+.btn-prev:hover{border-color:var(--accent);color:var(--accent);}
+.btn-next{padding:12px 32px;background:var(--accent);border:none;border-radius:12px;color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 14px rgba(91,79,207,0.25);}
+.btn-next:hover{background:#4a3ec0;transform:translateY(-1px);}
+.btn-submit{padding:12px 32px;background:var(--accent2);border:none;border-radius:12px;color:#fff;font-size:0.92rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;box-shadow:0 4px 14px rgba(26,158,120,0.25);}
+.btn-submit:hover{background:#158060;}
+.q-counter{font-size:0.85rem;color:var(--muted);font-weight:500;}
+
+/* 결과 화면 */
+#resultScreen{display:none;}
+.result-hero{background:var(--surface);border:1.5px solid var(--border);border-radius:24px;padding:40px;text-align:center;box-shadow:var(--shadow);margin-bottom:20px;}
+.result-emoji{font-size:3rem;margin-bottom:14px;}
+.result-level-tag{font-size:0.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;font-weight:500;}
+.result-level{font-size:2.6rem;font-weight:800;margin-bottom:4px;}
+.result-name{font-size:1rem;color:var(--muted);margin-bottom:28px;}
+.score-row{display:flex;background:var(--surface2);border-radius:14px;overflow:hidden;margin-bottom:24px;}
+.score-cell{flex:1;padding:18px 8px;text-align:center;border-right:1px solid var(--border);}
+.score-cell:last-child{border-right:none;}
+.score-val{font-size:1.8rem;font-weight:800;color:var(--text);margin-bottom:3px;}
+.score-lbl{font-size:0.72rem;color:var(--muted);}
+.section-scores{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+.sec-score-card{background:var(--surface2);border-radius:12px;padding:14px 16px;}
+.sec-score-name{font-size:0.78rem;color:var(--muted);margin-bottom:8px;font-weight:500;}
+.sec-score-bar-bg{height:5px;background:rgba(0,0,0,0.08);border-radius:4px;margin-bottom:6px;}
+.sec-score-bar{height:100%;border-radius:4px;transition:width 0.8s ease;}
+.sec-score-val{font-size:0.82rem;font-weight:600;}
+.rec-books{background:#f7f6ff;border:1.5px solid rgba(91,79,207,0.15);border-radius:14px;padding:18px 20px;margin-bottom:24px;text-align:left;}
+.rec-title{font-size:0.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;font-weight:600;}
+.book-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.book-chip{padding:5px 12px;background:rgba(91,79,207,0.1);border:1px solid rgba(91,79,207,0.2);border-radius:20px;font-size:0.78rem;color:var(--accent);font-weight:500;}
+.result-actions{display:flex;gap:12px;}
+.btn-retry{flex:1;padding:13px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;color:var(--text);font-size:0.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;}
+.btn-retry:hover{border-color:var(--accent);color:var(--accent);}
+.btn-home{flex:1;padding:13px;background:var(--accent);border:none;border-radius:12px;color:#fff;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-home:hover{background:#4a3ec0;}
+
+@media(max-width:600px){
+  .start-title{font-size:2rem;} .section-overview{grid-template-columns:repeat(3,1fr);} .options{grid-template-columns:1fr;} .q-card{padding:20px;} .section-scores{grid-template-columns:1fr;} .header{padding:12px 16px;} .container{padding:80px 14px 40px;}
+}
 </style>
 </head>
 <body>
 <header class="header">
-  <div class="logo">📚 수리딩어학원</div>
-  <a href="index.html" class="back-btn">← 메인으로</a>
+  <a href="index.html" class="back-btn">← 메인</a>
+  <div class="logo">📚 수리딩어학원 레벨 테스트</div>
+  <div class="timer-box" id="timerBox">⏱ <span id="timerDisplay">60:00</span></div>
 </header>
+
 <div class="container">
-
+  <!-- 시작 화면 -->
   <div id="startScreen">
-    <div class="start-badge">Reading Level Assessment</div>
-    <h1 class="start-title">영어 <span>레벨</span><br>테스트</h1>
-    <p class="start-desc">주니어 토플 · Link 교재 스타일의 문제로<br>나의 정확한 영어 읽기 수준을 확인해보세요</p>
-    <div class="test-info-grid">
-      <div class="info-card"><div class="icon">📝</div><div class="num">20</div><div class="lbl">총 문항</div></div>
-      <div class="info-card"><div class="icon">⏱</div><div class="num">15</div><div class="lbl">예상 시간(분)</div></div>
-      <div class="info-card"><div class="icon">🎯</div><div class="num">5</div><div class="lbl">레벨 단계</div></div>
+    <div class="start-badge">SUREADING Level Assessment</div>
+    <h1 class="start-title">영어 <span>레벨</span> 테스트</h1>
+    <p class="start-desc">토플 · 토익 스타일의 종합 영어 평가 테스트입니다.<br>어휘 · 문법 · 독해 · 문장 배열 4개 섹션, 총 51문제 · 제한 시간 60분</p>
+    <div class="section-overview">
+      <div class="sec-card"><div class="sec-icon">📗</div><div class="sec-num">20</div><div class="sec-name">어휘</div></div>
+      <div class="sec-card"><div class="sec-icon">✏️</div><div class="sec-num">20</div><div class="sec-name">문법</div></div>
+      <div class="sec-card"><div class="sec-icon">📖</div><div class="sec-num">8</div><div class="sec-name">짧은 독해</div></div>
+      <div class="sec-card"><div class="sec-icon">📄</div><div class="sec-num">6</div><div class="sec-name">긴 독해</div></div>
+      <div class="sec-card"><div class="sec-icon">🔤</div><div class="sec-num">5</div><div class="sec-name">문장 배열</div></div>
     </div>
-    <div class="type-list">
-      <span class="type-chip tc-vocab">📗 어휘 Vocabulary</span>
-      <span class="type-chip tc-reading">📖 독해 Reading</span>
-      <span class="type-chip tc-grammar">✏️ 문법 Grammar</span>
-      <span class="type-chip tc-fill">🔤 빈칸 Fill in Blank</span>
-    </div>
-    <button class="start-btn" onclick="startTest()">테스트 시작하기 →</button>
+    <button class="start-btn" onclick="startTest()">테스트 시작 →</button>
   </div>
 
-  <div id="testScreen">
-    <div class="progress-wrap">
-      <div class="progress-info">
-        <span class="progress-label" id="progressLabel">Vocabulary</span>
-        <span class="progress-count"><span id="currentNum">1</span> / 20</span>
+  <!-- 테스트 화면 -->
+  <div id="testScreen" style="display:none;">
+    <div class="progress-bar-wrap">
+      <div class="progress-top">
+        <span id="sectionLabel">Section 1 — Vocabulary</span>
+        <span id="qProgress">1 / 51</span>
       </div>
-      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill" style="width:5%"></div></div>
+      <div class="prog-bg"><div class="prog-fill" id="progFill" style="width:2%"></div></div>
     </div>
-    <div class="question-card" id="questionCard">
-      <div class="question-meta">
-        <span class="q-badge qb-vocab" id="typeBadge">Vocabulary</span>
-        <span class="q-badge qb-level" id="levelBadge">Level 1</span>
-      </div>
-      <div id="passageArea"></div>
-      <div class="question-text" id="questionText"></div>
-      <div class="options-grid" id="optionsGrid"></div>
-      <div class="explanation" id="explanation"></div>
+    <div id="questionArea"></div>
+    <div class="nav-btns">
+      <button class="btn-prev" id="btnPrev" onclick="goQuestion(-1)">← 이전</button>
+      <span class="q-counter" id="qCounter">1 / 51</span>
+      <button class="btn-next" id="btnNext" onclick="goQuestion(1)">다음 →</button>
     </div>
-    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">다음 문제 →</button>
   </div>
 
+  <!-- 결과 화면 -->
   <div id="resultScreen">
-    <div class="result-card">
-      <div class="result-emoji" id="resultEmoji">🎉</div>
-      <div class="result-level-num">나의 레벨</div>
-      <div class="result-level" id="resultLevel">Level 3</div>
-      <div class="result-name" id="resultName">Intermediate</div>
-      <div class="score-display">
-        <div class="score-item"><div class="score-num" id="totalScore">0</div><div class="score-label">총점</div></div>
-        <div class="score-item"><div class="score-num" id="correctCount">0/20</div><div class="score-label">정답 수</div></div>
-        <div class="score-item"><div class="score-num" id="accuracy">0%</div><div class="score-label">정확도</div></div>
+    <div class="result-hero">
+      <div class="result-emoji" id="rEmoji">🎉</div>
+      <div class="result-level-tag">나의 레벨</div>
+      <div class="result-level" id="rLevel">Level 3</div>
+      <div class="result-name" id="rName">Intermediate</div>
+      <div class="score-row">
+        <div class="score-cell"><div class="score-val" id="rTotal">0</div><div class="score-lbl">총점</div></div>
+        <div class="score-cell"><div class="score-val" id="rCorrect">0/51</div><div class="score-lbl">정답</div></div>
+        <div class="score-cell"><div class="score-val" id="rAccuracy">0%</div><div class="score-lbl">정확도</div></div>
+        <div class="score-cell"><div class="score-val" id="rTime">-</div><div class="score-lbl">소요시간</div></div>
       </div>
-      <div class="category-scores" id="categoryScores"></div>
-      <div class="recommend-books" id="recommendBooks"></div>
+      <div class="section-scores" id="sectionScores"></div>
+      <div class="rec-books" id="recBooks"></div>
       <div class="result-actions">
-        <button class="btn-retry" onclick="resetTest()">🔄 다시 풀기</button>
+        <button class="btn-retry" onclick="location.reload()">🔄 다시 풀기</button>
         <button class="btn-home" onclick="location.href='index.html'">메인으로 →</button>
       </div>
     </div>
@@ -184,93 +197,471 @@
 </div>
 
 <script>
-const questions=[
-  {id:1,level:1,type:'vocab',question:'Choose the word that best matches: <strong>"A young dog."</strong>',options:['Kitten','Puppy','Cub','Foal'],answer:1,explanation:'<strong>Puppy</strong>는 어린 개를 뜻해요. Kitten=아기 고양이, Cub=아기 곰, Foal=아기 말.'},
-  {id:2,level:1,type:'vocab',question:'What does <strong>"enormous"</strong> mean?',options:['Very small','Very fast','Very large','Very loud'],answer:2,explanation:'<strong>Enormous</strong>는 "매우 큰"이라는 뜻이에요.'},
-  {id:3,level:1,type:'fill',question:'She _______ to school every day by bus.',options:['go','goes','going','gone'],answer:1,explanation:'3인칭 단수(She) 동사에는 <strong>-s</strong>를 붙여요. → goes'},
-  {id:4,level:2,type:'vocab',question:'Which word means <strong>"to move very quickly on foot"</strong>?',options:['Stroll','Crawl','Sprint','Shuffle'],answer:2,explanation:'<strong>Sprint</strong>는 전력 질주하다는 뜻이에요.'},
-  {id:5,level:2,type:'vocab',question:'The word <strong>"curious"</strong> describes someone who wants to ________.',options:['Sleep a lot','Know or learn things','Eat quickly','Run away'],answer:1,explanation:'<strong>Curious</strong>는 "호기심이 많은"이라는 의미예요.'},
-  {id:6,level:2,type:'reading',passage:{title:'Link 2 — Nature',text:'Bees are very important insects. They fly from flower to flower, collecting nectar to make honey. While doing this, they also carry pollen from one flower to another. This process, called pollination, helps plants grow fruits and seeds. Without bees, many plants could not survive.'},question:'What is the MAIN purpose of bees visiting flowers?',options:['To make gardens beautiful','To collect nectar and pollinate plants','To protect flowers from insects','To find places to build hives'],answer:1,explanation:'벌은 꿀을 수집하고 <strong>수분(pollination)</strong>을 도와요.'},
-  {id:7,level:2,type:'grammar',question:'Choose the <strong>correct</strong> sentence:',options:["She don't like vegetables.","She doesn't likes vegetables.","She doesn't like vegetables.","She not like vegetables."],answer:2,explanation:'3인칭 단수 부정문은 <strong>doesn\'t + 동사원형</strong>이에요.'},
-  {id:8,level:3,type:'vocab',question:'The word <strong>"persevere"</strong> most nearly means:',options:['To give up easily','To continue despite difficulty','To move very fast','To become confused'],answer:1,explanation:'<strong>Persevere</strong>는 "어려움에도 계속하다, 인내하다"는 뜻이에요.'},
-  {id:9,level:3,type:'reading',passage:{title:'Junior TOEFL — Environment',text:'The Amazon rainforest is often called "the lungs of the Earth." It produces about 20% of the world\'s oxygen and is home to more than 10% of all species on Earth. However, deforestation has become a serious problem. Every year, large areas of the Amazon are cut down for farming and logging. Scientists warn that if deforestation continues at its current rate, the Amazon could lose its ability to produce rainfall and regulate the global climate within decades.'},question:'Why is deforestation in the Amazon a global concern?',options:['It reduces tourist attractions','It could affect global climate and rainfall','It makes farming more expensive','It reduces wood for building'],answer:1,explanation:'삼림 벌채가 계속되면 <strong>전 세계 기후와 강우량</strong>에 영향을 줄 수 있어요.'},
-  {id:10,level:3,type:'fill',question:'By the time we arrived, the movie _______ already _______.',options:['has / started','had / started','was / start','did / start'],answer:1,explanation:'과거 시점 이전 완료된 일은 <strong>과거완료(had + p.p.)</strong>를 써요.'},
-  {id:11,level:3,type:'reading',passage:{title:'Link 3 — Science',text:'Earthquakes occur when two large pieces of the Earth\'s crust suddenly slip past one another. The surface where they slip is called a fault. Most earthquakes are so small that people cannot feel them. However, large earthquakes can cause enormous damage. Scientists use a device called a seismograph to measure the strength of earthquakes on the Richter scale.'},question:'What does a seismograph do?',options:['Predicts when earthquakes will happen','Prevents earthquakes from occurring','Measures the strength of earthquakes','Shows where earthquakes will strike'],answer:2,explanation:'지문에서 "a seismograph to <strong>measure the strength</strong> of earthquakes"라고 했어요.'},
-  {id:12,level:4,type:'vocab',question:'The word <strong>"ambiguous"</strong> most nearly means:',options:['Clearly understood','Open to more than one interpretation','Extremely difficult','Completely wrong'],answer:1,explanation:'<strong>Ambiguous</strong>는 "모호한, 두 가지 이상으로 해석될 수 있는"이에요.'},
-  {id:13,level:4,type:'reading',passage:{title:'Junior TOEFL — History',text:'The Silk Road was not a single road but a network of trade routes connecting China to the Mediterranean Sea. For over a thousand years, merchants traveled these routes carrying silk, spices, gold, and other valuable goods. The Silk Road also served as a pathway for the exchange of ideas, religions, and cultures. Buddhism spread from India to China along these routes, while Chinese inventions such as paper and gunpowder reached Europe.'},question:'Why does the author mention Buddhism and Chinese inventions?',options:['To explain why the Silk Road was dangerous','To show it was used only for religion','To illustrate that the Silk Road facilitated cultural exchange','To argue China was more advanced than Europe'],answer:2,explanation:'실크로드가 <strong>문화 교류의 통로</strong>였음을 보여주기 위해 예시로 들었어요.'},
-  {id:14,level:4,type:'grammar',question:'Choose the sentence with the <strong>correct subjunctive mood</strong>:',options:['If I was you, I would apologize.','If I were you, I would apologize.','If I am you, I will apologize.','If I be you, I would apologize.'],answer:1,explanation:'가정법 과거에서 be동사는 주어에 관계없이 <strong>were</strong>를 써요.'},
-  {id:15,level:4,type:'reading',passage:{title:'Link 4 — Social Studies',text:'Propaganda is information that is spread to promote a particular point of view or political cause. Unlike balanced reporting, propaganda often uses emotional language, misleading statistics, and selective facts to manipulate the audience. During wartime, governments frequently use propaganda to boost morale and gain public support. In the modern age, social media has made it easier than ever to spread propaganda to a wide audience very quickly.'},question:'What distinguishes propaganda from balanced reporting?',options:['Propaganda always contains false information','Propaganda uses emotional and selective information to manipulate','Balanced reporting is only used during wartime','Balanced reporting is spread through social media'],answer:1,explanation:'프로파간다는 <strong>감정적 언어와 선택적 사실</strong>을 사용해 청중을 조종해요.'},
-  {id:16,level:5,type:'vocab',question:'The word <strong>"ephemeral"</strong> most nearly means:',options:['Long-lasting and permanent','Lasting for a very short time','Extremely important','Difficult to understand'],answer:1,explanation:'<strong>Ephemeral</strong>은 "단명하는, 아주 짧은 시간 동안만 지속되는"이에요.'},
-  {id:17,level:5,type:'reading',passage:{title:'Junior TOEFL — Science',text:'Neuroplasticity refers to the brain\'s remarkable ability to reorganize itself by forming new neural connections throughout life. This means that the brain can adapt to new situations, recover from injury, and even change its structure in response to learning and experience. Research has shown that activities such as learning a musical instrument, studying a foreign language, or engaging in regular physical exercise can significantly enhance neuroplasticity.'},question:'What is the significance of neuroplasticity?',options:['Intelligence is fixed from birth','The brain can adapt and change throughout life','Some people recover from injuries faster','Exercise is more important than education'],answer:1,explanation:'신경가소성은 뇌가 평생 동안 <strong>적응하고 변화할 수 있음</strong>을 보여줘요.'},
-  {id:18,level:5,type:'fill',question:"The scientist's findings, _______ were published last month, have challenged long-held theories about climate change.",options:['that','who','which','what'],answer:2,explanation:'사물(findings)을 선행사로 하는 계속적 용법 관계대명사는 <strong>which</strong>예요.'},
-  {id:19,level:5,type:'reading',passage:{title:'Junior TOEFL — Psychology',text:'The concept of cognitive dissonance, introduced by psychologist Leon Festinger in 1957, describes the mental discomfort experienced when a person holds two or more contradictory beliefs simultaneously, or when their actions conflict with their beliefs. To reduce this discomfort, people often change their attitudes, seek out information that supports their existing views, or rationalize their behavior.'},question:'Which is NOT a way people reduce cognitive dissonance?',options:['Changing their attitudes or beliefs','Seeking information that confirms existing beliefs','Accepting that they hold contradictory beliefs','Rationalizing their behavior'],answer:2,explanation:'언급된 방법: ①태도 변화 ②기존 견해 지지 정보 탐색 ③행동 합리화. <strong>모순 수용</strong>은 언급되지 않았어요.'},
-  {id:20,level:5,type:'vocab',question:'The word <strong>"pragmatic"</strong> most nearly means:',options:['Idealistic and visionary','Dealing with things practically and realistically','Extremely emotional','Focused on theoretical concepts'],answer:1,explanation:'<strong>Pragmatic</strong>은 "실용적인, 현실적인"이라는 뜻이에요.'}
+// =====================================================
+// 문제 데이터
+// =====================================================
+const sections = [
+  {
+    id:'vocab', name:'Vocabulary', label:'Section 1 — Vocabulary',
+    badge:'sb-vocab', icon:'📗', desc:'20문제 · 밑줄 친 단어의 의미를 고르세요',
+    questions:[
+      {q:'The scientist made an <strong>astounding</strong> discovery.',opts:['ordinary','remarkable','minor','expected'],ans:1,exp:'<strong>Astounding</strong> = 놀라운, 경이로운'},
+      {q:'The new policy will <strong>alleviate</strong> poverty in the region.',opts:['worsen','ignore','reduce','measure'],ans:2,exp:'<strong>Alleviate</strong> = 완화하다, 경감하다'},
+      {q:'Her speech was so <strong>eloquent</strong> that everyone was moved.',opts:['confusing','boring','well-spoken','aggressive'],ans:2,exp:'<strong>Eloquent</strong> = 유창한, 설득력 있는'},
+      {q:'The company\'s reputation is <strong>impeccable</strong>.',opts:['questionable','flawless','improving','unknown'],ans:1,exp:'<strong>Impeccable</strong> = 흠잡을 데 없는, 완벽한'},
+      {q:'He was <strong>reluctant</strong> to share his personal information.',opts:['eager','willing','unwilling','happy'],ans:2,exp:'<strong>Reluctant</strong> = 꺼리는, 마지못해 하는'},
+      {q:'The treaty was <strong>ratified</strong> by all member nations.',opts:['rejected','formally approved','ignored','debated'],ans:1,exp:'<strong>Ratify</strong> = 비준하다, 공식 승인하다'},
+      {q:'Her <strong>tenacious</strong> personality helped her overcome all obstacles.',opts:['weak','persistent','gentle','careless'],ans:1,exp:'<strong>Tenacious</strong> = 끈질긴, 집요한'},
+      {q:'The politician\'s remarks were <strong>ambiguous</strong> and left many confused.',opts:['clear','inspiring','unclear','strong'],ans:2,exp:'<strong>Ambiguous</strong> = 모호한, 두 가지 이상으로 해석될 수 있는'},
+      {q:'The manager made a <strong>pragmatic</strong> decision rather than an idealistic one.',opts:['emotional','theoretical','practical','irrational'],ans:2,exp:'<strong>Pragmatic</strong> = 실용적인, 현실적인'},
+      {q:'Critics were <strong>cynical</strong> about the government\'s promises.',opts:['optimistic','hopeful','doubtful','supportive'],ans:2,exp:'<strong>Cynical</strong> = 냉소적인, 의심하는'},
+      {q:'The new evidence will <strong>corroborate</strong> the witness\'s testimony.',opts:['contradict','confirm','ignore','replace'],ans:1,exp:'<strong>Corroborate</strong> = 확증하다, 뒷받침하다'},
+      {q:'The island\'s ecosystem is extremely <strong>fragile</strong>.',opts:['strong','robust','easily damaged','stable'],ans:2,exp:'<strong>Fragile</strong> = 깨지기 쉬운, 취약한'},
+      {q:'His <strong>profound</strong> knowledge of history impressed everyone.',opts:['shallow','deep','basic','partial'],ans:1,exp:'<strong>Profound</strong> = 깊은, 심오한'},
+      {q:'The company decided to <strong>diversify</strong> its product range.',opts:['reduce','limit','expand variety','simplify'],ans:2,exp:'<strong>Diversify</strong> = 다양화하다'},
+      {q:'The rescue team showed great <strong>valor</strong> during the operation.',opts:['fear','laziness','bravery','confusion'],ans:2,exp:'<strong>Valor</strong> = 용맹, 용기'},
+      {q:'The <strong>ubiquitous</strong> smartphone has changed modern life.',opts:['rare','everywhere','expensive','new'],ans:1,exp:'<strong>Ubiquitous</strong> = 어디에나 있는, 편재하는'},
+      {q:'Scientists need to <strong>mitigate</strong> the effects of climate change.',opts:['ignore','worsen','lessen','study'],ans:2,exp:'<strong>Mitigate</strong> = 완화하다, 경감하다'},
+      {q:'The results of the study were <strong>inconclusive</strong>.',opts:['clear','definite','not decisive','accurate'],ans:2,exp:'<strong>Inconclusive</strong> = 결정적이지 않은, 불확실한'},
+      {q:'She showed great <strong>resilience</strong> after losing her job.',opts:['weakness','depression','ability to recover','anger'],ans:2,exp:'<strong>Resilience</strong> = 회복력, 탄력성'},
+      {q:'The government needs to <strong>scrutinize</strong> the new proposals carefully.',opts:['ignore','approve','examine closely','dismiss'],ans:2,exp:'<strong>Scrutinize</strong> = 면밀히 조사하다, 정밀 검토하다'},
+    ]
+  },
+  {
+    id:'grammar', name:'Grammar', label:'Section 2 — Grammar',
+    badge:'sb-grammar', icon:'✏️', desc:'20문제 · 문법적으로 올바른 것을 고르세요',
+    questions:[
+      {q:'Choose the correct sentence:',opts:["She don't like vegetables.","She doesn't like vegetables.","She not like vegetables.","She doesn't likes vegetables."],ans:1,exp:'3인칭 단수 부정: <strong>doesn\'t + 동사원형</strong>'},
+      {q:'_______ you finished your homework yet?',opts:['Did','Do','Have','Are'],ans:2,exp:'현재완료 의문문: <strong>Have + 주어 + p.p.</strong>'},
+      {q:'If I _______ you, I would apologize immediately.',opts:['am','was','were','be'],ans:2,exp:'가정법 과거: be동사는 항상 <strong>were</strong>'},
+      {q:'The report _______ that sales increased by 20% last year.',opts:['indicate','indicates','indicating','indicated'],ans:1,exp:'주어(The report)는 단수 → <strong>indicates</strong>'},
+      {q:'Not only _______ she win the competition, but she also broke the record.',opts:['did','does','was','has'],ans:0,exp:'"Not only" 도치구문: <strong>did + 주어 + 동사원형</strong>'},
+      {q:'The book _______ by millions of readers worldwide.',opts:['reads','is read','reading','has read'],ans:1,exp:'수동태: <strong>be동사 + p.p.</strong>'},
+      {q:'By the time we arrived, the meeting _______ already started.',opts:['has','had','was','did'],ans:1,exp:'과거완료: <strong>had + p.p.</strong>'},
+      {q:'_______ the rain, the game continued as scheduled.',opts:['Despite of','Although','Despite','Even'],ans:2,exp:'<strong>Despite + 명사구</strong> (despite of는 틀림)'},
+      {q:'She asked me _______ I had seen her keys.',opts:['that','if','what','which'],ans:1,exp:'간접의문문에서 yes/no 질문은 <strong>if/whether</strong>'},
+      {q:'The findings, _______ were published last month, surprised scientists.',opts:['that','who','which','what'],ans:2,exp:'사물 선행사의 계속적 용법 관계대명사: <strong>which</strong>'},
+      {q:'She is used to _______ early in the morning.',opts:['wake','woke','waking','woken'],ans:2,exp:'"be used to" 뒤에는 <strong>동명사(-ing)</strong>'},
+      {q:'_______ he studied hard, he failed the exam.',opts:['Despite','Although','However','Because'],ans:1,exp:'절(주어+동사) 앞에는 <strong>Although</strong>'},
+      {q:'The committee _______ divided on the issue.',opts:['is','are','were','have'],ans:0,exp:'집합명사 "committee"는 단수 취급 → <strong>is</strong>'},
+      {q:'I wish I _______ more time to finish the project.',opts:['have','had','has','will have'],ans:1,exp:'"I wish" 가정법: <strong>과거형(had)</strong>'},
+      {q:'The manager told the employees _______ overtime.',opts:['work','worked','to work','working'],ans:2,exp:'"tell + 목적어 + <strong>to 부정사</strong>"'),
+      {q:'_______ in 1879, Einstein became one of history\'s greatest scientists.',opts:['Born','Being born','He was born','Having born'],ans:0,exp:'분사구문: <strong>Born</strong> = Having been born의 축약'),
+      {q:'Neither the students nor the teacher _______ ready.',opts:['are','is','were','have'],ans:1,exp:'"Neither A nor B" → B에 동사를 일치: teacher(단수) → <strong>is</strong>'),
+      {q:'The earlier you start, _______ you will finish.',opts:['the sooner','sooner','more sooner','the more sooner'],ans:0,exp:'"the + 비교급, the + 비교급" 구문 → <strong>the sooner</strong>'),
+      {q:'It is essential that every student _______ the rules.',opts:['follows','follow','followed','following'],ans:1,exp:'주장·요구·명령 동사 후 that절: <strong>동사원형(가정법 현재)</strong>'),
+      {q:'The project _______ by the end of next month.',opts:['will complete','will be completed','completes','is completing'],ans:1,exp:'미래 수동태: <strong>will be + p.p.</strong>'),
+    ]
+  },
+  {
+    id:'reading_short', name:'짧은 독해', label:'Section 3 — Short Reading',
+    badge:'sb-reading', icon:'📖', desc:'8개 지문 · 각 지문 후 질문에 답하세요',
+    passages:[
+      {
+        title:'Passage 1 — Environment',
+        text:'Coral reefs are often called "the rainforests of the sea" because of their incredible biodiversity. They cover less than 1% of the ocean floor but support about 25% of all marine species. However, coral reefs are under serious threat from rising ocean temperatures, which cause coral bleaching. When water becomes too warm, corals expel the algae living in their tissues, turning white and eventually dying.',
+        questions:[
+          {q:'What is the main threat to coral reefs mentioned in the passage?',opts:['Overfishing','Rising ocean temperatures','Plastic pollution','Deep-sea mining'],ans:1,exp:'지문에서 "<strong>rising ocean temperatures</strong>"가 산호초의 주요 위협이라고 했어요.'},
+        ]
+      },
+      {
+        title:'Passage 2 — Technology',
+        text:'The Internet has dramatically changed how people communicate and access information. Before the Internet, people relied on books, newspapers, and television for news. Today, anyone with a smartphone can access billions of pieces of information instantly. While this has many benefits, it has also created challenges such as misinformation and privacy concerns.',
+        questions:[
+          {q:'What is one NEGATIVE effect of the Internet mentioned in the passage?',opts:['Faster communication','Increased misinformation','Better access to news','Cheaper smartphones'],ans:1,exp:'지문에서 부정적 효과로 <strong>misinformation(허위 정보)</strong>을 언급했어요.'},
+        ]
+      },
+      {
+        title:'Passage 3 — History',
+        text:'The Great Wall of China was built over many centuries to protect Chinese states from invasions. Construction began as early as the 7th century BC. The most well-known sections were built during the Ming Dynasty (1368–1644). The wall stretches over 13,000 miles and was built using millions of workers, including soldiers, peasants, and prisoners.',
+        questions:[
+          {q:'What was the PRIMARY purpose of the Great Wall of China?',opts:['Tourism','Trade routes','Protection from invasions','Religious ceremonies'],ans:2,exp:'지문 첫 문장: "to <strong>protect Chinese states from invasions</strong>"'},
+        ]
+      },
+      {
+        title:'Passage 4 — Science',
+        text:'Neuroplasticity refers to the brain\'s ability to reorganize itself by forming new neural connections throughout life. The brain can adapt to new situations, recover from injury, and change its structure in response to learning. Activities such as learning a musical instrument or studying a foreign language can significantly enhance neuroplasticity.',
+        questions:[
+          {q:'According to the passage, what activity can enhance neuroplasticity?',opts:['Sleeping more','Watching television','Learning a musical instrument','Eating healthy food'],ans:2,exp:'지문에서 "<strong>learning a musical instrument</strong>"를 예로 들었어요.'},
+        ]
+      },
+      {
+        title:'Passage 5 — Social Studies',
+        text:'Propaganda is information spread to promote a particular viewpoint. Unlike balanced reporting, propaganda uses emotional language and selective facts to manipulate audiences. During wartime, governments use propaganda to boost morale. Social media has made it easier to spread propaganda to wide audiences rapidly.',
+        questions:[
+          {q:'How does propaganda differ from balanced reporting?',opts:['It uses more statistics','It uses emotional language to manipulate','It is only used online','It always contains false information'],ans:1,exp:'프로파간다는 <strong>감정적 언어와 선택적 사실</strong>로 청중을 조종해요.'},
+        ]
+      },
+      {
+        title:'Passage 6 — Economics',
+        text:'Opportunity cost is a fundamental concept in economics. Every decision involves giving up something else. If a student studies instead of watching a movie, the opportunity cost is the enjoyment of that movie. Understanding opportunity cost helps individuals and businesses allocate limited resources more efficiently.',
+        questions:[
+          {q:'What does "opportunity cost" refer to?',opts:['The financial cost of a choice','The value of the best alternative given up','The time spent making a decision','The total cost of all options'],ans:1,exp:'기회비용 = <strong>포기한 차선의 대안의 가치</strong>'},
+        ]
+      },
+      {
+        title:'Passage 7 — Health',
+        text:'Sleep is essential for physical and mental health. During sleep, the brain consolidates memories and removes harmful toxins. Lack of sleep is linked to increased risk of obesity, diabetes, and cardiovascular disease. Adults are recommended to get 7 to 9 hours of sleep per night for optimal health.',
+        questions:[
+          {q:'What happens in the brain during sleep?',opts:['It stops all activity','It consolidates memories and removes toxins','It increases stress hormones','It processes food'],ans:1,exp:'지문에서 수면 중 뇌는 <strong>기억을 통합하고 유해 독소를 제거</strong>한다고 했어요.'},
+        ]
+      },
+      {
+        title:'Passage 8 — Psychology',
+        text:'The concept of cognitive dissonance describes the discomfort felt when holding contradictory beliefs. To reduce this discomfort, people change their attitudes, seek supporting information, or rationalize their behavior. This concept helps explain many seemingly irrational human decisions.',
+        questions:[
+          {q:'Which is NOT mentioned as a way to reduce cognitive dissonance?',opts:['Changing attitudes','Seeking supporting information','Accepting contradictions willingly','Rationalizing behavior'],ans:2,exp:'지문에서 ①태도 변화 ②지지 정보 탐색 ③행동 합리화만 언급. <strong>모순 수용</strong>은 없어요.'},
+        ]
+      },
+    ]
+  },
+  {
+    id:'reading_long', name:'긴 독해', label:'Section 4 — Long Reading',
+    badge:'sb-reading', icon:'📄', desc:'2개 지문 · 각 지문당 3문제',
+    passages:[
+      {
+        title:'Passage A — The Silk Road',
+        text:'The Silk Road was not a single road but a vast network of trade routes connecting China to the Mediterranean Sea. For over a thousand years, merchants traveled these routes carrying silk, spices, gold, and other precious goods. The journey was extremely difficult and dangerous, passing through deserts, mountains, and hostile territories.\n\nHowever, the Silk Road was far more than just a commercial highway. It served as a critical pathway for the exchange of ideas, religions, technologies, and cultures between East and West. Buddhism spread from India to China along these routes, transforming Chinese society. In return, Chinese inventions such as paper, printing, and gunpowder eventually reached Europe, where they had profound impacts on civilization.\n\nThe decline of the Silk Road began in the 15th century as European powers developed sea routes to Asia. These sea routes were faster, safer, and could carry larger quantities of goods. By the 16th century, maritime trade had largely replaced overland routes, and the great trading cities along the Silk Road began to lose their wealth and influence.',
+        questions:[
+          {q:'What was the PRIMARY function of the Silk Road?',opts:['A military highway','A network for trade and cultural exchange','A route for religious pilgrimages only','A road built for diplomatic travel'],ans:1,exp:'실크로드는 <strong>교역과 문화 교류</strong>를 위한 네트워크였어요.'},
+          {q:'Why did the author mention Buddhism and Chinese inventions?',opts:['To show China was more advanced','To illustrate cultural exchange along the Silk Road','To explain why the Silk Road declined','To describe the dangers of the journey'],ans:1,exp:'불교 전파와 중국 발명품은 <strong>실크로드를 통한 문화 교류</strong>의 예시예요.'},
+          {q:'What caused the decline of the Silk Road?',opts:['Wars along the route','Development of faster sea routes','Decreased demand for silk','Natural disasters'],ans:1,exp:'15세기 유럽이 <strong>더 빠른 해상 항로</strong>를 개발하면서 실크로드가 쇠퇴했어요.'},
+        ]
+      },
+      {
+        title:'Passage B — Genetic Engineering',
+        text:'Genetic engineering is a technology that allows scientists to directly modify an organism\'s DNA to achieve specific traits. This powerful tool has applications across medicine, agriculture, and environmental science. In medicine, genetic engineering has enabled the production of insulin for diabetics and is being explored as a treatment for genetic disorders such as cystic fibrosis and sickle cell disease.\n\nIn agriculture, genetically modified organisms (GMOs) have been developed to resist pests, tolerate drought, and produce higher yields. Proponents argue that GMOs are essential to feeding a growing global population, particularly in regions affected by climate change. However, critics raise concerns about potential long-term environmental effects, such as the development of "super pests" resistant to the modifications.\n\nPerhaps the most controversial application is the genetic modification of human embryos. Scientists at the Broad Institute have pioneered CRISPR-Cas9 technology, which allows precise editing of the human genome. While this holds enormous promise for eliminating hereditary diseases, it also raises profound ethical questions about "designer babies" and the potential for creating genetic inequality in society.',
+        questions:[
+          {q:'According to the passage, what is one BENEFIT of GMOs in agriculture?',opts:['They eliminate all diseases','They can resist pests and produce higher yields','They are cheaper to produce','They taste better than natural crops'],ans:1,exp:'GMO의 농업적 이점: <strong>해충 저항성과 높은 수확량</strong>'},
+          {q:'What ethical concern does the author raise about human genome editing?',opts:['It is too expensive','It might create genetic inequality','It cannot cure diseases','It is not yet possible'],ans:1,exp:'인간 배아 유전자 편집은 <strong>유전적 불평등(designer babies)</strong>을 만들 수 있다는 우려가 있어요.'},
+          {q:'What is the author\'s overall tone toward genetic engineering?',opts:['Completely opposed','Fully supportive','Balanced, presenting both benefits and concerns','Indifferent'],ans:2,exp:'저자는 유전공학의 이점과 우려를 모두 제시하는 <strong>균형 잡힌 시각</strong>을 보여요.'},
+        ]
+      },
+    ]
+  },
+  {
+    id:'arrange', name:'문장 배열', label:'Section 5 — Sentence Arrangement',
+    badge:'sb-arrange', icon:'🔤', desc:'5문제 · 한국어 문장을 보고 영어 단어를 올바른 순서로 배열하세요',
+    questions:[
+      {
+        korean:'그 과학자는 지난달에 놀라운 발견을 했다.',
+        words:['made','scientist','The','last month','discovery','a','remarkable'],
+        answer:'The scientist made a remarkable discovery last month',
+        exp:'<strong>The scientist made a remarkable discovery last month.</strong>'
+      },
+      {
+        korean:'만약 내가 더 열심히 공부했더라면, 시험에 합격했을 것이다.',
+        words:['studied','I','harder','had','the exam','I','passed','would have'],
+        answer:'If I had studied harder I would have passed the exam',
+        exp:'<strong>If I had studied harder, I would have passed the exam.</strong> (가정법 과거완료)'
+      },
+      {
+        korean:'그 회의는 모든 팀 구성원들이 참석한 가운데 진행되었다.',
+        words:['all','was','the meeting','held','team members','with','present'],
+        answer:'The meeting was held with all team members present',
+        exp:'<strong>The meeting was held with all team members present.</strong>'
+      },
+      {
+        korean:'비에도 불구하고, 행사는 예정대로 진행되었다.',
+        words:['proceeded','the event','as scheduled','the rain','despite'],
+        answer:'Despite the rain the event proceeded as scheduled',
+        exp:'<strong>Despite the rain, the event proceeded as scheduled.</strong>'
+      },
+      {
+        korean:'그녀가 그 상을 받은 것은 그녀의 팀에게 대단한 영광이었다.',
+        words:['was','her','for','receiving','the award','a great honor','her team','It'],
+        answer:'It was a great honor for her team receiving the award',
+        exp:'<strong>It was a great honor for her team, receiving the award.</strong>'
+      },
+    ]
+  }
 ];
-const recBooks={1:['Dinosaurs Before Dark','The Knight at Dawn','Mummies in the Morning','Pirates Past Noon'],2:["Charlotte's Web",'Matilda','The Wild Robot','Sarah, Plain and Tall'],3:['Bridge to Terabithia','Frindle','The Landry News','Where the Red Fern Grows'],4:['The Alchemist','Shiloh','To Kill a Mockingbird','Gangsta Granny'],5:['The Giver','The Hunger Games','Hatchet','The Maze Runner']};
-const lvInfo={1:{name:'Beginner',emoji:'🌱',color:'#1a9e78'},2:{name:'Elementary',emoji:'📗',color:'#5b4fcf'},3:{name:'Intermediate',emoji:'📘',color:'#2979d4'},4:{name:'Upper-Intermediate',emoji:'📙',color:'#d4900a'},5:{name:'Advanced',emoji:'📕',color:'#d94040'}};
-const tClass={vocab:'qb-vocab',reading:'qb-reading',grammar:'qb-grammar',fill:'qb-fill'};
-const tName={vocab:'Vocabulary',reading:'Reading Comprehension',grammar:'Grammar',fill:'Fill in the Blank'};
-const cColor={vocab:'#5b4fcf',reading:'#1a9e78',grammar:'#d4900a',fill:'#d94040'};
-const cLabel={vocab:'어휘 (Vocabulary)',reading:'독해 (Reading)',grammar:'문법 (Grammar)',fill:'빈칸 (Fill in Blank)'};
-let shuffled=[],current=0,answers=[],answered=false;
 
-function startTest(){shuffled=[...questions].sort(()=>Math.random()-0.5);current=0;answers=[];answered=false;document.getElementById('startScreen').style.display='none';document.getElementById('testScreen').style.display='block';showQuestion();}
+// =====================================================
+// 상태 관리
+// =====================================================
+let allQuestions = [];
+let currentIdx = 0;
+let userAnswers = {};
+let arrangeAnswers = {};
+let timerInterval;
+let timeLeft = 3600;
+let startTime;
 
-function showQuestion(){
-  answered=false;const q=shuffled[current];
-  document.getElementById('progressFill').style.width=((current/shuffled.length)*100+5)+'%';
-  document.getElementById('currentNum').textContent=current+1;
-  document.getElementById('progressLabel').textContent=tName[q.type];
-  document.getElementById('typeBadge').textContent=tName[q.type];
-  document.getElementById('typeBadge').className='q-badge '+tClass[q.type];
-  document.getElementById('levelBadge').textContent='Level '+q.level;
-  document.getElementById('passageArea').innerHTML=q.passage?`<div class="passage"><div class="passage-title">📄 ${q.passage.title}</div>${q.passage.text}</div>`:'';
-  document.getElementById('questionText').innerHTML=q.question;
-  const labels=['A','B','C','D'];
-  document.getElementById('optionsGrid').innerHTML=q.options.map((o,i)=>`<button class="option-btn" onclick="selectAnswer(${i})" id="opt${i}"><span class="option-label">${labels[i]}</span><span>${o}</span></button>`).join('');
-  document.getElementById('explanation').className='explanation';
-  document.getElementById('explanation').innerHTML='';
-  document.getElementById('nextBtn').className='next-btn';
-  document.getElementById('nextBtn').textContent=current<shuffled.length-1?'다음 문제 →':'결과 보기 →';
+function buildAllQuestions() {
+  allQuestions = [];
+  sections.forEach(sec => {
+    if (sec.questions) {
+      sec.questions.forEach((q, i) => {
+        allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'mcq', ...q, globalIdx: allQuestions.length });
+      });
+    }
+    if (sec.passages) {
+      sec.passages.forEach((p, pi) => {
+        p.questions.forEach((q, qi) => {
+          allQuestions.push({ secId: sec.id, secName: sec.name, secLabel: sec.label, secBadge: sec.badge, type: 'passage', passage: p, ...q, globalIdx: allQuestions.length });
+        });
+      });
+    }
+  });
+  // 문장 배열 추가
+  const arr = sections.find(s => s.id === 'arrange');
+  arr.questions.forEach((q, i) => {
+    allQuestions.push({ secId: 'arrange', secName: '문장 배열', secLabel: arr.label, secBadge: arr.badge, type: 'arrange', ...q, globalIdx: allQuestions.length });
+  });
 }
 
-function selectAnswer(idx){
-  if(answered)return;answered=true;const q=shuffled[current];const ok=idx===q.answer;
-  answers.push({question:q,selected:idx,correct:ok});
-  for(let i=0;i<4;i++){const b=document.getElementById('opt'+i);b.disabled=true;if(i===q.answer)b.classList.add('correct');else if(i===idx&&!ok)b.classList.add('wrong');}
-  const exp=document.getElementById('explanation');
-  exp.innerHTML=(ok?'✅ 정답! ':'❌ 오답. ')+q.explanation;
-  exp.className='explanation show'+(ok?'':' wrong-exp');
-  document.getElementById('nextBtn').classList.add('show');
+function startTest() {
+  buildAllQuestions();
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('testScreen').style.display = 'block';
+  startTime = Date.now();
+  startTimer();
+  renderQuestion(0);
 }
 
-function nextQuestion(){
-  current++;
-  if(current>=shuffled.length){showResult();}
-  else{const c=document.getElementById('questionCard');c.style.animation='none';requestAnimationFrame(()=>{c.style.animation='';showQuestion();});}
+// =====================================================
+// 타이머
+// =====================================================
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const s = (timeLeft % 60).toString().padStart(2, '0');
+    document.getElementById('timerDisplay').textContent = `${m}:${s}`;
+    if (timeLeft <= 300) document.getElementById('timerBox').classList.add('warning');
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitTest(); }
+  }, 1000);
 }
 
-function showResult(){
-  document.getElementById('testScreen').style.display='none';document.getElementById('resultScreen').style.display='block';
-  const correct=answers.filter(a=>a.correct).length,total=answers.length,score=Math.round(correct/total*100);
-  let ws=0,mw=0;answers.forEach(a=>{mw+=a.question.level;if(a.correct)ws+=a.question.level;});
-  const r=ws/mw,level=r>=0.85?5:r>=0.68?4:r>=0.50?3:r>=0.32?2:1;
-  const lv=lvInfo[level];
-  document.getElementById('resultEmoji').textContent=lv.emoji;
-  document.getElementById('resultLevel').textContent='Level '+level;
-  document.getElementById('resultLevel').style.color=lv.color;
-  document.getElementById('resultName').textContent=lv.name;
-  document.getElementById('totalScore').textContent=score+'점';
-  document.getElementById('correctCount').textContent=correct+'/'+total;
-  document.getElementById('accuracy').textContent=score+'%';
-  const cats={vocab:{c:0,t:0},reading:{c:0,t:0},grammar:{c:0,t:0},fill:{c:0,t:0}};
-  answers.forEach(a=>{cats[a.question.type].t++;if(a.correct)cats[a.question.type].c++;});
-  document.getElementById('categoryScores').innerHTML=Object.keys(cats).filter(k=>cats[k].t>0).map(k=>{const p=Math.round(cats[k].c/cats[k].t*100);return`<div class="cat-score"><div class="cat-name">${cLabel[k]}</div><div class="cat-bar-bg"><div class="cat-bar-fill" style="width:0%;background:${cColor[k]}" data-pct="${p}"></div></div><div class="cat-val" style="color:${cColor[k]}">${cats[k].c}/${cats[k].t} (${p}%)</div></div>`;}).join('');
-  document.getElementById('recommendBooks').innerHTML=`<div class="recommend-title">📚 추천 도서 — Level ${level}</div><div class="book-chips">${recBooks[level].map(b=>`<span class="book-chip">${b}</span>`).join('')}</div>`;
-  setTimeout(()=>{document.querySelectorAll('.cat-bar-fill').forEach(el=>{el.style.width=el.dataset.pct+'%';});},300);
+// =====================================================
+// 문제 렌더링
+// =====================================================
+function renderQuestion(idx) {
+  currentIdx = idx;
+  const total = allQuestions.length;
+  const q = allQuestions[idx];
+
+  document.getElementById('sectionLabel').textContent = q.secLabel;
+  document.getElementById('qProgress').textContent = `${idx + 1} / ${total}`;
+  document.getElementById('qCounter').textContent = `${idx + 1} / ${total}`;
+  document.getElementById('progFill').style.width = ((idx / total) * 100 + 1) + '%';
+
+  document.getElementById('btnPrev').style.opacity = idx === 0 ? '0.3' : '1';
+  document.getElementById('btnPrev').style.pointerEvents = idx === 0 ? 'none' : 'auto';
+
+  const isLast = idx === total - 1;
+  const btnNext = document.getElementById('btnNext');
+  if (isLast) {
+    btnNext.outerHTML = '<button class="btn-submit" id="btnNext" onclick="submitTest()">제출하기 ✓</button>';
+  } else {
+    const btn = document.getElementById('btnNext');
+    if (btn.classList.contains('btn-submit')) {
+      btn.outerHTML = '<button class="btn-next" id="btnNext" onclick="goQuestion(1)">다음 →</button>';
+    }
+  }
+
+  const area = document.getElementById('questionArea');
+
+  // 섹션 헤더 (섹션이 바뀔 때만)
+  const prevQ = idx > 0 ? allQuestions[idx - 1] : null;
+  const showHeader = !prevQ || prevQ.secId !== q.secId;
+
+  let html = '';
+  if (showHeader) {
+    const sec = sections.find(s => s.id === q.secId) || { icon: '🔤', name: q.secName, desc: '' };
+    html += `<div class="section-header">
+      <span class="sec-badge ${q.secBadge}">${sec.icon} ${q.secName}</span>
+      <div class="sec-header-info"><h2>${q.secLabel}</h2><p>${sec.desc || ''}</p></div>
+    </div>`;
+  }
+
+  if (q.type === 'arrange') {
+    html += renderArrange(q, idx);
+  } else if (q.type === 'passage') {
+    html += renderPassage(q, idx);
+  } else {
+    html += renderMCQ(q, idx);
+  }
+
+  area.innerHTML = html;
+
+  // 배열 문제 이벤트
+  if (q.type === 'arrange') initArrange(idx, q);
 }
 
-function resetTest(){document.getElementById('resultScreen').style.display='none';document.getElementById('startScreen').style.display='block';}
+function renderMCQ(q, idx) {
+  const saved = userAnswers[idx];
+  const labels = ['A', 'B', 'C', 'D'];
+  const opts = q.opts.map((o, i) => {
+    let cls = 'opt-btn';
+    if (saved === i) cls += ' selected';
+    return `<button class="${cls}" onclick="selectMCQ(${idx},${i})" id="opt_${idx}_${i}">
+      <span class="opt-label">${labels[i]}</span><span>${o}</span>
+    </button>`;
+  }).join('');
+  return `<div class="q-card">
+    <div class="q-num">Q${idx + 1}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="options">${opts}</div>
+  </div>`;
+}
+
+function renderPassage(q, idx) {
+  const saved = userAnswers[idx];
+  const labels = ['A', 'B', 'C', 'D'];
+  const isLong = q.secId === 'reading_long';
+  const passageHtml = isLong
+    ? `<div class="passage-long"><div class="passage-long-label">📄 ${q.passage.title}</div>${q.passage.text.replace(/\n/g, '<br><br>')}</div>`
+    : `<div class="passage-box"><div class="passage-label">📖 ${q.passage.title}</div>${q.passage.text}</div>`;
+  const opts = q.opts.map((o, i) => {
+    let cls = 'opt-btn';
+    if (saved === i) cls += ' selected';
+    return `<button class="${cls}" onclick="selectMCQ(${idx},${i})" id="opt_${idx}_${i}">
+      <span class="opt-label">${labels[i]}</span><span>${o}</span>
+    </button>`;
+  }).join('');
+  return `<div class="q-card">
+    ${passageHtml}
+    <div class="q-num">Q${idx + 1}</div>
+    <div class="q-text">${q.q}</div>
+    <div class="options">${opts}</div>
+  </div>`;
+}
+
+function renderArrange(q, idx) {
+  const saved = arrangeAnswers[idx] || [];
+  const remaining = q.words.filter(w => !saved.includes(w));
+  const savedChips = saved.map(w => `<span class="word-chip in-answer" onclick="removeWord(${idx},'${w}')">${w}</span>`).join('');
+  const bankChips = remaining.map(w => `<span class="word-chip" onclick="addWord(${idx},'${w}')">${w}</span>`).join('');
+  return `<div class="q-card">
+    <div class="q-num">Q${idx + 1} — 문장 배열</div>
+    <div class="korean-sentence">🇰🇷 ${q.korean}</div>
+    <div class="arrange-hint">단어를 클릭해서 올바른 순서로 배열하세요:</div>
+    <div class="answer-area active" id="answerArea_${idx}">${savedChips}</div>
+    <div class="arrange-hint">단어 목록:</div>
+    <div class="word-bank" id="wordBank_${idx}">${bankChips}</div>
+    <div class="correct-answer" id="correctAnswer_${idx}"></div>
+  </div>`;
+}
+
+function initArrange(idx, q) {}
+
+function addWord(idx, word) {
+  if (!arrangeAnswers[idx]) arrangeAnswers[idx] = [];
+  arrangeAnswers[idx].push(word);
+  renderQuestion(currentIdx);
+}
+
+function removeWord(idx, word) {
+  if (!arrangeAnswers[idx]) return;
+  const i = arrangeAnswers[idx].indexOf(word);
+  if (i > -1) arrangeAnswers[idx].splice(i, 1);
+  renderQuestion(currentIdx);
+}
+
+function selectMCQ(idx, optIdx) {
+  userAnswers[idx] = optIdx;
+  const labels = ['A', 'B', 'C', 'D'];
+  for (let i = 0; i < 4; i++) {
+    const b = document.getElementById(`opt_${idx}_${i}`);
+    if (!b) continue;
+    b.className = 'opt-btn' + (i === optIdx ? ' selected' : '');
+  }
+}
+
+function goQuestion(dir) {
+  const next = currentIdx + dir;
+  if (next >= 0 && next < allQuestions.length) renderQuestion(next);
+}
+
+// =====================================================
+// 채점
+// =====================================================
+function submitTest() {
+  clearInterval(timerInterval);
+  const elapsed = Math.round((Date.now() - startTime) / 1000);
+  const em = Math.floor(elapsed / 60), es = elapsed % 60;
+
+  let correct = 0;
+  const secScores = {};
+
+  allQuestions.forEach((q, idx) => {
+    if (!secScores[q.secId]) secScores[q.secId] = { c: 0, t: 0, name: q.secName };
+    secScores[q.secId].t++;
+
+    if (q.type === 'arrange') {
+      const ans = (arrangeAnswers[idx] || []).join(' ').toLowerCase().replace(/[.,!?]/g, '');
+      const correct_ans = q.answer.toLowerCase().replace(/[.,!?]/g, '');
+      if (ans === correct_ans) { correct++; secScores[q.secId].c++; }
+    } else {
+      if (userAnswers[idx] === q.ans) { correct++; secScores[q.secId].c++; }
+    }
+  });
+
+  const total = allQuestions.length;
+  const score = Math.round(correct / total * 100);
+
+  // 레벨 계산
+  let ws = 0, mw = 0;
+  allQuestions.forEach((q, idx) => {
+    const lv = q.level || 3;
+    mw += lv;
+    const isCorrect = q.type === 'arrange'
+      ? (arrangeAnswers[idx] || []).join(' ').toLowerCase().replace(/[.,!?]/g, '') === q.answer.toLowerCase().replace(/[.,!?]/g, '')
+      : userAnswers[idx] === q.ans;
+    if (isCorrect) ws += lv;
+  });
+  const r = ws / (mw || 1);
+  const level = r >= 0.85 ? 5 : r >= 0.68 ? 4 : r >= 0.50 ? 3 : r >= 0.32 ? 2 : 1;
+
+  const lvInfo = {
+    1: { name: 'Beginner', emoji: '🌱', color: '#1a9e78' },
+    2: { name: 'Elementary', emoji: '📗', color: '#5b4fcf' },
+    3: { name: 'Intermediate', emoji: '📘', color: '#2979d4' },
+    4: { name: 'Upper-Intermediate', emoji: '📙', color: '#d4900a' },
+    5: { name: 'Advanced', emoji: '📕', color: '#d94040' }
+  };
+  const recBooks = {
+    1: ["Dinosaurs Before Dark", "The Knight at Dawn", "Pirates Past Noon", "Mummies in the Morning"],
+    2: ["Charlotte's Web", "Matilda", "The Wild Robot", "Sarah, Plain and Tall"],
+    3: ["Bridge to Terabithia", "Frindle", "The Landry News", "Where the Red Fern Grows"],
+    4: ["The Alchemist", "Shiloh", "To Kill a Mockingbird", "Gangsta Granny"],
+    5: ["The Giver", "The Hunger Games", "Hatchet", "The Maze Runner"]
+  };
+
+  const lv = lvInfo[level];
+  document.getElementById('testScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+  document.getElementById('rEmoji').textContent = lv.emoji;
+  document.getElementById('rLevel').textContent = 'Level ' + level;
+  document.getElementById('rLevel').style.color = lv.color;
+  document.getElementById('rName').textContent = lv.name;
+  document.getElementById('rTotal').textContent = score + '점';
+  document.getElementById('rCorrect').textContent = correct + '/' + total;
+  document.getElementById('rAccuracy').textContent = score + '%';
+  document.getElementById('rTime').textContent = `${em}분 ${es}초`;
+
+  const secColors = { vocab: '#5b4fcf', grammar: '#d4900a', reading_short: '#1a9e78', reading_long: '#2979d4', arrange: '#d94040' };
+  const secNames = { vocab: '어휘', grammar: '문법', reading_short: '짧은 독해', reading_long: '긴 독해', arrange: '문장 배열' };
+  document.getElementById('sectionScores').innerHTML = Object.keys(secScores).map(k => {
+    const p = Math.round(secScores[k].c / secScores[k].t * 100);
+    const col = secColors[k] || '#5b4fcf';
+    return `<div class="sec-score-card">
+      <div class="sec-score-name">${secNames[k] || k}</div>
+      <div class="sec-score-bar-bg"><div class="sec-score-bar" style="width:0%;background:${col}" data-pct="${p}"></div></div>
+      <div class="sec-score-val" style="color:${col}">${secScores[k].c}/${secScores[k].t} (${p}%)</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('recBooks').innerHTML = `
+    <div class="rec-title">📚 추천 도서 — Level ${level}</div>
+    <div class="book-chips">${recBooks[level].map(b => `<span class="book-chip">${b}</span>`).join('')}</div>`;
+
+  setTimeout(() => {
+    document.querySelectorAll('.sec-score-bar').forEach(el => { el.style.width = el.dataset.pct + '%'; });
+  }, 300);
+}
 </script>
 </body>
 </html>
