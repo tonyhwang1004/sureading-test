@@ -4,496 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>수리딩어학원 - 미래의 영어학습</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ================ 기본 스타일 ================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #f5f4f0;
+            --surface: #ffffff;
+            --surface2: #f0eeea;
+            --border: rgba(0,0,0,0.08);
+            --text: #1a1a2e;
+            --muted: #7a7a8a;
+            --accent: #5b4fcf;
+            --accent2: #1a9e78;
+            --shadow: 0 4px 24px rgba(0,0,0,0.07);
         }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-            min-height: 100vh;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg); color: var(--text);
+            overflow-x: hidden; min-height: 100vh;
         }
-
-        /* ================ 동적 배경 효과 ================ */
         .dynamic-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at center, #1a1a2e, #0f0f0f);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: linear-gradient(135deg, #f5f4f0 0%, #ebe9f5 50%, #e8f5f0 100%);
         }
-
-        /* 떠다니는 텍스트 효과 */
         .floating-text {
-            position: fixed;
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #fff, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            pointer-events: none;
-            z-index: 10;
-            opacity: 0.3;
+            position: fixed; font-size: 2rem; font-weight: 700;
+            background: linear-gradient(45deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            pointer-events: none; z-index: 10; opacity: 0.06;
             animation: floatAround 20s ease-in-out infinite;
         }
-
         @keyframes floatAround {
-            0% { transform: translate(5vw, 15vh) rotate(0deg) scale(0.8); opacity: 0.2; }
-            20% { transform: translate(75vw, 25vh) rotate(45deg) scale(1); opacity: 0.4; }
-            40% { transform: translate(70vw, 65vh) rotate(90deg) scale(0.9); opacity: 0.3; }
-            60% { transform: translate(20vw, 70vh) rotate(180deg) scale(1.1); opacity: 0.5; }
-            80% { transform: translate(15vw, 35vh) rotate(270deg) scale(0.7); opacity: 0.3; }
-            100% { transform: translate(5vw, 15vh) rotate(360deg) scale(0.8); opacity: 0.2; }
+            0% { transform: translate(5vw, 15vh) rotate(0deg) scale(0.8); }
+            20% { transform: translate(75vw, 25vh) rotate(45deg) scale(1); }
+            40% { transform: translate(70vw, 65vh) rotate(90deg) scale(0.9); }
+            60% { transform: translate(20vw, 70vh) rotate(180deg) scale(1.1); }
+            80% { transform: translate(15vw, 35vh) rotate(270deg) scale(0.7); }
+            100% { transform: translate(5vw, 15vh) rotate(360deg) scale(0.8); }
         }
-
-        /* ================ 네비게이션 ================ */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            position: fixed; top: 0; left: 0; right: 0; padding: 18px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(245,244,240,0.93);
+            backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #00ff88;
-        }
-
+        .logo { font-size: 1.4rem; font-weight: 700; color: var(--accent); text-decoration: none; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent); }
         .login-btn {
-            padding: 10px 25px;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            border: none;
-            border-radius: 25px;
-            color: #000;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 10px 24px; background: var(--accent); border: none;
+            border-radius: 25px; color: #fff; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; box-shadow: 0 4px 14px rgba(91,79,207,0.3);
+            font-family: 'DM Sans', sans-serif;
         }
-
-        .login-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-        }
-
-        /* ================ 히어로 섹션 ================ */
+        .login-btn:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(91,79,207,0.4); }
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 60px;
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center; padding: 120px 20px 60px;
         }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #fff, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 600px;
-            margin-bottom: 40px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
+        .hero h1 { font-size: 4rem; font-weight: 800; margin-bottom: 20px; color: var(--text); }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 1.2rem; color: var(--muted); max-width: 600px; margin-bottom: 40px; line-height: 1.7; }
+        .cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
         .cta-btn {
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
+            padding: 15px 36px; font-size: 1rem; border-radius: 50px;
+            cursor: pointer; transition: all 0.3s; text-decoration: none; font-weight: 600;
         }
-
         .cta-btn.primary {
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            border: none;
-            color: #000;
-            font-weight: 600;
+            background: var(--accent); border: none; color: #fff;
+            box-shadow: 0 6px 20px rgba(91,79,207,0.3);
         }
-
-        .cta-btn.secondary {
-            background: transparent;
-            border: 2px solid #00ff88;
-            color: #00ff88;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
-        }
-
-        /* ================ 레벨 섹션 ================ */
-        .levels-section {
-            padding: 80px 40px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            background: linear-gradient(45deg, #fff, #00ff88);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .levels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .level-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .level-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #00ff88;
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
-        }
-
-        .level-number {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .level-title {
-            font-size: 1.3rem;
-            margin: 15px 0 10px;
-            color: #fff;
-        }
-
-        .level-desc {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
-        .book-count {
-            margin-top: 15px;
-            padding: 8px 15px;
-            background: rgba(0, 255, 136, 0.2);
-            border-radius: 20px;
-            display: inline-block;
-            font-size: 0.85rem;
-            color: #00ff88;
-        }
-
-        /* ================ 책 목록 섹션 ================ */
-        .books-section {
-            padding: 80px 40px;
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .book-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .book-card:hover {
-            transform: scale(1.03);
-            border-color: #0088ff;
-            box-shadow: 0 10px 30px rgba(0, 136, 255, 0.2);
-        }
-
-        .book-level {
-            font-size: 0.8rem;
-            color: #00ff88;
-            margin-bottom: 10px;
-        }
-
-        .book-title {
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        .book-chapters {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* ================ 로그인 모달 ================ */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: linear-gradient(135deg, #1a1a2e, #0f0f0f);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.5rem;
-            color: #fff;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .modal h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #00ff88;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #00ff88, #0088ff);
-            border: none;
-            border-radius: 10px;
-            color: #000;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .submit-btn:hover {
-            transform: scale(1.02);
-        }
-
-        .modal-footer {
-            text-align: center;
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .modal-footer a {
-            color: #00ff88;
-            text-decoration: none;
-        }
-
-        /* ================ 사용자 메뉴 (로그인 후) ================ */
-        .user-menu {
-            display: none;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-menu.active {
-            display: flex;
-        }
-
-        .user-name {
-            color: #00ff88;
-            font-weight: 600;
-        }
-
-        .logout-btn {
-            padding: 8px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 0, 0, 0.3);
-            border-color: #ff4444;
-        }
-
-        /* ================ 알림 메시지 ================ */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 15px 25px;
-            border-radius: 10px;
-            color: #fff;
-            font-weight: 500;
-            z-index: 3000;
-            transform: translateX(150%);
-            transition: transform 0.3s;
-        }
-
-        .toast.show {
-            transform: translateX(0);
-        }
-
-        .toast.success {
-            background: linear-gradient(45deg, #00ff88, #00cc6a);
-        }
-
-        .toast.error {
-            background: linear-gradient(45deg, #ff4444, #cc0000);
-        }
-/* ================ 단어 테스트 버튼 스타일 (새로 추가) ================ */
+        .cta-btn.secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+        .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(91,79,207,0.25); }
         .cta-btn.word-test {
-            background: linear-gradient(45deg, #ff6b6b, #ffa502);
-            border: none;
-            color: #fff;
-            font-weight: 600;
+            background: linear-gradient(45deg, #ff6b6b, #ffa502); border: none; color: #fff;
             animation: wordTestPulse 2s infinite;
         }
-
-        .cta-btn.word-test:hover {
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-        }
-
+        .cta-btn.word-test:hover { box-shadow: 0 10px 30px rgba(255,107,107,0.4); }
         @keyframes wordTestPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
-            50% { box-shadow: 0 0 20px 5px rgba(255, 107, 107, 0.3); }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,107,0.3); }
+            50% { box-shadow: 0 0 20px 5px rgba(255,107,107,0.2); }
         }
-
-  
-        /* ================ 반응형 ================ */
+        .levels-section { padding: 80px 40px; background: var(--bg); }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: var(--text); font-weight: 700; }
+        .levels-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px; max-width: 1400px; margin: 0 auto;
+        }
+        .level-card {
+            background: var(--surface); border: 1.5px solid var(--border);
+            border-radius: 20px; padding: 28px; cursor: pointer;
+            transition: all 0.3s; box-shadow: var(--shadow);
+        }
+        .level-card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 40px rgba(91,79,207,0.15); }
+        .level-number { font-size: 2.8rem; font-weight: 800; color: var(--accent); }
+        .level-title { font-size: 1.2rem; margin: 12px 0 8px; color: var(--text); font-weight: 600; }
+        .level-desc { color: var(--muted); font-size: 0.88rem; }
+        .book-count {
+            margin-top: 14px; padding: 6px 14px;
+            background: rgba(91,79,207,0.08); border: 1px solid rgba(91,79,207,0.15);
+            border-radius: 20px; display: inline-block; font-size: 0.82rem; color: var(--accent); font-weight: 500;
+        }
+        .books-section { padding: 80px 40px; background: var(--surface2); }
+        .books-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px; max-width: 1400px; margin: 0 auto;
+        }
+        .book-card {
+            background: var(--surface); border: 1.5px solid var(--border);
+            border-radius: 14px; padding: 22px; cursor: pointer;
+            transition: all 0.3s; box-shadow: var(--shadow);
+        }
+        .book-card:hover { transform: scale(1.03); border-color: var(--accent2); box-shadow: 0 10px 30px rgba(26,158,120,0.15); }
+        .book-level { font-size: 0.78rem; color: var(--accent2); margin-bottom: 8px; font-weight: 600; }
+        .book-title { font-size: 1rem; color: var(--text); margin-bottom: 6px; font-weight: 600; }
+        .book-chapters { font-size: 0.82rem; color: var(--muted); }
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.35); z-index: 2000;
+            justify-content: center; align-items: center; backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--surface); border: 1.5px solid var(--border);
+            border-radius: 24px; padding: 40px; width: 100%; max-width: 400px;
+            position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--muted); cursor: pointer; background: none; border: none; }
+        .modal-close:hover { color: var(--text); }
+        .modal h2 { text-align: center; margin-bottom: 28px; color: var(--accent); font-size: 1.4rem; font-weight: 700; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 7px; color: var(--text); font-size: 0.9rem; font-weight: 500; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px 15px;
+            background: var(--surface2); border: 1.5px solid var(--border);
+            border-radius: 10px; color: var(--text); font-size: 0.95rem;
+            transition: border-color 0.2s; font-family: 'DM Sans', sans-serif;
+        }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+        .submit-btn {
+            width: 100%; padding: 14px; background: var(--accent); border: none;
+            border-radius: 12px; color: #fff; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 4px 14px rgba(91,79,207,0.3);
+        }
+        .submit-btn:hover { background: #4a3ec0; transform: translateY(-1px); }
+        .modal-footer { text-align: center; margin-top: 18px; color: var(--muted); font-size: 0.9rem; }
+        .modal-footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .user-menu { display: none; align-items: center; gap: 14px; }
+        .user-menu.active { display: flex; }
+        .user-name { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+        .logout-btn {
+            padding: 8px 18px; background: var(--surface2);
+            border: 1.5px solid var(--border); border-radius: 20px;
+            color: var(--muted); cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .logout-btn:hover { border-color: #d94040; color: #d94040; }
+        .toast {
+            position: fixed; bottom: 30px; right: 30px; padding: 14px 22px;
+            border-radius: 12px; color: #fff; font-weight: 500; z-index: 3000;
+            transform: translateX(150%); transition: transform 0.3s;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.success { background: var(--accent2); }
+        .toast.error { background: #d94040; }
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .levels-section, .books-section {
-                padding: 60px 20px;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .navbar { padding: 14px 20px; }
+            .nav-links { display: none; }
+            .levels-section, .books-section { padding: 60px 20px; }
+            .section-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
-    <!-- 동적 배경 -->
     <div class="dynamic-background"></div>
-    
-    <!-- 떠다니는 텍스트 -->
     <div class="floating-text" style="animation-delay: 0s;">Reading</div>
     <div class="floating-text" style="animation-delay: -8s;">English</div>
     <div class="floating-text" style="animation-delay: -15s;">Learning</div>
 
-    <!-- 네비게이션 -->
     <nav class="navbar">
-        <a href="index.html" class="logo" style="text-decoration: none; color: inherit;">📚 수리딩어학원</a>
+        <a href="index.html" class="logo">📚 수리딩어학원</a>
         <div class="nav-links">
             <a href="#levels">레벨별 학습</a>
             <a href="#books">도서 목록</a>
@@ -510,32 +205,24 @@
         </div>
     </nav>
 
-    <!-- 히어로 섹션 -->
     <section class="hero">
-        <h1>수리딩어학원</h1>
+        <h1>수리딩<span>어학원</span></h1>
         <p>레벨별 맞춤 영어 원서 읽기 프로그램으로 영어 실력을 키워보세요</p>
         <div class="cta-buttons">
             <a href="level-test.html" class="cta-btn primary">레벨 테스트 시작</a>
             <a href="#books" class="cta-btn secondary">도서 둘러보기</a>
             <a href="https://tonyhwang1004.github.io/word-test-promo/" class="cta-btn word-test">📝 단어 테스트</a>
         </div>
-        </div>
     </section>
 
-    <!-- 레벨 섹션 -->
     <section class="levels-section" id="levels">
         <h2 class="section-title">📖 레벨별 학습</h2>
-        <div class="levels-grid" id="levelsGrid">
-            <!-- JavaScript로 동적 생성 -->
-        </div>
+        <div class="levels-grid" id="levelsGrid"></div>
     </section>
 
-    <!-- 도서 목록 섹션 -->
     <section class="books-section" id="books">
         <h2 class="section-title">📚 도서 목록</h2>
-        <div class="books-grid" id="booksGrid">
-            <!-- JavaScript로 동적 생성 -->
-        </div>
+        <div class="books-grid" id="booksGrid"></div>
     </section>
 
     <!-- 내 진도 모달 -->
@@ -543,24 +230,21 @@
         <div class="modal" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
             <button class="modal-close" onclick="closeModal('progress')">&times;</button>
             <h2>📊 내 학습 진도</h2>
-            
             <div id="progressContent">
                 <div id="progressLogin" style="text-align: center; padding: 30px;">
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">로그인 후 진도를 확인할 수 있습니다.</p>
+                    <p style="color: var(--muted); margin-bottom: 20px;">로그인 후 진도를 확인할 수 있습니다.</p>
                     <button class="submit-btn" onclick="closeModal('progress'); openModal('login');">로그인하기</button>
                 </div>
-                
                 <div id="progressData" style="display: none;">
-                    <div style="background: rgba(0,255,136,0.1); border-radius: 15px; padding: 20px; margin-bottom: 20px;">
+                    <div style="background: rgba(26,158,120,0.08); border: 1px solid rgba(26,158,120,0.2); border-radius: 14px; padding: 20px; margin-bottom: 20px;">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="color: rgba(255,255,255,0.7);">현재 레벨</span>
-                            <span id="userLevel" style="font-size: 1.5rem; color: #00ff88; font-weight: bold;">Level 1</span>
+                            <span style="color: var(--muted);">현재 레벨</span>
+                            <span id="userLevel" style="font-size: 1.4rem; color: var(--accent2); font-weight: bold;">Level 1</span>
                         </div>
                     </div>
-                    
-                    <h3 style="margin-bottom: 15px; color: #fff;">📚 학습 기록</h3>
+                    <h3 style="margin-bottom: 15px; color: var(--text);">📚 학습 기록</h3>
                     <div id="progressList" style="max-height: 300px; overflow-y: auto;">
-                        <p style="color: rgba(255,255,255,0.5); text-align: center;">아직 학습 기록이 없습니다.</p>
+                        <p style="color: var(--muted); text-align: center;">아직 학습 기록이 없습니다.</p>
                     </div>
                 </div>
             </div>
@@ -572,109 +256,40 @@
         <div class="modal" style="max-width: 500px;">
             <button class="modal-close" onclick="closeModal('qr')">&times;</button>
             <h2>📱 QR 코드 체험</h2>
-            
             <div style="text-align: center; padding: 20px;">
-                <div style="background: #fff; padding: 20px; border-radius: 15px; display: inline-block; margin-bottom: 20px;">
-                    <div id="qrCode" style="width: 200px; height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-                        <svg viewBox="0 0 100 100" width="180" height="180">
-                            <!-- QR 코드 패턴 시뮬레이션 -->
-                            <rect x="10" y="10" width="25" height="25" fill="#000"/>
-                            <rect x="65" y="10" width="25" height="25" fill="#000"/>
-                            <rect x="10" y="65" width="25" height="25" fill="#000"/>
-                            <rect x="15" y="15" width="15" height="15" fill="#fff"/>
-                            <rect x="70" y="15" width="15" height="15" fill="#fff"/>
-                            <rect x="15" y="70" width="15" height="15" fill="#fff"/>
-                            <rect x="20" y="20" width="5" height="5" fill="#000"/>
-                            <rect x="75" y="20" width="5" height="5" fill="#000"/>
-                            <rect x="20" y="75" width="5" height="5" fill="#000"/>
-                            <rect x="40" y="10" width="5" height="5" fill="#000"/>
-                            <rect x="50" y="15" width="5" height="5" fill="#000"/>
-                            <rect x="40" y="25" width="5" height="5" fill="#000"/>
-                            <rect x="45" y="40" width="10" height="10" fill="#000"/>
-                            <rect x="10" y="45" width="5" height="5" fill="#000"/>
-                            <rect x="25" y="50" width="5" height="5" fill="#000"/>
-                            <rect x="65" y="45" width="5" height="5" fill="#000"/>
-                            <rect x="80" y="55" width="5" height="5" fill="#000"/>
-                            <rect x="45" y="65" width="5" height="5" fill="#000"/>
-                            <rect x="55" y="75" width="5" height="5" fill="#000"/>
-                            <rect x="70" y="70" width="5" height="5" fill="#000"/>
-                            <rect x="80" y="80" width="5" height="5" fill="#000"/>
-                        </svg>
-                    </div>
+                <div style="background: #fff; padding: 20px; border-radius: 15px; display: inline-block; margin-bottom: 20px; border: 1.5px solid var(--border);">
+                    <svg viewBox="0 0 100 100" width="180" height="180">
+                        <rect x="10" y="10" width="25" height="25" fill="#000"/><rect x="65" y="10" width="25" height="25" fill="#000"/>
+                        <rect x="10" y="65" width="25" height="25" fill="#000"/><rect x="15" y="15" width="15" height="15" fill="#fff"/>
+                        <rect x="70" y="15" width="15" height="15" fill="#fff"/><rect x="15" y="70" width="15" height="15" fill="#fff"/>
+                        <rect x="20" y="20" width="5" height="5" fill="#000"/><rect x="75" y="20" width="5" height="5" fill="#000"/>
+                        <rect x="20" y="75" width="5" height="5" fill="#000"/><rect x="40" y="10" width="5" height="5" fill="#000"/>
+                        <rect x="50" y="15" width="5" height="5" fill="#000"/><rect x="45" y="40" width="10" height="10" fill="#000"/>
+                        <rect x="65" y="45" width="5" height="5" fill="#000"/><rect x="80" y="55" width="5" height="5" fill="#000"/>
+                        <rect x="45" y="65" width="5" height="5" fill="#000"/><rect x="55" y="75" width="5" height="5" fill="#000"/>
+                    </svg>
                 </div>
-                
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">
-                    QR 코드를 스캔하면 해당 책의 학습 페이지로 이동합니다!
-                </p>
-                
+                <p style="color: var(--muted); margin-bottom: 15px;">QR 코드를 스캔하면 해당 책의 학습 페이지로 이동합니다!</p>
                 <div style="margin-bottom: 20px;">
-                    <select id="qrBookSelect" onchange="updateQRCode()" style="width: 100%; padding: 12px; border-radius: 10px; background: #222; border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 1rem;">
-                        <option value="" style="background: #222;">-- 책을 선택하세요 --</option>
-                        <optgroup label="📗 Level 2 - Elementary" style="background: #222;">
+                    <select id="qrBookSelect" onchange="updateQRCode()" style="width: 100%; padding: 12px; border-radius: 10px; background: var(--surface2); border: 1.5px solid var(--border); color: var(--text); font-size: 1rem;">
+                        <option value="">-- 책을 선택하세요 --</option>
+                        <optgroup label="📗 Level 2 - Elementary">
                             <option value="dinosaurs-before-dark-level2.html">🦖 Dinosaurs Before Dark</option>
                             <option value="The%20Knight%20at%20Dawn%20-%20Level%202.html">🏰 The Knight at Dawn</option>
                             <option value="Mummies%20in%20the%20Morning%20-%20Level%202.html">🏛️ Mummies in the Morning</option>
                             <option value="Pirates%20Past%20Noon%20-%20Level%202.html">🏴‍☠️ Pirates Past Noon</option>
-                            <option value="Night%20of%20the%20Ninjas%20-%20Level%202.html">🥷 Night of the Ninjas</option>
-                            <option value="Afternoon%20on%20the%20Amazon%20-%20Level%202.html">🌴 Afternoon on the Amazon</option>
-                            <option value="Dolphins%20at%20Daybreak%20-%20Level%202.html">🐬 Dolphins at Daybreak</option>
-                            <option value="Ghost%20Town%20at%20Sundown%20-%20Level%202.html">👻 Ghost Town at Sundown</option>
-                            <option value="Lions%20at%20Lunchtime%20-%20Level%202.html">🦁 Lions at Lunchtime</option>
-                            <option value="Polar%20Bears%20Past%20Bedtime%20-%20Level%202.html">🐻‍❄️ Polar Bears Past Bedtime</option>
-                            <option value="Sunset%20of%20the%20Sabertooth%20-%20Level%202.html">🐯 Sunset of the Sabertooth</option>
-                            <option value="midnight-on-the-moon.html">🌙 Midnight on the Moon</option>
-                            <option value="high-tide-in-hawaii.html">🏄 High Tide in Hawaii</option>
                         </optgroup>
-                        <optgroup label="📘 Level 3 - Intermediate" style="background: #222;">
+                        <optgroup label="📘 Level 3 - Intermediate">
                             <option value="Charlotte's%20Web%20-%20Level%203.html">🕷️ Charlotte's Web</option>
-                            <option value="Sarah,%20Plain%20and%20Tall%20-%20Level%203.html">👩 Sarah, Plain and Tall</option>
-                            <option value="The%20Lion,%20the%20Witch%20and%20the%20Wardrobe%20-%20Level%203.html">🦁 The Lion, the Witch and the Wardrobe</option>
-                            <option value="Prince%20Caspian%20-%20Level%203.html">👑 Prince Caspian</option>
-                            <option value="The%20Voyage%20of%20Dawn%20Treader%20-%20Level%203.html">⛵ The Voyage of Dawn Treader</option>
                             <option value="Matilda%20-%20Level%203.html">📚 Matilda</option>
-                            <option value="bridge-to-terabithia-level3.html">🌉 Bridge to Terabithia</option>
-                            <option value="where-red-fern-grows-level3.html">🌿 Where the Red Fern Grows</option>
                             <option value="The%20Wild%20Robot%20-%20Level%203.html">🤖 The Wild Robot</option>
-                            <option value="Buffalo%20Before%20Breakfast%20-%20Level%203.html">🦬 Buffalo Before Breakfast</option>
-                            <option value="Tigers%20at%20Twilight%20-%20Level%203.html">🐅 Tigers at Twilight</option>
-                            <option value="Dingoes%20at%20Dinnertime%20-%20Level%203.html">🐕 Dingoes at Dinnertime</option>
-                            <option value="Viking%20Ships%20at%20Sunrise%20-%20Level%203.html">⛵ Viking Ships at Sunrise</option>
-                            <option value="Tonight%20on%20the%20Titanic%20-%20Level%203.html">🚢 Tonight on the Titanic</option>
-                            <option value="Day%20of%20the%20Dragon%20King%20-%20Level%203.html">🐉 Day of the Dragon King</option>
-                            <option value="Civil%20War%20on%20Sunday%20-%20Level%203.html">⚔️ Civil War on Sunday</option>
-                            <option value="Hour%20of%20the%20Olympics%20-%20Level%203.html">🏅 Hour of the Olympics</option>
-                            <option value="Vacation%20Under%20the%20Volcano%20-%20Level%203.html">🌋 Vacation Under the Volcano</option>
-                            <option value="James%20and%20the%20Giant%20Peach%20-%20Level%203-2.html">🍑 James and the Giant Peach</option>
-                            <option value="The%20Landry%20News%20-%20Level%203-2.html">📰 The Landry News</option>
-                            <option value="frindle.html">✏️ Frindle</option>
-                            <option value="no-talking.html">🤫 No Talking</option>
                         </optgroup>
-                        <optgroup label="📙 Level 4 - Upper-Intermediate" style="background: #222;">
-                            <option value="The%20Alchemist%20-%20Level%204.html">⚗️ The Alchemist</option>
-                            <option value="Shiloh%20-%20Level%204.html">🐕 Shiloh</option>
-                            <option value="Gangsta%20Granny%20-%20Level%204.html">👵 Gangsta Granny</option>
-                            <option value="Billionaire%20Boy%20-%20Level%204-1.html">💰 Billionaire Boy</option>
-                            <option value="The%20cricket%20in%20times%20square-Level4.html">🦗 The Cricket in Times Square</option>
-                            <option value="To%20Kill%20a%20Mockingbird%20-%20Level%204-2.html">🐦 To Kill a Mockingbird</option>
-                            <option value="Revolutionary%20War%20on%20Wednesday%20-%20Level%204.html">🎖️ Revolutionary War on Wednesday</option>
-                            <option value="Savvy%20-%20Level%204-3.html">✨ Savvy</option>
-                        </optgroup>
-                        <optgroup label="📕 Level 5 - Advanced" style="background: #222;">
-                            <option value="Hatchet%20-%20Level%205.html">🪓 Hatchet</option>
+                        <optgroup label="📕 Level 5 - Advanced">
                             <option value="The%20Giver%20-%20Level%205.html">🎁 The Giver</option>
                             <option value="The%20Hunger%20Games%20-%20Level%205.html">🏹 The Hunger Games</option>
-                            <option value="The%20Maze%20Runner%20-%20Level%205.html">🏃 The Maze Runner</option>
-                            <option value="The%20Boy%20in%20the%20Striped%20Pajamas%20-%20Level%205.html">👦 The Boy in the Striped Pajamas</option>
-                            <option value="Flora%20and%20Ulysses%20-%20Level%205.html">🐿️ Flora and Ulysses</option>
-                            <option value="A%20Single%20Shard%20-%20Level%205.html">🏺 A Single Shard</option>
-                            <option value="Fish%20in%20a%20Tree%20-%20Level%205-3.html">🐟 Fish in a Tree</option>
-                            <option value="The%20War%20That%20Saved%20My%20Life%20-%20Level%205.html">🎗️ The War That Saved My Life</option>
-                            <option value="One%20Crazy%20Summer%20-%20Level%205.html">☀️ One Crazy Summer</option>
-                            <option value="The%20Lemonade%20War%20-%20Level%205-1.html">🍋 The Lemonade War</option>
                         </optgroup>
                     </select>
                 </div>
-                
                 <button class="submit-btn" onclick="goToSelectedBook()">선택한 책으로 이동</button>
             </div>
         </div>
@@ -702,114 +317,46 @@
         </div>
     </div>
 
-    <!-- 레벨 테스트 모달 -->
-    <div class="modal-overlay" id="leveltestModal">
-        <div class="modal" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
-            <button class="modal-close" onclick="closeModal('leveltest')">&times;</button>
-            <h2>📝 레벨 테스트</h2>
-            
-            <!-- 테스트 시작 화면 -->
-            <div id="testStart">
-                <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 30px;">
-                    10문제를 풀고 당신의 영어 읽기 레벨을 확인하세요!
-                </p>
-                <button class="submit-btn" onclick="startLevelTest()">테스트 시작</button>
-            </div>
-            
-            <!-- 문제 화면 -->
-            <div id="testQuestions" style="display: none;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                    <span id="questionNum" style="color: #00ff88;">문제 1/10</span>
-                    <span id="questionLevel" style="color: rgba(255,255,255,0.5);">Level 1</span>
-                </div>
-                <div id="questionText" style="font-size: 1.1rem; margin-bottom: 25px; line-height: 1.6;"></div>
-                <div id="answerOptions"></div>
-                <div style="margin-top: 20px; text-align: center;">
-                    <button class="submit-btn" onclick="nextQuestion()" id="nextBtn" style="display: none;">다음 문제</button>
-                </div>
-            </div>
-            
-            <!-- 결과 화면 -->
-            <div id="testResult" style="display: none; text-align: center;">
-                <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
-                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">테스트 완료!</h3>
-                <div id="resultScore" style="font-size: 2rem; color: #00ff88; margin-bottom: 10px;"></div>
-                <div id="resultLevel" style="font-size: 1.3rem; margin-bottom: 30px;"></div>
-                <button class="submit-btn" onclick="closeModal('leveltest'); location.reload();">확인</button>
-            </div>
-        </div>
-    </div>
-
     <!-- 회원가입 모달 -->
     <div class="modal-overlay" id="signupModal">
-        <div class="modal">
+        <div class="modal" style="max-height: 90vh; overflow-y: auto;">
             <button class="modal-close" onclick="closeModal('signup')">&times;</button>
             <h2>📝 회원가입</h2>
             <form id="signupForm" onsubmit="handleSignup(event)">
-                <div class="form-group">
-                    <label>학생 이름 *</label>
-                    <input type="text" id="signupName" placeholder="홍길동" required>
-                </div>
-                <div class="form-group">
-                    <label>아이디 *</label>
-                    <input type="text" id="signupUsername" placeholder="영문, 숫자 조합" required>
-                </div>
-                <div class="form-group">
-                    <label>비밀번호 *</label>
-                    <input type="password" id="signupPassword" placeholder="6자 이상" required>
-                </div>
+                <div class="form-group"><label>학생 이름 *</label><input type="text" id="signupName" placeholder="홍길동" required></div>
+                <div class="form-group"><label>아이디 *</label><input type="text" id="signupUsername" placeholder="영문, 숫자 조합" required></div>
+                <div class="form-group"><label>비밀번호 *</label><input type="password" id="signupPassword" placeholder="6자 이상" required></div>
                 <div class="form-group">
                     <label>학년 *</label>
-                    <select id="signupGrade" required style="width:100%; padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:#1a1a2e; color:#fff; font-size:16px;">
-                        <option value="" style="background:#1a1a2e; color:#fff;">선택해주세요</option>
-                        <option value="초1" style="background:#1a1a2e; color:#fff;">초등학교 1학년</option>
-                        <option value="초2" style="background:#1a1a2e; color:#fff;">초등학교 2학년</option>
-                        <option value="초3" style="background:#1a1a2e; color:#fff;">초등학교 3학년</option>
-                        <option value="초4" style="background:#1a1a2e; color:#fff;">초등학교 4학년</option>
-                        <option value="초5" style="background:#1a1a2e; color:#fff;">초등학교 5학년</option>
-                        <option value="초6" style="background:#1a1a2e; color:#fff;">초등학교 6학년</option>
-                        <option value="중1" style="background:#1a1a2e; color:#fff;">중학교 1학년</option>
-                        <option value="중2" style="background:#1a1a2e; color:#fff;">중학교 2학년</option>
-                        <option value="중3" style="background:#1a1a2e; color:#fff;">중학교 3학년</option>
-                        <option value="고1" style="background:#1a1a2e; color:#fff;">고등학교 1학년</option>
-                        <option value="고2" style="background:#1a1a2e; color:#fff;">고등학교 2학년</option>
-                        <option value="고3" style="background:#1a1a2e; color:#fff;">고등학교 3학년</option>
+                    <select id="signupGrade" required>
+                        <option value="">선택해주세요</option>
+                        <option value="초1">초등학교 1학년</option><option value="초2">초등학교 2학년</option>
+                        <option value="초3">초등학교 3학년</option><option value="초4">초등학교 4학년</option>
+                        <option value="초5">초등학교 5학년</option><option value="초6">초등학교 6학년</option>
+                        <option value="중1">중학교 1학년</option><option value="중2">중학교 2학년</option>
+                        <option value="중3">중학교 3학년</option><option value="고1">고등학교 1학년</option>
+                        <option value="고2">고등학교 2학년</option><option value="고3">고등학교 3학년</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>학교 *</label>
-                    <input type="text" id="signupSchool" placeholder="OO초등학교" required>
-                </div>
-                <div class="form-group">
-                    <label>부모님 연락처 *</label>
-                    <input type="tel" id="signupParentPhone" placeholder="010-0000-0000" required>
-                </div>
-                <div class="form-group">
-                    <label>학생 연락처 (선택)</label>
-                    <input type="tel" id="signupStudentPhone" placeholder="010-0000-0000">
-                </div>
+                <div class="form-group"><label>학교 *</label><input type="text" id="signupSchool" placeholder="OO초등학교" required></div>
+                <div class="form-group"><label>부모님 연락처 *</label><input type="tel" id="signupParentPhone" placeholder="010-0000-0000" required></div>
+                <div class="form-group"><label>학생 연락처 (선택)</label><input type="tel" id="signupStudentPhone" placeholder="010-0000-0000"></div>
                 <button type="submit" class="submit-btn">회원가입 신청</button>
             </form>
-            <p style="text-align:center; font-size:12px; color:rgba(255,255,255,0.5); margin-top:10px;">
-                * 관리자 승인 후 로그인 가능합니다
-            </p>
-            <div class="modal-footer">
-                이미 계정이 있으신가요? <a href="#" onclick="switchModal('signup', 'login')">로그인</a>
-            </div>
+            <p style="text-align:center; font-size:12px; color:var(--muted); margin-top:10px;">* 관리자 승인 후 로그인 가능합니다</p>
+            <div class="modal-footer">이미 계정이 있으신가요? <a href="#" onclick="switchModal('signup', 'login')">로그인</a></div>
         </div>
     </div>
 
-    <!-- 토스트 메시지 -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // ================ Google Sheets 설정 ================
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSiYGeKs57MmkqlROFYz6KF_jdiGn0kGd2sE6x1yrPN056cOCn_8cZbsI/exec';
-        // ================ 데이터 ================
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSiYGeKs57MmkqlROFYz6KF_jdiGn0kGd2sE6x1yrPN056cOCn_8cZbsI/exec';
+
         const levels = [
             { level: 1, title: 'Beginner', desc: '영어 원서 입문 단계', books: 5 },
             { level: 2, title: 'Elementary', desc: 'Magic Tree House 시리즈', books: 15 },
-            { level: 3, title: 'Intermediate', desc: 'Narnia, Charlotte\'s Web 등', books: 12 },
+            { level: 3, title: 'Intermediate', desc: "Narnia, Charlotte's Web 등", books: 12 },
             { level: 4, title: 'Upper-Intermediate', desc: 'The Alchemist, Shiloh 등', books: 8 },
             { level: 5, title: 'Advanced', desc: 'Hatchet, The Giver 등', books: 10 },
             { level: 6, title: 'Upper-Advanced', desc: '고급 원서', books: 5 },
@@ -817,7 +364,6 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
         ];
 
         const books = [
-            // Level 2
             { title: 'Dinosaurs Before Dark', level: 2, chapters: 10, url: 'dinosaurs-before-dark-level2.html' },
             { title: 'The Knight at Dawn', level: 2, chapters: 10, url: 'The%20Knight%20at%20Dawn%20-%20Level%202.html' },
             { title: 'Mummies in the Morning', level: 2, chapters: 10, url: 'Mummies%20in%20the%20Morning%20-%20Level%202.html' },
@@ -831,7 +377,6 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
             { title: 'Sunset of the Sabertooth', level: 2, chapters: 10, url: 'Sunset%20of%20the%20Sabertooth%20-%20Level%202.html' },
             { title: 'Midnight on the Moon', level: 2, chapters: 10, url: 'midnight-on-the-moon.html' },
             { title: 'High Tide in Hawaii', level: 2, chapters: 10, url: 'high-tide-in-hawaii.html' },
-            // Level 3
             { title: "Charlotte's Web", level: 3, chapters: 22, url: "Charlotte's%20Web%20-%20Level%203.html" },
             { title: 'Sarah, Plain and Tall', level: 3, chapters: 9, url: 'Sarah,%20Plain%20and%20Tall%20-%20Level%203.html' },
             { title: 'The Lion, the Witch and the Wardrobe', level: 3, chapters: 17, url: 'The%20Lion,%20the%20Witch%20and%20the%20Wardrobe%20-%20Level%203.html' },
@@ -854,7 +399,6 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
             { title: 'The Landry News', level: 3, chapters: 15, url: 'The%20Landry%20News%20-%20Level%203-2.html' },
             { title: 'Frindle', level: 3, chapters: 15, url: 'frindle.html' },
             { title: 'No Talking', level: 3, chapters: 15, url: 'no-talking.html' },
-            // Level 4
             { title: 'The Alchemist', level: 4, chapters: 15, url: 'The%20Alchemist%20-%20Level%204.html' },
             { title: 'Shiloh', level: 4, chapters: 15, url: 'Shiloh%20-%20Level%204.html' },
             { title: 'Gangsta Granny', level: 4, chapters: 20, url: 'Gangsta%20Granny%20-%20Level%204.html' },
@@ -863,7 +407,6 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
             { title: 'To Kill a Mockingbird', level: 4, chapters: 31, url: 'To%20Kill%20a%20Mockingbird%20-%20Level%204-2.html' },
             { title: 'Revolutionary War on Wednesday', level: 4, chapters: 10, url: 'Revolutionary%20War%20on%20Wednesday%20-%20Level%204.html' },
             { title: 'Savvy', level: 4, chapters: 20, url: 'Savvy%20-%20Level%204-3.html' },
-            // Level 5
             { title: 'Hatchet', level: 5, chapters: 19, url: 'Hatchet%20-%20Level%205.html' },
             { title: 'The Giver', level: 5, chapters: 23, url: 'The%20Giver%20-%20Level%205.html' },
             { title: 'The Hunger Games', level: 5, chapters: 27, url: 'The%20Hunger%20Games%20-%20Level%205.html' },
@@ -877,41 +420,30 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
             { title: 'The Lemonade War', level: 5, chapters: 15, url: 'The%20Lemonade%20War%20-%20Level%205-1.html' },
         ];
 
-        // ================ 현재 사용자 ================
         let currentUser = null;
 
-        // ================ 초기화 ================
         document.addEventListener('DOMContentLoaded', () => {
-            renderLevels();
-            renderBooks();
-            checkLoginStatus();
+            renderLevels(); renderBooks(); checkLoginStatus();
         });
 
-        // ================ 레벨 카드 렌더링 ================
         function renderLevels() {
-            const grid = document.getElementById('levelsGrid');
-            grid.innerHTML = levels.map(l => `
+            document.getElementById('levelsGrid').innerHTML = levels.map(l => `
                 <div class="level-card" onclick="filterBooks(${l.level})">
                     <div class="level-number">L${l.level}</div>
                     <div class="level-title">${l.title}</div>
                     <div class="level-desc">${l.desc}</div>
                     <div class="book-count">📚 ${l.books}권</div>
-                </div>
-            `).join('');
+                </div>`).join('');
         }
 
-        // ================ 책 카드 렌더링 ================
         function renderBooks(filterLevel = null) {
-            const grid = document.getElementById('booksGrid');
             const filtered = filterLevel ? books.filter(b => b.level === filterLevel) : books;
-            
-            grid.innerHTML = filtered.map(b => `
+            document.getElementById('booksGrid').innerHTML = filtered.map(b => `
                 <div class="book-card" onclick="openBook('${b.url}')">
                     <div class="book-level">Level ${b.level}</div>
                     <div class="book-title">${b.title}</div>
                     <div class="book-chapters">${b.chapters} chapters</div>
-                </div>
-            `).join('');
+                </div>`).join('');
         }
 
         function filterBooks(level) {
@@ -920,183 +452,96 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
         }
 
         function openBook(url) {
-            // 로그인 확인
-            if (!currentUser) {
-                showToast('로그인이 필요합니다', 'error');
-                openModal('login');
-                return;
-            }
+            if (!currentUser) { showToast('로그인이 필요합니다', 'error'); openModal('login'); return; }
             window.location.href = url;
         }
 
-        // ================ 모달 제어 ================
-        function closeModal(type) {
-            document.getElementById(`${type}Modal`).classList.remove('active');
-        }
+        function closeModal(type) { document.getElementById(`${type}Modal`).classList.remove('active'); }
+        function switchModal(from, to) { closeModal(from); openModal(to); }
 
-        function switchModal(from, to) {
-            closeModal(from);
-            openModal(to);
-        }
-
-        // ================ 인증 (Google Sheets 연동) ================
         async function handleLogin(event) {
             event.preventDefault();
             const username = document.getElementById('loginUsername').value;
             const password = document.getElementById('loginPassword').value;
-
             try {
-                // Google Sheets에서 사용자 확인
                 const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=login&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`);
                 const result = await response.json();
-
                 if (result.success) {
-                    // 승인 상태 확인
-                    if (result.user.status === 'pending') {
-                        showToast('⏳ 관리자 승인 대기중입니다. 승인 후 로그인 가능합니다.', 'error');
-                        return;
-                    }
-                    if (result.user.status === 'rejected') {
-                        showToast('❌ 승인이 거절되었습니다. 관리자에게 문의하세요.', 'error');
-                        return;
-                    }
+                    if (result.user.status === 'pending') { showToast('⏳ 관리자 승인 대기중입니다.', 'error'); return; }
+                    if (result.user.status === 'rejected') { showToast('❌ 승인이 거절되었습니다.', 'error'); return; }
                     currentUser = result.user;
                     localStorage.setItem('sureading_user', JSON.stringify(currentUser));
-                    updateAuthUI();
-                    closeModal('login');
+                    updateAuthUI(); closeModal('login');
                     showToast(`환영합니다, ${currentUser.name}님!`, 'success');
-                } else {
-                    showToast(result.message || '로그인 실패', 'error');
-                }
-            } catch (error) {
-                // Google Sheets 연동 전 테스트용 로컬 로그인
-                if (username && password) {
-                    currentUser = { name: username, username: username, level: 1 };
-                    localStorage.setItem('sureading_user', JSON.stringify(currentUser));
-                    updateAuthUI();
-                    closeModal('login');
-                    showToast(`환영합니다, ${username}님! (테스트 모드)`, 'success');
-                } else {
-                    showToast('로그인 정보를 입력해주세요', 'error');
-                }
-            }
+                } else { showToast(result.message || '로그인 실패', 'error'); }
+            } catch (error) { showToast('서버 연결 오류', 'error'); }
         }
 
         async function handleSignup(event) {
             event.preventDefault();
-            const name = document.getElementById('signupName').value;
-            const username = document.getElementById('signupUsername').value;
-            const password = document.getElementById('signupPassword').value;
-            const grade = document.getElementById('signupGrade').value;
-            const school = document.getElementById('signupSchool').value;
-            const parentPhone = document.getElementById('signupParentPhone').value;
-            const studentPhone = document.getElementById('signupStudentPhone').value;
-
+            const params = {
+                name: document.getElementById('signupName').value,
+                username: document.getElementById('signupUsername').value,
+                password: document.getElementById('signupPassword').value,
+                grade: document.getElementById('signupGrade').value,
+                school: document.getElementById('signupSchool').value,
+                parentPhone: document.getElementById('signupParentPhone').value,
+                studentPhone: document.getElementById('signupStudentPhone').value
+            };
             try {
-                // Google Sheets에 사용자 추가 (승인 대기 상태로)
-                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=signup&name=${encodeURIComponent(name)}&username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&grade=${encodeURIComponent(grade)}&school=${encodeURIComponent(school)}&parentPhone=${encodeURIComponent(parentPhone)}&studentPhone=${encodeURIComponent(studentPhone)}`);
+                const qs = Object.entries(params).map(([k,v]) => `${k}=${encodeURIComponent(v)}`).join('&');
+                const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=signup&${qs}`);
                 const result = await response.json();
-
-                if (result.success) {
-                    closeModal('signup');
-                    showPendingModal();
-                } else {
-                    showToast(result.message || '회원가입 실패', 'error');
-                }
-            } catch (error) {
-                // 테스트용
-                closeModal('signup');
-                showPendingModal();
-            }
+                if (result.success) { closeModal('signup'); showPendingModal(); }
+                else { showToast(result.message || '회원가입 실패', 'error'); }
+            } catch (error) { closeModal('signup'); showPendingModal(); }
         }
 
         function showPendingModal() {
-            // 승인 대기 안내 모달 표시
             const modal = document.createElement('div');
             modal.className = 'modal-overlay active';
-            modal.id = 'pendingModal';
-            modal.innerHTML = `
-                <div class="modal" style="text-align: center;">
-                    <div class="modal-header">
-                        <h2>📝 회원가입 신청 완료!</h2>
-                    </div>
-                    <div class="modal-body" style="padding: 30px;">
-                        <div style="font-size: 60px; margin-bottom: 20px;">⏳</div>
-                        <h3 style="color: #00ff88; margin-bottom: 15px;">관리자 승인 대기중</h3>
-                        <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
-                            회원가입 신청이 완료되었습니다.<br>
-                            관리자가 승인하면 로그인할 수 있습니다.<br><br>
-                            <strong style="color: #ff9800;">승인까지 1~2일 정도 소요될 수 있습니다.</strong>
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button onclick="document.getElementById('pendingModal').remove()" 
-                                style="background: #00ff88; color: #000; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-size: 16px;">
-                            확인
-                        </button>
-                    </div>
-                </div>
-            `;
+            modal.innerHTML = `<div class="modal" style="text-align:center;">
+                <h2>📝 회원가입 완료!</h2>
+                <div style="padding:20px;">
+                    <div style="font-size:3rem;margin-bottom:16px;">⏳</div>
+                    <h3 style="color:var(--accent);margin-bottom:12px;">관리자 승인 대기중</h3>
+                    <p style="color:var(--muted);line-height:1.7;">승인 후 로그인 가능합니다.<br><strong style="color:var(--accent)">1~2일 소요될 수 있습니다.</strong></p>
+                    <button onclick="this.closest('.modal-overlay').remove()" class="submit-btn" style="margin-top:20px;">확인</button>
+                </div></div>`;
             document.body.appendChild(modal);
         }
 
-        function logout() {
-            currentUser = null;
-            localStorage.removeItem('sureading_user');
-            updateAuthUI();
-            showToast('로그아웃 되었습니다', 'success');
-        }
+        function logout() { currentUser = null; localStorage.removeItem('sureading_user'); updateAuthUI(); showToast('로그아웃 되었습니다', 'success'); }
 
         function checkLoginStatus() {
             const saved = localStorage.getItem('sureading_user');
-            if (saved) {
-                currentUser = JSON.parse(saved);
-                updateAuthUI();
-            }
+            if (saved) { currentUser = JSON.parse(saved); updateAuthUI(); }
         }
 
         function updateAuthUI() {
             const authArea = document.getElementById('authArea');
             const userMenu = document.getElementById('userMenu');
-            const userName = document.getElementById('userName');
-
             if (currentUser) {
-                authArea.style.display = 'none';
-                userMenu.classList.add('active');
-                userName.textContent = `👤 ${currentUser.name}`;
+                authArea.style.display = 'none'; userMenu.classList.add('active');
+                document.getElementById('userName').textContent = `👤 ${currentUser.name}`;
             } else {
-                authArea.style.display = 'block';
-                userMenu.classList.remove('active');
+                authArea.style.display = 'block'; userMenu.classList.remove('active');
             }
         }
 
-        // ================ 토스트 메시지 ================
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+            toast.textContent = message; toast.className = `toast ${type} show`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // ================ 모달 외부 클릭으로 닫기 ================
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                }
-            });
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('active'); });
         });
 
-        // ================ 내 진도 기능 ================
         function openModal(type) {
             document.getElementById(`${type}Modal`).classList.add('active');
-            
-            // 내 진도 모달 열릴 때 데이터 로드
-            if (type === 'progress') {
-                loadProgress();
-            }
+            if (type === 'progress') loadProgress();
         }
 
         function loadProgress() {
@@ -1104,8 +549,6 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
                 document.getElementById('progressLogin').style.display = 'none';
                 document.getElementById('progressData').style.display = 'block';
                 document.getElementById('userLevel').textContent = `Level ${currentUser.level || 1}`;
-                
-                // Google Sheets에서 진도 가져오기
                 fetchProgress(currentUser.username);
             } else {
                 document.getElementById('progressLogin').style.display = 'block';
@@ -1117,196 +560,45 @@ const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTeQD4jkzoSi
             try {
                 const response = await fetch(`${GOOGLE_SCRIPT_URL}?action=getProgress&username=${encodeURIComponent(username)}`);
                 const result = await response.json();
-                
                 if (result.success && result.progress.length > 0) {
-                    const listHtml = result.progress.map(p => `
-                        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                    document.getElementById('progressList').innerHTML = result.progress.map(p => `
+                        <div style="background:var(--surface2);padding:14px;border-radius:10px;margin-bottom:10px;display:flex;justify-content:space-between;">
                             <div>
-                                <div style="font-weight: 600; color: #fff;">${p.book_title}</div>
-                                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">Chapter ${p.chapter}</div>
+                                <div style="font-weight:600;color:var(--text);">${p.book_title}</div>
+                                <div style="font-size:0.82rem;color:var(--muted);">Chapter ${p.chapter}</div>
                             </div>
-                            <div style="text-align: right;">
-                                <div style="color: ${p.completed ? '#00ff88' : '#ff4444'};">${p.completed ? '✅ 완료' : '📖 진행중'}</div>
-                                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">${p.score}점</div>
+                            <div style="text-align:right;">
+                                <div style="color:${p.completed ? 'var(--accent2)' : '#d94040'};">${p.completed ? '✅ 완료' : '📖 진행중'}</div>
+                                <div style="font-size:0.82rem;color:var(--muted);">${p.score}점</div>
                             </div>
-                        </div>
-                    `).join('');
-                    document.getElementById('progressList').innerHTML = listHtml;
+                        </div>`).join('');
                 } else {
-                    document.getElementById('progressList').innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center;">아직 학습 기록이 없습니다.</p>';
+                    document.getElementById('progressList').innerHTML = '<p style="color:var(--muted);text-align:center;">아직 학습 기록이 없습니다.</p>';
                 }
             } catch (error) {
-                document.getElementById('progressList').innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center;">아직 학습 기록이 없습니다.</p>';
+                document.getElementById('progressList').innerHTML = '<p style="color:var(--muted);text-align:center;">아직 학습 기록이 없습니다.</p>';
             }
         }
 
-        // ================ QR 체험 기능 ================
-        function updateQRCode() {
-            const select = document.getElementById('qrBookSelect');
-            const selectedBook = select.value;
-            // QR 코드 업데이트 (실제로는 QR 라이브러리 사용)
-            console.log('Selected book:', selectedBook);
-        }
-
+        function updateQRCode() {}
         function goToSelectedBook() {
-            const select = document.getElementById('qrBookSelect');
-            const selectedBook = select.value;
-            
-            if (!selectedBook) {
-                showToast('책을 선택해주세요', 'error');
-                return;
-            }
-            
-            if (!currentUser) {
-                showToast('로그인이 필요합니다', 'error');
-                closeModal('qr');
-                openModal('login');
-                return;
-            }
-            
-            window.location.href = selectedBook;
+            const val = document.getElementById('qrBookSelect').value;
+            if (!val) { showToast('책을 선택해주세요', 'error'); return; }
+            if (!currentUser) { showToast('로그인이 필요합니다', 'error'); closeModal('qr'); openModal('login'); return; }
+            window.location.href = val;
         }
 
-        // ================ 레벨 테스트 시스템 ================
-        const levelTestQuestions = [
-            // Level 1 - 기초
-            { level: 1, question: "What color is the sky?", options: ["Blue", "Green", "Red", "Yellow"], answer: 0 },
-            { level: 1, question: "How many legs does a dog have?", options: ["Two", "Three", "Four", "Five"], answer: 2 },
-            // Level 2 - 초급
-            { level: 2, question: "Jack and Annie found a tree house in the woods. What was special about it?", options: ["It was very old", "It was full of books", "It was painted red", "It had no door"], answer: 1 },
-            { level: 2, question: "In 'Dinosaurs Before Dark', where did the tree house take Jack and Annie?", options: ["To the future", "To dinosaur times", "To a castle", "To the moon"], answer: 1 },
-            // Level 3 - 중급
-            { level: 3, question: "In 'Charlotte's Web', what kind of animal is Charlotte?", options: ["A pig", "A rat", "A spider", "A goose"], answer: 2 },
-            { level: 3, question: "What does Charlotte write in her web to save Wilbur?", options: ["'Help me'", "'Some Pig'", "'Run away'", "'Be free'"], answer: 1 },
-            // Level 4 - 중상급
-            { level: 4, question: "In 'The Alchemist', what is Santiago's original profession?", options: ["A merchant", "A shepherd", "A soldier", "A teacher"], answer: 1 },
-            { level: 4, question: "What is the main theme of 'To Kill a Mockingbird'?", options: ["Adventure", "Romance", "Racial injustice", "War"], answer: 2 },
-            // Level 5 - 고급
-            { level: 5, question: "In 'The Giver', what is Jonas's assignment?", options: ["The Receiver of Memory", "The Chief Elder", "The Nurturer", "The Speaker"], answer: 0 },
-            { level: 5, question: "What is the significance of the 'Hunger Games' in the story?", options: ["Entertainment", "Population control and oppression", "Sports competition", "Education"], answer: 1 },
-        ];
-
-        let currentQuestion = 0;
-        let correctAnswers = 0;
-        let selectedAnswer = null;
-        let testQuestions = [];
-
-        function startLevelTest() {
-            // 문제 섞기
-            testQuestions = [...levelTestQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
-            currentQuestion = 0;
-            correctAnswers = 0;
-            
-            document.getElementById('testStart').style.display = 'none';
-            document.getElementById('testQuestions').style.display = 'block';
-            document.getElementById('testResult').style.display = 'none';
-            
-            showQuestion();
-        }
-
-        function showQuestion() {
-            const q = testQuestions[currentQuestion];
-            document.getElementById('questionNum').textContent = `문제 ${currentQuestion + 1}/10`;
-            document.getElementById('questionLevel').textContent = `Level ${q.level}`;
-            document.getElementById('questionText').textContent = q.question;
-            
-            const optionsHtml = q.options.map((opt, i) => `
-                <div class="answer-option" onclick="selectAnswer(${i})" id="opt${i}" 
-                     style="padding: 15px; margin: 10px 0; background: rgba(255,255,255,0.1); 
-                            border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; 
-                            cursor: pointer; transition: all 0.3s;">
-                    ${String.fromCharCode(65 + i)}. ${opt}
-                </div>
-            `).join('');
-            
-            document.getElementById('answerOptions').innerHTML = optionsHtml;
-            document.getElementById('nextBtn').style.display = 'none';
-            selectedAnswer = null;
-        }
-
-        function selectAnswer(index) {
-            if (selectedAnswer !== null) return; // 이미 선택함
-            
-            selectedAnswer = index;
-            const q = testQuestions[currentQuestion];
-            
-            // 모든 옵션 스타일 초기화
-            for (let i = 0; i < 4; i++) {
-                const opt = document.getElementById(`opt${i}`);
-                if (i === q.answer) {
-                    opt.style.background = 'rgba(0, 255, 136, 0.3)';
-                    opt.style.borderColor = '#00ff88';
-                } else if (i === index && index !== q.answer) {
-                    opt.style.background = 'rgba(255, 68, 68, 0.3)';
-                    opt.style.borderColor = '#ff4444';
-                }
-            }
-            
-            if (index === q.answer) {
-                correctAnswers++;
-            }
-            
-            document.getElementById('nextBtn').style.display = 'inline-block';
-            document.getElementById('nextBtn').textContent = currentQuestion < 9 ? '다음 문제' : '결과 보기';
-        }
-
-        function nextQuestion() {
-            currentQuestion++;
-            
-            if (currentQuestion >= 10) {
-                showResult();
-            } else {
-                showQuestion();
-            }
-        }
-
-        function showResult() {
-            document.getElementById('testQuestions').style.display = 'none';
-            document.getElementById('testResult').style.display = 'block';
-            
-            const score = correctAnswers * 10;
-            let level, levelText;
-            
-            if (score >= 90) { level = 5; levelText = 'Level 5 - Advanced'; }
-            else if (score >= 70) { level = 4; levelText = 'Level 4 - Upper-Intermediate'; }
-            else if (score >= 50) { level = 3; levelText = 'Level 3 - Intermediate'; }
-            else if (score >= 30) { level = 2; levelText = 'Level 2 - Elementary'; }
-            else { level = 1; levelText = 'Level 1 - Beginner'; }
-            
-            document.getElementById('resultScore').textContent = `${score}점 (${correctAnswers}/10)`;
-            document.getElementById('resultLevel').innerHTML = `추천 레벨: <span style="color: #00ff88;">${levelText}</span>`;
-            
-            // Google Sheets에 결과 저장
-            if (currentUser) {
-                saveLevelTestResult(currentUser.username, level, score);
-            }
-        }
-
-        async function saveLevelTestResult(username, level, score) {
-            try {
-                await fetch(`${GOOGLE_SCRIPT_URL}?action=saveProgress&username=${encodeURIComponent(username)}&book_title=LevelTest&chapter=${level}&score=${score}`);
-            } catch (error) {
-                console.log('결과 저장 실패');
-            }
-        }
-
-        // 관리자 접근
         function adminAccess() {
             const password = prompt('관리자 비밀번호를 입력하세요:');
-            if (password === 'davich06') {
-                window.location.href = 'admin.html';
-            } else if (password !== null) {
-                alert('비밀번호가 틀렸습니다.');
-            }
+            if (password === 'davich06') { window.location.href = 'admin.html'; }
+            else if (password !== null) { alert('비밀번호가 틀렸습니다.'); }
         }
     </script>
 
-    <!-- 푸터 -->
-    <footer style="text-align: center; padding: 30px 20px; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); font-size: 12px;">
-        <p>© 2024 수리딩어학원 (Sureading Academy) | 
-            <a href="#" onclick="adminAccess(); return false;" style="color: rgba(255,255,255,0.3); text-decoration: none;" 
-               onmouseover="this.style.color='#00ff88'" 
-               onmouseout="this.style.color='rgba(255,255,255,0.3)'">관리자</a>
+    <footer style="text-align:center;padding:28px 20px;margin-top:40px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;">
+        <p>© 2024 수리딩어학원 (Sureading Academy) |
+            <a href="#" onclick="adminAccess();return false;" style="color:var(--muted);text-decoration:none;"
+               onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">관리자</a>
         </p>
     </footer>
 </body>
